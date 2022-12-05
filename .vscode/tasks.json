@@ -1,0 +1,64 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Development: Build Miapeer FE image",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "docker image build --file ./Dockerfile-dev --tag miapeer.azurecr.io/miapeer-dev .",
+            "problemMatcher": []
+        },
+        {
+            "label": "Development: Shell into Miapeer FE container",
+            "type": "shell",
+            "command": "docker container run --rm -it -p 8001:8001 --volume ${workspaceFolder}:/miapeer --volume /miapeer/miapeer/node_modules/ --name miapeer-fe miapeer.azurecr.io/miapeer-dev bash",
+            "problemMatcher": []
+        },
+        {
+            "label": "Development: Start Miapeer FE container",
+            "type": "shell",
+            "command": "docker container run --rm -d -p 8001:8001 --volume ${workspaceFolder}:/miapeer --volume /miapeer/miapeer/node_modules/ --name miapeer-fe miapeer.azurecr.io/miapeer-dev",
+            "problemMatcher": []
+        },
+        {
+            "label": "Development: Stop Miapeer FE container",
+            "type": "shell",
+            "command": "docker container stop miapeer-fe",
+            "problemMatcher": []
+        },
+        {
+            "label": "Development: Restart miapeer container",
+            "type": "shell",
+            "dependsOn": ["Development: Stop Miapeer FE container", "Development: Start Miapeer FE container"],
+            "problemMatcher": []
+        },
+        // {
+        //     "label": "PRODUCTION: Azure ACR login",
+        //     "type": "shell",
+        //     "command": "docker login miapeer.azurecr.io",
+        //     "problemMatcher": []
+        // },
+        // {
+        //     "label": "PRODUCTION: Build miapeer image",
+        //     "type": "shell",
+        //     "options": {
+        //         "cwd": "${workspaceFolder}"
+        //     },
+        //     "command": "docker image build --file ./Dockerfile-prod --tag miapeer.azurecr.io/miapeer .",
+        //     "problemMatcher": []
+        // },
+        // {
+        //     "label": "PRODUCTION: Deploy miapeer image",
+        //     "type": "shell",
+        //     "options": {
+        //         "cwd": "${workspaceFolder}"
+        //     },
+        //     "command": "docker push miapeer.azurecr.io/miapeer",
+        //     "problemMatcher": []
+        // },
+    ]
+}

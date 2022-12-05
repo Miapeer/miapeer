@@ -1,0 +1,13 @@
+# App
+.env
+README.md
+
+# Docker
+Dockerfile*
+.dockerignore
+
+# VS Code
+.vscode
+
+# Git
+.gitignore

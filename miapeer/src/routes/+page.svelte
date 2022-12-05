@@ -5,11 +5,11 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Miapeer: Home</title>
 </svelte:head>
 
 <section>
+	<!--
 	<h1>
 		<span class="welcome">
 			<picture>
@@ -26,6 +26,7 @@
 	</h2>
 
 	<Counter />
+	-->
 </section>
 
 <style>
