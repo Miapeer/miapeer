@@ -1,7 +1,6 @@
 <script>
 	import { page } from '$app/stores';
 	import logoLong from '$lib/images/miapeer-logo-long.svg';
-	import github from '$lib/images/github.svg';
 </script>
 
 <header>
@@ -52,63 +51,68 @@
 <style>
 	header {
 		background-color: white;
+		border-bottom: 1px solid black;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0.5em;
+		padding: 0 1em;
 		position: fixed;
+		font-size: 1rem;
 		left: 0px;
 		right: 0px;
 		top: 0px;
+		height: var(--header-height);
+		max-height: var(--header-height);
+		z-index: 999;
 	}
 
 	.logo-img {
-		background-color: var(--color-theme-1);
+		background-color: var(--color-theme-accent);
 		border: 1px solid black;
 		border-radius: 10px;
 		height: 2.5em;
 		padding: 0.5em;
 	}
 
-	nav {
+	/* nav {
 		display: flex;
 		justify-content: center;
 		--background: rgba(255, 255, 255, 0.7);
-	}
+	} */
 
 	ul {
-		position: relative;
+		/* position: relative;
 		padding: 0;
 		margin: 0;
 		height: 3em;
 		display: flex;
 		justify-content: center;
-		align-items: center;
+		align-items: center; */
 		list-style: none;
-		background: var(--background);
-		background-size: contain;
+		/* background: var(--background);
+		background-size: contain; */
 	}
 
-	li {
+	/* li {
 		position: relative;
 		height: 100%;
-	}
+	} */
 
-	nav a {
+	/* nav a {
 		display: flex;
 		height: 100%;
 		align-items: center;
 		padding: 0 0.5rem;
-		color: var(--color-text);
+		color: var(--color-text-dark);
 		font-weight: 400;
 		font-size: 0.7rem;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
-	}
+	} */
 
-	a:hover {
+	/* a:hover {
 		color: var(--color-theme-1);
-	}
+	} */
 </style>

@@ -44,18 +44,15 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		font-family: "Montserrat", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif
 	}
 
 	main {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1rem;
 		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
+		margin: var(--header-height) auto var(--footer-height) auto;
+        border: 3px solid red;
 	}
 </style>
 

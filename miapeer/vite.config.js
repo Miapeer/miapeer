@@ -9,6 +9,9 @@ const config = {
 	server: {
 		port: 8001
 	},
+	ssr: {
+		noExternal: ['svelte-carousel', 'simply-reactive'],
+	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
