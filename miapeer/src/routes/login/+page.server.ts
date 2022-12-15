@@ -2,21 +2,20 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types'
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ cookies }) {
-    const accessToken = cookies.get("MAT");
+export async function load({ parent }) {
+    const { isAuthenticated } = await parent();
 
-    if (accessToken) {
-        // Already logged in
+    console.log(isAuthenticated);
+
+    if (isAuthenticated) {
         throw redirect(303, '/');
     }
-  }
+}
 
 /** @type {import('./$types').Actions} */
 // const login: Action = async ({ cookies, request }) => {
 export const actions = {
     default: async ({ cookies, request, url }) => {
-        console.log(0);
-
         const formData = await request.formData();
 
         var requestData = new URLSearchParams();
@@ -24,21 +23,15 @@ export const actions = {
         requestData.append('password', formData.get('password'));
         requestData.append('grant_type', 'password');
 
-        console.log(requestData);
-
         const response = await fetch("http://localhost:8000/miapeer/v1/auth/token", {
 			method: 'POST',
 			body: requestData
 		})
 
-        console.log(1);
-
         if (response.status !== 200) {
             console.error(response);
             return;
         }
-
-        console.log(2);
 
         // TODO
         const responseData = await response.json();
@@ -47,8 +40,6 @@ export const actions = {
             // return fail(400, { email: "something", missing: true });
             throw error(400, { email: "something", missing: true })
         }
-
-        console.log(3);
 
         const accessToken = responseData['access_token']
         console.log(accessToken);
@@ -71,8 +62,6 @@ export const actions = {
             secure: process.env.NODE_ENV === 'production',  // only sent over HTTPS in production
             maxAge: 60 * 60 * 24 * 7,  // set cookie to expire after a week
           })
-
-        console.log(4);
 
         // Go to the place we were told to go
 		if (url.searchParams.has('redirectTo')) {

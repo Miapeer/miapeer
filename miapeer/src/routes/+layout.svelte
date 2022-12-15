@@ -2,6 +2,9 @@
 	import Header from './Header.svelte';
 	import Footer from './Footer.svelte';
 	import './styles.css';
+
+    /** @type {import('./$types').LayoutData} */
+    export let data;
 </script>
 
 <svelte:head>
@@ -13,7 +16,7 @@
 </svelte:head>
 
 <div class="app">
-	<Header />
+	<Header isAuthenticated={data.isAuthenticated} />
 
 	<main>
 		<slot />
