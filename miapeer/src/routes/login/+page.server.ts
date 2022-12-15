@@ -5,8 +5,6 @@ import type { Action, Actions, PageServerLoad } from './$types'
 export async function load({ parent }) {
     const { isAuthenticated } = await parent();
 
-    console.log(isAuthenticated);
-
     if (isAuthenticated) {
         throw redirect(303, '/');
     }
