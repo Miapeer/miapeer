@@ -16,7 +16,7 @@
 </svelte:head>
 
 <div class="app">
-	<Header isAuthenticated={data.isAuthenticated} />
+	<Header isAuthenticated={data.isAuthenticated} userName={data.userName} />
 
 	<main>
 		<slot />

@@ -40,7 +40,6 @@ export const actions = {
         }
 
         const accessToken = responseData['access_token']
-        console.log(accessToken);
 
         // if (!user) {
         //     return fail(400, { email, missing: true });

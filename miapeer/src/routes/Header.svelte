@@ -1,9 +1,11 @@
 <script>
 	import { page } from '$app/stores';
 	import logoLong from '$lib/images/miapeer-logo-long.svg';
-	import AccountButton from './AccountButton.svelte';
+	import LogInButton from './login/LogInButton.svelte';
+	import LogOutButton from './logout/LogOutButton.svelte';
 
 	export let isAuthenticated;
+	export let userName;
 </script>
 
 <header>
@@ -12,7 +14,11 @@
 	<nav>
 		<ul>
 			<li>
-				<AccountButton isAuthenticated={isAuthenticated} />
+				{#if isAuthenticated}
+					<LogOutButton userName={userName} />
+				{:else}
+					<LogInButton />
+				{/if}
 			</li>
 		</ul>
 	</nav>
