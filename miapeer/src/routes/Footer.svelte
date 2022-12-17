@@ -29,10 +29,4 @@
 	footer a:hover {
 		color: var(--color-text-accent);
 	}
-
-	/* @media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	} */
 </style>

@@ -3,6 +3,8 @@
 	import Footer from './Footer.svelte';
 	import './styles.css';
 
+	import 'font-awesome/css/font-awesome.min.css'
+
     /** @type {import('./$types').LayoutData} */
     export let data;
 </script>
