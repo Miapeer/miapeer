@@ -31,34 +31,34 @@
             "problemMatcher": []
         },
         {
-            "label": "Development: Restart miapeer container",
+            "label": "Development: Restart Miapeer FE container",
             "type": "shell",
             "dependsOn": ["Development: Stop Miapeer FE container", "Development: Start Miapeer FE container"],
             "problemMatcher": []
         },
-        // {
-        //     "label": "PRODUCTION: Azure ACR login",
-        //     "type": "shell",
-        //     "command": "docker login miapeer.azurecr.io",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "label": "PRODUCTION: Build miapeer image",
-        //     "type": "shell",
-        //     "options": {
-        //         "cwd": "${workspaceFolder}"
-        //     },
-        //     "command": "docker image build --file ./Dockerfile-prod --tag miapeer.azurecr.io/miapeer .",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "label": "PRODUCTION: Deploy miapeer image",
-        //     "type": "shell",
-        //     "options": {
-        //         "cwd": "${workspaceFolder}"
-        //     },
-        //     "command": "docker push miapeer.azurecr.io/miapeer",
-        //     "problemMatcher": []
-        // },
+        {
+            "label": "PRODUCTION: Azure ACR login",
+            "type": "shell",
+            "command": "docker login miapeer.azurecr.io",
+            "problemMatcher": []
+        },
+        {
+            "label": "PRODUCTION: Build Miapeer FE image",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "docker image build --file ./Dockerfile-prod --tag miapeer.azurecr.io/miapeer .",
+            "problemMatcher": []
+        },
+        {
+            "label": "PRODUCTION: Deploy Miapeer FE image",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "docker push miapeer.azurecr.io/miapeer",
+            "problemMatcher": []
+        },
     ]
 }
