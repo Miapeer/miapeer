@@ -1,4 +1,4 @@
-import jose from 'jose'
+import * as jose from 'jose'
 
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({cookies}) {

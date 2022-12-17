@@ -1,3 +1,4 @@
+import { PUBLIC_MIAPEER_API_HOST } from '$env/static/public'
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types'
 
@@ -21,10 +22,12 @@ export const actions = {
         requestData.append('password', formData.get('password'));
         requestData.append('grant_type', 'password');
 
-        const response = await fetch("http://localhost:8000/miapeer/v1/auth/token", {
+        const response = await fetch(`${PUBLIC_MIAPEER_API_HOST}/miapeer/v1/auth/token`, {
 			method: 'POST',
 			body: requestData
 		})
+
+        console.log(response);
 
         if (response.status !== 200) {
             console.error(response);
