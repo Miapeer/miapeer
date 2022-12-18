@@ -14,6 +14,10 @@
     <meta name="author" content="Jeffery Navarra">
 	<meta name="mobile-web-app-capable" content="yes">
 
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="src/routes/smui.css" />
+	<!-- <link rel="stylesheet" href="src/routes/smui.css" media="(prefers-color-scheme: light)" /> -->
+	<!-- <link rel="stylesheet" href="src/routes/smui-dark.css" media="screen and (prefers-color-scheme: dark)" /> -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700%7CMontserrat:400,700%7CRaleway:300,400,600" rel="stylesheet">
 </svelte:head>
 
