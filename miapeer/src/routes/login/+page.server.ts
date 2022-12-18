@@ -22,7 +22,11 @@ export const actions = {
         requestData.append('password', formData.get('password'));
         requestData.append('grant_type', 'password');
 
-        const response = await fetch(`${PUBLIC_MIAPEER_API_HOST}/miapeer/v1/auth/token`, {
+        // TODO: Why does protocol switch to http on its own? This is causing errors.
+
+        console.log('new');
+        // const response = await fetch(`${PUBLIC_MIAPEER_API_HOST}/miapeer/v1/auth/token`, {
+        const response = await fetch("https://api.miapeer.com/miapeer/v1/auth/token", {
 			method: 'POST',
 			body: requestData
 		})
