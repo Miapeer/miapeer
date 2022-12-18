@@ -1,6 +1,7 @@
 :root {
 	--color-theme-accent: #fcc813;
 	--color-theme-dark: #505358;
+	--color-text-darker: #303030;
 	--color-text-dark: var(--color-theme-dark);
 	--color-text-light: white;
 	--color-text-accent: var(--color-theme-accent);
@@ -19,11 +20,71 @@ a {
 	color: var(--color-text-dark);
 	text-decoration: none;
 	text-transform: uppercase;
-	letter-spacing: 1px;
-	-webkit-font-smoothing: antialiased;
 }
 
 a:hover {
 	color: var(--color-text-accent);
-	transition: color 0.2s linear;
+	text-shadow: 0.5px 0.5px var(--color-text-dark);
+	transition: color 0.2s linear, text-shadow 0.2s linear;
+}
+
+h1, h2, h3, h4, h5 {
+	color: var(--color-theme-darker);
+}
+
+h1 {
+	font-size: 3.5rem;
+    line-height: 3.7rem;
+    margin: 0 0 3.3rem 0;
+	font-weight: 300;
+    letter-spacing: -0.08rem;
+}
+
+h2 {
+    font-size: 23px;
+	font-weight: 300;
+    margin: 0 0 20px;
+    line-height: 35px;
+    letter-spacing: 1px;
+}
+
+h3 {
+	font-size: 28px;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 28px;
+    margin-bottom: 30px;
+	margin: 0;
+}
+
+h4 {
+	font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+	letter-spacing: normal;
+    margin: 0 0 15px 0;
+}
+
+h5 {
+	font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+	letter-spacing: normal;
+    margin: 0 0 15px 0;
+}
+
+.separator {
+	margin-bottom: 30px !important;
+	box-sizing: border-box;
+	display: block;
+}
+
+.separator:after {
+	box-sizing: border-box;
+	content: "";
+    display: block;
+    height: 1px;
+    width: 35px;
+    border-top: 2px solid rgb(252,200,19);
+    margin: 6px 0 10px;
 }

@@ -1,6 +1,6 @@
 <footer>
     <span>&copy; Copyright {(new Date()).getFullYear()} - <a href="/">Miapeer LLC</a></span>
-    <span>Updated: zzz</span>
+    <a href="/portfolio">Jeff Navarra's Portfolio</a>
 </footer>
 
 <style>
