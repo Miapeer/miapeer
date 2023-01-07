@@ -1,9 +1,3 @@
-<script>
-    import { goto } from '$app/navigation';
-    import { onMount} from 'svelte';
-    // import { apiToken, isAuthenticated } from './stores'
-</script>
-
 <form method="POST">
     <h1>Sign In</h1>
 
