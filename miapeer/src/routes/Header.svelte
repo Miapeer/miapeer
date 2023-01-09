@@ -11,6 +11,11 @@
 <header>
 	<a href="/"><img src={logoLong} class="logo-img long" alt="Logo" /></a>
 
+	<a href="/quantum">Quantum</a>
+
+	<!-- TODO: Figure out how to get slots in here later, because it isn't possible right now -->
+	<!-- https://github.com/sveltejs/kit/issues/627#issuecomment-774809401 -->
+
 	<nav>
 		<ul>
 			<li>
