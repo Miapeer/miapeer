@@ -1,4 +1,4 @@
-import { PUBLIC_MIAPEER_API_HOST } from '$env/static/public'
+import { env } from '$env/dynamic/private';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ fetch, parent }) {
@@ -15,18 +15,11 @@ export async function load({ fetch, parent }) {
         return {applications};
     }
 
-
-
-    const response = await fetch(`${PUBLIC_MIAPEER_API_HOST}/miapeer/v1/applications`);
-    // const response = await fetch("https://api.miapeer.com/miapeer/v1/applications");
-    // const response = await fetch("https://api.ipify.org?format=json");
-    // const res = await response.json();
-    // console.log(res);
+    const response = await fetch(`${env.miapeerApiBase}/applications`);
 
     applications = await response.json();
     
     const filtered_applications = applications.filter((app) => app.display);
-    // const filtered_applications = applications.filter((app) => true);
 
     return {applications: filtered_applications};
 }

@@ -1,6 +1,5 @@
-import { PUBLIC_MIAPEER_API_HOST } from '$env/static/public'
 import { error, fail, redirect } from '@sveltejs/kit';
-import type { Action, Actions, PageServerLoad } from './$types'
+import { env } from '$env/dynamic/private';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ parent }) {
@@ -24,15 +23,12 @@ export const actions = {
 
         // TODO: Why does protocol switch to http on its own? This is causing errors.
 
-        // const response = await fetch(`${PUBLIC_MIAPEER_API_HOST}/miapeer/v1/auth/token`, {
-        const response = await fetch("https://api.miapeer.com/miapeer/v1/auth/token", {
+        const response = await fetch(`${env.miapeerApiBase}/auth/token`, {
 			method: 'POST',
 			body: requestData
 		})
 
-        console.log(response);
-
-        if (response.status !== 200) {
+        if (!response.ok) {
             console.error(response);
             return;
         }
@@ -57,7 +53,6 @@ export const actions = {
 
 
         // Success
-
         cookies.set('MAT', accessToken, {
             path: '/',  // send cookie for every page
             httpOnly: true, // server side only cookie so you can't use `document.cookie`
