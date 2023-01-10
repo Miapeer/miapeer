@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores';
 	import logoLong from '$lib/images/miapeer-logo-long.svg';
-	import LogInButton from './login/LogInButton.svelte';
-	import LogOutButton from './logout/LogOutButton.svelte';
+	import LogInButton from '../routes/login/LogInButton.svelte';
+	import LogOutButton from '../routes/logout/LogOutButton.svelte';
 
 	export let isAuthenticated;
 	export let userName;
@@ -12,6 +12,7 @@
 	<a href="/"><img src={logoLong} class="logo-img long" alt="Logo" /></a>
 
 	<a href="/quantum">Quantum</a>
+	<a href="/users">User Management</a>
 
 	<!-- TODO: Figure out how to get slots in here later, because it isn't possible right now -->
 	<!-- https://github.com/sveltejs/kit/issues/627#issuecomment-774809401 -->
