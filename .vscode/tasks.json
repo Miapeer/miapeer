@@ -60,5 +60,16 @@
             "command": "docker push miapeer.azurecr.io/miapeer",
             "problemMatcher": []
         },
+        {
+            "label": "PRODUCTION: Build and deploy Miapeer FE image",
+            "type": "shell",
+            "dependsOn": [
+                "PRODUCTION: Build Miapeer FE image",
+                "PRODUCTION: Azure ACR login",
+                "PRODUCTION: Deploy Miapeer FE image"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
     ]
 }
