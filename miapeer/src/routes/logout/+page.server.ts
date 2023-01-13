@@ -1,12 +1,14 @@
 import { redirect } from '@sveltejs/kit';
-import { invalidate } from '$app/navigation';
-
+import type { PageServerLoad } from './$types';
 export const prerender = false;
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ cookies }) {
+export const load: PageServerLoad = async ({ cookies }) => {
+    console.log('logout');
+
     cookies.set('MAT', '', {
         path: '/',
         expires: new Date(0)
     });
+
+    throw redirect(303, '/');
 }

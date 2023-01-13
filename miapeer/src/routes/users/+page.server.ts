@@ -1,16 +1,17 @@
-import { error, fail, redirect } from '@sveltejs/kit';
-import { env } from '$env/dynamic/private';
+import type { PageServerLoad } from './$types'
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load() {
+export const load: PageServerLoad = async ({ locals }) => {
     // TODO: Move headers into private env var or something of the like
 
     const headers = {
-        Authorization: `Bearer ${env.accessToken}`
+        Authorization: `Bearer ${locals.auth.accessToken}`
     }
 
+    console.log(locals.auth.accessToken);
+    
     // Applications
-    const applicationsResponse = await fetch(`${env.miapeerApiBase}/applications`, { headers });
+    console.log(`${locals.app.miapeerApiBase}/applications`);
+    const applicationsResponse = await fetch(`${locals.app.miapeerApiBase}/applications`, { headers });
 
     if (!applicationsResponse.ok) {
         console.error(applicationsResponse.statusText);
@@ -20,7 +21,9 @@ export async function load() {
     const applications = applicationsResponse.json();
 
     // Roles
-    const rolesResponse = await fetch(`${env.miapeerApiBase}/roles`, { headers });
+    console.log(`${locals.app.miapeerApiBase}/roles`);
+    console.log({ headers });
+    const rolesResponse = await fetch(`${locals.app.miapeerApiBase}/roles`, { headers });
 
     if (!rolesResponse.ok) {
         console.error(rolesResponse.statusText);
@@ -30,7 +33,8 @@ export async function load() {
     const roles = rolesResponse.json();
 
     // Application Roles
-    const applicationRolesResponse = await fetch(`${env.miapeerApiBase}/application-roles`, { headers });
+    console.log(`${locals.app.miapeerApiBase}/application-roles`);
+    const applicationRolesResponse = await fetch(`${locals.app.miapeerApiBase}/application-roles`, { headers });
 
     if (!applicationRolesResponse.ok) {
         console.error(applicationRolesResponse.statusText);
@@ -40,7 +44,8 @@ export async function load() {
     const applicationRoles = applicationRolesResponse.json();
 
     // Users
-    const usersResponse = await fetch(`${env.miapeerApiBase}/users`, { headers });
+    console.log(`${locals.app.miapeerApiBase}/users`);
+    const usersResponse = await fetch(`${locals.app.miapeerApiBase}/users`, { headers });
 
     if (!usersResponse.ok) {
         console.error(usersResponse.statusText);
@@ -50,7 +55,8 @@ export async function load() {
     const users = usersResponse.json();
 
     // Permissions
-    const permissionsResponse = await fetch(`${env.miapeerApiBase}/permissions`, { headers });
+    console.log(`${locals.app.miapeerApiBase}/permissions`);
+    const permissionsResponse = await fetch(`${locals.app.miapeerApiBase}/permissions`, { headers });
 
     if (!permissionsResponse.ok) {
         console.error(permissionsResponse.statusText);

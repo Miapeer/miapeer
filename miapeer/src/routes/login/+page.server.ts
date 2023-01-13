@@ -1,8 +1,7 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { env } from '$env/dynamic/private';
+import type { PageServerLoad, Actions } from './$types'
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ parent }) {
+export const load: PageServerLoad = async ({ parent }) => {
     const { isAuthenticated } = await parent();
 
     if (isAuthenticated) {
@@ -10,10 +9,8 @@ export async function load({ parent }) {
     }
 }
 
-/** @type {import('./$types').Actions} */
-// const login: Action = async ({ cookies, request }) => {
-export const actions = {
-    default: async ({ cookies, request, url }) => {
+export const actions: Actions = {
+    default: async ({ cookies, request, url, locals }) => {
         const formData = await request.formData();
 
         var requestData = new URLSearchParams();
@@ -23,15 +20,18 @@ export const actions = {
 
         // TODO: Why does protocol switch to http on its own? This is causing errors.
 
-        const response = await fetch(`${env.miapeerApiBase}/auth/token`, {
+        console.log(`${locals.app.miapeerApiBase}/auth/token`);
+        const response = await fetch(`${locals.app.miapeerApiBase}/auth/token`, {
 			method: 'POST',
 			body: requestData
 		})
 
+        console.log(1);
         if (!response.ok) {
             console.error(response);
             return;
         }
+        console.log(2);
 
         // TODO
         const responseData = await response.json();
@@ -62,8 +62,8 @@ export const actions = {
           })
 
         // Go to the place we were told to go
-		if (url.searchParams.has('redirectTo')) {
-			throw redirect(303, url.searchParams.get('redirectTo'));
+		if (url.searchParams.has('ReturnUrl')) {
+			throw redirect(303, url.searchParams.get('ReturnUrl'));
 		}
 
         // Return to the home page

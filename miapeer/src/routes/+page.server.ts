@@ -1,7 +1,6 @@
-import { env } from '$env/dynamic/private';
+import type { PageServerLoad } from './$types'
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ fetch, parent }) {
+export const load: PageServerLoad = async ({ fetch, parent, locals }) => {
     const { isAuthenticated } = await parent();
 
     let applications = [];
@@ -15,7 +14,10 @@ export async function load({ fetch, parent }) {
         return {applications};
     }
 
-    const response = await fetch(`${env.miapeerApiBase}/applications`);
+    console.log(1313);
+    console.log(`${locals.app.miapeerApiBase}/applications`);
+    const response = await fetch(`${locals.app.miapeerApiBase}/applications`);
+    console.log(response.status);
 
     applications = await response.json();
     
