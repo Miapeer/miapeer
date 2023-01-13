@@ -1,12 +1,13 @@
-<script>
-	import Header from '../lib/Header.svelte';
-	import Footer from '../lib/Footer.svelte';
+<script type="typescript">
+	import 'bootstrap-icons/font/bootstrap-icons.scss';
+
 	import './styles.css';
 
-	import 'font-awesome/css/font-awesome.min.css'
-
-    /** @type {import('./$types').LayoutData} */
-    export let data;
+	import Header from '$lib/Header.svelte';
+	import Footer from '$lib/Footer.svelte';
+	
+	import type {LayoutData} from './$types';
+    export let data: LayoutData;
 </script>
 
 <svelte:head>
@@ -15,9 +16,6 @@
 	<meta name="mobile-web-app-capable" content="yes">
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700%7CMontserrat:400,700%7CRaleway:300,400,600" />
-    <link rel="stylesheet" href="/src/static/bootstrap-5.2.3/bootstrap.min.css" />
-
-	<script	src="/src/static/bootstrap-5.2.3/bootstrap.bundle.min.js"></script>
 </svelte:head>
 
 <div class="app">

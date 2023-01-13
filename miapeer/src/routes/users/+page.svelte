@@ -28,7 +28,7 @@
     }
 </script>
 
-<div class="container text-center">
+<div class="container text-center" data-bs-theme="dark">
     <div class="row">
         <div class="col-2"></div>
         {#each data.applications as _, index}
@@ -53,7 +53,11 @@
             {#each data.applications as _, applicationIndex}
                 {#each data.roles as _, roleIndex}
                     <div class="col-1">
-                        {hasPermission(user.user_id, data.applications[applicationIndex].application_id, data.roles[roleIndex].role_id)}
+                        {#if hasPermission(user.user_id, data.applications[applicationIndex].application_id, data.roles[roleIndex].role_id)}
+                        <i class="bi bi-toggle-on"></i>
+                        {:else}
+                        <i class="bi bi-toggle-off"></i>
+                        {/if}
                     </div>
                 {/each}
             {/each}
@@ -61,10 +65,10 @@
     {/each}
 </div>
 
-<!-- <style lang="sass">
-    .container
-        background-color: red
+<i class="bi bi-x-square"></i>
+<i class="bi bi-wrench-adjustable-circle-fill"></i>
 
-        .row
-            background-color: green
-</style> -->
+<style lang="sass">
+    i.bi
+        font-size: 3rem
+</style>

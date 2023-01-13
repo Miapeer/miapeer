@@ -35,7 +35,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"bootstrap": "^5.2.3",
+		"bootstrap-icons": "^1.10.3",
 		"font-awesome": "^4.7.0",
 		"jose": "^4.11.1"
 	}
