@@ -16,8 +16,6 @@
     }
 
     const hasPermission = (user_id, application_id, role_id) => {
-        console.log('hasPermission');
-        
         const applicationRole = lookupApplicationRole(application_id, role_id);
 
         if (!applicationRole) {
@@ -28,7 +26,7 @@
     }
 </script>
 
-<div class="container text-center" data-bs-theme="dark">
+<div class="container text-center">
     <div class="row">
         <div class="col-2"></div>
         {#each data.applications as _, index}
@@ -64,9 +62,6 @@
         </div>
     {/each}
 </div>
-
-<i class="bi bi-x-square"></i>
-<i class="bi bi-wrench-adjustable-circle-fill"></i>
 
 <style lang="sass">
     i.bi

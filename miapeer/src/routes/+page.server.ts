@@ -14,10 +14,7 @@ export const load: PageServerLoad = async ({ fetch, parent, locals }) => {
         return {applications};
     }
 
-    console.log(1313);
-    console.log(`${locals.app.miapeerApiBase}/applications`);
     const response = await fetch(`${locals.app.miapeerApiBase}/applications`);
-    console.log(response.status);
 
     applications = await response.json();
     

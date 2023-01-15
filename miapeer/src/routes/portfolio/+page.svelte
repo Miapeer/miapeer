@@ -1,6 +1,6 @@
 <script>
-    import Button, { Icon } from '@smui/button';
-    import Chip, { Set, Text } from '@smui/chips';
+    // import Button, { Icon } from '@smui/button';
+    // import Chip, { Set, Text } from '@smui/chips';
 </script>
 
 <div class="portfolio">

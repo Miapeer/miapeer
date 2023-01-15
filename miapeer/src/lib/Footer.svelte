@@ -1,32 +1,21 @@
 <footer>
-    <span>&copy; Copyright {(new Date()).getFullYear()} - <a href="/">Miapeer LLC</a></span>
+    <span>&copy; 2015-{(new Date()).getFullYear()}, Miapeer LLC</span>
     <a href="/portfolio">Jeff Navarra's Portfolio</a>
 </footer>
 
 <style>
     footer {
-		background-color: rgba(0, 0, 0, 0.7);
+		background-color: rgba(var(--bs-body-bg-negative-rgb), 0.8);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 1em;
-        position: fixed;
-        color: var(--color-text-light);
-		font-size: 1rem;
+        color: var(--bs-body-color-negative);
         left: 0px;
         right: 0px;
         bottom: 0px;
 		height: var(--footer-height);
 		max-height: var(--footer-height);
 		z-index: 999;
-	}
-
-	footer a {
-		color: var(--color-text-light);
-		font-weight: bold;
-	}
-
-	footer a:hover {
-		color: var(--color-text-accent);
 	}
 </style>

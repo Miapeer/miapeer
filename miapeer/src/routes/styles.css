@@ -1,28 +1,171 @@
-@media (prefers-color-scheme: dark) {
-	:root {
-		/* --bs-body-color: yellow; */
-	}
-}
-
-@media (prefers-color-scheme: light) {
-	/* body {
-		color: blue;
-		background-color: yellow;
-	} */
-}
-
 :root {
-	--color-theme-accent: #fcc813;
+	--theme-primary: #fcc813;
+	--theme-primary-rgb: 252, 200, 19;
+
+	/*
 	--color-theme-dark: #505358;
 	--color-text-darker: #303030;
 	--color-text-dark: var(--color-theme-dark);
 	--color-text-light: white;
 	--color-text-accent: var(--color-theme-accent);
 	--color-border-dark: var(--color-theme-dark);
+	*/
 	--header-height: 5em;
 	--footer-height: 2em;
+
+	--bs-body-font-size: 12px;
+
+	--bs-primary-rgb: var(--theme-primary-rgb)
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--bs-body-bg: #f5f5f5;
+		--bs-body-bg-rgb: 245, 245, 245;
+		--bs-body-bg-negative: #303236;
+		--bs-body-bg-negative-rgb: 48, 50, 54;
+		--bs-secondary-bg: #e9ecef;
+		--bs-secondary-bg-rgb: 233, 236, 239;
+		--bs-tertiary-bg: #f8f9fa;
+		--bs-tertiary-bg-rgb: 248, 249, 250;
+		
+		--bs-primary-bg-subtle: #cfe2ff;
+		--bs-secondary-bg-subtle: #f8f9fa;
+		--bs-success-bg-subtle: #d1e7dd;
+		--bs-info-bg-subtle: #cff4fc;
+		--bs-warning-bg-subtle: #fff3cd;
+		--bs-danger-bg-subtle: #f8d7da;
+		--bs-light-bg-subtle: #fcfcfd;
+		--bs-dark-bg-subtle: #ced4da;
+
+		--bs-primary-text: #0a58ca;
+		--bs-secondary-text: #6c757d;
+		--bs-success-text: #146c43;
+		--bs-info-text: #087990;
+		--bs-warning-text: #997404;
+		--bs-danger-text: #b02a37;
+		--bs-light-text: #d0d3d8;
+		--bs-light-text-rbg: 208, 211, 216;
+		--bs-dark-text: #495057;
+		--bs-dark-text-rbg: 73, 80, 87;
+
+		--bs-body-color: var(--bs-dark-text);
+		--bs-body-color-rgb: var(--bs-dark-text-rbg);
+		--bs-body-color-negative: var(--bs-light-text);
+		--bs-body-color-negative-rgb: var(--bs-light-text-rbg);
+		
+		--bs-emphasis-color: var(--theme-primary);
+		--bs-emphasis-color-rgb: var(--theme-primary-rgb);
+		--bs-secondary-color: rgba(33, 37, 41, 0.75);
+		--bs-secondary-color-rgb: 33, 37, 41;
+		--bs-tertiary-color: rgba(33, 37, 41, 0.5);
+		--bs-tertiary-color-rgb: 33, 37, 41;
+
+		--bs-link-color: var(--bs-body-color);
+		--bs-link-color-rgb: var(--bs-body-color-rbg);
+		--bs-link-hover-color: var(--color-theme-accent);
+		--bs-link-hover-color-rgb: 252, 200, 19;
+		--bs-link-text-shadow: var(--bs-link-color);
+
+		--bs-code-color: #d63384;
+		
+		--bs-border-color: #dee2e6;
+		--bs-border-color-translucent: rgba(0, 0, 0, 0.175);
+		--bs-primary-border-subtle: #9ec5fe;
+		--bs-secondary-border-subtle: #e9ecef;
+		--bs-success-border-subtle: #a3cfbb;
+		--bs-info-border-subtle: #9eeaf9;
+		--bs-warning-border-subtle: #ffe69c;
+		--bs-danger-border-subtle: #f1aeb5;
+		--bs-light-border-subtle: #e9ecef;
+		--bs-dark-border-subtle: #adb5bd;
+	}
+
+	.btn-outline-primary {
+		-webkit-text-stroke-width: 1px;
+		-webkit-text-stroke-color: rgba(0, 0, 0, 0.15);
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bs-body-bg: #212529;
+		--bs-body-bg-rgb: 33, 37, 41;
+		--bs-body-bg-negative: rgb(155, 155, 155);
+		--bs-body-bg-negative-rgb: 155, 155, 155;
+		--bs-secondary-bg: #343a40;
+		--bs-secondary-bg-rgb: 52, 58, 64;
+		--bs-tertiary-bg: #2b3035;
+		--bs-tertiary-bg-rgb: 43, 48, 53;
+		
+		--bs-primary-bg-subtle: #031633;
+		--bs-secondary-bg-subtle: #212529;
+		--bs-success-bg-subtle: #051b11;
+		--bs-info-bg-subtle: #032830;
+		--bs-warning-bg-subtle: #332701;
+		--bs-danger-bg-subtle: #2c0b0e;
+		--bs-light-bg-subtle: #343a40;
+		--bs-dark-bg-subtle: #1a1d20;
+
+		--bs-primary-text: #6ea8fe;
+		--bs-secondary-text: #dee2e6;
+		--bs-success-text: #75b798;
+		--bs-info-text: #6edff6;
+		--bs-warning-text: #ffda6a;
+		--bs-danger-text: #ea868f;
+		--bs-light-text: #b2b6b9;
+		--bs-light-text-rbg: 178, 182, 185;
+		--bs-dark-text: #212327;
+		--bs-dark-text-rbg: 33, 35, 39;
+
+		--bs-body-color: var(--bs-light-text);
+		--bs-body-color-rgb: var(--bs-light-text-rbg);
+		--bs-body-color-negative: var(--bs-dark-text);
+		--bs-body-color-negative-rgb: var(--bs-dark-text-rbg);
+
+		--bs-emphasis-color: var(--theme-primary);
+		--bs-emphasis-color-rgb: var(--theme-primary-rgb);
+		--bs-secondary-color: rgba(103, 109, 115, 0.75);
+		--bs-secondary-color-rgb: 103, 109, 115;
+		--bs-tertiary-color: rgba(103, 109, 115, 0.5);
+		--bs-tertiary-color-rgb: 103, 109, 115;
+
+		--bs-link-color: var(--bs-body-color);
+		--bs-link-color-rgb: var(--bs-body-color-rbg);
+		--bs-link-hover-color: var(--theme-primary);
+		--bs-link-hover-color-rgb: var(--theme-primary-rgb);
+		--bs-link-text-shadow: tranparent;
+
+		--bs-code-color: #e685b5;
+
+		--bs-border-color: #495057;
+		--bs-border-color-translucent: rgba(255, 255, 255, 0.15);
+		--bs-primary-border-subtle: #084298;
+		--bs-secondary-border-subtle: #495057;
+		--bs-success-border-subtle: #0f5132;
+		--bs-info-border-subtle: #055160;
+		--bs-warning-border-subtle: #664d03;
+		--bs-danger-border-subtle: #842029;
+		--bs-light-border-subtle: #495057;
+		--bs-dark-border-subtle: #343a40;
+	}
+}
+
+.btn-outline-primary {
+	border-color: var(--theme-primary);
+	color: var(--theme-primary);
+}
+
+.btn-outline-primary:hover {
+	background-color: var(--theme-primary);
+	border-color: var(--theme-primary);
+	color: var(--bs-dark-text);
+}
+
+html {
 	font-family: "Montserrat", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 12px;
+	font-size: var(--bs-body-font-size);
+	letter-spacing: 1px;
 }
 
 body {
@@ -30,60 +173,61 @@ body {
 }
 
 a {
-	color: var(--color-text-dark);
 	text-decoration: none;
-	text-transform: uppercase;
 }
-
+ 
 a:hover {
-	color: var(--color-text-accent);
-	text-shadow: 0.5px 0.5px var(--color-text-dark);
+	text-shadow: 0.5px 0.5px var(--bs-link-text-shadow);
 	transition: color 0.2s linear, text-shadow 0.2s linear;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
 	color: var(--color-theme-darker);
 }
 
 h1 {
 	font-size: 3.5rem;
-    line-height: 3.7rem;
-    margin: 0 0 3.3rem 0;
+	line-height: 3.7rem;
+	margin: 0 0 3.3rem 0;
 	font-weight: 300;
-    letter-spacing: -0.08rem;
+	letter-spacing: -0.08rem;
 }
 
 h2 {
-    font-size: 23px;
+	font-size: 23px;
 	font-weight: 300;
-    margin: 0 0 20px;
-    line-height: 35px;
-    letter-spacing: 1px;
+	margin: 0 0 20px;
+	line-height: 35px;
+	letter-spacing: 1px;
 }
 
 h3 {
 	font-size: 28px;
-    font-weight: 400;
-    letter-spacing: normal;
-    line-height: 28px;
-    margin-bottom: 30px;
+	font-weight: 400;
+	letter-spacing: normal;
+	line-height: 28px;
+	margin-bottom: 30px;
 	margin: 0;
 }
 
 h4 {
 	font-size: 16px;
-    font-weight: 400;
-    line-height: 26px;
+	font-weight: 400;
+	line-height: 26px;
 	letter-spacing: normal;
-    margin: 0 0 15px 0;
+	margin: 0 0 15px 0;
 }
 
 h5 {
 	font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
+	font-weight: 400;
+	line-height: 18px;
 	letter-spacing: normal;
-    margin: 0 0 15px 0;
+	margin: 0 0 15px 0;
 }
 
 .separator {
@@ -95,9 +239,9 @@ h5 {
 .separator:after {
 	box-sizing: border-box;
 	content: "";
-    display: block;
-    height: 1px;
-    width: 35px;
-    border-top: 2px solid rgb(252,200,19);
-    margin: 6px 0 10px;
+	display: block;
+	height: 1px;
+	width: 35px;
+	border-top: 2px solid rgb(252, 200, 19);
+	margin: 6px 0 10px;
 }

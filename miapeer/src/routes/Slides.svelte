@@ -92,7 +92,7 @@
         top: 100px;
         left: 100px;
         font-size: 2rem;
-        color: var(--color-text-light);
+        color: var(--bs-light-text);
         z-index: 1;
         transition: all 2s ease 0s;
     }
