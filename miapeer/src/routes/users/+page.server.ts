@@ -1,6 +1,10 @@
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ depends, locals }) => {
+    depends(
+        'miapeer:permissions'
+    );
+
     // Applications
     const applicationsResponse = await fetch(`${locals.app.miapeerApiBase}/applications`, { headers: locals.auth.headers });
 

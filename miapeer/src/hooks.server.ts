@@ -44,6 +44,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     event.locals.auth = {
         accessToken,
         headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${accessToken}`
         }
     }
