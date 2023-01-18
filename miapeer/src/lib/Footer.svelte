@@ -1,5 +1,12 @@
+<script>
+    export let lastUpdate;
+</script>
+
 <footer>
     <span>&copy; 2015-{(new Date()).getFullYear()}, Miapeer LLC</span>
+	{#if lastUpdate}
+	<span>Updated: {lastUpdate}</span>
+	{/if}
     <a href="/portfolio">Jeff Navarra's Portfolio</a>
 </footer>
 

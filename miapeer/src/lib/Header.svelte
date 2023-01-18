@@ -1,5 +1,4 @@
 <script>
-	import { page } from '$app/stores';
 	import logoLong from '$lib/images/miapeer-logo-long.svg';
 	import LogInButton from '../routes/login/LogInButton.svelte';
 	import LogOutButton from '../routes/logout/LogOutButton.svelte';

@@ -1,7 +1,7 @@
 import type { Handle } from '@sveltejs/kit'
 import { PUBLIC_MIAPEER_API_HOST } from '$env/static/public';
 import * as jose from 'jose'
-import { redirect } from '@sveltejs/kit';
+import lastUpdate from '../last_update.json'
 
 const tokenExpired = (token) => {
     return Date.now() >= token.exp * 1000
@@ -38,6 +38,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     event.locals.app = {
+        lastUpdate: lastUpdate.lastUpdate,
         miapeerApiBase: `${PUBLIC_MIAPEER_API_HOST}/miapeer/v1`,
     }
 

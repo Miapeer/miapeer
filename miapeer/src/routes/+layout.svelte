@@ -25,7 +25,7 @@
 		<slot />
 	</main>
 
-	<Footer />
+	<Footer lastUpdate={data.lastUpdate} />
 </div>
 
 <style>

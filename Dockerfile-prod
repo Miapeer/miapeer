@@ -25,6 +25,8 @@ RUN npm run build
 # RUN rm -rf ./*
 # COPY --from=build /app/build .
 
+RUN echo \{\"lastUpdate\": \"`date +%Y.%m.%d-%H:%M:%S`\"\} > ./last_update.json
+
 EXPOSE 80
 
 # CMD ["nginx", "-g", "daemon off;"]
