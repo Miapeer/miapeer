@@ -52,6 +52,12 @@
             "problemMatcher": []
         },
         {
+            "label": "PRODUCTION: Shell into Miapeer FE container",
+            "type": "shell",
+            "command": "docker container run --rm -it -p 8001:8001 --name miapeer-fe miapeer.azurecr.io/miapeer sh",
+            "problemMatcher": []
+        },
+        {
             "label": "PRODUCTION: Deploy Miapeer FE image",
             "type": "shell",
             "options": {

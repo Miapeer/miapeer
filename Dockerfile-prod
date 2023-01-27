@@ -11,6 +11,9 @@ COPY . .
 WORKDIR /miapeer
 RUN npm install
 
+# RUN echo \{\"lastUpdate\": \"`date +%Y.%m.%d-%H:%M:%S`\"\} > ./last_update.json
+RUN echo \{\"lastUpdate\": \"`date -u`\"\} > ./last_update.json
+
 # ENV ORIGIN=https://www.miapeer.com
 
 # RUN ORIGIN=https://www.miapeer.com npm run build
@@ -25,7 +28,6 @@ RUN npm run build
 # RUN rm -rf ./*
 # COPY --from=build /app/build .
 
-RUN echo \{\"lastUpdate\": \"`date +%Y.%m.%d-%H:%M:%S`\"\} > ./last_update.json
 
 EXPOSE 80
 
