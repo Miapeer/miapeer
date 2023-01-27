@@ -16,8 +16,6 @@ export const actions: Actions = {
         requestData.append('password', formData.get('password'));
         requestData.append('grant_type', 'password');
 
-        // TODO: Why does protocol switch to http on its own? This is causing errors.
-
         url = `${locals.app.miapeerApiBase}/auth/token`
         console.log(url);
 
@@ -26,36 +24,20 @@ export const actions: Actions = {
 			body: requestData
 		})
 
-        console.log(response);
-
         const responseData = await response.json();
 
-        console.log(1);
         if (!response.ok) {
             console.error(response);
             throw error(401, responseData);
         }
-        console.log(2);
 
         // TODO
         if (responseData['token_type'] !== 'bearer') {
             console.error(responseData);
-            // return fail(400, { email: "something", missing: true });
             throw error(400, { email: "something", missing: true });
         }
 
-        // throw error(403, JSON.stringify(responseData));
         const accessToken = responseData['access_token'];
-        // throw error(404, JSON.stringify(responseData));
-
-        // if (!user) {
-        //     return fail(400, { email, missing: true });
-        // }
-
-        // if (user.password !== hash(password)) {
-        //     return fail(400, { email, incorrect: true });
-        // }
-
 
         // Success
         cookies.set('MAT', accessToken, {
@@ -71,8 +53,6 @@ export const actions: Actions = {
 			throw redirect(303, url.searchParams.get('ReturnUrl'));
 		}
 
-        // throw error(406, JSON.stringify(responseData));
-        
         // Return to the home page
         throw redirect(303, '/');
     }
