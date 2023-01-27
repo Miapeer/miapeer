@@ -5,7 +5,7 @@
 <footer>
     <span>&copy; 2015-{(new Date()).getFullYear()}, Miapeer LLC</span>
 	{#if lastUpdate}
-	<span>Updated: {lastUpdate}</span>
+	<span>Updated: {(new Date(lastUpdate)).toLocaleString()}</span>
 	{/if}
     <a href="/portfolio">Jeff Navarra's Portfolio</a>
 </footer>
