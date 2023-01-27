@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+<!-- import { redirect } from '@sveltejs/kit';
 import { invalidate, invalidateAll } from '$app/navigation';
 import { goto } from '$app/navigation';
 
@@ -6,5 +6,9 @@ export const prerender = false;
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-    invalidateAll();
-}
+    // invalidateAll();
+} -->
+
+<form method="POST">
+    <button>Log out</button>
+</form>

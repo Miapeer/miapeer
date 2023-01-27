@@ -48,7 +48,7 @@
             permission = permissions[0];
         }
         else if (permissions.length > 1) {
-            // TODO: If there's multiple (how would that happen?), just send multiple DELETEs?
+            // TODO: If there's multiple (how would that even happen?), just send multiple DELETEs?
             console.log(permissions);
         }
 
@@ -66,6 +66,7 @@
             });
 
             if (permissionRequest.ok) {
+                console.log(await permissionRequest.json());
                 invalidate('miapeer:permissions');
             }
             else {

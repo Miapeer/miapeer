@@ -1,10 +1,8 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types'
 
-export const load: PageServerLoad = async ({ parent }) => {
-    const { isAuthenticated } = await parent();
-
-    if (isAuthenticated) {
+export const load: PageServerLoad = async ({ locals }) => {
+    if (locals.user.isAuthenticated) {
         throw redirect(303, '/');
     }
 }
@@ -20,28 +18,35 @@ export const actions: Actions = {
 
         // TODO: Why does protocol switch to http on its own? This is causing errors.
 
-        console.log(`${locals.app.miapeerApiBase}/auth/token`);
+        url = `${locals.app.miapeerApiBase}/auth/token`
+        console.log(url);
+
         const response = await fetch(`${locals.app.miapeerApiBase}/auth/token`, {
 			method: 'POST',
 			body: requestData
 		})
 
+        console.log(response);
+
+        const responseData = await response.json();
+
         console.log(1);
         if (!response.ok) {
             console.error(response);
-            return;
+            throw error(401, responseData);
         }
         console.log(2);
 
         // TODO
-        const responseData = await response.json();
         if (responseData['token_type'] !== 'bearer') {
             console.error(responseData);
             // return fail(400, { email: "something", missing: true });
-            throw error(400, { email: "something", missing: true })
+            throw error(400, { email: "something", missing: true });
         }
 
-        const accessToken = responseData['access_token']
+        // throw error(403, JSON.stringify(responseData));
+        const accessToken = responseData['access_token'];
+        // throw error(404, JSON.stringify(responseData));
 
         // if (!user) {
         //     return fail(400, { email, missing: true });
@@ -61,11 +66,13 @@ export const actions: Actions = {
             maxAge: 60 * 60 * 24 * 7,  // set cookie to expire after a week
           })
 
-        // Go to the place we were told to go
-		if (url.searchParams.has('ReturnUrl')) {
+          // Go to the place we were told to go
+		if (url.searchParams?.has('ReturnUrl')) {
 			throw redirect(303, url.searchParams.get('ReturnUrl'));
 		}
 
+        // throw error(406, JSON.stringify(responseData));
+        
         // Return to the home page
         throw redirect(303, '/');
     }

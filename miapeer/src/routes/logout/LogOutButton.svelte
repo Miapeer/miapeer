@@ -2,6 +2,6 @@
 	export let userName;
 </script>
 
-<span>
+<form method="POST" action="/logout">
 	<a data-sveltekit-preload-data="off" href="/logout">Log Out</a>
-</span>
+</form>
