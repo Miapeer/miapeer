@@ -21,7 +21,7 @@ export const actions: Actions = {
 
         const response = await fetch(`${locals.app.miapeerApiBase}/auth/token`, {
 			method: 'POST',
-			body: requestData
+			body: requestData,
 		})
 
         const responseData = await response.json();

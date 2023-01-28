@@ -3,9 +3,9 @@ import type { RequestHandler } from './$types';
 
 export const POST = (async ({ request, locals }) => {
     const { userId, applicationRoleId, permissionId, permit } = await request.json();
-
+    
     let response;
-
+    
     if (permit) {
         if (userId && applicationRoleId) {
             const data = JSON.stringify({
@@ -23,7 +23,8 @@ export const POST = (async ({ request, locals }) => {
     else {
         if (permissionId) {
             response = await fetch(`${locals.app.miapeerApiBase}/permissions/${permissionId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: locals.auth.headers,
             })
         }
     }

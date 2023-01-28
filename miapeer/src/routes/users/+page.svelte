@@ -66,7 +66,6 @@
             });
 
             if (permissionRequest.ok) {
-                console.log(await permissionRequest.json());
                 invalidate('miapeer:permissions');
             }
             else {
