@@ -115,11 +115,17 @@
                         <div class="col-md-2">{data.applications[applicationIndex].name}</div>
                         {#each data.roles as _, roleIndex}
                             <div class={`col-md-${Math.floor(10 / data.roles.length)}`}>
-                                {#if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer'}
+                                {#if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer' && data.roles[roleIndex].name === 'User'}
                                     {#if hasPermission(user.user_id, data.applications[applicationIndex].application_id, data.roles[roleIndex].role_id)}
                                         Yes
                                     {:else}
-                                        No: That's not right
+                                        No: ...and that's ok
+                                    {/if}
+                                {:else if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer'}
+                                    {#if hasPermission(user.user_id, data.applications[applicationIndex].application_id, data.roles[roleIndex].role_id)}
+                                        Yes
+                                    {:else}
+                                        No: That's not right!
                                     {/if}
                                 {:else if hasPermission(user.user_id, data.applications[applicationIndex].application_id, data.roles[roleIndex].role_id)}
                                     <i
