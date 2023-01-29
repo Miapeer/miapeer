@@ -1,5 +1,5 @@
 <script>
-	import Applications from './Applications.svelte';
+    import Applications from './Applications.svelte';
     import Slides from './Slides.svelte';
 
     /** @type {import('./$types').PageData} */
@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Miapeer: Home</title>
+    <title>Miapeer: Home</title>
 </svelte:head>
 
 <Slides />

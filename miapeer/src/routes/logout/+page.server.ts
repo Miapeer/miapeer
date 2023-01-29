@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ locals }) => {
     if (!locals.user.isAuthenticated) {
         throw redirect(303, '/');
     }
-}
+};
 
 export const actions: Actions = {
     default: async ({ cookies }) => {
@@ -17,6 +17,6 @@ export const actions: Actions = {
             expires: new Date(0)
         });
 
-        throw redirect(303, '/');    
+        throw redirect(303, '/');
     }
-}
+};

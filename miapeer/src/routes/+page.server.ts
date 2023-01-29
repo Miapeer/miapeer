@@ -1,4 +1,4 @@
-import type { PageServerLoad } from './$types'
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ fetch, parent, locals }) => {
     const { isAuthenticated } = await parent();
@@ -11,14 +11,16 @@ export const load: PageServerLoad = async ({ fetch, parent, locals }) => {
     // console.log("https://api.miapeer.com/miapeer/v1/applications");
 
     if (!isAuthenticated) {
-        return {applications};
+        return { applications };
     }
 
-    const response = await fetch(`${locals.app.miapeerApiBase}/applications/`, {headers: locals.auth.headers});
+    const response = await fetch(`${locals.app.miapeerApiBase}/applications/`, {
+        headers: locals.auth.headers
+    });
 
     applications = await response.json();
-    
+
     const filtered_applications = applications.filter((app) => app.display);
 
-    return {applications: filtered_applications};
-}
+    return { applications: filtered_applications };
+};

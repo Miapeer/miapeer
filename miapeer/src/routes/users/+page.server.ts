@@ -1,12 +1,12 @@
-import type { PageServerLoad } from './$types'
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ depends, locals }) => {
-    depends(
-        'miapeer:permissions'
-    );
+    depends('miapeer:permissions');
 
     // Applications
-    const applicationsResponse = await fetch(`${locals.app.miapeerApiBase}/applications/`, {headers: locals.auth.headers});
+    const applicationsResponse = await fetch(`${locals.app.miapeerApiBase}/applications/`, {
+        headers: locals.auth.headers
+    });
 
     if (!applicationsResponse.ok) {
         console.error(applicationsResponse.statusText);
@@ -16,7 +16,9 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     const applications = applicationsResponse.json();
 
     // Roles
-    const rolesResponse = await fetch(`${locals.app.miapeerApiBase}/roles/`, {headers: locals.auth.headers});
+    const rolesResponse = await fetch(`${locals.app.miapeerApiBase}/roles/`, {
+        headers: locals.auth.headers
+    });
 
     if (!rolesResponse.ok) {
         console.error(rolesResponse.statusText);
@@ -26,7 +28,10 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     const roles = rolesResponse.json();
 
     // Application Roles
-    const applicationRolesResponse = await fetch(`${locals.app.miapeerApiBase}/application-roles/`, {headers: locals.auth.headers});
+    const applicationRolesResponse = await fetch(
+        `${locals.app.miapeerApiBase}/application-roles/`,
+        { headers: locals.auth.headers }
+    );
 
     if (!applicationRolesResponse.ok) {
         console.error(applicationRolesResponse.statusText);
@@ -36,7 +41,9 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     const applicationRoles = applicationRolesResponse.json();
 
     // Users
-    const usersResponse = await fetch(`${locals.app.miapeerApiBase}/users/`, {headers: locals.auth.headers});
+    const usersResponse = await fetch(`${locals.app.miapeerApiBase}/users/`, {
+        headers: locals.auth.headers
+    });
 
     if (!usersResponse.ok) {
         console.error(usersResponse.statusText);
@@ -46,7 +53,9 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     const users = usersResponse.json();
 
     // Permissions
-    const permissionsResponse = await fetch(`${locals.app.miapeerApiBase}/permissions/`, {headers: locals.auth.headers});
+    const permissionsResponse = await fetch(`${locals.app.miapeerApiBase}/permissions/`, {
+        headers: locals.auth.headers
+    });
 
     if (!permissionsResponse.ok) {
         console.error(permissionsResponse.statusText);
@@ -55,6 +64,5 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
 
     const permissions = permissionsResponse.json();
 
-
-    return {applications, roles, applicationRoles, users, permissions};
-}
+    return { applications, roles, applicationRoles, users, permissions };
+};

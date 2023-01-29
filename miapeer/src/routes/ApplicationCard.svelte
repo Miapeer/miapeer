@@ -4,7 +4,7 @@
 
 <a href={application.url} class="card">
     <div class="icon">
-        <i class={application.icon}></i>
+        <i class={application.icon} />
     </div>
     <div class="name">{application.name}</div>
     <div class="description">{@html application.description}</div>

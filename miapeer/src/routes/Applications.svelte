@@ -1,12 +1,12 @@
 <script>
-	import ApplicationCard from "./ApplicationCard.svelte";
+    import ApplicationCard from './ApplicationCard.svelte';
 
     export let applications;
 </script>
 
 <section>
     {#each applications as application}
-    <ApplicationCard application={application} />
+        <ApplicationCard {application} />
     {/each}
 </section>
 

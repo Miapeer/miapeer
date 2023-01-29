@@ -1,14 +1,14 @@
-import type { Handle, HandleFetch } from '@sveltejs/kit'
+import type { Handle, HandleFetch } from '@sveltejs/kit';
 import { PUBLIC_MIAPEER_API_HOST } from '$env/static/public';
-import * as jose from 'jose'
-import lastUpdate from '../last_update.json'
+import * as jose from 'jose';
+import lastUpdate from '../last_update.json';
 
 const tokenExpired = (token) => {
-    return Date.now() >= token.exp * 1000
-}
+    return Date.now() >= token.exp * 1000;
+};
 
 export const handle: Handle = async ({ event, resolve }) => {
-    let accessToken = event.cookies.get("MAT");
+    let accessToken = event.cookies.get('MAT');
     let decodedAccessToken;
     let userName;
 
@@ -16,10 +16,9 @@ export const handle: Handle = async ({ event, resolve }) => {
         decodedAccessToken = jose.decodeJwt(accessToken);
 
         userName = decodedAccessToken.sub;
-    }
-    catch {
-        accessToken = null
-        userName = null
+    } catch {
+        accessToken = null;
+        userName = null;
     }
 
     if (!accessToken || tokenExpired(decodedAccessToken)) {
@@ -29,33 +28,35 @@ export const handle: Handle = async ({ event, resolve }) => {
         });
 
         if (['/', '/login', '/logout'].includes(event.url.pathname)) {
-            accessToken = null
-            userName = null
-        }
-        else {
-            return Response.redirect(`${event.url.origin}/login?ReturnUrl=${event.url.pathname}`, 303)
+            accessToken = null;
+            userName = null;
+        } else {
+            return Response.redirect(
+                `${event.url.origin}/login?ReturnUrl=${event.url.pathname}`,
+                303
+            );
         }
     }
 
     event.locals.app = {
         lastUpdate: lastUpdate.lastUpdate,
-        miapeerApiBase: `${PUBLIC_MIAPEER_API_HOST}/miapeer/v1`,
-    }
+        miapeerApiBase: `${PUBLIC_MIAPEER_API_HOST}/miapeer/v1`
+    };
 
     event.locals.auth = {
         accessToken,
         headers: {
-            'accept': 'application/json',
+            accept: 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`,
+            Authorization: `Bearer ${accessToken}`
         }
-    }
+    };
 
     event.locals.user = {
         isAuthenticated: !!accessToken,
-        userName,
-    }
+        userName
+    };
 
     // Load page as normal
-    return await resolve(event)
-}
+    return await resolve(event);
+};
