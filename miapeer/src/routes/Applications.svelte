@@ -21,6 +21,7 @@
     @media (max-width: 640px) {
         section {
             flex-direction: column;
+            padding: 1rem 0.25rem;
         }
     }
 </style>

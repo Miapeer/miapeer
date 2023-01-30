@@ -27,12 +27,12 @@
 
 <style>
     header {
-        background-color: rgba(var(--bs-body-bg-rgb), 0.95);
-        box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+        background-color: rgba(var(--bg-primary-rgb), 0.9);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 1em;
+        padding: 0 1rem;
         position: fixed;
         left: 0px;
         right: 0px;
@@ -44,10 +44,10 @@
     }
 
     .logo-img {
-        background-color: var(--bs-emphasis-color);
+        background-color: var(--theme-primary);
         border: 1px solid black;
         border-radius: 10px;
-        height: 3rem;
+        height: 2.5rem;
         padding: 0.5rem;
     }
 </style>

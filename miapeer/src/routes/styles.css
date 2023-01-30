@@ -1,6 +1,13 @@
 :root {
-    --theme-primary: #fcc813;
+    --theme-primary: rgb(252, 200, 19);
     --theme-primary-rgb: 252, 200, 19;
+
+    --text-accent: var(--theme-primary);
+
+    --body-font-size: 12px;
+
+    --header-height: 5em;
+    --footer-height: 2em;
 
     /*
 	--color-theme-dark: #505358;
@@ -10,18 +17,28 @@
 	--color-text-accent: var(--color-theme-accent);
 	--color-border-dark: var(--color-theme-dark);
 	*/
-    --header-height: 5em;
-    --footer-height: 2em;
-
-    --bs-body-font-size: 12px;
 
     --bs-primary-rgb: var(--theme-primary-rgb);
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        --bs-body-bg: #f5f5f5;
-        --bs-body-bg-rgb: 245, 245, 245;
+        --bg-primary: rgb(245, 245, 245);
+        --bg-primary-rgb: 245, 245, 245;
+        --bg-primary-negative: rgb(48, 50, 54);
+        --bg-primary-negative-rgb: 48, 50, 54;
+        --bg-secondary: rgb(195, 195, 195);
+        --bg-secondary-rgb: 195, 195, 195;
+
+        --text-dark: rgb(73, 80, 87);
+        --text-dark-rgb: 73, 80, 87;
+        --text-light: rgb(208, 211, 216);
+        --text-light-rgb: 208, 211, 216;
+        --text-primary: var(--text-dark);
+        --text-primary-rgb: var(--text-dark-rgb);
+        --text-primary-negative: var(--text-light);
+        --text-primary-negative-rgb: var(--text-light-rgb);
+
         --bs-body-bg-negative: #303236;
         --bs-body-bg-negative-rgb: 48, 50, 54;
         --bs-secondary-bg: #e9ecef;
@@ -89,8 +106,22 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bs-body-bg: #212529;
-        --bs-body-bg-rgb: 33, 37, 41;
+        --bg-primary: rgb(33, 37, 41);
+        --bg-primary-rgb: 33, 37, 41;
+        --bg-primary-negative: rgb(155, 155, 155);
+        --bg-primary-negative-rgb: 155, 155, 155;
+        --bg-secondary: rgb(67, 75, 80);
+        --bg-secondary-rgb: 67, 75, 80;
+
+        --text-dark: rgb(33, 35, 39);
+        --text-dark-rgb: 33, 35, 39;
+        --text-light: rgb(178, 182, 185);
+        --text-light-rgb: 178, 182, 185;
+        --text-primary: var(--text-light);
+        --text-primary-rgb: var(--text-light-rgb);
+        --text-primary-negative: var(--text-dark);
+        --text-primary-negative-rgb: var(--text-dark-rgb);
+
         --bs-body-bg-negative: rgb(155, 155, 155);
         --bs-body-bg-negative-rgb: 155, 155, 155;
         --bs-secondary-bg: #343a40;
@@ -151,89 +182,33 @@
     }
 }
 
-.btn-outline-primary {
-    border-color: var(--theme-primary);
-    color: var(--theme-primary);
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--theme-primary);
-    border-color: var(--theme-primary);
-    color: var(--bs-dark-text);
-}
-
 html {
     font-family: 'Montserrat', 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: var(--bs-body-font-size);
+    font-size: var(--body-font-size);
     letter-spacing: 1px;
 }
 
 body {
     margin: 0;
-}
-
-main {
-    padding-top: 2rem;
+    background-color: var(--bg-primary);
 }
 
 a {
     text-decoration: none;
+    color: var(--text-primary);
+}
+
+a.invert-color {
+    color: var(--text-primary-negative);
 }
 
 a:hover {
+    color: var(--text-accent);
     text-shadow: 0.5px 0.5px var(--bs-link-text-shadow);
     transition: color 0.2s linear, text-shadow 0.2s linear;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-    color: var(--color-theme-darker);
-}
-
-h1 {
-    font-size: 3.5rem;
-    line-height: 3.7rem;
-    margin: 0 0 3.3rem 0;
-    font-weight: 300;
-    letter-spacing: -0.08rem;
-}
-
-h2 {
-    font-size: 23px;
-    font-weight: 300;
-    margin: 0 0 20px;
-    line-height: 35px;
-    letter-spacing: 1px;
-}
-
-h3 {
-    font-size: 28px;
-    font-weight: 400;
-    letter-spacing: normal;
-    line-height: 28px;
-    margin-bottom: 30px;
-    margin: 0;
-}
-
-h4 {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 26px;
-    letter-spacing: normal;
-    margin: 0 0 15px 0;
-}
-
-h5 {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: normal;
-    margin: 0 0 15px 0;
-}
-
+/*
 .separator {
     margin-bottom: 30px !important;
     box-sizing: border-box;
@@ -248,4 +223,4 @@ h5 {
     width: 35px;
     border-top: 2px solid rgb(252, 200, 19);
     margin: 6px 0 10px;
-}
+} */

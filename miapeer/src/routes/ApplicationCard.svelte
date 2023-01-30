@@ -3,9 +3,7 @@
 </script>
 
 <a href={application.url} class="card">
-    <div class="icon">
-        <i class={application.icon} />
-    </div>
+    <i class={`icon ${application.icon}`} />
     <div class="name">{application.name}</div>
     <div class="description">{@html application.description}</div>
 </a>
@@ -15,7 +13,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(var(--bg-primary-negative-rgb), 0.1);
+        box-sizing: border-box;
         padding: 1.5rem;
         width: 20rem;
         height: 30rem;
@@ -24,7 +23,7 @@
     }
 
     .card:hover {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(var(--bg-primary-negative-rgb), 0.5);
     }
 
     .card > * {
@@ -32,23 +31,14 @@
         transition: color 0.5s;
     }
 
-    .card > .icon {
+    .card .icon {
         border-radius: 100%;
-        background-color: var(--color-theme-dark);
-        width: 4rem;
-        height: 4rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .card > .icon > i {
+        background-color: var(--bg-secondary);
         font-size: 3rem;
-        color: var(--color-text-light);
-    }
-
-    .card:hover > .icon > i {
-        color: var(--color-text-accent);
+        text-align: center;
+        line-height: 4rem;
+        height: 4rem;
+        width: 4rem;
     }
 
     .card > .name {

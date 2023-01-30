@@ -94,10 +94,11 @@
 
     .text-overlay > div {
         position: absolute;
-        top: 100px;
-        left: 100px;
+        left: 0;
+        right: 0;
+        padding: 0 4rem;
         font-size: 2rem;
-        color: var(--bs-light-text);
+        color: var(--text-light);
         z-index: 1;
         transition: all 2s ease 0s;
     }
@@ -115,13 +116,16 @@
         section {
             padding: 0;
         }
+
+        .text-overlay > div {
+            padding: 1rem;
+        }
     }
 
     @media (max-width: 640px) {
         .text-overlay > div {
-            top: 4rem;
-            left: 10px;
-            font-size: 2rem;
+            font-size: 1.5rem;
+            text-align: center;
         }
     }
 </style>

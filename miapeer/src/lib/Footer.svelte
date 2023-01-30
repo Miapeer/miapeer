@@ -7,17 +7,17 @@
     {#if lastUpdate}
         <span>Updated: {lastUpdate === 'dev' ? 'dev' : new Date(lastUpdate).toLocaleString()}</span>
     {/if}
-    <a href="/portfolio">Jeff Navarra's Portfolio</a>
+    <a class="invert-color" href="/portfolio">Jeff Navarra's Portfolio</a>
 </footer>
 
 <style>
     footer {
-        background-color: rgba(var(--bs-body-bg-negative-rgb), 0.8);
+        background-color: rgba(var(--bg-primary-negative-rgb), 0.8);
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 0 1em;
-        color: var(--bs-body-color-negative);
+        color: var(--text-primary-negative);
         left: 0px;
         right: 0px;
         bottom: 0px;

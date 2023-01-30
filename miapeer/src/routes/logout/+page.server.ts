@@ -10,8 +10,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
     default: async ({ cookies }) => {
-        console.log('logout');
-
         cookies.set('MAT', '', {
             path: '/',
             expires: new Date(0)
