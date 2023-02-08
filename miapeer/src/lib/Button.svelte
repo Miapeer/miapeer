@@ -26,12 +26,9 @@
         background-color: rgba(var(--bg-accent-rgb), 0.1);
         padding: 1rem 2rem;
         border: 1px solid var(--bg-accent);
-        border-radius: 20px;
+        border-radius: 2rem;
         text-transform: uppercase;
         letter-spacing: inherit;
-        /* transition-property: background-color, color;
-        transition-duration: 0.2s;
-        transition-timing-function: ease; */
         transition: all 0.2s ease;
 
         cursor: pointer;
