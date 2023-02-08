@@ -1,13 +1,15 @@
 <script>
+    import Link from '$lib/Link.svelte';
+
     export let lastUpdate;
 </script>
 
-<footer>
+<footer class="invert-color">
     <span>&copy; 2015-{new Date().getFullYear()}, Miapeer LLC</span>
     {#if lastUpdate}
         <span>Updated: {lastUpdate === 'dev' ? 'dev' : new Date(lastUpdate).toLocaleString()}</span>
     {/if}
-    <a class="invert-color" href="/portfolio">Jeff Navarra's Portfolio</a>
+    <Link href="/portfolio">Jeff Navarra's Portfolio</Link>
 </footer>
 
 <style>
@@ -17,7 +19,6 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 1em;
-        color: var(--text-primary-negative);
         left: 0px;
         right: 0px;
         bottom: 0px;

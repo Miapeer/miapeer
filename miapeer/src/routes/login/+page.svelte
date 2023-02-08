@@ -1,23 +1,45 @@
-<form method="POST" class="container">
-    <div class="row">
-        <h1>Sign In</h1>
+<script>
+    import TextField from '$lib/TextField.svelte';
+    import Button from '$lib/Button.svelte';
+    import { goto, invalidateAll } from '$app/navigation';
+
+    let email = '';
+    let password = '';
+
+    const handleLogin = async () => {
+        const res = await fetch('/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            invalidateAll();
+            goto(data.redirectUrl ?? '/');
+        } else {
+            console.log('NOT ok');
+        }
+    };
+</script>
+
+<form>
+    <h1>Sign In</h1>
+
+    <div>
+        <TextField placeholder={'Email'} bind:value={email} />
     </div>
 
-    <div class="row">
-        <div class="mb-3 col-xs-12 col-md-6">
-            <label for="email-input" class="form-label">Email</label>
-            <input id="email-input" name="email" type="email" class="form-control" />
-        </div>
+    <div>
+        <TextField type="password" placeholder={'Password'} bind:value={password} />
     </div>
-    <div class="row">
-        <div class="mb-3 col-xs-12 col-md-6">
-            <label for="password-input" class="form-label">Password</label>
-            <input id="password-input" name="password" type="password" class="form-control" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="mb-3 col-xs-12 col-md-6">
-            <button class="btn btn-outline-primary float-end">Log In</button>
-        </div>
-    </div>
+
+    <Button disabled={!email || !password} onClick={handleLogin}>Log In</Button>
 </form>
+
+<style>
+    form {
+        padding: 0 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+</style>

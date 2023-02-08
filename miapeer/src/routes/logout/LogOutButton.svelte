@@ -1,7 +1,8 @@
 <script>
+    import Link from '$lib/Link.svelte';
+
     export let userName;
 </script>
 
-<span>
-    <a data-sveltekit-preload-data="tap" href="/logout">Log Out</a>
-</span>
+<!-- <a data-sveltekit-preload-data="tap" href="/logout">Log Out</a> -->
+<Link href="/logout">Log Out</Link>

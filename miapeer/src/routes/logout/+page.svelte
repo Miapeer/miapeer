@@ -8,7 +8,23 @@ export const prerender = false;
 export async function load() {
     // invalidateAll();
 } -->
+<script>
+    import { goto, invalidateAll } from '$app/navigation';
+    import Button from '$lib/Button.svelte';
 
-<form method="POST">
-    <button>Log out</button>
-</form>
+    const handleLogout = async () => {
+        const res = await fetch('/logout', {
+            method: 'POST'
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            invalidateAll();
+            goto(data.redirectUrl ?? '/');
+        } else {
+            console.log('NOT ok');
+        }
+    };
+</script>
+
+<Button onClick={handleLogout}>Log Out</Button>

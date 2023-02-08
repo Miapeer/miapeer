@@ -3,6 +3,7 @@
     --theme-primary-rgb: 252, 200, 19;
 
     --text-accent: var(--theme-primary);
+    --text-accent-rgb: var(--theme-primary-rgb);
 
     --body-font-size: 12px;
 
@@ -106,21 +107,30 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: rgb(33, 37, 41);
-        --bg-primary-rgb: 33, 37, 41;
-        --bg-primary-negative: rgb(155, 155, 155);
-        --bg-primary-negative-rgb: 155, 155, 155;
-        --bg-secondary: rgb(67, 75, 80);
-        --bg-secondary-rgb: 67, 75, 80;
+        --palette-darker: rgb(33, 37, 41);
+        --palette-darker-rgb: 33, 37, 41;
+        --palette-dark: rgb(67, 75, 80);
+        --palette-dark-rgb: 67, 75, 80;
+        --palette-light: rgb(155, 155, 155);
+        --palette-light-rgb: 155, 155, 155;
 
-        --text-dark: rgb(33, 35, 39);
-        --text-dark-rgb: 33, 35, 39;
+        --bg-primary: var(--palette-darker);
+        --bg-primary-rgb: var(--palette-darker-rgb);
+        --bg-primary-negative: var(--palette-light);
+        --bg-primary-negative-rgb: var(--palette-light-rgb);
+        --bg-secondary: var(--palette-dark);
+        --bg-secondary-rgb: var(--palette-dark-rgb);
+
+        --text-dark: var(--palette-darker);
+        --text-dark-rgb: var(--palette-darker-rgb);
         --text-light: rgb(178, 182, 185);
         --text-light-rgb: 178, 182, 185;
         --text-primary: var(--text-light);
         --text-primary-rgb: var(--text-light-rgb);
         --text-primary-negative: var(--text-dark);
         --text-primary-negative-rgb: var(--text-dark-rgb);
+        --text-secondary: var(--palette-light);
+        --text-secondary-rgb: var(--palette-light-rgb);
 
         --bs-body-bg-negative: rgb(155, 155, 155);
         --bs-body-bg-negative-rgb: 155, 155, 155;
@@ -191,21 +201,11 @@ html {
 body {
     margin: 0;
     background-color: var(--bg-primary);
-}
-
-a {
-    text-decoration: none;
     color: var(--text-primary);
 }
 
-a.invert-color {
+.invert-color {
     color: var(--text-primary-negative);
-}
-
-a:hover {
-    color: var(--text-accent);
-    text-shadow: 0.5px 0.5px var(--bs-link-text-shadow);
-    transition: color 0.2s linear, text-shadow 0.2s linear;
 }
 
 /*
