@@ -4,7 +4,7 @@
     export let lastUpdate;
 </script>
 
-<footer class="invert-color">
+<footer>
     <span>&copy; 2015-{new Date().getFullYear()}, Miapeer LLC</span>
     {#if lastUpdate}
         <span>Updated: {lastUpdate === 'dev' ? 'dev' : new Date(lastUpdate).toLocaleString()}</span>
@@ -14,6 +14,7 @@
 
 <style>
     footer {
+        color: var(--text-primary-negative);
         background-color: rgba(var(--bg-primary-negative-rgb), 0.8);
         display: flex;
         justify-content: space-between;

@@ -14,7 +14,7 @@
 
     a:hover {
         color: var(--text-accent);
-        text-shadow: 0.5px 0.5px var(--bs-link-text-shadow);
+        text-shadow: 0.5px 0.5px var(--text-primary);
         transition: color 0.2s linear, text-shadow 0.2s linear;
     }
 </style>

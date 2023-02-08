@@ -5,8 +5,11 @@
 
     let email = '';
     let password = '';
+    let loggingIn = false;
 
     const handleLogin = async () => {
+        loggingIn = true;
+
         const res = await fetch('/login', {
             method: 'POST',
             body: JSON.stringify({ email, password })
@@ -33,7 +36,7 @@
         <TextField type="password" placeholder={'Password'} bind:value={password} />
     </div>
 
-    <Button disabled={!email || !password} onClick={handleLogin}>Log In</Button>
+    <Button disabled={!email || !password} waiting={loggingIn} onClick={handleLogin}>Log In</Button>
 </form>
 
 <style>
