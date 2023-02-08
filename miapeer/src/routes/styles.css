@@ -64,7 +64,7 @@
 }
 
 /* Bootstrap stuff */
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
     :root {
         --bs-body-bg-negative: #303236;
         --bs-body-bg-negative-rgb: 48, 50, 54;
@@ -212,7 +212,7 @@
         --bs-light-border-subtle: #495057;
         --bs-dark-border-subtle: #343a40;
     }
-}
+} */
 
 html {
     font-family: var(--root-font-family);
