@@ -12,6 +12,9 @@
     >
         <slot />
     </button>
+    <i class="fa fa-hourglass-start" />
+    <i class="fa fa-hourglass-half" />
+    <i class="fa fa-hourglass-end" />
 </div>
 
 <style>
@@ -66,12 +69,118 @@
         animation-delay: 0.2s;
     }
 
+    .fa-hourglass-start {
+        top: -3rem;
+    }
+
+    .fa-hourglass-half {
+        top: -4.5rem;
+    }
+
+    .fa-hourglass-end {
+        top: -6rem;
+    }
+
+    .fa-hourglass-start,
+    .fa-hourglass-half,
+    .fa-hourglass-end {
+        pointer-events: none;
+        position: relative;
+        color: var(--text-accent);
+        font-size: 1.5rem;
+        display: none;
+        transition: all 0.2s ease;
+    }
+
+    button.waiting:not(.disabled) ~ .fa-hourglass-start {
+        display: block;
+        animation: stepped-spin-start 2s linear infinite;
+        animation-delay: 0.2s;
+    }
+
+    button.waiting:not(.disabled) ~ .fa-hourglass-half {
+        display: block;
+        animation: stepped-spin-half 2s linear infinite;
+        animation-delay: 0.2s;
+    }
+
+    button.waiting:not(.disabled) ~ .fa-hourglass-end {
+        display: block;
+        animation: stepped-spin-end 2s linear infinite;
+        animation-delay: 0.2s;
+    }
+
     @keyframes spin {
         0% {
             transform: rotate(0deg);
         }
         100% {
             transform: rotate(360deg);
+        }
+    }
+
+    @keyframes stepped-spin-start {
+        0% {
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+        20% {
+            transform: rotate(360deg);
+        }
+        40% {
+            opacity: 1;
+        }
+        80% {
+            opacity: 0;
+        }
+        99% {
+            transform: rotate(360deg);
+        }
+        100% {
+            opacity: 0;
+            transform: rotate(180deg);
+        }
+    }
+
+    @keyframes stepped-spin-half {
+        0% {
+            opacity: 0;
+        }
+        20% {
+            opacity: 0;
+        }
+        30% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes stepped-spin-end {
+        0% {
+            opacity: 0;
+        }
+        20% {
+            opacity: 0;
+        }
+        40% {
+            opacity: 0;
+        }
+        60% {
+            opacity: 0;
+        }
+        80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
         }
     }
 </style>
