@@ -16,7 +16,6 @@
 
 <style>
     .wrapper {
-        margin: 0.5rem 0;
         height: 3rem;
     }
 

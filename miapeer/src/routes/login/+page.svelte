@@ -25,24 +25,31 @@
     };
 </script>
 
-<form>
-    <h1>Sign In</h1>
+<div class="wrapper">
+    <div class="form">
+        <h1>Sign In</h1>
 
-    <div>
         <TextField placeholder={'Email'} bind:value={email} />
-    </div>
 
-    <div>
         <TextField type="password" placeholder={'Password'} bind:value={password} />
-    </div>
 
-    <Button disabled={!email || !password} waiting={loggingIn} onClick={handleLogin}>Log In</Button>
-</form>
+        <Button disabled={!email || !password} waiting={loggingIn} onClick={handleLogin}>
+            Log In
+        </Button>
+    </div>
+</div>
 
 <style>
-    form {
+    .wrapper {
         padding: 0 2rem;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        justify-content: center;
+    }
+
+    .form {
+        display: grid;
+        row-gap: 1rem;
+        width: 100vw;
+        max-width: 500px;
     }
 </style>

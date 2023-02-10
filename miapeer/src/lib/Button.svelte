@@ -2,12 +2,17 @@
     export let caption = '';
     export let disabled = false;
     export let waiting = false;
+    export let fullWidth = false;
     export let onClick = null;
 </script>
 
 <div class="wrapper">
     <button
-        class={[disabled ? 'disabled' : '', waiting ? 'waiting' : ''].join(' ')}
+        class={[
+            fullWidth ? 'full-width' : '',
+            disabled ? 'disabled' : '',
+            waiting ? 'waiting' : ''
+        ].join(' ')}
         on:click={disabled || waiting ? null : onClick}
     >
         <slot />
@@ -23,8 +28,6 @@
     }
 
     button {
-        width: 100%;
-        margin: 0.5rem 0;
         color: var(--text-accent);
         background-color: rgba(var(--bg-accent-rgb), 0.1);
         padding: 1rem 2rem;
@@ -32,9 +35,9 @@
         border-radius: 2rem;
         text-transform: uppercase;
         letter-spacing: inherit;
-        transition: all 0.2s ease;
-
         cursor: pointer;
+        transition-property: width, border-radius, background-color, border-color;
+        transition-duration: 0.2s;
     }
 
     button:hover {
@@ -69,16 +72,20 @@
         animation-delay: 0.2s;
     }
 
+    button.full-width {
+        width: 100%;
+    }
+
     .fa-hourglass-start {
-        top: -3rem;
+        top: -2.5rem;
     }
 
     .fa-hourglass-half {
-        top: -4.5rem;
+        top: -4rem;
     }
 
     .fa-hourglass-end {
-        top: -6rem;
+        top: -5.5rem;
     }
 
     .fa-hourglass-start,
