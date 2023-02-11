@@ -20,5 +20,5 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build --file ./Dockerfile-prod --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/miapeer:${{ github.sha }}
+          docker image build --file ./Dockerfile-prod --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/miapeer:${{ github.sha }} .
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/miapeer:${{ github.sha }}
