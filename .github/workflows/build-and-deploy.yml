@@ -1,9 +1,6 @@
 on: [push]
 name: Linux_Container_Workflow
 
-env:
-  PUBLIC_MIAPEER_API_HOST: https://api.miapeer.com
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -23,5 +20,5 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker image build --build-arg PUBLIC_MIAPEER_API_HOST=https://api.miapeer.com --file ./Dockerfile-prod --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/miapeer:${{ github.sha }} .
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/miapeer:${{ github.sha }}
+          docker image build --build-arg --file ./Dockerfile-prod --tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/miapeer .
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/miapeer
