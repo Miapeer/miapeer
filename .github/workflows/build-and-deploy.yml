@@ -1,6 +1,9 @@
 on: [push]
 name: Linux_Container_Workflow
 
+env:
+  PUBLIC_MIAPEER_API_HOST: https://api.miapeer.com
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
