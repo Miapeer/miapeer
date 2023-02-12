@@ -17,7 +17,7 @@ RUN echo \{\"lastUpdate\": \"`date -u`\"\} > ./last_update.json
 # ENV ORIGIN=https://www.miapeer.com
 
 # RUN ORIGIN=https://www.miapeer.com npm run build
-RUN npm run build
+RUN PUBLIC_MIAPEER_API_HOST=https://api.miapeer.com npm run build
 
 # # https://sveltesociety.dev/recipes/publishing-and-deploying/dockerize-a-svelte-app
 # # https://medium.com/@alpercitak/dockerize-sveltekit-1323771a12b1
