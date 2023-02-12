@@ -18,9 +18,6 @@
     --text-accent: var(--theme-primary);
     --text-accent-rgb: var(--theme-primary-rgb);
 
-    --header-height: 5em;
-    --footer-height: 2em;
-
     /*
 	--color-theme-dark: #505358;
 	--color-text-darker: #303030;
@@ -221,9 +218,16 @@ html {
 }
 
 body {
-    margin: 0;
     background-color: var(--bg-primary);
     color: var(--text-primary);
+    margin: 0;
+}
+
+input,
+textarea,
+button,
+select {
+    font: inherit;
 }
 
 /*

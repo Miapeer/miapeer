@@ -1,8 +1,40 @@
 <script lang="ts">
     import type { PageData } from './$types';
+    import { onMount } from 'svelte';
     import { invalidate } from '$app/navigation';
+    // import {watchResize} from 'svelte-watch-resize';
 
     export let data: PageData;
+
+    // let mainWidth;
+
+    // function handleLeftResize(node) {
+    //     mainWidth = node.clientWidth;
+    // }
+
+    // const getMaxWidth = () => {
+    //     let max = 0;
+    //     const elements = document.getElementsByClassName("sync-1");
+    //     Array.from(elements).forEach((element) => {
+    //         const width = parseInt(element.clientWidth);
+    //         if (width > max) {
+    //             max = width;
+    //         }
+    //     });
+
+    //     console.log(max);
+
+    //     return max;
+    // }
+
+    onMount(async () => {
+        const s1 = getMaxWidth();
+
+        const r = document.querySelector(':root');
+        const rs = getComputedStyle(r);
+        console.log(rs.getPropertyValue('--s1'));
+        r.style.setProperty('--s1', `${s1}px`);
+    });
 
     const lookupApplicationRole = (application_id, role_id) => {
         const filteredResults = data.applicationRoles.filter((ar) => {
@@ -84,20 +116,24 @@
     };
 </script>
 
+<!-- <div class="content leftContent" use:watchResize={handleLeftResize}>
+    {leftWidth}
+</div> -->
+
 <div class="container text-center">
     <!-- <div class="row">
-        <div class="col-md-4"></div>
+        <div class="col-4"></div>
         {#each data.applications as _, index}
-            <div class={`col-md-${data.roles.length} text-center`}>{data.applications[index].name}</div>
+            <div class={`col-${data.roles.length} text-center`}>{data.applications[index].name}</div>
         {/each}
     </div> -->
     <div class="row">
-        <div class="col-md-4" />
-        <div class="col-md-8">
+        <div class="col sync-1" />
+        <div class="col sync-2">
             <div class="row">
-                <div class="col-md-2" />
+                <div class="col-2" />
                 {#each data.roles as _, index}
-                    <div class={`col-md-${Math.floor(10 / data.roles.length)} text-center`}>
+                    <div class={`col-${Math.floor(10 / data.roles.length)} text-center`}>
                         {data.roles[index].name}
                     </div>
                 {/each}
@@ -106,15 +142,15 @@
     </div>
     {#each data.users as user}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col sync-1">
                 {user.email}
             </div>
-            <div class="col-md-8">
+            <div class="col sync-2">
                 {#each data.applications as application, applicationIndex}
                     <div class="row">
-                        <div class="col-md-2">{data.applications[applicationIndex].name}</div>
+                        <div class="col-2">{data.applications[applicationIndex].name}</div>
                         {#each data.roles as _, roleIndex}
-                            <div class={`col-md-${Math.floor(10 / data.roles.length)}`}>
+                            <div class={`col-${Math.floor(10 / data.roles.length)}`}>
                                 {#if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer' && data.roles[roleIndex].name === 'User'}
                                     {#if hasPermission(user.user_id, data.applications[applicationIndex].application_id, data.roles[roleIndex].role_id)}
                                         Yes
@@ -158,12 +194,46 @@
 </div>
 
 <style>
-    .container > .row {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container .row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sync-1 {
+        width: var(--s1);
+    }
+
+    /* .container .row > .col {
+        width: fit-content;
+    } */
+    /*
+    .container .row > .col-1 {
+        width: 10%;
+    }
+
+    .container .row > .col-2 {
+        width: 20%;
+    }
+
+    .container .row > .col-3 {
+        width: 30%;
+    }
+
+    .container .row > .col-4 {
+        width: 40%;
+    } */
+
+    /* .container > .row {
         border-bottom: 1px solid var(--bs-light-text);
     }
 
     i.bi {
         font-size: 3rem;
         cursor: pointer;
-    }
+    } */
 </style>
