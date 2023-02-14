@@ -97,10 +97,10 @@
 
         display: grid;
         grid-template-rows: 1fr auto;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1rem 1fr 1rem;
         grid-template-areas:
-            'main'
-            'footer';
+            'gutter-left main gutter-right'
+            'footer footer footer';
     }
 
     main {
