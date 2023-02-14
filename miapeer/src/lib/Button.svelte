@@ -6,7 +6,7 @@
     export let onClick = null;
 </script>
 
-<div class="wrapper">
+<div class="button-wrapper">
     <button
         class={[
             fullWidth ? 'full-width' : '',
@@ -23,21 +23,32 @@
 </div>
 
 <style>
-    .wrapper {
-        text-align: center;
+    .button-wrapper {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-areas: 'left button right';
+        place-items: center;
     }
 
     button {
+        grid-area: button;
         color: var(--text-accent);
         background-color: rgba(var(--bg-accent-rgb), 0.1);
-        padding: 1rem 2rem;
+        padding: 1em 2em;
         border: 1px solid var(--bg-accent);
-        border-radius: 2rem;
+        border-radius: 2em;
         text-transform: uppercase;
         letter-spacing: inherit;
         cursor: pointer;
-        transition-property: width, border-radius, background-color, border-color;
-        transition-duration: 0.2s;
+        width: fit-content;
+        transition-property: width, border-radius, background-color, border-color, padding;
+        transition-duration: 200ms;
+        transition-timing-function: ease-in-out;
+    }
+
+    button.full-width {
+        width: 100%;
+        grid-column: left / right;
     }
 
     button:hover {
@@ -62,59 +73,43 @@
         background-color: transparent;
         padding: 0;
         color: transparent;
-        font-size: 0rem;
-        height: 3.5rem;
-        width: 3.5rem;
+        height: 3.5em;
+        width: 3.5em;
         border-radius: 50%;
         border-color: rgba(var(--bg-accent-rgb), 0.5);
         border-top-color: var(--bg-accent);
         animation: spin 2s linear infinite;
-        animation-delay: 0.2s;
-    }
-
-    button.full-width {
-        width: 100%;
-    }
-
-    .fa-hourglass-start {
-        top: -2.5rem;
-    }
-
-    .fa-hourglass-half {
-        top: -4rem;
-    }
-
-    .fa-hourglass-end {
-        top: -5.5rem;
+        animation-delay: 200ms;
     }
 
     .fa-hourglass-start,
     .fa-hourglass-half,
     .fa-hourglass-end {
+        grid-area: button;
         pointer-events: none;
         position: relative;
         color: var(--text-accent);
-        font-size: 1.5rem;
+        font-size: 1.5em;
         display: none;
-        transition: all 0.2s ease;
+        transition: all 200ms ease-in-out;
     }
 
     button.waiting:not(.disabled) ~ .fa-hourglass-start {
         display: block;
         animation: stepped-spin-start 2s linear infinite;
-        animation-delay: 0.2s;
+        animation-delay: 200ms;
     }
 
     button.waiting:not(.disabled) ~ .fa-hourglass-half {
         display: block;
         animation: stepped-spin-half 2s linear infinite;
-        animation-delay: 0.2s;
+        animation-delay: 200ms;
     }
 
     button.waiting:not(.disabled) ~ .fa-hourglass-end {
         display: block;
         animation: stepped-spin-end 2s linear infinite;
-        animation-delay: 0.2s;
+        animation-delay: 200ms;
     }
 
     @keyframes spin {
@@ -128,24 +123,19 @@
 
     @keyframes stepped-spin-start {
         0% {
-            opacity: 1;
-            transform: rotate(180deg);
-        }
-        20% {
-            transform: rotate(360deg);
-        }
-        40% {
-            opacity: 1;
-        }
-        80% {
             opacity: 0;
         }
-        99% {
-            transform: rotate(360deg);
+        25% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        75% {
+            opacity: 0;
         }
         100% {
             opacity: 0;
-            transform: rotate(180deg);
         }
     }
 
@@ -153,17 +143,14 @@
         0% {
             opacity: 0;
         }
-        20% {
-            opacity: 0;
-        }
-        30% {
+        25% {
             opacity: 0;
         }
         50% {
-            opacity: 1;
-        }
-        90% {
             opacity: 0;
+        }
+        75% {
+            opacity: 1;
         }
         100% {
             opacity: 0;
@@ -172,22 +159,25 @@
 
     @keyframes stepped-spin-end {
         0% {
-            opacity: 0;
-        }
-        20% {
-            opacity: 0;
-        }
-        40% {
-            opacity: 0;
-        }
-        60% {
-            opacity: 0;
-        }
-        80% {
             opacity: 1;
+            transform: rotate(0deg);
+            left: -1px;
+        }
+        25% {
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+        50% {
+            opacity: 0;
+            transform: rotate(180deg);
+        }
+        75% {
+            opacity: 0;
+            transform: rotate(0deg);
         }
         100% {
             opacity: 1;
+            transform: rotate(0deg);
         }
     }
 </style>

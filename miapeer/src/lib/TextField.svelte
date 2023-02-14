@@ -16,31 +16,30 @@
 
 <style>
     .wrapper {
-        height: 3rem;
+        height: 3em;
     }
 
     input {
         width: 100%;
-        border: none;
         border: 1px solid var(--bg-secondary);
         background-color: transparent;
         color: var(--text-primary);
-        border-radius: 5px;
-        padding: 1rem;
+        border-radius: 0.5em;
+        padding: 1em;
         box-sizing: border-box;
-        height: 3rem;
+        height: 3em;
     }
 
     .placeholder {
         pointer-events: none;
         position: relative;
-        left: 1rem;
-        top: -2rem;
-        padding: 0 0.5rem;
+        left: 1em;
+        top: -2.1em;
+        padding: 0 0.5em;
         z-index: 1;
         background-color: var(--bg-primary);
         color: var(--text-secondary);
-        height: 1rem;
+        height: 1em;
         width: fit-content;
         transition-property: top, font-size;
         transition-duration: 0.2s;
@@ -49,7 +48,7 @@
 
     .wrapper:focus-within .placeholder,
     input:valid + .placeholder {
-        top: -3.5rem;
-        font-size: 0.8rem;
+        top: -4.5em;
+        font-size: 0.8em;
     }
 </style>
