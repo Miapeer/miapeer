@@ -75,20 +75,20 @@
         grid-area: header;
         background-color: rgba(var(--bg-primary-rgb), 0.9);
 
-        box-shadow: 0 0 10px black;
+        box-shadow: 0 0 1em black;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.25rem 1rem;
+        padding: 0.25em 1em;
         text-transform: uppercase;
     }
 
     .logo-img {
         background-color: var(--theme-primary);
         border: 1px solid black;
-        border-radius: 1rem;
-        height: 2.5rem;
-        padding: 0.5rem;
+        border-radius: 1em;
+        height: 3.5em;
+        padding: 0.5em;
     }
 
     .main-and-footer {
@@ -97,7 +97,7 @@
 
         display: grid;
         grid-template-rows: 1fr auto;
-        grid-template-columns: 1rem 1fr 1rem;
+        grid-template-columns: 1em 1fr 1em;
         grid-template-areas:
             'gutter-left main gutter-right'
             'footer footer footer';
