@@ -17,9 +17,9 @@
     >
         <slot />
     </button>
-    <i class="fa fa-hourglass-start" />
-    <i class="fa fa-hourglass-half" />
-    <i class="fa fa-hourglass-end" />
+    <i class="fa-solid fa-hourglass" />
+    <i class="fa-solid fa-hourglass-half" />
+    <i class="fa-solid fa-hourglass-end" />
 </div>
 
 <style>
@@ -28,6 +28,8 @@
         grid-template-columns: 1fr auto 1fr;
         grid-template-areas: 'left button right';
         place-items: center;
+
+        --animation-duration: 2s;
     }
 
     button {
@@ -78,37 +80,45 @@
         border-radius: 50%;
         border-color: rgba(var(--bg-accent-rgb), 0.5);
         border-top-color: var(--bg-accent);
-        animation: spin 2s linear infinite;
+        animation: spin var(--animation-duration) linear infinite;
         animation-delay: 200ms;
     }
 
+    .fa-hourglass,
     .fa-hourglass-start,
     .fa-hourglass-half,
     .fa-hourglass-end {
+        --faded: 0.7;
+
         grid-area: button;
         pointer-events: none;
         position: relative;
         color: var(--text-accent);
         font-size: 1.5em;
         display: none;
-        transition: all 200ms ease-in-out;
+    }
+
+    button.waiting:not(.disabled) ~ .fa-hourglass {
+        display: block;
+        animation: stepped-spin-main var(--animation-duration) linear infinite;
+        animation-delay: 200ms;
     }
 
     button.waiting:not(.disabled) ~ .fa-hourglass-start {
         display: block;
-        animation: stepped-spin-start 2s linear infinite;
+        animation: stepped-spin-start var(--animation-duration) linear infinite;
         animation-delay: 200ms;
     }
 
     button.waiting:not(.disabled) ~ .fa-hourglass-half {
         display: block;
-        animation: stepped-spin-half 2s linear infinite;
+        animation: stepped-spin-half var(--animation-duration) linear infinite;
         animation-delay: 200ms;
     }
 
     button.waiting:not(.disabled) ~ .fa-hourglass-end {
         display: block;
-        animation: stepped-spin-end 2s linear infinite;
+        animation: stepped-spin-end var(--animation-duration) linear infinite;
         animation-delay: 200ms;
     }
 
@@ -121,21 +131,30 @@
         }
     }
 
-    @keyframes stepped-spin-start {
+    @keyframes stepped-spin-main {
         0% {
-            opacity: 0;
+            transform: rotate(0deg);
+            left: 0px;
         }
         25% {
-            opacity: 0;
+            transform: rotate(180deg);
+            left: -1px;
         }
         50% {
-            opacity: 1;
+            transform: rotate(180deg);
+            left: -1px;
+        }
+        50.0001% {
+            transform: rotate(0deg);
+            left: 0px;
         }
         75% {
-            opacity: 0;
+            transform: rotate(0deg);
+            left: 0px;
         }
         100% {
-            opacity: 0;
+            transform: rotate(0deg);
+            left: 0px;
         }
     }
 
@@ -147,10 +166,10 @@
             opacity: 0;
         }
         50% {
-            opacity: 0;
+            opacity: var(--faded);
         }
         75% {
-            opacity: 1;
+            opacity: 0;
         }
         100% {
             opacity: 0;
@@ -159,25 +178,34 @@
 
     @keyframes stepped-spin-end {
         0% {
-            opacity: 1;
+            opacity: var(--faded);
             transform: rotate(0deg);
-            left: -1px;
+            left: 0px;
         }
         25% {
-            opacity: 1;
+            opacity: var(--faded);
             transform: rotate(180deg);
+            left: -1px;
         }
         50% {
             opacity: 0;
             transform: rotate(180deg);
+            left: 0px;
         }
-        75% {
+        51% {
             opacity: 0;
             transform: rotate(0deg);
+            left: 0px;
+        }
+        75% {
+            opacity: var(--faded);
+            transform: rotate(0deg);
+            left: 0px;
         }
         100% {
-            opacity: 1;
+            opacity: var(--faded);
             transform: rotate(0deg);
+            left: 0px;
         }
     }
 </style>
