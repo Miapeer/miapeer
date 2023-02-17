@@ -1,5 +1,4 @@
 <script type="typescript">
-    import 'font-awesome/css/font-awesome.min.css';
     import './styles.css';
 
     import Link from '$lib/Link.svelte';
