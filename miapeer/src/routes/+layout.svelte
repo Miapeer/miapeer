@@ -49,7 +49,7 @@
                 <span
                     >Updated: {data.lastUpdate === 'dev'
                         ? 'DEV'
-                        : new Date(lastUpdate).toLocaleString()}</span
+                        : new Date(data.lastUpdate).toLocaleString()}</span
                 >
             {/if}
             <Link href="/portfolio">Jeff Navarra's Portfolio</Link>
