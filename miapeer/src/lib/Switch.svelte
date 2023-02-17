@@ -10,11 +10,18 @@
     class={['switch-wrapper', containButton ? 'contained' : '', checked ? 'checked' : ''].join(' ')}
     on:click={(e) => {
         checked = !checked;
-        onClick(e);
+
+        if (onClick) {
+            onClick(e);
+        }
         if (checked) {
-            onSwitchOn(e);
+            if (onSwitchOn) {
+                onSwitchOn(e);
+            }
         } else {
-            onSwitchOff(e);
+            if (onSwitchOff) {
+                onSwitchOff(e);
+            }
         }
     }}
 >
