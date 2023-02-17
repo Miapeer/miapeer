@@ -1,6 +1,5 @@
 <script>
     export let containButton = false;
-    export let label = 'test';
     export let checked = false;
     export let onClick = null;
     export let onSwitchOn = null;
@@ -21,7 +20,7 @@
 >
     <div class="slide">
         <div class="button" />
-        <div class="label">{label}</div>
+        <div class="label"><slot>&nbsp;</slot></div>
     </div>
 </div>
 
@@ -30,6 +29,7 @@
         display: flex;
         align-items: center;
         height: 100%;
+        min-height: 100%;
         cursor: pointer;
         position: relative;
         user-select: none;
@@ -39,9 +39,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(var(--bg-primary-negative-rgb), 0.3);
+        background-color: var(--bg-secondary);
         border-radius: 1em;
         height: 65%;
+        line-height: 65%;
         width: 100%;
         color: var(--text-primary);
 
@@ -58,8 +59,8 @@
         content: '';
         border-radius: 50%;
         position: absolute;
-        background-color: var(--bg-primary-negative);
-        box-shadow: 1px 1px 3px black;
+        background-color: var(--bg-lighter);
+        box-shadow: 1px 1px 5px black;
         height: 100%;
         aspect-ratio: 1 / 1;
         left: 0em;
