@@ -66,7 +66,7 @@
         content: '';
         border-radius: 50%;
         position: absolute;
-        background-color: var(--bg-lighter);
+        background-color: var(--bg-primary-negative);
         box-shadow: 1px 1px 5px black;
         height: 100%;
         aspect-ratio: 1 / 1;
