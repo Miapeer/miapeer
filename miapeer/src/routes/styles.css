@@ -5,15 +5,29 @@
     --theme-primary: rgb(252, 200, 19);
     --theme-primary-rgb: 252, 200, 19;
 
+    --theme-darkest: rgb(10, 10, 10);
+    --theme-darkest-rgb: 10, 10, 10;
     --theme-darker: rgb(33, 37, 41);
     --theme-darker-rgb: 33, 37, 41;
     --theme-dark: rgb(67, 75, 80);
     --theme-dark-rgb: 67, 75, 80;
+    --theme-neutral: rgb(110, 110, 110);
+    --theme-neutral-rgb: 110, 110, 110;
     --theme-light: rgb(155, 155, 155);
     --theme-light-rgb: 155, 155, 155;
+    --theme-lighter: rgb(200, 200, 200);
+    --theme-lighter-rgb: 200, 200, 200;
+    --theme-lightest: rgb(245, 245, 245);
+    --theme-lightest-rgb: 245, 245, 245;
 
     --bg-accent: var(--theme-primary);
     --bg-accent-rgb: var(--theme-primary-rgb);
+    --bg-light: var(--theme-light);
+    --bg-light-rgb: var(--theme-light-rgb);
+    --bg-lighter: var(--theme-lighter);
+    --bg-lighter-rgb: var(--theme-lighter-rgb);
+    --bg-lightest: var(--theme-lightest);
+    --bg-lightest-rgb: var(--theme-lightest-rgb);
 
     --text-accent: var(--theme-primary);
     --text-accent-rgb: var(--theme-primary-rgb);
@@ -30,12 +44,14 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --bg-primary: rgb(245, 245, 245);
-        --bg-primary-rgb: 245, 245, 245;
-        --bg-primary-negative: rgb(48, 50, 54);
-        --bg-primary-negative-rgb: 48, 50, 54;
-        --bg-secondary: rgb(195, 195, 195);
-        --bg-secondary-rgb: 195, 195, 195;
+        --bg-primary: var(--theme-lightest);
+        --bg-primary-rgb: var(--theme-lightest-rgb);
+        --bg-primary-negative: var(--theme-darker);
+        --bg-primary-negative-rgb: var(--theme-darker-rgb);
+        --bg-secondary: var(--theme-lighter);
+        --bg-secondary-rgb: var(--theme-lighter-rgb);
+        --bg-neutral: var(--theme-neutral);
+        --bg-neutral-rgb: var(--theme-neutral-rgb);
 
         --text-primary: var(--theme-dark);
         --text-primary-rgb: var(--theme-dark-rgb);
@@ -52,6 +68,8 @@
         --bg-primary-negative-rgb: var(--theme-light-rgb);
         --bg-secondary: var(--theme-dark);
         --bg-secondary-rgb: var(--theme-dark-rgb);
+        --bg-neutral: var(--theme-neutral);
+        --bg-neutral-rgb: var(--theme-neutral-rgb);
 
         --text-primary: var(--theme-light);
         --text-primary-rgb: var(--theme-light-rgb);
