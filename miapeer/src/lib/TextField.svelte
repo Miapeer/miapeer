@@ -1,17 +1,18 @@
 <script>
     export let type = 'text';
     export let placeholder = '';
-    export let value = '';
+    export let value = null;
+    export let filled = false;
 
     const handleInput = (e) => {
-        // In here, you can switch on type and implement whatever behaviour you need
-        value = type.match(/^(number|range)$/) ? +e.target.value : e.target.value;
+        filled = !!e.target.value;
+        value = e.target.value;
     };
 </script>
 
 <div class="wrapper">
-    <input {type} required={true} {value} on:input={handleInput} />
-    <div class="placeholder">{placeholder}</div>
+    <input {type} {value} class={[filled ? 'filled' : null].join(' ')} on:input={handleInput} />
+    <label>{placeholder}</label>
 </div>
 
 <style>
@@ -30,12 +31,12 @@
         height: 3em;
     }
 
-    .placeholder {
+    label {
         pointer-events: none;
         position: relative;
         left: 1em;
         top: -2.1em;
-        padding: 0 0.5em 1.4em 0.5em;
+        padding: 0.25em 0.5em;
         z-index: 1;
         background-color: var(--bg-primary);
         color: var(--text-secondary);
@@ -47,8 +48,8 @@
         transition-timing-function: ease;
     }
 
-    .wrapper:focus-within .placeholder,
-    input:valid + .placeholder {
+    .wrapper:focus-within label,
+    input.filled + label {
         top: -4.5em;
         font-size: 0.8em;
     }
