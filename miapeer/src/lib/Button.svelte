@@ -1,5 +1,4 @@
 <script>
-    export let caption = '';
     export let disabled = false;
     export let waiting = false;
     export let fullWidth = false;
@@ -85,7 +84,6 @@
     }
 
     .fa-hourglass,
-    .fa-hourglass-start,
     .fa-hourglass-half,
     .fa-hourglass-end {
         --faded: 0.7;
@@ -101,12 +99,6 @@
     button.waiting:not(.disabled) ~ .fa-hourglass {
         display: block;
         animation: stepped-spin-main var(--animation-duration) linear infinite;
-        animation-delay: 200ms;
-    }
-
-    button.waiting:not(.disabled) ~ .fa-hourglass-start {
-        display: block;
-        animation: stepped-spin-start var(--animation-duration) linear infinite;
         animation-delay: 200ms;
     }
 

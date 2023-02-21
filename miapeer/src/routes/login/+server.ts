@@ -4,48 +4,6 @@ import type { RequestHandler } from './$types';
 export const POST = (async ({ request, locals, cookies, url }) => {
     const { email, password } = await request.json();
 
-    console.log(email);
-
-    // let response;
-
-    // if (permit) {
-    //     if (userId && applicationRoleId) {
-    //         const data = JSON.stringify({
-    //             user_id: userId,
-    //             application_role_id: applicationRoleId
-    //         });
-
-    //         response = await fetch(`${locals.app.miapeerApiBase}/permissions/`, {
-    //             method: 'POST',
-    //             body: data,
-    //             headers: locals.auth.headers
-    //         });
-    //     }
-    // } else {
-    //     if (permissionId) {
-    //         response = await fetch(`${locals.app.miapeerApiBase}/permissions/${permissionId}`, {
-    //             method: 'DELETE',
-    //             headers: locals.auth.headers
-    //         });
-    //     }
-    // }
-
-    // if (!response) {
-    //     throw error(500, 'Invalid request data');
-    // } else if (!response.ok) {
-    //     throw error(response?.status, await response?.json());
-    // }
-
-    // return json({
-    // 	request: {
-    // 		userId,
-    // 		applicationRoleId,
-    // 		permissionId,
-    // 		permit
-    // 	},
-    // 	response: await response.json()
-    // });
-
     var requestData = new URLSearchParams();
     requestData.append('username', email);
     requestData.append('password', password);

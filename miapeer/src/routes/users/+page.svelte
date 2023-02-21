@@ -78,3 +78,10 @@
         </div>
     {/each}
 </section>
+
+<style>
+    .user-management-grid {
+        margin: 0 auto;
+        max-width: 50em;
+    }
+</style>

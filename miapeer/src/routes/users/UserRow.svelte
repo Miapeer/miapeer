@@ -85,7 +85,7 @@
 <style>
     .user-row {
         display: grid;
-        grid-template-columns: repeat(4, auto);
+        grid-template-columns: repeat(4, 1fr);
         grid-template-areas:
             'user user user user'
             '... role1 role2 role3'

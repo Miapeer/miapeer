@@ -35,12 +35,13 @@
         position: relative;
         left: 1em;
         top: -2.1em;
-        padding: 0 0.5em;
+        padding: 0 0.5em 1.4em 0.5em;
         z-index: 1;
         background-color: var(--bg-primary);
         color: var(--text-secondary);
         height: 1em;
         width: fit-content;
+        border-radius: 1em;
         transition-property: top, font-size;
         transition-duration: 0.2s;
         transition-timing-function: ease;

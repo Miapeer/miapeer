@@ -40,7 +40,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     event.locals.app = {
         lastUpdate: lastUpdate.lastUpdate,
-        miapeerApiBase: `${PUBLIC_MIAPEER_API_HOST}/miapeer/v1`
+        miapeerApiBase: `${PUBLIC_MIAPEER_API_HOST}/miapeer/v1`,
+        quantumApiBase: `${PUBLIC_MIAPEER_API_HOST}/quantum/v1`
     };
 
     event.locals.auth = {
