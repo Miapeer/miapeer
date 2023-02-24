@@ -11,7 +11,7 @@
 </script>
 
 <div class="wrapper">
-    <input {type} {value} class={[filled ? 'filled' : null].join(' ')} on:input={handleInput} />
+    <input {type} class:filled {value} on:input={handleInput} />
     <label>{placeholder}</label>
 </div>
 
