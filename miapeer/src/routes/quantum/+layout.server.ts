@@ -1,13 +1,61 @@
-/** @type {import('./$types').LayoutServerLoad} */
-export async function load({ fetch, locals }) {
-    let accounts = [];
+let portfolioId = null;
 
-    const response = await fetch(`${locals.app.quantumApiBase}/accounts`, {
+/** @type {import('./$types').LayoutServerLoad} */
+export async function load({ depends, locals }) {
+    depends('quantum:accounts');
+
+    await ensureUserHasPortfolio(locals);
+
+    const accounts = await getUserAccounts(locals);
+
+    return { portfolioId, accounts };
+}
+
+const ensureUserHasPortfolio = async (locals) => {
+    // Portfolios
+    const portfoliosResponse = await fetch(`${locals.app.quantumApiBase}/portfolios/`, {
         headers: locals.auth.headers
     });
 
-    accounts = await response.json();
-    console.log(accounts);
+    if (!portfoliosResponse.ok) {
+        console.error(portfoliosResponse.statusText);
+        return;
+    }
 
-    return { accounts };
-}
+    const portfolios = await portfoliosResponse.json();
+
+    if (portfolios.length === 0) {
+        const newPortfolio = await createUserPortfolio(locals);
+        portfolioId = newPortfolio.portfolio_id;
+    } else if (portfolios[0].portfolio_id !== portfolioId) {
+        portfolioId = portfolios[0].portfolio_id;
+    }
+};
+
+const createUserPortfolio = async (locals) => {
+    const createPortfolioResponse = await fetch(`${locals.app.quantumApiBase}/portfolios/`, {
+        headers: locals.auth.headers,
+        method: 'POST',
+        body: '{}'
+    });
+
+    if (!createPortfolioResponse.ok) {
+        console.error(createPortfolioResponse.statusText);
+        return;
+    }
+
+    return await createPortfolioResponse.json();
+};
+
+const getUserAccounts = async (locals) => {
+    const accountsResponse = await fetch(`${locals.app.quantumApiBase}/accounts/`, {
+        headers: locals.auth.headers
+    });
+
+    if (!accountsResponse.ok) {
+        console.error(accountsResponse.statusText);
+        return;
+    }
+
+    return accountsResponse.json();
+};
