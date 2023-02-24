@@ -1,8 +1,9 @@
 <script>
+    export let cssClass = '';
     export let href = '';
 </script>
 
-<a {href}>
+<a class={cssClass} {href}>
     <slot />
 </a>
 
