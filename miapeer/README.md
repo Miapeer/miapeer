@@ -1,3 +1,20 @@
+---
+# How to dev
+## 1
+- Use VS code tasks to start API container
+- Use VS code launch to start FE
+
+## 2
+- Use VS code tasks to start API container
+- Use VS code tasks to start FE container
+  - This has trouble with connection between the two containers that needs to be figured out
+
+## 3
+- Use VS code launch to start API container
+- Use VS code launch to start FE
+  - This has trouble with connection between the API and FE that needs to be figured out
+---
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
