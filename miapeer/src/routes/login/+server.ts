@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 export const POST = (async ({ request, locals, cookies, url }) => {
     const { email, password } = await request.json();
 
-    var requestData = new URLSearchParams();
+    const requestData = new URLSearchParams();
     requestData.append('username', email);
     requestData.append('password', password);
     requestData.append('grant_type', 'password');

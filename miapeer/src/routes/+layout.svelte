@@ -104,7 +104,6 @@
 
     main {
         grid-area: main;
-        font-size: 1.2rem;
     }
 
     footer {

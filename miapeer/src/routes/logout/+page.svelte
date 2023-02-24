@@ -27,4 +27,6 @@ export async function load() {
     };
 </script>
 
+Turn this into a profile/settings page with logout button
+
 <Button onClick={handleLogout}>Log Out</Button>

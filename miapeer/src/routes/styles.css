@@ -1,6 +1,6 @@
 :root {
     --root-font-family: 'Montserrat', 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --root-font-size: 12px;
+    --root-font-size: 16px;
 
     --theme-primary: rgb(252, 200, 19);
     --theme-primary-rgb: 252, 200, 19;
@@ -62,19 +62,21 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: var(--theme-darker);
-        --bg-primary-rgb: var(--theme-darker-rgb);
-        --bg-primary-negative: var(--theme-light);
-        --bg-primary-negative-rgb: var(--theme-light-rgb);
-        --bg-secondary: var(--theme-dark);
-        --bg-secondary-rgb: var(--theme-dark-rgb);
+        --bg-primary: var(--theme-darkest);
+        --bg-primary-rgb: var(--theme-darkest-rgb);
+        --bg-primary-negative: var(--theme-lightest);
+        --bg-primary-negative-rgb: var(--theme-lightest-rgb);
+        --bg-secondary: var(--theme-darker);
+        --bg-secondary-rgb: var(--theme-darker-rgb);
+        --bg-tertiary: var(--theme-dark);
+        --bg-tertiary-rgb: var(--theme-dark-rgb);
         --bg-neutral: var(--theme-neutral);
         --bg-neutral-rgb: var(--theme-neutral-rgb);
 
-        --text-primary: var(--theme-light);
-        --text-primary-rgb: var(--theme-light-rgb);
-        --text-primary-negative: var(--theme-dark);
-        --text-primary-negative-rgb: var(--theme-dark-rgb);
+        --text-primary: var(--theme-lighter);
+        --text-primary-rgb: var(--theme-lighter-rgb);
+        --text-primary-negative: var(--theme-darker);
+        --text-primary-negative-rgb: var(--theme-darker-rgb);
     }
 }
 
