@@ -7,7 +7,9 @@
 </script>
 
 <div
-    class={['switch-wrapper', containButton ? 'contained' : '', checked ? 'checked' : ''].join(' ')}
+    class="switch-wrapper"
+    class:contained={containButton}
+    class:checked
     on:click={(e) => {
         checked = !checked;
 
