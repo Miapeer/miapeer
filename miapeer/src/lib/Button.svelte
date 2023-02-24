@@ -2,16 +2,17 @@
     export let disabled = false;
     export let waiting = false;
     export let fullWidth = false;
+    export let size = 'medium';
     export let onClick = null;
 </script>
 
 <div class="button-wrapper">
     <button
-        class={[
-            fullWidth ? 'full-width' : '',
-            disabled ? 'disabled' : '',
-            waiting ? 'waiting' : ''
-        ].join(' ')}
+        class:fullWidth
+        class:disabled
+        class:waiting
+        class:small={size === 'small'}
+        class:large={size === 'large'}
         on:click={disabled || waiting ? null : onClick}
     >
         <slot />
@@ -35,19 +36,29 @@
         grid-area: button;
         color: var(--text-accent);
         background-color: rgba(var(--bg-accent-rgb), 0.1);
-        padding: 1em 2em;
+        padding: 0.75em 1.5em;
         border: 1px solid var(--bg-accent);
         border-radius: 2em;
         text-transform: uppercase;
         letter-spacing: inherit;
         cursor: pointer;
         width: fit-content;
+        min-height: 3em;
         transition-property: width, border-radius, background-color, border-color, padding;
         transition-duration: 200ms;
         transition-timing-function: ease-in-out;
+        font-size: 0.8em;
     }
 
-    button.full-width {
+    button.small {
+        font-size: 0.6em;
+    }
+
+    button.large {
+        font-size: 1em;
+    }
+
+    button.fullWidth {
         width: 100%;
         grid-column: left / right;
     }
@@ -74,13 +85,17 @@
         background-color: transparent;
         padding: 0;
         color: transparent;
-        height: 3.5em;
-        width: 3.5em;
-        border-radius: 50%;
+        height: 3em;
+        width: 3em;
         border-color: rgba(var(--bg-accent-rgb), 0.5);
         border-top-color: var(--bg-accent);
         animation: spin var(--animation-duration) linear infinite;
         animation-delay: 200ms;
+    }
+
+    button.large.waiting:not(.disabled) {
+        height: 3.5em;
+        width: 3.5em;
     }
 
     .fa-hourglass,
@@ -94,6 +109,18 @@
         color: var(--text-accent);
         font-size: 1.5em;
         display: none;
+    }
+
+    button.small ~ .fa-hourglass,
+    button.small ~ .fa-hourglass-half,
+    button.small ~ .fa-hourglass-end {
+        font-size: 1em;
+    }
+
+    button.large ~ .fa-hourglass,
+    button.large ~ .fa-hourglass-half,
+    button.large ~ .fa-hourglass-end {
+        font-size: 2em;
     }
 
     button.waiting:not(.disabled) ~ .fa-hourglass {
