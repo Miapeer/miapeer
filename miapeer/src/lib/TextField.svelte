@@ -4,10 +4,16 @@
     export let value = null;
     export let filled = false;
 
-    const handleInput = (e) => {
-        filled = !!e.target.value;
-        value = e.target.value;
+    const updateFilled = () => {
+        filled = !!value;
     };
+
+    const handleInput = (e) => {
+        value = e.target.value;
+        updateFilled();
+    };
+
+    updateFilled();
 </script>
 
 <div class="wrapper">
