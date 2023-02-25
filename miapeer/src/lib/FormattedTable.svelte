@@ -59,7 +59,7 @@
         transition-duration: 100ms;
     }
 
-    :global(table > tbody > tr:hover) {
+    :global(table > tbody > tr:not(.suppress-hover):hover) {
         box-shadow: 0 0 10px -1px var(--bg-primary-negative);
         transform: scale(1.01);
     }
