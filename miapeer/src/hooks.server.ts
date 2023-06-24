@@ -27,7 +27,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             expires: new Date(0)
         });
 
-        if (['/', '/login', '/logout'].includes(event.url.pathname)) {
+        if (['/', '/login', '/logout', '/portfolio'].includes(event.url.pathname)) {
             accessToken = null;
             userName = null;
         } else {

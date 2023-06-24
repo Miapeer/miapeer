@@ -4,7 +4,9 @@
     import TextField from '$lib/TextField.svelte';
     import Button from '$lib/Button.svelte';
 
-    let accountName;
+    export let data: PageData;
+
+    let accountName = data.account.name;
     let startingBalance;
     let creatingAccount;
 
@@ -25,31 +27,20 @@
             console.log('NOT ok');
         }
     };
-
-    export let data: PageData;
 </script>
 
-<div class="new-account-wrapper">
-    <h1>Create a new account</h1>
+<h1>Edit account</h1>
 
-    <TextField placeholder="Account Name" bind:value={accountName} />
-
-    <TextField type="number" placeholder="Starting Balance" bind:value={startingBalance} />
-
+<div class="edit-account-wrapper">
+    <TextField placeholder="Account Name" bind:value={data.account.name} />
+    <TextField
+        type="number"
+        placeholder="Starting Balance"
+        bind:value={data.account.starting_balance}
+    />
     <Button
-        disabled={!accountName || !startingBalance}
+        disabled={!data.account.name || !data.account.starting_balance}
         waiting={creatingAccount}
-        onClick={handleCreateAccount}
+        onClick={handleCreateAccount}>Create Account</Button
     >
-        Create Account
-    </Button>
 </div>
-
-<style>
-    .new-account-wrapper {
-        display: grid;
-        gap: 1em;
-        max-width: 40em;
-        margin: 0 auto;
-    }
-</style>

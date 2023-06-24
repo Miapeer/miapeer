@@ -7,18 +7,18 @@
 </script>
 
 <section>
-    {#if data.accounts.length > 0}
-        <FormattedTable title="Accounts">
-            <table slot="table">
-                <colgroup>
-                    <col />
-                    <col span="1" style="width: 25%;" />
-                    <col span="1" style="width: 15%;" />
-                </colgroup>
+    <FormattedTable title="Accounts">
+        <table slot="table">
+            <colgroup>
+                <col />
+                <col span="1" style="width: 25%;" />
+                <col span="1" style="width: 15%;" />
+            </colgroup>
+            {#if data.accounts.length > 0}
                 <thead>
                     <tr>
                         <th />
-                        <th>Starting Balance</th>
+                        <th>Balance</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -26,48 +26,41 @@
                     {#each data.accounts as account}
                         <tr>
                             <td>{account.name}</td>
-                            <td>{account.starting_balance}</td>
-                            <td
-                                ><Link
+                            <td>{account.balance}</td>
+                            <td>
+                                <Link
                                     cssClass="fa-solid fa-pen-to-square"
                                     href={`./accounts/${account.account_id}`}
-                                /></td
-                            >
-                        </tr>
-                    {/each}
-                    {#each data.accounts as account}
-                        <tr>
-                            <td>{account.name}</td>
-                            <td>{account.starting_balance}</td>
-                            <td><i class="fa-solid fa-pen-to-square" /></td>
+                                />
+                            </td>
                         </tr>
                     {/each}
                 </tbody>
-            </table>
-            <Link href="./accounts/new" slot="actions"><i class="fa-solid fa-plus" /> Add New</Link>
-        </FormattedTable>
-    {:else}
-        <div>
-            You don't have any accounts set up. <Link href="./accounts/new">Click here</Link> to add
-            one.
-        </div>
-    {/if}
+            {:else}
+                <thead>
+                    <tr>
+                        <th />
+                        <th />
+                        <th />
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="suppress-hover">
+                        <td class="empty" colspan="3">
+                            You haven't set up any accounts yet. Click "Add New" below to create
+                            one.
+                        </td>
+                    </tr>
+                </tbody>
+            {/if}
+        </table>
+        <Link href="./accounts/new" slot="actions"><i class="fa-solid fa-plus" /> Add New</Link>
+    </FormattedTable>
 </section>
 
 <style>
-    .table {
-        display: grid;
-        grid-template-columns: 5fr 2fr 1fr;
-    }
-
-    .table > *:not(.header):nth-child(6n + 1),
-    .table > *:not(.header):nth-child(6n + 2),
-    .table > *:not(.header):nth-child(6n + 3) {
-        background-color: var(--bg-neutral);
-    }
-
-    .header {
-        font-weight: bold;
-        text-decoration: underline;
+    table .empty {
+        text-align: center;
+        padding: 1em;
     }
 </style>
