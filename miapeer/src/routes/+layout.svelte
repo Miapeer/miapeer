@@ -28,10 +28,9 @@
     <header>
         <Link href="/"><img src={logoLong} class="logo-img long" alt="Logo" /></Link>
 
-        <Link href="/quantum">Quantum</Link>
-        <Link href="/users">User Management</Link>
-
         {#if data.isAuthenticated}
+            <Link href="/quantum">Quantum</Link>
+            <Link href="/users">User Management</Link>
             <LogOutButton userName={data.userName} />
         {:else}
             <LogInButton />
