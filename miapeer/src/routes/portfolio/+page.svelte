@@ -73,6 +73,13 @@
             <Chip size="small">pytest</Chip>
         </div>
     </section>
+    <section class="timeline">
+        <h2>Timeline</h2>
+        <div class="container">
+            <div class="left" />
+            <div class="right" />
+        </div>
+    </section>
     <section class="experience-list">
         <h2 class="title-a">Experience</h2>
 
@@ -462,7 +469,7 @@
         </div>
     </section>
     <section class="interests">
-        <h3>Interests</h3>
+        <h2>Interests</h2>
         <div class="interest-list">
             <ul>
                 <li>I always enjoy learning new development tools, techniques, and languages</li>
@@ -477,7 +484,26 @@
     </section>
 </div>
 
-<style>
+<style lang="scss">
+    .timeline {
+        height: fit-content;
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            .left {
+                outline: 1px solid red;
+                height: 100px;
+            }
+
+            .right {
+                outline: 1px solid green;
+                height: 100px;
+            }
+        }
+    }
+
     .portfolio {
         display: grid;
         grid-template-areas:
@@ -485,6 +511,7 @@
             'about-me'
             'skills'
             'experience'
+            'timeline'
             'interests';
         grid-template-columns: 1fr;
     }
@@ -504,48 +531,45 @@
     .contact-methods {
         grid-area: contact;
         height: fit-content;
-    }
 
-    .contact-methods i {
-        width: 2em;
-        text-align: center;
-        line-height: 1.5em;
+        i {
+            width: 2em;
+            text-align: center;
+            line-height: 1.5em;
+        }
     }
 
     .skills {
         grid-area: skills;
-    }
 
-    .skills .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.2em;
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.2em;
+        }
     }
 
     .experience-list {
         grid-area: experience;
-    }
 
-    .experience-list .experience {
-        border-top: 1px solid var(--text-primary);
-    }
+        .experience {
+            border-top: 1px solid var(--text-primary);
 
-    .experience-list .experience .header .sub {
-        font-size: 0.7em;
-        display: flex;
-        justify-content: flex-start;
-    }
+            .header .sub {
+                font-size: 0.7em;
+                display: flex;
+                justify-content: flex-start;
+                flex-direction: column;
+            }
 
-    .experience-list .experience .header .sub {
-        flex-direction: column;
-    }
-
-    .experience-list .experience .detail:where(:not(:last-child))::after {
-        content: '';
-        display: block;
-        width: 50%;
-        transform: translateX(50%);
-        border-bottom: 1px solid var(--text-primary-negative);
+            .detail:where(:not(:last-child))::after {
+                content: '';
+                display: block;
+                width: 50%;
+                transform: translateX(50%);
+                border-bottom: 1px solid var(--text-primary-negative);
+            }
+        }
     }
 
     .interests {
@@ -571,14 +595,19 @@
             grid-template-areas:
                 'about-me about-me contact'
                 'skills skills contact'
-                'experience experience contact'
-                'interests interests contact';
+                'experience experience timeline'
+                'interests interests timeline';
             grid-template-columns: 1fr 1fr auto;
         }
 
         .contact-methods {
             position: sticky;
             top: 0;
+        }
+
+        .timeline {
+            position: sticky;
+            top: 200px;
         }
     }
 
@@ -596,31 +625,4 @@
             padding-left: 1em;
         }
     }
-
-    /*
-    .two_thirds {
-        width: 66.5%;
-    }
-
-    .one_third {
-        width: 33.5%;
-    }
-
-    .contact-methods {
-        margin: 2rem 0 0 2rem;
-    }
-
-    .contact-method {
-        margin: 1rem 0 0 2rem;
-    }
-
-    .contact-method i {
-        color: var(--color-text-darker);
-        width: 1rem;
-        margin-right: 0.5rem;
-    }
-
-    .phone {
-        color: var(--color-text-dark);
-    } */
 </style>
