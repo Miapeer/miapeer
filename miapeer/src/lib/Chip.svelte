@@ -2,7 +2,11 @@
     export let size = 'medium';
 </script>
 
-<button class:small={size === 'small'} class:large={size === 'large'}>
+<button
+    class:extra-small={size === 'extra-small'}
+    class:small={size === 'small'}
+    class:large={size === 'large'}
+>
     <slot />
 </button>
 
@@ -25,6 +29,10 @@
         font-size: 0.8em;
     }
 
+    button.extra-small {
+        font-size: 0.4em;
+    }
+
     button.small {
         font-size: 0.6em;
     }
@@ -35,5 +43,11 @@
 
     button:hover {
         background-color: rgba(var(--bg-accent-rgb), 0.3);
+    }
+
+    @media (prefers-color-scheme: light) {
+        button {
+            color: var(--text-primary);
+        }
     }
 </style>
