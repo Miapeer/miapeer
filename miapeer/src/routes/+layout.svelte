@@ -79,6 +79,8 @@
         align-items: center;
         padding: 0.25em 1em;
         text-transform: uppercase;
+
+        z-index: 1;
     }
 
     .logo-img {

@@ -1,6 +1,7 @@
 <script>
     import Chip from '$lib/Chip.svelte';
     import Link from '$lib/Link.svelte';
+    import Timeline from '$lib/Timeline.svelte';
 </script>
 
 <div class="portfolio">
@@ -38,6 +39,7 @@
             <Chip size="small">JavaScript</Chip>
             <Chip size="small">VB.Net</Chip>
             <Chip size="small">VB6</Chip>
+            <Chip size="small">VBA</Chip>
             <Chip size="small">SQL Server</Chip>
             <Chip size="small">MySQL</Chip>
             <Chip size="small">PostgreSQL</Chip>
@@ -71,13 +73,116 @@
             <Chip size="small">Jest</Chip>
             <Chip size="small">RTL</Chip>
             <Chip size="small">pytest</Chip>
+            <Chip size="small">MS Access</Chip>
         </div>
     </section>
     <section class="timeline">
         <h2>Timeline</h2>
-        <div class="container">
-            <div class="left" />
-            <div class="right" />
+        <div class="timeline-wrapper">
+            <Timeline
+                data={[
+                    {
+                        text: 'AlphaTRAC',
+                        start: {
+                            month: 2,
+                            year: 2006
+                        },
+                        end: {
+                            month: 2,
+                            year: 2018
+                        },
+                        side: 'left'
+                    },
+                    {
+                        text: 'CyberGRX',
+                        start: {
+                            month: 5,
+                            year: 2021
+                        },
+                        side: 'left'
+                    },
+                    {
+                        text: 'Webroot',
+                        start: {
+                            month: 4,
+                            year: 2018
+                        },
+                        end: {
+                            month: 5,
+                            year: 2021
+                        },
+                        side: 'left'
+                    },
+                    {
+                        text: 'Miapeer',
+                        start: {
+                            month: 8,
+                            year: 2015
+                        },
+                        side: 'right'
+                    },
+                    {
+                        text: 'RSA',
+                        start: {
+                            month: 8,
+                            year: 2007
+                        },
+                        end: {
+                            month: 8,
+                            year: 2009
+                        },
+                        side: 'right'
+                    },
+                    {
+                        text: 'Blue Lizard Software',
+                        start: {
+                            month: 2,
+                            year: 1998
+                        },
+                        end: {
+                            month: 11,
+                            year: 2004
+                        },
+                        side: 'right'
+                    },
+                    {
+                        text: 'Apparatus',
+                        start: {
+                            month: 4,
+                            year: 2001
+                        },
+                        end: {
+                            month: 5,
+                            year: 2001
+                        },
+                        side: 'left'
+                    },
+                    {
+                        text: 'Cavion',
+                        start: {
+                            month: 10,
+                            year: 2000
+                        },
+                        end: {
+                            month: 12,
+                            year: 2000
+                        },
+                        side: 'left'
+                    },
+                    {
+                        text: 'Echostar',
+                        start: {
+                            month: 7,
+                            year: 1997
+                        },
+                        end: {
+                            month: 10,
+                            year: 2000
+                        },
+                        side: 'left'
+                    }
+                ]}
+            />
         </div>
     </section>
     <section class="experience-list">
@@ -85,7 +190,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">CyberGRX</h3>
+                <h3 class="title">CyberGRX / ProcessUnity</h3>
                 <div class="sub">
                     <div class="position">Senior Software Engineer</div>
                     <div class="timeframe">May 2021 - Present</div>
@@ -132,7 +237,16 @@
                     <div class="notes">
                         <ul>
                             <li>Built to assist people with financial tracking and budgeting</li>
-                            <li>Continuous deployment via Azure DevOps</li>
+                            <li>
+                                This project was born out of necessity when other financial
+                                applications lacked features that I needed for my own money
+                                management. The original version was a desktop application written
+                                in VB6. The current version is web-based, using KnockoutJS and
+                                SignalR.
+                            </li>
+                            <li>
+                                Continuous deployment via Azure DevOps and Azure Container Registry
+                            </li>
                             <!-- <li>
                                 Feel free to take it for a spin: &nbsp;<a
                                 class="hover-underline"
@@ -144,6 +258,104 @@
                                     <li>Password: demo</li>
                                 </ul>
                             </li> -->
+                            <li>
+                                I’ve held two contracts for the full development and deployment of
+                                web applications. One application is currently in production
+                                (Nussentials), while the other has moved into beta (MyExReportCard).
+                            </li>
+                            <li />
+                            <li>MypersonalprojectthatIusedaily</li>
+                            <li>ContinuousdeploymentviaAzureDevOps</li>
+                            <li>UtilizesKnockoutJS,Bootstrap,SignalR,andSQLAzure</li>
+                            <li />
+                            <li>Workwithclientstobringsolutionstomarket</li>
+                            <li>Fromconsultingtocompletewebapplications</li>
+                            <li>Applicationlifecyclemanagement</li>
+                            <li />
+                            <li>Clientsinclude:RSA,CourtesyServices,Nussentials</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="detail">
+                    <h4 class="task">Old resumè</h4>
+                    <div class="skills" />
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                I created a scheduling application for Water World which reduced
+                                scheduling labor by 50% while increasing schedule accuracy and
+                                efficiency for nearly 1,000 employees
+                            </li>
+                            <li>
+                                I created an electronic timecard system which integrated with
+                                existing account tools
+                            </li>
+                            <li>
+                                Influenced and led effort to move on-premesis products to the cloud
+                            </li>
+                            <li>quick learner</li>
+                            <li>reputation of efficiency, integrity, and high quality of work</li>
+                            <li>self-starting and sustaining</li>
+                            <li>
+                                always looking for new skills and toold to improve products and
+                                processes
+                            </li>
+                            <li>Reporting analyst - Echostar - Englewood, CO - 7-1997 > 10-2000</li>
+                            <li>works well under pressure</li>
+                            <li>
+                                quick learner with reputation for efficiency and high quality of
+                                work
+                            </li>
+                            <li>works well in teamwork enviroment</li>
+                            <li>excellent customer service skills</li>
+                            <li>strong oral and writtent communication skills</li>
+                            <li>blue lizard software llc - 2-1998 - ???</li>
+                            <li />
+                            <li>software developer and co-owner</li>
+                            <li>creating an automated employee-scheduling application</li>
+                            <li>
+                                minimizing company expenses (about 64 man-hours reduced to 24, every
+                                two weeks
+                            </li>
+                            <li>
+                                increasing schedule accuracy and efficiency for nearly one thousand
+                                employees
+                            </li>
+                            <li>apparatus sales corporation for the U.S. EPA - 4-2001 - 5-2001</li>
+                            <li>software technical support and training</li>
+                            <li>
+                                re-wrote and streamlined "Loaner-Equipment Tracking" application
+                            </li>
+                            <li>saved time in tracking down checked-out equipment</li>
+                            <li>increaded availability of equipment</li>
+                            <li>cavion technologies - 10-2000 - 12-2000</li>
+                            <li>echostar communications corporation</li>
+                            <li>reporting analyst</li>
+                            <li>
+                                provided support for company's backend Customer Management Center
+                            </li>
+                            <li>Developed and maintained dozens of Access Database applications</li>
+                            <li>
+                                Focused on dynamic data import and export, report generation and
+                                process automation
+                            </li>
+                            <li>assisted in early preparation of data warehouse</li>
+                            <li>training</li>
+                            <li>catapult inc. at Echostar Communications</li>
+                            <li>MS Access '97: Introducing, Enhancing, and Mastering - 1999</li>
+                            <li>Certifications</li>
+                            <li>MS Access 2000 Fundamentals - Brainbench.com - 2005</li>
+                            <li>Computer Fundamentals (Win 95/98) - Brainbench.com - 2005</li>
+                            <li>Math Fundamentals - Brainbench.com - 2005</li>
+                            <li />
+                            <li>
+                                As my first professional project, I created an automated employee
+                                scheduling application for an amusement park. Having under-aged
+                                employees posed the additional challenge of navigating labor law
+                                restrictions. This application was developed to improve scheduling
+                                efficiency, and simultaneously prevent penalties by avoiding labor
+                                law violations.
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -197,6 +409,13 @@
                                 weighted scoring, and a new architecture for deriving alternate
                                 names
                             </li>
+                            <li />
+                            <li>Improvedmatchingofcompanynamesandaddresses</li>
+                            <li>Duplicateidentificationandprevention</li>
+                            <li>Broughtinvarioustechniquesandalgorithms</li>
+                            <li>UtilizesSQLServer,PHP,Python,GooglePlacesAPI</li>
+                            <li>Improvedduplicatedetectionwithfuzzycompanynameandaddressmatch</li>
+                            <li>Implementedanewarchitectureforderivingalternatenames</li>
                         </ul>
                     </div>
                 </div>
@@ -211,6 +430,13 @@
                             <li>
                                 Extend functionality and debug business logic within database schema
                             </li>
+                            <li />
+                            <li>Primarilyinvolvedinextendingfunctionalityanddebugging</li>
+                            <li>
+                                SQLServerdatabasecontainingcustomerdata,productlicensedetails, and
+                                business logic
+                            </li>
+                            <li>Debugandextenddatabaseschemaandbusinesslogic</li>
                         </ul>
                     </div>
                 </div>
@@ -277,13 +503,93 @@
                     <div class="notes">
                         <ul>
                             <li>
+                                My team created software to train first-responders in a variety of
+                                emergency management fields. This suite of software applications
+                                uses KnockoutJS and Bootstrap for the user interface, with C#
+                                leveraging the EntityFramework on the back-end.
+                            </li>
+                            <li>
+                                I was tasked with the development and maintenance of the in-house
+                                software used to generate emergency management reports. The original
+                                version was written in VB6 and used a substantial amount of
+                                Excel/Word automation. My focus was to replace the VB6 elements with
+                                C#. Years later, due to an innovation in the data analysis methods,
+                                the project was reborn again using NodeJS and Python.
+                            </li>
+                            <li>
+                                Government contracts came with time-tracking and administrative
+                                requirements, which off-the-shelf software couldn’t meet. I created
+                                an Excel-based timecard solution to improve accuracy between
+                                accounting, project managers, and employees. This timecard system
+                                has been used daily by every employee for over 10 years.
+                            </li>
+                            <li>
+                                When the company shifted to a fully remote workforce, I worked to
+                                migrate the business’s infrastructure and operations. This included
+                                moving web applications to Microsoft Azure, transferring company
+                                services to their cloud-based counterparts, and implementing other
+                                collaborative tools. This involved services such as QuickBooks,
+                                Slack, and Screenhero.
+                            </li>
+                            <li>
+                                I became the primary individual responsible for any I.T. issues that
+                                came up. I built, purchased, and maintained workstations and
+                                servers, upgraded the network infrastructure, and implemented
+                                security protocols.
+                            </li>
+                            <li />
+                            <li>Leaddeveloperofanemergencymanagementreportingapplication</li>
+                            <li>
+                                Workedwithscientistsandclientstoimplementanewandinnovativedata
+                                analysis method
+                            </li>
+                            <li>Designedforparallelizedanddistributedcomputing</li>
+                            <li>MachineagnosticusingNodeJS,Python,andMySQL</li>
+                            <li />
+                            <li>Createdtrainingsoftwareforemergencyfirst-responders</li>
+                            <li>Participatedineverystageofthedevelopmentlifecycle</li>
+                            <li>
+                                DeployedtoavarietyoffieldsincludingDeptofEnergy,MarineCorps, Law
+                                Enforcement, Fire, and Rail
+                            </li>
+                            <li>
+                                Collaboratedwithexternalsoftwareteamtoallowthemtoconnecttheir own
+                                custom UI to the RESTful Web API
+                            </li>
+                            <li>DesignedforuseinAzure,oron-premisesforcontrolofsensitivedata</li>
+                            <li>DevelopedusingKnockoutJS,Bootstrap,C#,EntityFramework,SQLServer</li>
+                            <li />
+                            <li>
+                                Createdatimecardsolutiontoimproveinterdepartmentalaccuracyand
+                                efficiency
+                            </li>
+                            <li>Closeinteractionswithaccountingandprojectmanagers</li>
+                            <li>Useddailybyeveryemployeeforover10years</li>
+                            <li>
+                                Reducedmanyhoursofeffortallowingaccountingpersonneltofocuson more
+                                important tasks
+                            </li>
+                            <li />
+                            <li>Migratedinfrastructureandoperationstothecloud</li>
+                            <li>DeployedwebapplicationsanddatabasestoMicrosoftAzure</li>
+                            <li>
+                                Transferredcompanyservicestotheircloud-basedcounterpartslike
+                                QuickBooks, JIRA, and source control
+                            </li>
+                            <li>ImplementedothercollaborativetoolssuchasSlackandScreenhero</li>
+                            <li />
+                            <li>
+                                Assistedwithimplementationandrefinementofagileandscrummethodologies
+                            </li>
+                            <li />
+                            <li>
                                 Migrated legacy developer-centric tools for generating EPHA
                                 documentation through several major upgrades into more modern
                                 applications suitable for use directly by analysts
                             </li>
                             <li>
-                                Department of Energy EPHA automation from client data to final
-                                report output
+                                Department of Energy (Emergency Planning Hazards Assessment) EPHA
+                                automation from client data to final report output
                             </li>
                             <li>
                                 Worked with analysts and scientists to customize reports to fit
@@ -342,6 +648,27 @@
                             <li>Designed for parallelized and distributed computing</li>
                             <li>Designed to be machine agnostic</li>
                             <li>Recommended and custom built servers to client specifications</li>
+                            <li />
+                            <li>ServeradministrationincludingOSupgradesandsecurity</li>
+                            <li>
+                                Streamlinedserverconfigurationtosimplifydeploymentandadministration
+                            </li>
+                            <li>
+                                Creatednextgenerationversionusingnewdispersionmodelingmethodology
+                            </li>
+                            <li />
+                            <li>
+                                Custom-builtreal-timeemergencyresponseandconsequenceanalysisservers
+                            </li>
+                            <li>
+                                Streamlinedserverconfigurationtoeliminatefacilitysecurityconflictsandsimplify
+                                deployment and administration
+                            </li>
+                            <li>
+                                CreatednextgenerationversionforEPHAgenerationusingnewdispersion/consequence
+                                assessment modeling methodology and designed for parallel and
+                                distributed computing
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -387,6 +714,14 @@
                                 their own custom UI to the RESTful API
                             </li>
                             <li>Collaborated with external teams to connect to their LMS</li>
+                            <li />
+                            <li>
+                                ReceivedspecialrecognitionforcreatingMVPsysteminaveryshortperiodoftime
+                            </li>
+                            <li>
+                                Supportedavarietyoffieldsincluding:DOE,DOD,fire,rail,andlawenforcement
+                            </li>
+                            <li>Expandedtovariousdisciplines:DOE,DOD,fire,rail,law</li>
                         </ul>
                     </div>
                 </div>
@@ -414,6 +749,17 @@
                                 Created Android version to allow offline deployment to remote
                                 locations
                             </li>
+                            <li />
+                            <li>Data-drivenquestionandanswerstyleinterview</li>
+                            <li>ConvertedSMEafter-actionreportsintotrainingscenariosforAlphaACT</li>
+                            <li>
+                                CollaboratedwithexternalteamtoconnecttheircustomUI (such as IAFC)
+                            </li>
+                            <li />
+                            <li>
+                                Developed experience gathering app and REST API (XCapture) to
+                                convert SME after-action reports into training scenarios
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -428,23 +774,37 @@
                     </div>
                     <div class="notes">
                         <ul>
-                            <li>Facilitated transition to a remote workforce</li>
-                            <li>Deployed web applications and databases to Microsoft Azure</li>
                             <li>
-                                Transferred company services to their cloud-based counterparts like
-                                QuickBooks, Jira, and Azure DevOps
+                                I facilitated the transition to a remote workforce when the company
+                                decided to close the office, by transferring company services to
+                                their cloud-based counterparts like QuickBooks, Jira, and Azure
+                                DevOps. Implemented other collaborative tools such as Slack and
+                                Screenhero.
                             </li>
                             <li>
-                                Implemented other collaborative tools such as Slack and Screenhero
+                                I spearheaded the effort to deploy web applications and databases to
+                                Microsoft Azure.
                             </li>
                             <li>Migrated source control management to Git</li>
+                            <li>
+                                Transitioned resources and operations to the cloud to facilitate
+                                remote workforce
+                            </li>
+                            <li />
+                            <li>
+                                Migrated source control management from Visual SourceSafe to SVN,
+                                and then to Git
+                            </li>
+                            <li>
+                                Windows workstation, Windows Server, Linux, and Azure administration
+                            </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="detail">
                     <h4 class="task">
-                        Assisted with implementation and refinement of agile and scrum methodologies
+                        Implementation and refinement of several software processes
                     </h4>
                     <div class="skills">
                         <Chip size="extra-small">zzz</Chip>
@@ -452,16 +812,31 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                JIRA implementation for waterfall (and later for agile) including
-                                workflows and Kanban
+                                I set up and administered an on-premises installation of Jira for
+                                issue management and process workflow adherence.
                             </li>
-                            <li>Implemented IEEE standard for Software Quality Assurance</li>
                             <li>
-                                In addition, I implemented several software processes including
-                                Software Quality Assurance using IEEE standards, source control with
-                                Git, and issue management and agile methodology with JIRA.
+                                I worked on a company IEEE-compliance committee for Software Quality
+                                Assurance. This included implementing processes and writing system
+                                documentation.
                             </li>
-                            <li>Windows Server, Linux, and Azure administration</li>
+                            <li>
+                                I migrated our source code and company documentation from CVS to
+                                Subversion and then later split them to more the more modern
+                                specialty tools, Git and Sharepoint
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h4 class="task">Windows Server, Linux, and Azure administration</h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>zzz</li>
                         </ul>
                     </div>
                 </div>
@@ -474,6 +849,8 @@
             <ul>
                 <li>I always enjoy learning new development tools, techniques, and languages</li>
                 <li>Home improvement - It feels great to solve a problem with your own hands</li>
+                <li>I am learning to speak Tagalog</li>
+                <li>I enjoy all manner of games especially card games, fighting games, and RPGs</li>
                 <li>
                     I'm told that I make a mean cup of coffee (even though I don't really enjoy
                     coffee)
@@ -485,25 +862,6 @@
 </div>
 
 <style lang="scss">
-    .timeline {
-        height: fit-content;
-
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-
-            .left {
-                outline: 1px solid red;
-                height: 100px;
-            }
-
-            .right {
-                outline: 1px solid green;
-                height: 100px;
-            }
-        }
-    }
-
     .portfolio {
         display: grid;
         grid-template-areas:
@@ -531,6 +889,7 @@
     .contact-methods {
         grid-area: contact;
         height: fit-content;
+        background-color: var(--bg-primary);
 
         i {
             width: 2em;
@@ -608,6 +967,7 @@
         .timeline {
             position: sticky;
             top: 200px;
+            z-index: -1;
         }
     }
 
