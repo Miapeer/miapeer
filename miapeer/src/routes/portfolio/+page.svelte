@@ -21,9 +21,10 @@
         </div>
     </section>
     <section class="personal">
+        <h1>This page is a work-in-progress!</h1>
         <h2>A little about myself</h2>
         <div class="summary">
-            I'm a software engineer with over 20 years of experience. Most of my experience has been
+            I'm a software engineer with over 25 years of experience. Most of my experience has been
             centered around emergency management for multiple clients within the Department of
             Energy. I've worked primarily with the Microsoft stack, but more recently with Python.
             For me, puzzle-solving is part of the appeal of discovering software solutions. I am
@@ -193,13 +194,58 @@
                 <h3 class="title">CyberGRX / ProcessUnity</h3>
                 <div class="sub">
                     <div class="position">Senior Software Engineer</div>
-                    <div class="timeframe">May 2021 - Present</div>
+                    <div class="timeframe">May 2021 - December 2023</div>
                     <div class="location">Denver, CO</div>
                 </div>
             </div>
             <div class="details">
                 <div class="detail">
                     <h4 class="task">Full-stack development of platform</h4>
+                    <div class="skills">
+                        <Chip size="extra-small">Python</Chip>
+                        <Chip size="extra-small">React</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>Add details</li>
+                            <li>Add details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <div class="detail">
+                    <h4 class="task">Company Master initiative</h4>
+                    <div class="skills">
+                        <Chip size="extra-small">Python</Chip>
+                        <Chip size="extra-small">React</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>Add details</li>
+                            <li>Add details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <div class="detail">
+                    <h4 class="task">Bulk ingest</h4>
+                    <div class="skills">
+                        <Chip size="extra-small">Python</Chip>
+                        <Chip size="extra-small">React</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>Add details</li>
+                            <li>Add details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <div class="detail">
+                    <h4 class="task">Merger integration</h4>
                     <div class="skills">
                         <Chip size="extra-small">Python</Chip>
                         <Chip size="extra-small">React</Chip>
@@ -242,7 +288,7 @@
                                 applications lacked features that I needed for my own money
                                 management. The original version was a desktop application written
                                 in VB6. The current version is web-based, using KnockoutJS and
-                                SignalR.
+                                SignalR. I still use this for my personal finances to this day.
                             </li>
                             <li>
                                 Continuous deployment via Azure DevOps and Azure Container Registry
@@ -258,25 +304,10 @@
                                     <li>Password: demo</li>
                                 </ul>
                             </li> -->
-                            <li>
-                                I’ve held two contracts for the full development and deployment of
-                                web applications. One application is currently in production
-                                (Nussentials), while the other has moved into beta (MyExReportCard).
-                            </li>
-                            <li />
-                            <li>MypersonalprojectthatIusedaily</li>
-                            <li>ContinuousdeploymentviaAzureDevOps</li>
-                            <li>UtilizesKnockoutJS,Bootstrap,SignalR,andSQLAzure</li>
-                            <li />
-                            <li>Workwithclientstobringsolutionstomarket</li>
-                            <li>Fromconsultingtocompletewebapplications</li>
-                            <li>Applicationlifecyclemanagement</li>
-                            <li />
-                            <li>Clientsinclude:RSA,CourtesyServices,Nussentials</li>
                         </ul>
                     </div>
                 </div>
-                <div class="detail">
+                <!-- <div class="detail">
                     <h4 class="task">Old resumè</h4>
                     <div class="skills" />
                     <div class="notes">
@@ -358,7 +389,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="detail">
                     <h4 class="task">Work with clients to bring solutions to market</h4>
                     <div class="skills">
@@ -371,6 +402,11 @@
                     </div>
                     <div class="notes">
                         <ul>
+                            <li>
+                                I've held two contracts for the full development and deployment of
+                                web applications. One application is currently in production
+                                (Nussentials), while the other has moved into beta (MyExReportCard).
+                            </li>
                             <li>From consulting to complete web applications</li>
                             <li>Clients include: RSA, Courtesy Services, Nussentials</li>
                         </ul>
@@ -401,21 +437,11 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Developed a process for fuzzy name and address matching to improve
-                                duplicate identification and prevention
+                                I developed a new process for fuzzy name and address matching to improve identification of duplicate and prevent duplicate companies from being created in the database.
                             </li>
                             <li>
-                                Implemented various APIs and algorithms such as Google Places API,
-                                weighted scoring, and a new architecture for deriving alternate
-                                names
+                                I evaluated and implemented various APIs and algorithms such as Google Places API, weighted scoring, and a new architecture for deriving and searching alternate names.
                             </li>
-                            <li />
-                            <li>Improvedmatchingofcompanynamesandaddresses</li>
-                            <li>Duplicateidentificationandprevention</li>
-                            <li>Broughtinvarioustechniquesandalgorithms</li>
-                            <li>UtilizesSQLServer,PHP,Python,GooglePlacesAPI</li>
-                            <li>Improvedduplicatedetectionwithfuzzycompanynameandaddressmatch</li>
-                            <li>Implementedanewarchitectureforderivingalternatenames</li>
                         </ul>
                     </div>
                 </div>
@@ -426,17 +452,12 @@
                     </div>
                     <div class="notes">
                         <ul>
-                            <li>Production data support for customers and product licenses</li>
                             <li>
-                                Extend functionality and debug business logic within database schema
+                                I extended functionality and debugged business logic within the database schema. This included customer data, subscriptions, billing, orders, website routing, and more.
                             </li>
-                            <li />
-                            <li>Primarilyinvolvedinextendingfunctionalityanddebugging</li>
                             <li>
-                                SQLServerdatabasecontainingcustomerdata,productlicensedetails, and
-                                business logic
+                                I received reports and performed production data support for customers and product licenses in order to keep the data clean and processes running smoothly.
                             </li>
-                            <li>Debugandextenddatabaseschemaandbusinesslogic</li>
                         </ul>
                     </div>
                 </div>
@@ -448,12 +469,10 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Created a more efficient person import process for the marketing
-                                department
+                                I worked with the marketing department to create a more efficient person import process to assist in the transition from Eloqua to Marketo. This carried forward to allow the rapid import of marketing contact lists.
                             </li>
                             <li>
-                                Data validation and normalization of 500k records every month
-                                improved from 45 days to 1 hour
+                                The updated process performed data validation and normalization of 500k records every month, which improved processing time from 45 days to 1 hour.
                             </li>
                         </ul>
                     </div>
@@ -466,12 +485,10 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Created a more efficient person import process for the marketing
-                                department
+                                I improved the user's search experience by incorporating Google's Geolocation service to allow for more casual address input.
                             </li>
                             <li>
-                                Data validation and normalization of 500k records every month
-                                improved from 45 days to 1 hour
+                                I updated the email marketing opt-out form to use React. This work also helped prevent potential data-mining by providing the user with a generic message and performing the appropriate validation at the database.
                             </li>
                         </ul>
                     </div>
@@ -491,8 +508,7 @@
             <div class="details">
                 <div class="detail">
                     <h4 class="task">
-                        Department of Energy Emergency Planning Hazards Assessment (EPHA) automation
-                        from client data to final report output
+                        Department of Energy Emergency Planning Hazards Assessment (EPHA) automation from client data to final report output
                     </h4>
                     <div class="skills">
                         <Chip size="extra-small">C#</Chip>
@@ -503,126 +519,27 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                My team created software to train first-responders in a variety of
-                                emergency management fields. This suite of software applications
-                                uses KnockoutJS and Bootstrap for the user interface, with C#
-                                leveraging the EntityFramework on the back-end.
+                                I was tasked with the maintenance and future development of the in-house software used to generate emergency management reports. I took this app through multiple iterations as a developer-only took to something that analysts could pilot themselves. The original version was written in VB6, used a substantial amount of Excel/Word automation, and my focus was to keep that application running while working to replace the VB6 elements with C#. Years later, the project was reborn again using NodeJS and Python (See CAPARS below).
                             </li>
                             <li>
-                                I was tasked with the development and maintenance of the in-house
-                                software used to generate emergency management reports. The original
-                                version was written in VB6 and used a substantial amount of
-                                Excel/Word automation. My focus was to replace the VB6 elements with
-                                C#. Years later, due to an innovation in the data analysis methods,
-                                the project was reborn again using NodeJS and Python.
+                                I worked with analysts and scientists to customize the requested EPHA reports to fit client needs.
                             </li>
                             <li>
-                                Government contracts came with time-tracking and administrative
-                                requirements, which off-the-shelf software couldn’t meet. I created
-                                an Excel-based timecard solution to improve accuracy between
-                                accounting, project managers, and employees. This timecard system
-                                has been used daily by every employee for over 10 years.
+                                I pioneered and implemented an approximation algorithm for chemical Threshold Screening Quantity calculation to improve accuracy and reduce unnecessary analysis.
                             </li>
                             <li>
-                                When the company shifted to a fully remote workforce, I worked to
-                                migrate the business’s infrastructure and operations. This included
-                                moving web applications to Microsoft Azure, transferring company
-                                services to their cloud-based counterparts, and implementing other
-                                collaborative tools. This involved services such as QuickBooks,
-                                Slack, and Screenhero.
+                                I increased the performance and precision of EPIcode and Hotspot automation tools, including the creation of a tool to combine multiple outputs into a single mixture.
                             </li>
                             <li>
-                                I became the primary individual responsible for any I.T. issues that
-                                came up. I built, purchased, and maintained workstations and
-                                servers, upgraded the network infrastructure, and implemented
-                                security protocols.
+                                I developed a tool to calculate the evaporation of puddles of hazardous materials using client inventory.
                             </li>
-                            <li />
-                            <li>Leaddeveloperofanemergencymanagementreportingapplication</li>
-                            <li>
-                                Workedwithscientistsandclientstoimplementanewandinnovativedata
-                                analysis method
-                            </li>
-                            <li>Designedforparallelizedanddistributedcomputing</li>
-                            <li>MachineagnosticusingNodeJS,Python,andMySQL</li>
-                            <li />
-                            <li>Createdtrainingsoftwareforemergencyfirst-responders</li>
-                            <li>Participatedineverystageofthedevelopmentlifecycle</li>
-                            <li>
-                                DeployedtoavarietyoffieldsincludingDeptofEnergy,MarineCorps, Law
-                                Enforcement, Fire, and Rail
-                            </li>
-                            <li>
-                                Collaboratedwithexternalsoftwareteamtoallowthemtoconnecttheir own
-                                custom UI to the RESTful Web API
-                            </li>
-                            <li>DesignedforuseinAzure,oron-premisesforcontrolofsensitivedata</li>
-                            <li>DevelopedusingKnockoutJS,Bootstrap,C#,EntityFramework,SQLServer</li>
-                            <li />
-                            <li>
-                                Createdatimecardsolutiontoimproveinterdepartmentalaccuracyand
-                                efficiency
-                            </li>
-                            <li>Closeinteractionswithaccountingandprojectmanagers</li>
-                            <li>Useddailybyeveryemployeeforover10years</li>
-                            <li>
-                                Reducedmanyhoursofeffortallowingaccountingpersonneltofocuson more
-                                important tasks
-                            </li>
-                            <li />
-                            <li>Migratedinfrastructureandoperationstothecloud</li>
-                            <li>DeployedwebapplicationsanddatabasestoMicrosoftAzure</li>
-                            <li>
-                                Transferredcompanyservicestotheircloud-basedcounterpartslike
-                                QuickBooks, JIRA, and source control
-                            </li>
-                            <li>ImplementedothercollaborativetoolssuchasSlackandScreenhero</li>
-                            <li />
-                            <li>
-                                Assistedwithimplementationandrefinementofagileandscrummethodologies
-                            </li>
-                            <li />
-                            <li>
-                                Migrated legacy developer-centric tools for generating EPHA
-                                documentation through several major upgrades into more modern
-                                applications suitable for use directly by analysts
-                            </li>
-                            <li>
-                                Department of Energy (Emergency Planning Hazards Assessment) EPHA
-                                automation from client data to final report output
-                            </li>
-                            <li>
-                                Worked with analysts and scientists to customize reports to fit
-                                client needs
-                            </li>
-                            <li>
-                                Implemented approximation algorithm for chemical Threshold Screening
-                                Quantity calculation
-                            </li>
-                            <li>Source Term calculation, dispersion, consequence analysis</li>
-                            <li>Hazard Screening, Hazard Analysis, and EALs</li>
-                            <li>Various hazard classes (chemical, radiological, biological)</li>
-                            <li>
-                                Increased performance and precision of EPIcode and Hotspot
-                                automation tools
-                            </li>
-                            <li>
-                                Created a tool to combine multiple Hotspot outputs into a single
-                                radiological mixture
-                            </li>
-                            <li>
-                                Development for tool to calculate evaporation of puddles of
-                                hazardous materials
-                            </li>
-                            <li>Development for tool to produce Protective Action Plans</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="detail">
                     <h4 class="task">
-                        Lead developer of CAPARS (Computer Assisted Protective Action Recommendation
-                        System) emergency management reponse and reporting application
+                        Lead developer of CAPARS (Computer Assisted Protective Action Recommendation System) emergency management reponse and reporting application
                     </h4>
                     <div class="skills">
                         <Chip size="extra-small">Python</Chip>
@@ -633,41 +550,13 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Solved recurring client network security communication issue while
-                                simultaneously simplifying server administration and deployment by
-                                streamlining from a dual server configuration to a single server
-                                with a hosted virtual machine
-                            </li>
-                            <li>Enhanced wind field applet and made user configurable</li>
-                            <li>Server administration including OS upgrades and security</li>
-                            <li>
-                                Modeling using real meteorological data from the site rather than
-                                theoretical wind conditions with simple straight-line models to more
-                                accurately reflect dispersion through complex terrain
-                            </li>
-                            <li>Designed for parallelized and distributed computing</li>
-                            <li>Designed to be machine agnostic</li>
-                            <li>Recommended and custom built servers to client specifications</li>
-                            <li />
-                            <li>ServeradministrationincludingOSupgradesandsecurity</li>
-                            <li>
-                                Streamlinedserverconfigurationtosimplifydeploymentandadministration
+                                I maintained and updated the original version, which is still in production. Notably, I solved recurring client network security conflicts which impeded system communication by streamlining from a dual server configuration to a single server with a hosted virtual machine. This had the additional benefit of simplifying server administration and deployment. In addition, I enhanced the wind field applet to be user configurable which allowed for faster custom client deployments
                             </li>
                             <li>
-                                Creatednextgenerationversionusingnewdispersionmodelingmethodology
-                            </li>
-                            <li />
-                            <li>
-                                Custom-builtreal-timeemergencyresponseandconsequenceanalysisservers
+                                I created the next generation version for EPHA generation using new dispersion/consequence assessment modeling methodology. This performed modeling using real meteorological data from the site rather than theoretical wind conditions with simple straight-line models to more accurately reflect dispersion through complex terrain. The application was designed for parallelized and distributed computing with the intent to utilize the full processing power of a multi-core system and allow additional machines to "subscribe" in order to assist with the workload.
                             </li>
                             <li>
-                                Streamlinedserverconfigurationtoeliminatefacilitysecurityconflictsandsimplify
-                                deployment and administration
-                            </li>
-                            <li>
-                                CreatednextgenerationversionforEPHAgenerationusingnewdispersion/consequence
-                                assessment modeling methodology and designed for parallel and
-                                distributed computing
+                                I recommended and custom built real-time emergency response and consequence analysis servers to client specifications and budget. On these servers I performed server administration including OS upgrades, repairs, and security updates.
                             </li>
                         </ul>
                     </div>
@@ -686,42 +575,19 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Developed this web-based crisis decision training application for
-                                first responders
+                                This was originally developed as a desktop application for analysis and production of Protective Action Plans. It later expanded into a web-based crisis decision training platform for first responders.
+                                I prepared the application for demo at EMI SIG after which I received special recognition for creating a Minimum Viable Product (MVP) system in an extremely short period of time.
                             </li>
                             <li>
-                                Worked with external companies to develop and evaluate pattern
-                                recognition engines
+                                I worked with an external company to evaluate the integration of their pattern recognition engine (PRE). This effort eventually turned towards developing a custom PRE in-house to drive the system to a definitive answer as quickly as possible.
+                                I also collaborated with external software teams to integrate the AlphaTRAC system into their custom user interfaces and Learning Management Systems (LMS).
                             </li>
                             <li>
-                                Demoed at EMI SIG after which I received special recognition for
-                                creating a working system in an extremely short period of time
+                                It originally handled chemical and radiological hazard scenarios for the Department of Energy and grew to serve additional fields including the Marine Corps, fire service, rail operations, and law enforcement.
                             </li>
                             <li>
-                                Eventually grew beyond chemical and radiological hazard scenarios
-                                into a training/evaluation platform
+                                It was deployed to Azure but could optionally be installed on-premise in order to protect sensitive data.
                             </li>
-                            <li>
-                                Deployed to a variety of fields including Dept of Energy, Marine
-                                Corps, fire, rail, and law enforcement
-                            </li>
-                            <li>
-                                Designed for use in Azure, or on-premise for control of sensitive
-                                data
-                            </li>
-                            <li>
-                                Collaborated with external software team to allow them to connect
-                                their own custom UI to the RESTful API
-                            </li>
-                            <li>Collaborated with external teams to connect to their LMS</li>
-                            <li />
-                            <li>
-                                ReceivedspecialrecognitionforcreatingMVPsysteminaveryshortperiodoftime
-                            </li>
-                            <li>
-                                Supportedavarietyoffieldsincluding:DOE,DOD,fire,rail,andlawenforcement
-                            </li>
-                            <li>Expandedtovariousdisciplines:DOE,DOD,fire,rail,law</li>
                         </ul>
                     </div>
                 </div>
@@ -737,35 +603,25 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Developed web app and REST API to convert SME after-action reports
-                                into training scenarios for AlphaACT
+                                I developed this web application and REST API for converting SME after-action reports into training scenarios for AlphaACT, designed to be adaptable for various fields and implementations.
                             </li>
                             <li>
-                                Designed to be data-driven and adaptable for multiple
-                                implementations and fields
+                                Additionally, I created an Android version of the application, enabling offline deployment to remote locations.
                             </li>
-                            <li>Collaborated with external team to connect their custom UI</li>
                             <li>
-                                Created Android version to allow offline deployment to remote
-                                locations
+                                The project involved a question-and-answer style experience-gathering interview for transforming SME after-action reports into training scenarios.
                             </li>
-                            <li />
-                            <li>Data-drivenquestionandanswerstyleinterview</li>
-                            <li>ConvertedSMEafter-actionreportsintotrainingscenariosforAlphaACT</li>
                             <li>
-                                CollaboratedwithexternalteamtoconnecttheircustomUI (such as IAFC)
-                            </li>
-                            <li />
-                            <li>
-                                Developed experience gathering app and REST API (XCapture) to
-                                convert SME after-action reports into training scenarios
+                                I worked in collaboration with external teams, such as the IAFC (International Association of Fire Chiefs), to integrate the XCapture API with their user interface.
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Migrated infrastructure and operations to the cloud</h4>
+                    <h4 class="task">
+                        Implementation, refinement, and upkeep of several software processes and operations
+                    </h4>
                     <div class="skills">
                         <Chip size="extra-small">Azure</Chip>
                         <Chip size="extra-small">Jira</Chip>
@@ -775,55 +631,22 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I facilitated the transition to a remote workforce when the company
-                                decided to close the office, by transferring company services to
-                                their cloud-based counterparts like QuickBooks, Jira, and Azure
-                                DevOps. Implemented other collaborative tools such as Slack and
-                                Screenhero.
+                                When the company shifted to a fully remote workforce, I played a key role by migrating the business's systems, infrastructure, and operations. This included moving web applications to Microsoft Azure, transferring company services to their cloud-based counterparts, and implementing other collaborative tools.
                             </li>
                             <li>
-                                I spearheaded the effort to deploy web applications and databases to
-                                Microsoft Azure.
-                            </li>
-                            <li>Migrated source control management to Git</li>
-                            <li>
-                                Transitioned resources and operations to the cloud to facilitate
-                                remote workforce
-                            </li>
-                            <li />
-                            <li>
-                                Migrated source control management from Visual SourceSafe to SVN,
-                                and then to Git
+                                I set up and administered an on-premises installation of Jira for issue management and process workflow adherence.
                             </li>
                             <li>
-                                Windows workstation, Windows Server, Linux, and Azure administration
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="detail">
-                    <h4 class="task">
-                        Implementation and refinement of several software processes
-                    </h4>
-                    <div class="skills">
-                        <Chip size="extra-small">zzz</Chip>
-                    </div>
-                    <div class="notes">
-                        <ul>
-                            <li>
-                                I set up and administered an on-premises installation of Jira for
-                                issue management and process workflow adherence.
+                                I worked on a company IEEE-compliance committee for Software Quality Assurance. This included implementing processes and writing system documentation.
                             </li>
                             <li>
-                                I worked on a company IEEE-compliance committee for Software Quality
-                                Assurance. This included implementing processes and writing system
-                                documentation.
+                                Government contracts came with time-tracking and administrative requirements, which off-the-shelf software couldn't meet. I created an Excel-based timecard solution to improve accuracy between accounting, project managers, and employees. This timecard system was used daily by every employee for over 10 years.
                             </li>
                             <li>
-                                I migrated our source code and company documentation from CVS to
-                                Subversion and then later split them to more the more modern
-                                specialty tools, Git and Sharepoint
+                                I managed the evolution of our source code and company documentation from CVS to Subversion and then later split them to more the more modern specialty tools, Git and Sharepoint
+                            </li>
+                            <li>
+                                I became the primary individual responsible for any IT issues that came up. I built, purchased, and maintained workstations and servers, upgraded the network infrastructure, and implemented security protocols.
                             </li>
                         </ul>
                     </div>
