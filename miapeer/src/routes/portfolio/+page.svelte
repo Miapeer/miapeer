@@ -20,8 +20,8 @@
             <Link href="/">miapeer.com</Link>
         </div>
     </section>
+    
     <section class="personal">
-        <h1>This page is a work-in-progress!</h1>
         <h2>A little about myself</h2>
         <div class="summary">
             I'm a software engineer with over 25 years of experience. Most of my experience has been
@@ -32,6 +32,7 @@
             looking to learn new skills to add to my toolbelt.
         </div>
     </section>
+    
     <section class="skills">
         <h2>Skills</h2>
         <div class="chips">
@@ -77,6 +78,7 @@
             <Chip size="small">MS Access</Chip>
         </div>
     </section>
+    
     <section class="timeline">
         <h2>Timeline</h2>
         <div class="timeline-wrapper">
@@ -123,26 +125,14 @@
                         side: 'right'
                     },
                     {
-                        text: 'RSA',
-                        start: {
-                            month: 8,
-                            year: 2007
-                        },
-                        end: {
-                            month: 8,
-                            year: 2009
-                        },
-                        side: 'right'
-                    },
-                    {
                         text: 'Blue Lizard Software',
                         start: {
                             month: 2,
                             year: 1998
                         },
                         end: {
-                            month: 11,
-                            year: 2004
+                            month: 8,
+                            year: 2009
                         },
                         side: 'right'
                     },
@@ -186,8 +176,11 @@
             />
         </div>
     </section>
+
     <section class="experience-list">
-        <h2 class="title-a">Experience</h2>
+        <h2 class="title">Experience</h2>
+
+        <!-- --------------------------------------------- -->
 
         <div class="experience">
             <div class="header">
@@ -198,37 +191,44 @@
                     <div class="location">Denver, CO</div>
                 </div>
             </div>
+
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">Full-stack development of platform</h4>
+                    <h4 class="task">Full-stack development of web platform</h4>
                     <div class="skills">
                         <Chip size="extra-small">Python</Chip>
                         <Chip size="extra-small">React</Chip>
                     </div>
                     <div class="notes">
                         <ul>
-                            <li>Add details</li>
-                            <li>Add details</li>
+                            <li>The day-to-day work involved the debugging and the creation of new features for the entire development stack ranging from Terraform to React.</li>
+                            <li>I worked on a team that was primarily focused on rebuilding the processes necessary to deprecate the existing graph database and instead use a relational database.</li>
+                            <li>While the majority of the tasks focused on the back-end, my front-end experience positioned me as the primary developer responsible for virtually all front-end aspects of the work.</li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="details">
+
                 <div class="detail">
-                    <h4 class="task">Company Master initiative</h4>
+                    <h4 class="task">Enhanced company match</h4>
                     <div class="skills">
                         <Chip size="extra-small">Python</Chip>
                         <Chip size="extra-small">React</Chip>
                     </div>
                     <div class="notes">
                         <ul>
-                            <li>Add details</li>
-                            <li>Add details</li>
+                            <li>
+                                I was lucky enough to work with the same key personnel on this similar task as my Company Master work at Webroot. Keeping the previous foundational experience in mind I was able to redesign and improve upon the original work, taking it from an entirely SQL-based solution to one that could utilize the entire technology stack.
+                            </li>
+                            <li>
+                                I incorporated additional techniques like transliteration and additional tools like ZoomInfo to further enhance the company matching process.
+                            </li>
+                            <li>
+                                This feature was foundational for the key engineering goals to move our data and systems to use a relational database, achieve an automated customer bulk ingest process, improve the results from the company search page, and provide the initial integration component with ProcessUnity.
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="details">
+
                 <div class="detail">
                     <h4 class="task">Bulk ingest</h4>
                     <div class="skills">
@@ -237,13 +237,12 @@
                     </div>
                     <div class="notes">
                         <ul>
-                            <li>Add details</li>
-                            <li>Add details</li>
+                            <li>I took on the role of a team technical lead to drive this feature, which heavily utilized my previous Company Master work.</li>
+                            <li>This epic required me to spearhead the use of new-to-our-architecture features and technologies including AWS Lambda, AWS EventBridge, and ZoomInfo.</li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="details">
+
                 <div class="detail">
                     <h4 class="task">Merger integration</h4>
                     <div class="skills">
@@ -252,13 +251,14 @@
                     </div>
                     <div class="notes">
                         <ul>
-                            <li>Add details</li>
-                            <li>Add details</li>
+                            <li>I was the sole developer from CyberGRX on the integration team working with ProcessUnity to unify the unique functionality of both platforms.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- --------------------------------------------- -->
 
         <div class="experience">
             <div class="header">
@@ -269,10 +269,11 @@
                     <div class="location">Westminster, CO</div>
                 </div>
             </div>
+
             <div class="details">
                 <div class="detail">
                     <h4 class="task">
-                        Created and continually improve a financial web application
+                        Created and continually improve a financial web application (Quantum)
                     </h4>
                     <div class="skills">
                         <Chip size="extra-small">ASP.Net MVC</Chip>
@@ -282,16 +283,14 @@
                     </div>
                     <div class="notes">
                         <ul>
-                            <li>Built to assist people with financial tracking and budgeting</li>
                             <li>
-                                This project was born out of necessity when other financial
-                                applications lacked features that I needed for my own money
-                                management. The original version was a desktop application written
-                                in VB6. The current version is web-based, using KnockoutJS and
-                                SignalR. I still use this for my personal finances to this day.
+                                Designed to empower individuals in managing their finances through intuitive tracking and budgeting features.
                             </li>
                             <li>
-                                Continuous deployment via Azure DevOps and Azure Container Registry
+                                This project was born out of necessity when other financial applications lacked features that I needed for my own money management. The original version was a desktop application written in VB6. The current version has a web application front-end with a Python REST API. I still use this for my personal finances to this day.
+                            </li>
+                            <li>
+                                This is hosted on Microsoft Azure utilizing continuous deployment via Azure DevOps and Azure Container Registry.
                             </li>
                             <!-- <li>
                                 Feel free to take it for a spin: &nbsp;<a
@@ -307,89 +306,7 @@
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="detail">
-                    <h4 class="task">Old resumè</h4>
-                    <div class="skills" />
-                    <div class="notes">
-                        <ul>
-                            <li>
-                                I created a scheduling application for Water World which reduced
-                                scheduling labor by 50% while increasing schedule accuracy and
-                                efficiency for nearly 1,000 employees
-                            </li>
-                            <li>
-                                I created an electronic timecard system which integrated with
-                                existing account tools
-                            </li>
-                            <li>
-                                Influenced and led effort to move on-premesis products to the cloud
-                            </li>
-                            <li>quick learner</li>
-                            <li>reputation of efficiency, integrity, and high quality of work</li>
-                            <li>self-starting and sustaining</li>
-                            <li>
-                                always looking for new skills and toold to improve products and
-                                processes
-                            </li>
-                            <li>Reporting analyst - Echostar - Englewood, CO - 7-1997 > 10-2000</li>
-                            <li>works well under pressure</li>
-                            <li>
-                                quick learner with reputation for efficiency and high quality of
-                                work
-                            </li>
-                            <li>works well in teamwork enviroment</li>
-                            <li>excellent customer service skills</li>
-                            <li>strong oral and writtent communication skills</li>
-                            <li>blue lizard software llc - 2-1998 - ???</li>
-                            <li />
-                            <li>software developer and co-owner</li>
-                            <li>creating an automated employee-scheduling application</li>
-                            <li>
-                                minimizing company expenses (about 64 man-hours reduced to 24, every
-                                two weeks
-                            </li>
-                            <li>
-                                increasing schedule accuracy and efficiency for nearly one thousand
-                                employees
-                            </li>
-                            <li>apparatus sales corporation for the U.S. EPA - 4-2001 - 5-2001</li>
-                            <li>software technical support and training</li>
-                            <li>
-                                re-wrote and streamlined "Loaner-Equipment Tracking" application
-                            </li>
-                            <li>saved time in tracking down checked-out equipment</li>
-                            <li>increaded availability of equipment</li>
-                            <li>cavion technologies - 10-2000 - 12-2000</li>
-                            <li>echostar communications corporation</li>
-                            <li>reporting analyst</li>
-                            <li>
-                                provided support for company's backend Customer Management Center
-                            </li>
-                            <li>Developed and maintained dozens of Access Database applications</li>
-                            <li>
-                                Focused on dynamic data import and export, report generation and
-                                process automation
-                            </li>
-                            <li>assisted in early preparation of data warehouse</li>
-                            <li>training</li>
-                            <li>catapult inc. at Echostar Communications</li>
-                            <li>MS Access '97: Introducing, Enhancing, and Mastering - 1999</li>
-                            <li>Certifications</li>
-                            <li>MS Access 2000 Fundamentals - Brainbench.com - 2005</li>
-                            <li>Computer Fundamentals (Win 95/98) - Brainbench.com - 2005</li>
-                            <li>Math Fundamentals - Brainbench.com - 2005</li>
-                            <li />
-                            <li>
-                                As my first professional project, I created an automated employee
-                                scheduling application for an amusement park. Having under-aged
-                                employees posed the additional challenge of navigating labor law
-                                restrictions. This application was developed to improve scheduling
-                                efficiency, and simultaneously prevent penalties by avoiding labor
-                                law violations.
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
+
                 <div class="detail">
                     <h4 class="task">Work with clients to bring solutions to market</h4>
                     <div class="skills">
@@ -403,17 +320,21 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I've held two contracts for the full development and deployment of
-                                web applications. One application is currently in production
-                                (Nussentials), while the other has moved into beta (MyExReportCard).
+                                I've held two contracts for the full development and deployment of web applications.
                             </li>
-                            <li>From consulting to complete web applications</li>
-                            <li>Clients include: RSA, Courtesy Services, Nussentials</li>
+                            <li>
+                                From consulting to complete web applications
+                            </li>
+                            <li>
+                                Clients include: RSA, Courtesy Services, Nussentials
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- --------------------------------------------- -->
 
         <div class="experience">
             <div class="header">
@@ -424,6 +345,7 @@
                     <div class="location">Broomfield, CO</div>
                 </div>
             </div>
+
             <div class="details">
                 <div class="detail">
                     <h4 class="task">Research and development of Company Master initiative</h4>
@@ -445,6 +367,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="detail">
                     <h4 class="task">Continued improvement of eCommerce systems</h4>
                     <div class="skills">
@@ -453,7 +376,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I extended functionality and debugged business logic within the database schema. This included customer data, subscriptions, billing, orders, website routing, and more.
+                                My primary role at this company was a SQL developer. I extended functionality and debugged business logic within the database schema. This included customer data, subscriptions, billing, orders, website routing, and more.
                             </li>
                             <li>
                                 I received reports and performed production data support for customers and product licenses in order to keep the data clean and processes running smoothly.
@@ -461,6 +384,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="detail">
                     <h4 class="task">Marketo person import process</h4>
                     <div class="skills">
@@ -477,6 +401,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="detail">
                     <h4 class="task">Front-end development</h4>
                     <div class="skills">
@@ -496,15 +421,18 @@
             </div>
         </div>
 
+        <!-- --------------------------------------------- -->
+
         <div class="experience">
             <div class="header">
-                <h3 class="title">AlphaTRAC, Inc</h3>
+                <h3 class="title">AlphaTRAC</h3>
                 <div class="sub">
                     <div class="position">Senior Software Engineer</div>
                     <div class="timeframe">February 2006 - February 2018</div>
                     <div class="location">Westminster, CO</div>
                 </div>
             </div>
+
             <div class="details">
                 <div class="detail">
                     <h4 class="task">
@@ -612,7 +540,7 @@
                                 The project involved a question-and-answer style experience-gathering interview for transforming SME after-action reports into training scenarios.
                             </li>
                             <li>
-                                I worked in collaboration with external teams, such as the IAFC (International Association of Fire Chiefs), to integrate the XCapture API with their user interface.
+                                I worked in collaboration with external teams, such as the International Association of Fire Chiefs(IAFC), to integrate the XCapture API with their user interface.
                             </li>
                         </ul>
                     </div>
@@ -643,7 +571,7 @@
                                 Government contracts came with time-tracking and administrative requirements, which off-the-shelf software couldn't meet. I created an Excel-based timecard solution to improve accuracy between accounting, project managers, and employees. This timecard system was used daily by every employee for over 10 years.
                             </li>
                             <li>
-                                I managed the evolution of our source code and company documentation from CVS to Subversion and then later split them to more the more modern specialty tools, Git and Sharepoint
+                                I managed the evolution of our source code and company documentation from CVS to Subversion and then later split them to more modern specialty tools, Git and Sharepoint
                             </li>
                             <li>
                                 I became the primary individual responsible for any IT issues that came up. I built, purchased, and maintained workstations and servers, upgraded the network infrastructure, and implemented security protocols.
@@ -665,7 +593,266 @@
                 </div>
             </div>
         </div>
+
+        <!-- --------------------------------------------- -->
+
+        <div class="experience">
+            <div class="header">
+                <h3 class="title">Blue Lizard Software LLC</h3>
+                <div class="sub">
+                    <div class="position">Co-Founder</div>
+                    <div class="timeframe">February 1998 - August 2009</div>
+                    <div class="location">Westminster, CO</div>
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="detail">
+                    <h4 class="task">
+                        Water World
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                This was my first professional project.
+                            </li>
+                            <li>
+                                I created a scheduling application for Water World which reduced scheduling labor from 64 hours to only 24 hours every two weeks.
+                            </li>
+                            <li>
+                                Having under-aged employees posed the additional challenge of navigating labor law restrictions. This application was designed to improve scheduling accuracy and efficiency for nearly 1,000 employees while simultaneously preventing penalties by avoiding labor law violations.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h4 class="task">
+                        Rehabilitation Services Administration
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                Collaborating closely with Subject Matter Experts (SMEs), I developed a database application designed to track the treatment plans for offender rehabilitation.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h4 class="task">
+                        Quantum
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                During this time period is when I created the first version of Quantum (mentioned above within the section for Miapeer LLC). This was my first attempt at working with fuzzy matching and predictive analysis.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --------------------------------------------- -->
+
+        <div class="experience">
+            <div class="header">
+                <h3 class="title">Apparatus Sales Corporation</h3>
+                <div class="sub">
+                    <div class="position">Tech Support I for the U.S. EPA</div>
+                    <div class="timeframe">April 2001 - May 2001</div>
+                    <div class="location">Denver, CO</div>
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="detail">
+                    <h4 class="task">
+                        zzz
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                I provided comprehensive software technical support coupled with education to empower users with the knowledge and assistance they need for optimal software utilization.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h4 class="task">
+                        Loaner-Equipment Tracking application
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                Recognizing that the original application was practible unusable, which resulted in minimal user engagement, I rewrote and streamlined the "Loaner-Equipment Tracking" application. The objective was to optimize functionality significantly, ensuring improved efficiency and a more user-friendly experience
+                            </li>
+                            <li>
+                                This increased availability and saved time in tracking down checked-out and overdue equipment by replacing the existing paper-based process with an electronic process with status reports.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --------------------------------------------- -->
+
+        <div class="experience">
+            <div class="header">
+                <h3 class="title">Cavion Technologies</h3>
+                <div class="sub">
+                    <div class="position">Tech Support I</div>
+                    <div class="timeframe">October 2000 - December 2000</div>
+                    <div class="location">Englewood, CO</div>
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="detail">
+                    <h4 class="task">
+                        Tier-1 Support
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                I provided basic customer support over the phone and escalated as necessary.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h4 class="task">
+                        Created the uptime report
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                I conceptualized and developed an automated report that compiled system logs and offered customers a comprehensive monthly review of their services. This report provided insights into the uptime and operational status of their subscriptions.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --------------------------------------------- -->
+
+        <div class="experience">
+            <div class="header">
+                <h3 class="title">Echostar Communications</h3>
+                <div class="sub">
+                    <div class="position">Reporting Analyst</div>
+                    <div class="timeframe">July 1997 - October 2000</div>
+                    <div class="location">Englewood, CO</div>
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="detail">
+                    <h4 class="task">
+                        Streamlined equipment refund process
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                As a billing associate, I was shocked at how long it took to process refunds for returned customer equipment. I found that most of the time was spent waiting for inter-office paperwork delivery and signatures from select personnel. In my down-time, I started working on an application to electronically transmit and track progress providing notifications to the appropriate individuals for their "sign off".
+                            </li>
+                            <li>
+                                I was able to reduce the refund processing time from 4-6 weeks to 4-5 days.
+                            </li>
+                            <li>
+                                Through this effort, I landed a role as a Reporting Analyst and also received recogniation as employee of the month.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h4 class="task">
+                        Call center processes, metrics, and reporting
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                My focus in this role was on dynamic data import and export, report generation, and process automation.
+                            </li>
+                            <li>
+                                I developed and maintained dozens of Access Database applications. These were used to perform business functions such as customer account maintenance, equipment refunds, and credit card batch reconciliation.
+                            </li>
+                            <li>
+                                Due to the large number of databases, I assisted IT in the early preparation of the company's data warehouse.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <h4 class="task">
+                        Management support
+                    </h4>
+                    <div class="skills">
+                        <Chip size="extra-small">zzz</Chip>
+                    </div>
+                    <div class="notes">
+                        <ul>
+                            <li>
+                                I provided both scheduled and ad hoc reporting support for all three call center management teams.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --------------------------------------------- -->
+        
     </section>
+
+    <!-- <section class="training">
+        <h2>Training</h2>
+        <div class="training-list">
+            <ul>
+                <li>catapult inc. at Echostar Communications</li>
+                <li>MS Access '97: Introducing, Enhancing, and Mastering - 1999</li>
+                <li>Certifications</li>
+                <li>MS Access 2000 Fundamentals - Brainbench.com - 2005</li>
+                <li>Computer Fundamentals (Win 95/98) - Brainbench.com - 2005</li>
+                <li>Math Fundamentals - Brainbench.com - 2005</li>
+            </ul>
+        </div>
+    </section> -->
+
     <section class="interests">
         <h2>Interests</h2>
         <div class="interest-list">
