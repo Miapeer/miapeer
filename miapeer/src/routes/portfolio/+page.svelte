@@ -1,3 +1,6 @@
+<!-- TODO: Add images and links (eg GitHub) -->
+<!-- TODO: Add accordions to reduce clutter -->
+
 <script>
     import Chip from '$lib/Chip.svelte';
     import Link from '$lib/Link.svelte';
@@ -18,6 +21,10 @@
         <div class="contact-method website">
             <i class="fa fa-cloud" />
             <Link href="/">miapeer.com</Link>
+        </div>
+        <div class="contact-method website">
+            <i class="fa-brands fa-github" />
+            <Link href="https://github.com/Miapeer" openNewTab>Check out my GitHub repo</Link>
         </div>
     </section>
 
