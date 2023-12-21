@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
     export let cssClass = '';
     export let href = '';
+    export let openNewTab = false;
 </script>
 
-<a class={cssClass} {href}>
+<a class={cssClass} {href} target={openNewTab ? "_blank" : null} rel={openNewTab ? "noreferrer noopener" : null}>
     <slot />
 </a>
 
