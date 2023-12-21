@@ -1,4 +1,4 @@
-<!-- TODO: Add images and links (eg GitHub) -->
+<!-- TODO: Add images -->
 <!-- TODO: Add accordions to reduce clutter -->
 
 <script>
