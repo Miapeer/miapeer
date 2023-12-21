@@ -1,5 +1,5 @@
 # Miapeer
-This is the Miapeer front-end. It serves as a landing page to get to additional Miapeer resources.
+This is the Miapeer front-end. It serves as a landing page to get to additional Miapeer resources and consumes the [Miapeer API](https://github.com/Miapeer/api).
 
 ## Table of Contents
 - [License](#license)
