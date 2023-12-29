@@ -1,6 +1,5 @@
 <!-- TODO: Add images -->
 <!-- TODO: Add accordions to reduce clutter -->
-
 <script>
     import Chip from '$lib/Chip.svelte';
     import Link from '$lib/Link.svelte';
@@ -318,7 +317,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I'm currently working with Los Alamos National Laboratory for
+                                I am currently working with Los Alamos National Laboratory for
                                 consultation and the active development of their multiple
                                 installations of CAPARS.
                             </li>
@@ -338,8 +337,8 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I designed this app to empower individuals in managing their finances through
-                                intuitive tracking and budgeting features.
+                                I designed this app to empower individuals in managing their
+                                finances through intuitive tracking and budgeting features.
                             </li>
                             <li>
                                 This project was born out of necessity when other financial
@@ -382,8 +381,8 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I was the consultant, architect, and engineer for the full development and
-                                deployment of Courtesy Service's web application.
+                                I was the consultant, architect, and engineer for the full
+                                development and deployment of Courtesy Service's web application.
                             </li>
                             <li>
                                 I worked with Nussentials to prepare their upgraded Wordpress
@@ -530,9 +529,9 @@
                                 in-house software used to generate emergency management reports. I
                                 took this app through multiple iterations as a developer-only tool
                                 to something that analysts could pilot themselves. The original
-                                version was written in VB6 and used a substantial amount of Excel/Word
-                                automation. My focus was to keep that application running while
-                                working to replace the VB6 elements with C#. Years later, the
+                                version was written in VB6 and used a substantial amount of
+                                Excel/Word automation. My focus was to keep that application running
+                                while working to replace the VB6 elements with C#. Years later, the
                                 project was reborn again using NodeJS and Python (See CAPARS below).
                             </li>
                             <li>
@@ -659,8 +658,8 @@
                         <ul>
                             <li>
                                 I developed this web application and REST API for converting SME
-                                after-action reports into training scenarios for AlphaACT, which was designed
-                                to be adaptable for various fields and implementations.
+                                after-action reports into training scenarios for AlphaACT, which was
+                                designed to be adaptable for various fields and implementations.
                             </li>
                             <li>
                                 Additionally, I created an Android version of the application,
@@ -853,11 +852,11 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I rewrote and streamlined
-                                the "Loaner-Equipment Tracking" application because I recognized that the original application was practically unusable,
-                                which resulted in minimal user engagement. The objective was to
-                                optimize functionality significantly, ensuring improved efficiency
-                                and a more user-friendly experience.
+                                I rewrote and streamlined the "Loaner-Equipment Tracking"
+                                application because I recognized that the original application was
+                                practically unusable, which resulted in minimal user engagement. The
+                                objective was to optimize functionality significantly, ensuring
+                                improved efficiency and a more user-friendly experience.
                             </li>
                             <li>
                                 This increased availability and saved time in tracking down
@@ -974,8 +973,9 @@
                                 reconciliation.
                             </li>
                             <li>
-                                Due to the large number of databases that I worked with daily, I was an instrumental asset to IT in the early
-                                preparation of the company's data warehouse.
+                                Due to the large number of databases that I worked with daily, I was
+                                an instrumental asset to IT in the early preparation of the
+                                company's data warehouse.
                             </li>
                         </ul>
                     </div>
