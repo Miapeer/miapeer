@@ -195,7 +195,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                The day-to-day work involved the debugging and the creation of new
+                                My day-to-day work involved the debugging and the creation of new
                                 features for the entire development stack ranging from Terraform to
                                 React.
                             </li>
@@ -223,7 +223,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I was lucky enough to work with the same key personnel on this
+                                I had the opportunity to work with the same key personnel on this
                                 similar task as my Company Master work at Webroot. Keeping the
                                 previous foundational experience in mind I was able to redesign and
                                 improve upon the original work, taking it from an entirely SQL-based
@@ -256,7 +256,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I took on the role of a team technical lead to drive this feature,
+                                I took on the role of team technical lead to drive this feature,
                                 which heavily utilized my previous Company Master work.
                             </li>
                             <li>
@@ -318,7 +318,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I have a contract with Los Alamos National Laboratory for
+                                I'm currently working with Los Alamos National Laboratory for
                                 consultation and the active development of their multiple
                                 installations of CAPARS.
                             </li>
@@ -338,7 +338,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Designed to empower individuals in managing their finances through
+                                I designed this app to empower individuals in managing their finances through
                                 intuitive tracking and budgeting features.
                             </li>
                             <li>
@@ -382,7 +382,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                I was consultant and sole developer for the full development and
+                                I was the consultant, architect, and engineer for the full development and
                                 deployment of Courtesy Service's web application.
                             </li>
                             <li>
@@ -420,8 +420,7 @@
                         <ul>
                             <li>
                                 I developed a new process for fuzzy name and address matching to
-                                improve identification of duplicate and prevent duplicate companies
-                                from being created in the database.
+                                improve duplicate company identification and prevention.
                             </li>
                             <li>
                                 I evaluated and implemented various APIs and algorithms such as
@@ -529,10 +528,10 @@
                             <li>
                                 I was tasked with the maintenance and future development of the
                                 in-house software used to generate emergency management reports. I
-                                took this app through multiple iterations as a developer-only took
+                                took this app through multiple iterations as a developer-only tool
                                 to something that analysts could pilot themselves. The original
-                                version was written in VB6, used a substantial amount of Excel/Word
-                                automation, and my focus was to keep that application running while
+                                version was written in VB6 and used a substantial amount of Excel/Word
+                                automation. My focus was to keep that application running while
                                 working to replace the VB6 elements with C#. Years later, the
                                 project was reborn again using NodeJS and Python (See CAPARS below).
                             </li>
@@ -660,7 +659,7 @@
                         <ul>
                             <li>
                                 I developed this web application and REST API for converting SME
-                                after-action reports into training scenarios for AlphaACT, designed
+                                after-action reports into training scenarios for AlphaACT, which was designed
                                 to be adaptable for various fields and implementations.
                             </li>
                             <li>
@@ -793,8 +792,7 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Collaborating closely with Subject Matter Experts (SMEs), I
-                                developed a database application designed to track the treatment
+                                I developed a database application designed to track the treatment
                                 plans for offender rehabilitation.
                             </li>
                         </ul>
@@ -855,11 +853,11 @@
                     <div class="notes">
                         <ul>
                             <li>
-                                Recognizing that the original application was practically unusable,
-                                which resulted in minimal user engagement, I rewrote and streamlined
-                                the "Loaner-Equipment Tracking" application. The objective was to
+                                I rewrote and streamlined
+                                the "Loaner-Equipment Tracking" application because I recognized that the original application was practically unusable,
+                                which resulted in minimal user engagement. The objective was to
                                 optimize functionality significantly, ensuring improved efficiency
-                                and a more user-friendly experience
+                                and a more user-friendly experience.
                             </li>
                             <li>
                                 This increased availability and saved time in tracking down
@@ -976,7 +974,7 @@
                                 reconciliation.
                             </li>
                             <li>
-                                Due to the large number of databases, I assisted IT in the early
+                                Due to the large number of databases that I worked with daily, I was an instrumental asset to IT in the early
                                 preparation of the company's data warehouse.
                             </li>
                         </ul>
