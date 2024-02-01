@@ -8,6 +8,10 @@
     let loggingIn = false;
 
     const handleLogin = async () => {
+        if (email === null || email === '' || password === null || password === '') {
+            return;
+        }
+
         loggingIn = true;
 
         const res = await fetch('/login', {
@@ -23,14 +27,20 @@
             console.log('NOT ok');
         }
     };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+    }
 </script>
 
 <div class="login-form">
     <h1>Sign In</h1>
 
-    <TextField placeholder={'Email'} bind:value={email} />
+    <TextField placeholder={'Email'} bind:value={email} onKeyPress={handleKeyPress} />
 
-    <TextField type="password" placeholder={'Password'} bind:value={password} />
+    <TextField type="password" placeholder={'Password'} bind:value={password} onKeyPress={handleKeyPress} />
 
     <Button
         fullWidth={true}
