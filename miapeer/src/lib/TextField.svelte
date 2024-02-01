@@ -3,6 +3,7 @@
     export let placeholder = '';
     export let value = null;
     export let filled = false;
+    export let onKeyPress = () => {};
 
     const updateFilled = () => {
         filled = !!value;
@@ -17,7 +18,7 @@
 </script>
 
 <div class="wrapper">
-    <input {type} class:filled {value} on:input={handleInput} />
+    <input {type} class:filled {value} on:input={handleInput} on:keypress={onKeyPress} />
     <label>{placeholder}</label>
 </div>
 
