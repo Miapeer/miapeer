@@ -12,7 +12,6 @@
 
 <style>
     button {
-        grid-area: button;
         color: var(--text-accent);
         background-color: rgba(var(--bg-accent-rgb), 0.1);
         padding: 0.75em 1.5em;
