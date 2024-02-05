@@ -2,6 +2,8 @@
     import type { PageData } from './$types';
     import Link from '$lib/Link.svelte';
     import FormattedTable from '$lib/FormattedTable.svelte';
+    import FloatingActionButton from '$lib/FloatingActionButton.svelte';
+    import Popover from '$lib/Popover.svelte';
 
     export let data: PageData;
 </script>
@@ -19,7 +21,7 @@
                     <tr>
                         <th />
                         <th>Balance</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,11 +29,22 @@
                         <tr>
                             <td>{account.name}</td>
                             <td>{account.balance}</td>
-                            <td>
-                                <Link
-                                    cssClass="fa-solid fa-pen-to-square"
-                                    href={`./accounts/${account.account_id}`}
-                                />
+                            <td class="action-cell">
+                                <div>
+                                    <Link
+                                        id={`account-${account.account_id}`}
+                                        class="popover-icon fa-solid fa-ellipsis-v"
+                                        on:click={() => {account.openActions = true}}
+                                    />
+                                </div> 
+                                <Popover open={account.openActions} targetElement={`account-${account.account_id}`} anchor="top-right">
+                                    <div class="popover-action">
+                                        <Link href={`./accounts/${account.account_id}`}><i class="fa-solid fa-pen-to-square" /></Link>
+                                    </div>
+                                    <div class="popover-action">
+                                        <Link href={`./accounts/${account.account_id}`}><i class="fa-solid fa-trash" /></Link>
+                                    </div>
+                                </Popover>
                             </td>
                         </tr>
                     {/each}
@@ -54,13 +67,26 @@
                 </tbody>
             {/if}
         </table>
-        <Link href="./accounts/new" slot="actions"><i class="fa-solid fa-plus" /> Add New</Link>
     </FormattedTable>
 </section>
+<FloatingActionButton href="./accounts/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
 
 <style>
     table .empty {
         text-align: center;
         padding: 1em;
+    }
+
+    .action-cell {
+        text-align: right;
+    }
+
+    :global(.popover-icon) {
+        width: 1em;
+        text-align: center;
+    }
+
+    .popover-action {
+        padding: 0.5em;
     }
 </style>
