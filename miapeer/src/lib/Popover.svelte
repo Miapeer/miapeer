@@ -65,10 +65,4 @@
         visibility: visible;
         opacity: 1;
     }
-
-    @media (prefers-color-scheme: light) {
-        div {
-            color: var(--text-primary);
-        }
-    }
 </style>

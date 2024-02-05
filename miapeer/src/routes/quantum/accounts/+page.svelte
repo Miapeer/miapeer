@@ -1,11 +1,19 @@
 <script lang="ts">
     import type { PageData } from './$types';
+    import Dialog from '$lib/Dialog.svelte';
     import Link from '$lib/Link.svelte';
     import FormattedTable from '$lib/FormattedTable.svelte';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
     import Popover from '$lib/Popover.svelte';
 
     export let data: PageData;
+    
+    export let confirmDelete: boolean = false;
+    export let confirmDeleteAccount = null;
+	function handleConfirmDelete(account) {
+        confirmDeleteAccount = account;
+		confirmDelete = true;
+	}
 </script>
 
 <section>
@@ -42,7 +50,7 @@
                                         <Link href={`./accounts/${account.account_id}`}><i class="fa-solid fa-pen-to-square" /></Link>
                                     </div>
                                     <div class="popover-action">
-                                        <Link href={`./accounts/${account.account_id}`}><i class="fa-solid fa-trash" /></Link>
+                                        <Link on:click={() => handleConfirmDelete(account)}><i class="fa-solid fa-trash" /></Link>
                                     </div>
                                 </Popover>
                             </td>
@@ -69,6 +77,9 @@
         </table>
     </FormattedTable>
 </section>
+<Dialog title="Confirm Delete:" bind:open={confirmDelete}>
+    {`Are you sure you want to delete the account "${confirmDeleteAccount?.name ?? ""}"?`}
+</Dialog>
 <FloatingActionButton href="./accounts/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
 
 <style>
