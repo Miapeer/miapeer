@@ -11,7 +11,9 @@
     const handleCreateAccount = async () => {
         creatingAccount = true;
 
-        const requestData = { portfolioId: data.portfolioId, accountName, startingBalance };
+        const simplified_starting_balance = Math.floor(startingBalance * 100)
+
+        const requestData = { portfolioId: data.portfolioId, accountName, startingBalance: simplified_starting_balance };
         const res = await fetch('/quantum/accounts/new', {
             method: 'POST',
             body: JSON.stringify(requestData)
