@@ -61,7 +61,6 @@
 
     :global(table > tbody > tr:not(.suppress-hover):hover) {
         box-shadow: 0 0 10px -1px var(--bg-primary-negative);
-        transform: scale(1.01);
     }
 
     :global(table > tbody > tr:nth-child(even)) {
