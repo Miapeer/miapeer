@@ -47,36 +47,23 @@
 
 <style>
     .popover {
-        /* grid-area: button;
-        color: var(--text-accent);
-        background-color: rgba(var(--bg-accent-rgb), 0.1);
-        padding: 0.75em 1.5em;
-        border: 1px solid var(--bg-accent);
-        border-radius: 2em;
-        text-transform: uppercase;
-        letter-spacing: inherit;
-        cursor: pointer;
-        width: fit-content;
-        min-height: 3em;
-        transition-property: width, border-radius, background-color, border-color, padding;
-        transition-duration: 200ms;
-        transition-timing-function: ease-in-out;
-        font-size: 0.8em; */
-
         position: absolute;
-        display: none;
+        visibility: hidden;
         opacity: 0;
         transition-property: opacity;
-        transition-duration: 200ms;
+        transition-duration: 100ms;
+        transition-timing-function: ease-in-out;
         outline: none;
         z-index: 9;
 
-        background-color: green;
+        border: 2px solid var(--bg-neutral);
+        border-radius: 0.25em;
+        background-color: var(--bg-primary);
     }
 
     .popover.open {
+        visibility: visible;
         opacity: 1;
-        display: inline;
     }
 
     @media (prefers-color-scheme: light) {
