@@ -1,14 +1,22 @@
 <script>
     export let open = false;
-    export let title = "";
+    export let title = '';
 </script>
 
 <div class="dialog-wrapper" class:open>
     <div class="dialog-overlay"></div>
-    <div class="dialog-container" on:click={() => { open = false }}>
+    <div
+        class="dialog-container"
+        on:click={() => {
+            open = false;
+        }}
+    >
         <div class="dialog" on:click|stopPropagation>
             <h3 class="title">{title}</h3>
             <slot />
+            <div class="actions">
+                <slot name="actions" />
+            </div>
         </div>
     </div>
 </div>
@@ -60,5 +68,11 @@
 
     .dialog > .title {
         margin-block-start: 0;
+    }
+
+    div.actions {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 1em;
     }
 </style>
