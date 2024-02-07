@@ -1,8 +1,8 @@
 .DS_Store
 node_modules
-/build
-/.svelte-kit
-/package
+miapeer/build
+.svelte-kit
+miapeer/package
 .env
 .env.*
 !.env.example
