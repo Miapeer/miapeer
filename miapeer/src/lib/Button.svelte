@@ -3,6 +3,7 @@
     export let waiting = false;
     export let fullWidth = false;
     export let size = 'medium';
+    export let type = null; // This will need to be reworked with the whole "waiting" thing
     export let onClick = null;
 </script>
 
@@ -11,6 +12,11 @@
         class:fullWidth
         class:disabled
         class:waiting
+        class:subtle={type === 'subtle'}
+        class:info={type === 'info'}
+        class:success={type === 'success'}
+        class:warning={type === 'warning'}
+        class:danger={type === 'danger'}
         class:small={size === 'small'}
         class:large={size === 'large'}
         on:click={disabled || waiting ? null : onClick}
@@ -22,9 +28,9 @@
     <i class="fa-solid fa-hourglass-end" />
 </div>
 
-<style>
+<style type="scss">
     .button-wrapper {
-        display: grid;
+        display: inline-grid;
         grid-template-columns: 1fr auto 1fr;
         grid-template-areas: 'left button right';
         place-items: center;
@@ -78,6 +84,56 @@
         background-color: transparent;
         border-color: rgba(var(--bg-accent-rgb), 0.5);
         animation: none;
+    }
+
+    button.subtle {
+        color: var(--text-primary);
+        background-color: transparent;
+        border-color: var(--bg-primary-negative);
+
+        &:hover {
+            background-color: rgba(var(--bg-primary-negative-rgb), 0.3);
+        }
+    }
+
+    button.info {
+        color: var(--theme-blue);
+        background-color: transparent;
+        border-color: var(--theme-blue);
+
+        &:hover {
+            background-color: rgba(var(--theme-blue-rgb), 0.3);
+        }
+    }
+
+    button.success {
+        color: var(--theme-green);
+        background-color: transparent;
+        border-color: var(--theme-green);
+
+        &:hover {
+            background-color: rgba(var(--theme-green-rgb), 0.3);
+        }
+    }
+
+    button.warning {
+        color: var(--theme-orange);
+        background-color: transparent;
+        border-color: var(--theme-orange);
+
+        &:hover {
+            background-color: rgba(var(--theme-orange-rgb), 0.3);
+        }
+    }
+
+    button.danger {
+        color: var(--theme-red);
+        background-color: transparent;
+        border-color: var(--theme-red);
+
+        &:hover {
+            background-color: rgba(var(--theme-red-rgb), 0.3);
+        }
     }
 
     button.waiting:not(.disabled) {
