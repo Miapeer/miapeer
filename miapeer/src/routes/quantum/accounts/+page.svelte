@@ -5,15 +5,32 @@
     import FormattedTable from '$lib/FormattedTable.svelte';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
     import Popover from '$lib/Popover.svelte';
+    import Button from '$lib/Button.svelte';
+
+    import { invalidate } from '$app/navigation';
 
     export let data: PageData;
-    
+
     export let confirmDelete: boolean = false;
-    export let confirmDeleteAccount = null;
-	function handleConfirmDelete(account) {
-        confirmDeleteAccount = account;
-		confirmDelete = true;
-	}
+    export let accountToDelete = null;
+    const handleConfirmDelete = (account) => {
+        accountToDelete = account;
+        confirmDelete = true;
+    };
+    const handleDelete = async () => {
+        confirmDelete = false;
+
+        const deleteAccountRequest = await fetch('/quantum/accounts', {
+            method: 'DELETE',
+            body: JSON.stringify({ accountId: accountToDelete?.account_id })
+        });
+
+        if (deleteAccountRequest.ok) {
+            invalidate('quantum:accounts');
+        } else {
+            console.error('NOT ok');
+        }
+    };
 </script>
 
 <section>
@@ -42,15 +59,25 @@
                                     <Link
                                         id={`account-${account.account_id}`}
                                         class="popover-icon fa-solid fa-ellipsis-v"
-                                        on:click={() => {account.openActions = true}}
+                                        on:click={() => {
+                                            account.openActions = true;
+                                        }}
                                     />
-                                </div> 
-                                <Popover open={account.openActions} targetElement={`account-${account.account_id}`} anchor="top-right">
+                                </div>
+                                <Popover
+                                    open={account.openActions}
+                                    targetElement={`account-${account.account_id}`}
+                                    anchor="top-right"
+                                >
                                     <div class="popover-action">
-                                        <Link href={`./accounts/${account.account_id}`}><i class="fa-solid fa-pen-to-square" /></Link>
+                                        <Link href={`./accounts/${account.account_id}`}
+                                            ><i class="fa-solid fa-pen-to-square" /></Link
+                                        >
                                     </div>
                                     <div class="popover-action">
-                                        <Link on:click={() => handleConfirmDelete(account)}><i class="fa-solid fa-trash" /></Link>
+                                        <Link on:click={() => handleConfirmDelete(account)}
+                                            ><i class="fa-solid fa-trash" /></Link
+                                        >
                                     </div>
                                 </Popover>
                             </td>
@@ -78,7 +105,11 @@
     </FormattedTable>
 </section>
 <Dialog title="Confirm Delete:" bind:open={confirmDelete}>
-    {`Are you sure you want to delete the account "${confirmDeleteAccount?.name ?? ""}"?`}
+    {`Are you sure you want to delete the account named "${accountToDelete?.name ?? ''}"?`}
+    <div slot="actions">
+        <Button type="subtle" onClick={() => (confirmDelete = false)}>Cancel</Button>
+        <Button type="danger" onClick={handleDelete}>Delete</Button>
+    </div>
 </Dialog>
 <FloatingActionButton href="./accounts/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
 
