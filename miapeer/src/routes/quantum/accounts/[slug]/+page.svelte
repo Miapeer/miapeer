@@ -24,7 +24,7 @@
             await invalidate('quantum:accounts');
             goto(data.redirectUrl ?? '..');
         } else {
-            console.log('NOT ok');
+            console.error('NOT ok');
         }
     };
 </script>

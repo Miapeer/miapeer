@@ -24,7 +24,7 @@
             invalidateAll();
             goto(data.redirectUrl ?? '/');
         } else {
-            console.log('NOT ok');
+            console.error('NOT ok');
         }
     };
 
@@ -32,7 +32,7 @@
         if (e.key === 'Enter') {
             handleLogin();
         }
-    }
+    };
 </script>
 
 <div class="login-form">
@@ -40,7 +40,12 @@
 
     <TextField placeholder={'Email'} bind:value={email} onKeyPress={handleKeyPress} />
 
-    <TextField type="password" placeholder={'Password'} bind:value={password} onKeyPress={handleKeyPress} />
+    <TextField
+        type="password"
+        placeholder={'Password'}
+        bind:value={password}
+        onKeyPress={handleKeyPress}
+    />
 
     <Button
         fullWidth={true}

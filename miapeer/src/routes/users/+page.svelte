@@ -54,7 +54,7 @@
             if (permissionRequest.ok) {
                 invalidate('miapeer:permissions');
             } else {
-                console.log('NOT ok');
+                console.error('NOT ok');
             }
         }
     };

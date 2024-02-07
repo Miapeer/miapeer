@@ -22,7 +22,7 @@ export async function load() {
             invalidateAll();
             goto(data.redirectUrl ?? '/');
         } else {
-            console.log('NOT ok');
+            console.error('NOT ok');
         }
     };
 </script>
