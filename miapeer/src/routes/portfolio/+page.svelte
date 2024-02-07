@@ -88,6 +88,10 @@
                             month: 5,
                             year: 2021
                         },
+                        end: {
+                            month: 12,
+                            year: 2023
+                        },
                         side: 'left'
                     },
                     {
