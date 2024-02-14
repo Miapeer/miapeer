@@ -3,7 +3,7 @@
     export let waiting = false;
     export let fullWidth = false;
     export let size = 'medium';
-    export let type = null; // This will need to be reworked with the whole "waiting" thing
+    export let type = null; // TODO: This will need to be reworked with the whole "waiting" thing
     export let onClick = null;
 </script>
 
