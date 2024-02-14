@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<style id="new">
+<style type="scss">
     .table-wrapper {
         color: var(--text-primary-negative);
     }
@@ -32,7 +32,7 @@
         border-radius: 0 0 0.25em 0.25em;
         display: flex;
         justify-content: right;
-        padding: 0.25em 0.5em;
+        padding: 0.1em 0.5em;
     }
 
     :global(table) {
@@ -42,6 +42,7 @@
         border-right: 3px solid var(--bg-neutral);
         border-radius: 0 0.25em 0 0;
         background-color: var(--bg-neutral);
+        padding: 0.5em;
     }
 
     :global(table > thead) {
