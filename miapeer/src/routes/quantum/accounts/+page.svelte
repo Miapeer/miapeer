@@ -66,7 +66,7 @@
                                 </div>
                                 <Popover
                                     open={account.openActions}
-                                    targetElement={`account-${account.account_id}`}
+                                    target={`account-${account.account_id}`}
                                     anchor="top-right"
                                 >
                                     <div class="popover-action">

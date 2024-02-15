@@ -4,44 +4,85 @@
     let popover;
 
     export let open = false;
-    export let targetElement = '';
+    export let target = '';
     export let anchor = 'top-left';
+    export let manualControl = false;
+
+    let targetElement;
 
     onMount(() => {
-        let theTop = 0;
-        let theLeft = 0;
+        console.log('onMount');
 
-        if (targetElement !== '') {
-            const target = document.getElementById(targetElement);
+        targetElement = typeof target === 'string' ? document.getElementById(target) : target;
+        // });
 
-            if (target) {
-                const rect = target.getBoundingClientRect();
+        // $: {
+        //     console.log('target change');
 
-                switch (anchor) {
-                    case 'top-right':
-                        popover.style.top = `${rect.top}px`;
-                        popover.style.right = `${rect.right - rect.left}px`;
-                        break;
+        if (targetElement) {
+            const rect = targetElement.getBoundingClientRect();
+            let popoverRect = popover.getBoundingClientRect();
 
-                    case 'top-left':
-                    default:
-                        popover.style.top = `${rect.top}px`;
-                        popover.style.left = `${rect.left}px`;
-                }
+            popover.style.width = `${Math.max(rect.width, popoverRect.width)}px`;
+            popoverRect = popover.getBoundingClientRect();
+
+            switch (anchor) {
+                case 'bottom-center':
+                    popover.style.top = `${rect.bottom}px`;
+                    popover.style.left = `${rect.left + (rect.width - popoverRect.width) / 2}px`;
+                    break;
+
+                case 'bottom-right':
+                    popover.style.top = `${rect.bottom}px`;
+                    popover.style.left = `${rect.right - popoverRect.width}px`;
+                    break;
+
+                case 'bottom-left':
+                    popover.style.top = `${rect.bottom}px`;
+                    popover.style.left = `${rect.left}px`;
+                    break;
+
+                case 'top-center':
+                    popover.style.top = `${rect.top}px`;
+                    popover.style.left = `${rect.left + (rect.width - popoverRect.width) / 2}px`;
+                    break;
+
+                case 'top-right':
+                    popover.style.top = `${rect.top}px`;
+                    popover.style.left = `${rect.right - popoverRect.width}px`;
+                    break;
+
+                case 'top-left':
+                default:
+                    popover.style.top = `${rect.top}px`;
+                    popover.style.left = `${rect.left}px`;
             }
         }
     });
 
     $: {
-        if (open && popover) {
+        if (!manualControl && open && popover) {
             setTimeout(() => {
                 popover.focus();
             }, 0);
         }
     }
+
+    var handleFocusOut = () => {
+        if (!manualControl) {
+            open = false;
+        }
+    };
 </script>
 
-<div class="popover" class:open bind:this={popover} tabindex="0" {...$$restProps} on:focusout={() => { open = false }}>
+<div
+    class="popover"
+    class:open
+    bind:this={popover}
+    tabindex="0"
+    {...$$restProps}
+    on:focusout={handleFocusOut}
+>
     <slot />
 </div>
 

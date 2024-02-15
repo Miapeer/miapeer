@@ -3,12 +3,14 @@ let portfolioId = null;
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ depends, locals }) {
     depends('quantum:accounts');
+    depends('quantum:payees');
 
     await ensureUserHasPortfolio(locals);
 
     const accounts = await getUserAccounts(locals);
+    const payees = await getUserPayees(locals);
 
-    return { portfolioId, accounts };
+    return { portfolioId, accounts, payees };
 }
 
 const ensureUserHasPortfolio = async (locals) => {
@@ -49,6 +51,19 @@ const createUserPortfolio = async (locals) => {
 
 const getUserAccounts = async (locals) => {
     const accountsResponse = await fetch(`${locals.app.quantumApiBase}/accounts/`, {
+        headers: locals.auth.headers
+    });
+
+    if (!accountsResponse.ok) {
+        console.error(accountsResponse.statusText);
+        return;
+    }
+
+    return accountsResponse.json();
+};
+
+const getUserPayees = async (locals) => {
+    const accountsResponse = await fetch(`${locals.app.quantumApiBase}/payees/`, {
         headers: locals.auth.headers
     });
 

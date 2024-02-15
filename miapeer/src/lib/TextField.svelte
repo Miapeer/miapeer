@@ -2,27 +2,36 @@
     export let type = 'text';
     export let placeholder = '';
     export let value = null;
-    export let filled = false;
+    export let editable = true;
+    export let focused = false;
     export let onKeyPress = () => {};
 
-    const updateFilled = () => {
-        filled = !!value;
-    };
+    let filled = false;
 
     const handleInput = (e) => {
         value = e.target.value;
-        updateFilled();
     };
 
-    updateFilled();
+    $: {
+        filled = !!value;
+    }
 </script>
 
 <div class="wrapper">
-    <input {type} class:filled {value} on:input={handleInput} on:keypress={onKeyPress} />
+    <input
+        {type}
+        class:filled
+        readonly={!editable}
+        {value}
+        on:input={handleInput}
+        on:keypress={onKeyPress}
+        on:focusin={() => (focused = true)}
+        on:focusout={() => (focused = false)}
+    />
     <label>{placeholder}</label>
 </div>
 
-<style>
+<style type="scss">
     .wrapper {
         height: 3em;
     }
