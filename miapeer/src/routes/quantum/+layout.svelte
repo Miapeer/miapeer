@@ -8,26 +8,35 @@
 
 <header class="quantum-header">
     <NavBar>
-        <Select
-            label="Accounts"
-            options={data.accounts.map((account) => {
-                return {
-                    label: account.name,
-                    action: () => {
-                        goto(`/quantum/accounts/${account.account_id}`);
-                    }
-                };
-            })}
-        />
+        {#if data.accounts.length}
+            <Select
+                label="Accounts"
+                enabled={false}
+                options={data.accounts.map((account) => {
+                    return {
+                        label: account.name,
+                        action: () => {
+                            goto(`/quantum/accounts/${account.account_id}`);
+                        }
+                    };
+                })}
+            />
+        {/if}
 
         <Select
             label="Data"
             showSelection={false}
             options={[
                 {
+                    label: 'Accounts',
+                    action: () => {
+                        goto('/quantum/accounts');
+                    }
+                },
+                {
                     label: 'Scheduled Transactions',
                     action: () => {
-                        goto('/quantum/scheduledtransaction');
+                        goto('/quantum/scheduledtransactions');
                     }
                 },
                 {

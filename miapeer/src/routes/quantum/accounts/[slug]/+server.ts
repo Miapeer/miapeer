@@ -2,17 +2,17 @@ import { json, error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST = (async ({ request, locals, cookies, url }) => {
-    const { portfolioId, accountName, startingBalance } = await request.json();
+    const { accountId, accountName, startingBalance } = await request.json();
 
     const requestData = {
-        portfolio_id: portfolioId,
+        account_id: accountId,
         name: accountName,
         starting_balance: startingBalance
     };
 
     const response = await fetch(`${locals.app.quantumApiBase}/accounts`, {
         headers: locals.auth.headers,
-        method: 'POST',
+        method: 'PATCH',
         body: JSON.stringify(requestData)
     });
 

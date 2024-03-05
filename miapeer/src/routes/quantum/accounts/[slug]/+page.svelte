@@ -8,12 +8,12 @@
 
     let accountName = data.account.name;
     let startingBalance;
-    let creatingAccount;
+    let updatingAccount;
 
-    const handleCreateAccount = async () => {
-        creatingAccount = true;
+    const handleEditAccount = async () => {
+        updatingAccount = true;
 
-        const requestData = { portfolioId: data.portfolioId, accountName, startingBalance };
+        const requestData = { accountId: data.accountId, accountName, startingBalance };
         const res = await fetch('/quantum/accounts/new', {
             method: 'POST',
             body: JSON.stringify(requestData)
@@ -40,7 +40,7 @@
     />
     <Button
         disabled={!data.account.name || !data.account.starting_balance}
-        waiting={creatingAccount}
-        onClick={handleCreateAccount}>Create Account</Button
+        waiting={updatingAccount}
+        onClick={handleEditAccount}>Update Account</Button
     >
 </div>
