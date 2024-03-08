@@ -13,6 +13,7 @@
 
     export let confirmDelete: boolean = false;
     export let accountToDelete = null;
+
     const handleConfirmDelete = (account) => {
         accountToDelete = account;
         confirmDelete = true;
@@ -53,7 +54,7 @@
                     {#each data.accounts as account}
                         <tr>
                             <td>{account.name}</td>
-                            <td>{account.balance}</td>
+                            <td>{(account.balance / 100).toLocaleString(navigator.language)}</td>
                             <td class="action-cell">
                                 <div>
                                     <Link

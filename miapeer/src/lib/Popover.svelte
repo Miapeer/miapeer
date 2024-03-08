@@ -11,13 +11,7 @@
     let targetElement;
 
     onMount(() => {
-        console.log('onMount');
-
         targetElement = typeof target === 'string' ? document.getElementById(target) : target;
-        // });
-
-        // $: {
-        //     console.log('target change');
 
         if (targetElement) {
             const rect = targetElement.getBoundingClientRect();

@@ -7,14 +7,21 @@
     export let data: PageData;
 
     let accountName = data.account.name;
-    let startingBalance;
+    let startingBalance = (data.account.starting_balance / 100).toLocaleString(navigator.language);
     let updatingAccount;
 
     const handleEditAccount = async () => {
         updatingAccount = true;
 
-        const requestData = { accountId: data.accountId, accountName, startingBalance };
-        const res = await fetch('/quantum/accounts/new', {
+        const cleanedStartingBalance =
+            Number(startingBalance.replace(/[^0-9\.-]+/g, '')).toFixed(2) * 100;
+        const requestData = {
+            accountId: data.account.account_id,
+            accountName,
+            startingBalance: cleanedStartingBalance
+        };
+
+        const res = await fetch(`/quantum/accounts/${data.accountId}`, {
             method: 'POST',
             body: JSON.stringify(requestData)
         });
@@ -33,11 +40,7 @@
 
 <div class="edit-account-wrapper">
     <TextField placeholder="Account Name" bind:value={data.account.name} />
-    <TextField
-        type="number"
-        placeholder="Starting Balance"
-        bind:value={data.account.starting_balance}
-    />
+    <TextField placeholder="Starting Balance" bind:value={startingBalance} />
     <Button
         disabled={!data.account.name || !data.account.starting_balance}
         waiting={updatingAccount}

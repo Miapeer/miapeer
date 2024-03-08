@@ -10,7 +10,7 @@ export const POST = (async ({ request, locals, cookies, url }) => {
         starting_balance: startingBalance
     };
 
-    const response = await fetch(`${locals.app.quantumApiBase}/accounts`, {
+    const response = await fetch(`${locals.app.quantumApiBase}/accounts/${accountId}`, {
         headers: locals.auth.headers,
         method: 'PATCH',
         body: JSON.stringify(requestData)
@@ -25,7 +25,7 @@ export const POST = (async ({ request, locals, cookies, url }) => {
 
     return json({
 		request: {
-            portfolioId,
+            accountId,
 			accountName,
 			startingBalance,
 		},
