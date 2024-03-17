@@ -12,20 +12,20 @@
     export let data: PageData;
 
     export let confirmDelete: boolean = false;
-    export let accountToDelete = null;
-    const handleConfirmDelete = (account) => {
-        accountToDelete = account;
+    export let payeeToDelete = null;
+    const handleConfirmDelete = (payee) => {
+        payeeToDelete = payee;
         confirmDelete = true;
     };
     const handleDelete = async () => {
         confirmDelete = false;
 
-        const deleteAccountRequest = await fetch('/quantum/accounts', {
+        const deletePayeeRequest = await fetch('/quantum/payees', {
             method: 'DELETE',
-            body: JSON.stringify({ accountId: accountToDelete?.account_id })
+            body: JSON.stringify({ payeeId: payeeToDelete?.payee_id })
         });
 
-        if (deleteAccountRequest.ok) {
+        if (deletePayeeRequest.ok) {
             invalidate('quantum:payees');
         } else {
             console.error('NOT ok');
@@ -57,7 +57,7 @@
                             <td class="action-cell">
                                 <div>
                                     <Link
-                                        id={`payee-${payee.account_id}`}
+                                        id={`payee-${payee.payee_id}`}
                                         class="popover-icon fa-solid fa-ellipsis-v"
                                         on:click={() => {
                                             payee.openActions = true;
@@ -66,11 +66,11 @@
                                 </div>
                                 <Popover
                                     open={payee.openActions}
-                                    target={`payee-${payee.account_id}`}
+                                    target={`payee-${payee.payee_id}`}
                                     anchor="top-right"
                                 >
                                     <div class="popover-action">
-                                        <Link href={`./accounts/${payee.account_id}`}
+                                        <Link href={`./payees/${payee.payee_id}`}
                                             ><i class="fa-solid fa-pen-to-square" /></Link
                                         >
                                     </div>
@@ -104,7 +104,7 @@
     </FormattedTable>
 </section>
 <Dialog title="Confirm Delete:" bind:open={confirmDelete}>
-    {`Are you sure you want to delete the account named "${accountToDelete?.name ?? ''}"?`}
+    {`Are you sure you want to delete the payee named "${payeeToDelete?.name ?? ''}"?`}
     <div slot="actions">
         <Button type="subtle" onClick={() => (confirmDelete = false)}>Cancel</Button>
         <Button type="danger" onClick={handleDelete}>Delete</Button>
