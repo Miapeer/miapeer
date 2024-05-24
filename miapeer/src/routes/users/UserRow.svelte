@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Switch from '$lib/Switch.svelte';
+    import { SlideToggle } from '@skeletonlabs/skeleton';
 
     const lookupApplicationRole = (applicationId, roleId) => {
         const filteredResults = applicationRoles.filter((ar) => {
@@ -28,6 +28,14 @@
         }).length;
     };
 
+    const handleSwitch = (user_id, application_id, role_id) => {
+        if (hasPermission(user_id, application_id, role_id)) {
+            deny(user_id, application_id, role_id);
+        } else {
+            permit(user_id, application_id, role_id);
+        }
+    };
+
     export let user;
     export let roles = [];
     export let applications = [];
@@ -37,113 +45,61 @@
     export let deny;
 </script>
 
-<div class="user-row">
-    <h2 class="user">
+<div>
+    <h2 class="h2 mb-2">
         {user.email}
     </h2>
-    {#each applications as application, applicationIndex}
-        {#each roles as role, roleIndex}
-            <div class={`role${roleIndex + 1}`}>{role.name}</div>
-            <div class={`app${applicationIndex + 1}`}>{application.name}</div>
 
-            <div class={`app${applicationIndex + 1}-role${roleIndex + 1}`}>
-                {#if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer' && roles[roleIndex].name === 'User'}
-                    {#if hasPermission(user.user_id, applications[applicationIndex].application_id, roles[roleIndex].role_id)}
-                        Yes
-                    {:else}
-                        No: ...and that's ok
-                    {/if}
-                {:else if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer'}
-                    {#if hasPermission(user.user_id, applications[applicationIndex].application_id, roles[roleIndex].role_id)}
-                        Yes
-                    {:else}
-                        No: That's not right!
-                    {/if}
-                {:else}
-                    <div class="switch-wrap">
-                        <Switch
-                            containButton={true}
-                            checked={hasPermission(
-                                user.user_id,
-                                applications[applicationIndex].application_id,
-                                roles[roleIndex].role_id
-                            )}
-                            onSwitchOn={() => {
-                                permit(user.user_id, application.application_id, role.role_id);
-                            }}
-                            onSwitchOff={() => {
-                                deny(user.user_id, application.application_id, role.role_id);
-                            }}
-                        />
-                    </div>
-                {/if}
-            </div>
-        {/each}
-    {/each}
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    {#each roles as role}
+                        <th>{role.name}</th>
+                    {/each}
+                </tr>
+            </thead>
+            <tbody>
+                {#each applications as application, applicationIndex}
+                    <tr>
+                        <td>{application.name}</td>
+                        {#each roles as role, roleIndex}
+                            <td>
+                                {#if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer' && roles[roleIndex].name === 'User'}
+                                    {#if hasPermission(user.user_id, applications[applicationIndex].application_id, roles[roleIndex].role_id)}
+                                        Yes
+                                    {:else}
+                                        No: ...and that's ok
+                                    {/if}
+                                {:else if user.email === 'jep.navarra@miapeer.com' && application.name === 'Miapeer'}
+                                    {#if hasPermission(user.user_id, applications[applicationIndex].application_id, roles[roleIndex].role_id)}
+                                        Yes
+                                    {:else}
+                                        No: That's not right!
+                                    {/if}
+                                {:else}
+                                    <SlideToggle
+                                        checked={hasPermission(
+                                            user.user_id,
+                                            applications[applicationIndex].application_id,
+                                            roles[roleIndex].role_id
+                                        )}
+                                        active="bg-primary-500"
+                                        on:click={() => {
+                                            handleSwitch(
+                                                user.user_id,
+                                                application.application_id,
+                                                role.role_id
+                                            );
+                                        }}
+                                    />
+                                {/if}
+                            </td>
+                        {/each}
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<style>
-    .user-row {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-areas:
-            'user user user user'
-            '... role1 role2 role3'
-            'app1 app1-role1 app1-role2 app1-role3'
-            'app2 app2-role1 app2-role2 app2-role3';
-    }
-
-    .user {
-        grid-area: user;
-    }
-
-    .role1 {
-        grid-area: role1;
-    }
-
-    .role2 {
-        grid-area: role2;
-    }
-
-    .role3 {
-        grid-area: role3;
-    }
-
-    .app1 {
-        grid-area: app1;
-    }
-
-    .app2 {
-        grid-area: app2;
-    }
-
-    .app1-role1 {
-        grid-area: app1-role1;
-    }
-
-    .app1-role2 {
-        grid-area: app1-role2;
-    }
-
-    .app1-role3 {
-        grid-area: app1-role3;
-    }
-
-    .app2-role1 {
-        grid-area: app2-role1;
-    }
-
-    .app2-role2 {
-        grid-area: app2-role2;
-    }
-
-    .app2-role3 {
-        grid-area: app2-role3;
-    }
-
-    .switch-wrap {
-        height: 2em;
-        width: 4em;
-        padding: 0.25em;
-    }
-</style>
