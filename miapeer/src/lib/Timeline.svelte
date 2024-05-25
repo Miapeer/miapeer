@@ -142,91 +142,95 @@
     {/each}
 </div>
 
-<style lang="scss">
-    .timeline-wrapper {
+<style lang="postcss">
+    :root {
         --nom-size: 8px;
         --timeline-font-size: 0.65em;
         --date-font-size: 0.8em;
+    }
 
+    .timeline-wrapper {
         display: grid;
         grid-template-columns:
             calc(var(--nom-size) * 5) auto auto auto calc(var(--nom-size) * 5) calc(
                 var(--nom-size) * 3
             )
             1fr;
+        line-height: var(--date-font-size);
+    }
 
-        .dot {
-            height: calc(var(--nom-size) * 2);
-            width: calc(var(--nom-size) * 2);
-            border-radius: 50%;
-            border: 3px solid rgba(var(--text-accent-rgb), 0.7);
-        }
+    .dot {
+        height: calc(var(--nom-size) * 2);
+        width: calc(var(--nom-size) * 2);
+        border-radius: 50%;
+        border: 3px solid rgb(var(--color-primary-500) / 0.7);
+    }
 
-        .middle-spacer {
-            height: calc(var(--nom-size) / 2);
-            width: var(--nom-size);
-            border-right: 1px solid rgba(var(--text-accent-rgb), 0.7);
-        }
+    .middle-spacer {
+        height: calc(var(--nom-size) / 2);
+        width: var(--nom-size);
+        border-right: 1px solid rgb(var(--color-primary-500) / 0.7);
+    }
 
-        .left-text,
-        .right-text {
-            white-space: nowrap;
-            transform: rotate(-90deg);
-            text-indent: calc(var(--nom-size) * 3);
-            font-size: var(--timeline-font-size);
-        }
+    .left-text,
+    .right-text {
+        white-space: nowrap;
+        transform: rotate(-90deg);
+        text-indent: calc(var(--nom-size) * 3);
+        font-size: var(--timeline-font-size);
+    }
 
-        .left-start,
-        .left-end,
-        .right-start,
-        .right-end {
-            height: var(--nom-size);
-            width: calc(var(--nom-size) * 2);
-        }
+    .left-start,
+    .left-end,
+    .right-start,
+    .right-end {
+        height: var(--nom-size);
+        width: calc(var(--nom-size) * 2);
+    }
 
-        .left-start {
-            border-bottom-left-radius: var(--nom-size);
-            border-bottom: 1px solid var(--text-primary);
-            border-left: 1px solid var(--text-primary);
-        }
+    .left-start {
+        border-bottom-left-radius: var(--nom-size);
+        border-bottom: 1px solid rgb(var(--color-secondary-200));
+        border-left: 1px solid rgb(var(--color-secondary-200));
+    }
 
-        .left-continued {
-            height: 100%;
-            border-left: 1px solid var(--text-primary);
-        }
+    .left-continued {
+        height: 100%;
+        border-left: 1px solid rgb(var(--color-secondary-200));
+    }
 
-        .left-end {
-            border-top-left-radius: var(--nom-size);
-            border-top: 1px solid var(--text-primary);
-            border-left: 1px solid var(--text-primary);
-            margin-top: var(--nom-size);
-        }
+    .left-end {
+        border-top-left-radius: var(--nom-size);
+        border-top: 1px solid rgb(var(--color-secondary-200));
+        border-left: 1px solid rgb(var(--color-secondary-200));
+        margin-top: var(--nom-size);
+    }
 
-        .left-start + .left-end,
-        .right-start + .right-end {
-            margin-top: 0;
-        }
+    .left-start + .left-end,
+    .right-start + .right-end {
+        margin-top: 0;
+    }
 
-        .right-start {
-            border-bottom-right-radius: var(--nom-size);
-            border-bottom: 1px solid var(--text-primary);
-            border-right: 1px solid var(--text-primary);
-        }
+    .right-start {
+        border-bottom-right-radius: var(--nom-size);
+        border-bottom: 1px solid rgb(var(--color-secondary-200));
+        border-right: 1px solid rgb(var(--color-secondary-200));
+    }
 
-        .right-continued {
-            height: 100%;
-            border-right: 1px solid var(--text-primary);
-        }
+    .right-continued {
+        height: 100%;
+        border-right: 1px solid rgb(var(--color-secondary-200));
+    }
 
-        .right-end {
-            border-top-right-radius: var(--nom-size);
-            border-top: 1px solid var(--text-primary);
-            border-right: 1px solid var(--text-primary);
-            margin-top: var(--nom-size);
-        }
+    .right-end {
+        border-top-right-radius: var(--nom-size);
+        border-top: 1px solid rgb(var(--color-secondary-200));
+        border-right: 1px solid rgb(var(--color-secondary-200));
+        margin-top: var(--nom-size);
+    }
 
-        .date {
-            font-size: var(--date-font-size);
-        }
+    .date {
+        font-size: var(--date-font-size);
+        margin: auto 0;
     }
 </style>
