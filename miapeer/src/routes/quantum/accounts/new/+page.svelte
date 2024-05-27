@@ -4,15 +4,12 @@
 
     let accountName;
     let startingBalance;
-    let creatingAccount;
 
     const handleCancel = () => {
-        goto(data.redirectUrl ?? '..');
+        goto(data.redirectUrl ?? '/quantum/accounts');
     };
 
     const handleCreateAccount = async () => {
-        creatingAccount = true;
-
         const simplified_starting_balance = Math.floor(startingBalance * 100);
 
         const requestData = {
@@ -28,7 +25,7 @@
         if (res.ok) {
             const data = await res.json();
             await invalidate('quantum:accounts');
-            goto(data.redirectUrl ?? '..');
+            goto(data.redirectUrl ?? '/quantum/accounts');
         } else {
             console.error('NOT ok');
         }
@@ -67,7 +64,7 @@
             class="btn variant-filled-primary"
             on:click={handleCreateAccount}
         >
-            Update Account
+            Create Account
         </button>
     </div>
 </div>

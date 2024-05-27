@@ -1,21 +1,12 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import Dialog from '$lib/Dialog.svelte';
-    import Link from '$lib/Link.svelte';
-    import FormattedTable from '$lib/FormattedTable.svelte';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
-    import Popover from '$lib/Popover.svelte';
-    import Button from '$lib/Button.svelte';
 
     import { popup } from '@skeletonlabs/skeleton';
-    import type { PopupSettings } from '@skeletonlabs/skeleton';
 
     import { invalidate } from '$app/navigation';
 
     export let data: PageData;
-
-    export let confirmDelete: boolean = false;
-    export let accountToDelete = null;
 
     import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
@@ -37,8 +28,6 @@
         modalStore.trigger(modal);
     };
     const handleDelete = async (account) => {
-        confirmDelete = false;
-
         const deleteAccountRequest = await fetch('/quantum/accounts', {
             method: 'DELETE',
             body: JSON.stringify({ accountId: account?.account_id })

@@ -1,22 +1,17 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
-    import TextField from '$lib/TextField.svelte';
-    import Button from '$lib/Button.svelte';
 
     export let data: PageData;
 
     let accountName = data.account.name;
     let startingBalance = (data.account.starting_balance / 100).toLocaleString(navigator.language);
-    let updatingAccount;
 
     const handleCancel = () => {
-        goto(data.redirectUrl ?? '..');
+        goto(data.redirectUrl ?? '/quantum/accounts');
     };
 
     const handleEditAccount = async () => {
-        updatingAccount = true;
-
         const cleanedStartingBalance =
             Number(startingBalance.replace(/[^0-9\.-]+/g, '')).toFixed(2) * 100;
         const requestData = {
@@ -33,7 +28,7 @@
         if (res.ok) {
             const data = await res.json();
             await invalidate('quantum:accounts');
-            goto(data.redirectUrl ?? '..');
+            goto(data.redirectUrl ?? '/quantum/accounts');
         } else {
             console.error('NOT ok');
         }
@@ -41,7 +36,7 @@
 </script>
 
 <div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
-    <h1 class="h1">Edit account</h1>
+    <h1 class="h1">Edit Account</h1>
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
         <div class="input-group-shim">Account Name</div>

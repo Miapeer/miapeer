@@ -1,16 +1,14 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
-    import TextField from '$lib/TextField.svelte';
-    import Button from '$lib/Button.svelte';
 
     let payeeName;
-    let startingBalance;
-    let creatingPayee;
+
+    const handleCancel = () => {
+        goto(data.redirectUrl ?? '/quantum/payees');
+    };
 
     const handleCreatePayee = async () => {
-        creatingPayee = true;
-
         const requestData = {
             portfolioId: data.portfolioId,
             payeeName
@@ -29,24 +27,35 @@
         }
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleCreatePayee();
+        }
+    };
+
     export let data: PageData;
 </script>
 
-<div class="new-payee-wrapper">
-    <h1>Create a new payee</h1>
+<div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+    <h1 class="h1">Create a new payee</h1>
 
-    <TextField placeholder="Payee Name" bind:value={payeeName} />
+    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
+        <div class="input-group-shim">Payee Name</div>
+        <input type="text" bind:value={payeeName} on:keypress={handleKeyPress} />
+    </div>
 
-    <Button disabled={!payeeName} waiting={creatingPayee} onClick={handleCreatePayee}>
-        Create Payee
-    </Button>
+    <div class="grid grid-cols-[1fr_1fr] gap-4">
+        <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
+            Cancel
+        </button>
+
+        <button
+            disabled={!payeeName}
+            type="button"
+            class="btn variant-filled-primary"
+            on:click={handleCreatePayee}
+        >
+            Create Payee
+        </button>
+    </div>
 </div>
-
-<style>
-    .new-payee-wrapper {
-        display: grid;
-        gap: 1em;
-        max-width: 40em;
-        margin: 0 auto;
-    }
-</style>
