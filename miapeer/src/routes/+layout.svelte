@@ -23,6 +23,10 @@
     import { storePopup } from '@skeletonlabs/skeleton';
     storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
+    // Skeleton Modals
+    import { initializeStores, Modal } from '@skeletonlabs/skeleton';
+    initializeStores();
+
     import type { LayoutData } from './$types';
     export let data: LayoutData;
 
@@ -42,6 +46,15 @@
         }
     };
 </script>
+
+<svelte:head>
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Lato:300,400,700%7CMontserrat:400,700%7CRaleway:300,400,600"
+    />
+</svelte:head>
+
+<Modal />
 
 <AppShell>
     <svelte:fragment slot="header">

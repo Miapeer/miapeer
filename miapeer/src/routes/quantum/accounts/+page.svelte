@@ -7,6 +7,9 @@
     import Popover from '$lib/Popover.svelte';
     import Button from '$lib/Button.svelte';
 
+    import { popup } from '@skeletonlabs/skeleton';
+    import type { PopupSettings } from '@skeletonlabs/skeleton';
+
     import { invalidate } from '$app/navigation';
 
     export let data: PageData;
@@ -14,16 +17,31 @@
     export let confirmDelete: boolean = false;
     export let accountToDelete = null;
 
+    import { getModalStore } from '@skeletonlabs/skeleton';
+    const modalStore = getModalStore();
+
     const handleConfirmDelete = (account) => {
-        accountToDelete = account;
-        confirmDelete = true;
+        const modal: ModalSettings = {
+            type: 'confirm',
+            title: 'Confirm Delete',
+            body: `Are you sure you want to delete the account named "${account?.name ?? ''}"?`,
+            buttonPositive: 'variant-filled-error',
+            buttonTextConfirm: 'Delete',
+            response: (r: boolean) => {
+                if (r) {
+                    handleDelete(account);
+                }
+            }
+        };
+
+        modalStore.trigger(modal);
     };
-    const handleDelete = async () => {
+    const handleDelete = async (account) => {
         confirmDelete = false;
 
         const deleteAccountRequest = await fetch('/quantum/accounts', {
             method: 'DELETE',
-            body: JSON.stringify({ accountId: accountToDelete?.account_id })
+            body: JSON.stringify({ accountId: account?.account_id })
         });
 
         if (deleteAccountRequest.ok) {
@@ -35,101 +53,60 @@
 </script>
 
 <section>
-    <FormattedTable title="Accounts">
-        <table slot="table">
-            <colgroup>
-                <col />
-                <col span="1" style="width: 25%;" />
-                <col span="1" style="width: 15%;" />
-            </colgroup>
-            {#if data.accounts.length > 0}
+    <h1 class="h1">Accounts</h1>
+
+    {#if data.accounts.length > 0}
+        <div class="table-container px-2">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th />
-                        <th>Balance</th>
-                        <th></th>
+                        <th class="w-32">Balance</th>
+                        <th class="w-16" />
                     </tr>
                 </thead>
                 <tbody>
                     {#each data.accounts as account}
                         <tr>
                             <td>{account.name}</td>
-                            <td>{(account.balance / 100).toLocaleString(navigator.language)}</td>
-                            <td class="action-cell">
+                            <td
+                                >{(account.balance / 100).toLocaleString(navigator.language, {
+                                    minimumFractionDigits: 2
+                                })}</td
+                            >
+                            <td class="action-cell text-right">
                                 <div>
-                                    <Link
-                                        id={`account-${account.account_id}`}
-                                        class="popover-icon fa-solid fa-ellipsis-v"
-                                        on:click={() => {
-                                            account.openActions = true;
-                                        }}
-                                    />
+                                    <button
+                                        type="button"
+                                        class="btn-icon variant-filled"
+                                        use:popup={{
+                                            event: 'click',
+                                            target: 'account-actions-' + account.account_id,
+                                            placement: 'left'
+                                        }}><i class="fa-solid fa-ellipsis-v" /></button
+                                    >
+                                    <div data-popup="account-actions-{account.account_id}">
+                                        <div class="btn-group variant-filled">
+                                            <a href={`./accounts/${account.account_id}`}
+                                                ><i class="fa-solid fa-pen-to-square" /></a
+                                            >
+                                            <button on:click={() => handleConfirmDelete(account)}
+                                                ><i class="fa-solid fa-trash" /></button
+                                            >
+                                        </div>
+                                    </div>
                                 </div>
-                                <Popover
-                                    open={account.openActions}
-                                    target={`account-${account.account_id}`}
-                                    anchor="top-right"
-                                >
-                                    <div class="popover-action">
-                                        <Link href={`./accounts/${account.account_id}`}
-                                            ><i class="fa-solid fa-pen-to-square" /></Link
-                                        >
-                                    </div>
-                                    <div class="popover-action">
-                                        <Link on:click={() => handleConfirmDelete(account)}
-                                            ><i class="fa-solid fa-trash" /></Link
-                                        >
-                                    </div>
-                                </Popover>
                             </td>
                         </tr>
                     {/each}
                 </tbody>
-            {:else}
-                <thead>
-                    <tr>
-                        <th />
-                        <th />
-                        <th />
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="suppress-hover">
-                        <td class="empty" colspan="3">
-                            You haven't set up any accounts yet. Click "Add New" below to create
-                            one.
-                        </td>
-                    </tr>
-                </tbody>
-            {/if}
-        </table>
-    </FormattedTable>
+            </table>
+        </div>
+    {:else}
+        <h3 class="h3">
+            You haven't set up any accounts yet. Click the button below to create one.
+        </h3>
+    {/if}
 </section>
-<Dialog title="Confirm Delete:" bind:open={confirmDelete}>
-    {`Are you sure you want to delete the account named "${accountToDelete?.name ?? ''}"?`}
-    <div slot="actions">
-        <Button type="subtle" onClick={() => (confirmDelete = false)}>Cancel</Button>
-        <Button type="danger" onClick={handleDelete}>Delete</Button>
-    </div>
-</Dialog>
+
 <FloatingActionButton href="./accounts/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
-
-<style>
-    table .empty {
-        text-align: center;
-        padding: 1em;
-    }
-
-    .action-cell {
-        text-align: right;
-    }
-
-    :global(.popover-icon) {
-        width: 1em;
-        text-align: center;
-    }
-
-    .popover-action {
-        padding: 0.5em;
-    }
-</style>

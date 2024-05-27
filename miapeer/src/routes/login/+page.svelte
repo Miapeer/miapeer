@@ -33,36 +33,25 @@
     };
 </script>
 
-<div class="login-form">
+<div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
     <h1 class="h1">Sign In</h1>
 
-    <div>
-        <div class="input-group input-group-divider grid-cols-[1fr_5fr]">
-            <div class="input-group-shim">Email</div>
-            <input type="text" bind:value={email} on:keypress={handleKeyPress} />
-        </div>
+    <div class="input-group input-group-divider grid-cols-[8rem_auto]">
+        <div class="input-group-shim">Email</div>
+        <input type="text" bind:value={email} on:keypress={handleKeyPress} />
     </div>
 
-    <div>
-        <div class="input-group input-group-divider grid-cols-[1fr_5fr]">
-            <div class="input-group-shim">Password</div>
-            <input type="password" bind:value={password} on:keypress={handleKeyPress} />
-        </div>
+    <div class="input-group input-group-divider grid-cols-[8rem_auto]">
+        <div class="input-group-shim">Password</div>
+        <input type="password" bind:value={password} on:keypress={handleKeyPress} />
     </div>
 
     <button
         disabled={!email || !password}
         type="button"
         class="btn variant-filled-primary"
-        on:click={handleLogin}>Log In</button
+        on:click={handleLogin}
     >
+        Log In
+    </button>
 </div>
-
-<style>
-    .login-form {
-        display: grid;
-        gap: 1em;
-        max-width: 40em;
-        margin: 0 auto;
-    }
-</style>

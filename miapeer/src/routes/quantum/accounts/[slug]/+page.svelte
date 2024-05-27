@@ -10,6 +10,10 @@
     let startingBalance = (data.account.starting_balance / 100).toLocaleString(navigator.language);
     let updatingAccount;
 
+    const handleCancel = () => {
+        goto(data.redirectUrl ?? '..');
+    };
+
     const handleEditAccount = async () => {
         updatingAccount = true;
 
@@ -36,14 +40,31 @@
     };
 </script>
 
-<h1>Edit account</h1>
+<div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+    <h1 class="h1">Edit account</h1>
 
-<div class="edit-account-wrapper">
-    <TextField placeholder="Account Name" bind:value={data.account.name} />
-    <TextField placeholder="Starting Balance" bind:value={startingBalance} />
-    <Button
-        disabled={!data.account.name || !data.account.starting_balance}
-        waiting={updatingAccount}
-        onClick={handleEditAccount}>Update Account</Button
-    >
+    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
+        <div class="input-group-shim">Account Name</div>
+        <input type="text" bind:value={accountName} />
+    </div>
+
+    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
+        <div class="input-group-shim">Starting Balance</div>
+        <input type="text" bind:value={startingBalance} />
+    </div>
+
+    <div class="grid grid-cols-[1fr_1fr] gap-4">
+        <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
+            Cancel
+        </button>
+
+        <button
+            disabled={!data.account.name || !data.account.starting_balance}
+            type="button"
+            class="btn variant-filled-primary"
+            on:click={handleEditAccount}
+        >
+            Update Account
+        </button>
+    </div>
 </div>
