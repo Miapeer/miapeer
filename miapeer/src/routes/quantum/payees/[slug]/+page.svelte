@@ -4,15 +4,15 @@
 
     export let data: PageData;
 
-    let accountName = data.payee.name;
+    let payeeName = data.payee.name;
 
     const handleCancel = () => {
         goto(data.redirectUrl ?? '/quantum/payees');
     };
 
     const handleEditPayee = async () => {
-        const requestData = { portfolioId: data.portfolioId, payeeName };
-        const res = await fetch('/quantum/payees/new', {
+        const requestData = { payeeId: data.payee.payee_id, payeeName };
+        const res = await fetch(`/quantum/payees/${data.payee.payee_id}`, {
             method: 'POST',
             body: JSON.stringify(requestData)
         });
@@ -32,7 +32,7 @@
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
         <div class="input-group-shim">Payee Name</div>
-        <input type="text" bind:value={accountName} />
+        <input type="text" bind:value={payeeName} />
     </div>
 
     <div class="grid grid-cols-[1fr_1fr] gap-4">
