@@ -36,10 +36,10 @@
     export let data: PageData;
 </script>
 
-<div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+<div class="login-form grid gap-4 max-w-3xl my-0 mx-auto pt-4">
     <h1 class="h1">Create a new transaction type</h1>
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
+    <div class="input-group input-group-divider grid-cols-[14rem_auto]">
         <div class="input-group-shim">Transaction Type Name</div>
         <input type="text" bind:value={transactionTypeName} on:keypress={handleKeyPress} />
     </div>

@@ -11,11 +11,17 @@
     };
 
     const handleEditTransactionType = async () => {
-        const requestData = { portfolioId: data.portfolioId, transactionTypeName };
-        const res = await fetch('/quantum/transactiontypes/new', {
-            method: 'POST',
-            body: JSON.stringify(requestData)
-        });
+        const requestData = {
+            transactionTypeId: data.transactionType.transaction_type_id,
+            transactionTypeName
+        };
+        const res = await fetch(
+            `/quantum/transactiontypes/${data.transactionType.transaction_type_id}`,
+            {
+                method: 'POST',
+                body: JSON.stringify(requestData)
+            }
+        );
 
         if (res.ok) {
             const data = await res.json();
@@ -27,10 +33,10 @@
     };
 </script>
 
-<div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+<div class="login-form grid gap-4 max-w-3xl my-0 mx-auto pt-4">
     <h1 class="h1">Edit transaction type</h1>
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
+    <div class="input-group input-group-divider grid-cols-[14rem_auto]">
         <div class="input-group-shim">Transaction Type Name</div>
         <input type="text" bind:value={transactionTypeName} />
     </div>

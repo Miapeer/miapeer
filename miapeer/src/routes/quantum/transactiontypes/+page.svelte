@@ -30,7 +30,7 @@
     const handleDelete = async (transactionType) => {
         const deleteTransactionTypeRequest = await fetch('/quantum/transactiontypes', {
             method: 'DELETE',
-            body: JSON.stringify({ transactionTypeId: transactionType?.transactionType_id })
+            body: JSON.stringify({ transactionTypeId: transactionType?.transaction_type_id })
         });
 
         if (deleteTransactionTypeRequest.ok) {

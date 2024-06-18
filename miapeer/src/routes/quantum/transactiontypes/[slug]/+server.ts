@@ -2,19 +2,20 @@ import { json, error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST = (async ({ request, locals, cookies, url }) => {
-    const { portfolioId, transactionTypeName, startingBalance } = await request.json();
+    const { transactionTypeId, transactionTypeName } = await request.json();
 
     const requestData = {
-        portfolio_id: portfolioId,
-        name: transactionTypeName,
-        starting_balance: startingBalance
+        name: transactionTypeName
     };
 
-    const response = await fetch(`${locals.app.quantumApiBase}/transaction-types`, {
-        headers: locals.auth.headers,
-        method: 'POST',
-        body: JSON.stringify(requestData)
-    });
+    const response = await fetch(
+        `${locals.app.quantumApiBase}/transaction-types/${transactionTypeId}`,
+        {
+            headers: locals.auth.headers,
+            method: 'PATCH',
+            body: JSON.stringify(requestData)
+        }
+    );
 
     const responseData = await response.json();
 
@@ -25,9 +26,8 @@ export const POST = (async ({ request, locals, cookies, url }) => {
 
     return json({
 		request: {
-            portfolioId,
+            transactionTypeId,
 			transactionTypeName,
-			startingBalance,
 		},
 		response: responseData
 	});
