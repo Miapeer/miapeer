@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import { goto } from '$app/navigation';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
 
     import { popup } from '@skeletonlabs/skeleton';
@@ -12,30 +11,30 @@
     import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
 
-    const handleConfirmDelete = (account) => {
+    const handleConfirmDelete = (category) => {
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
-            body: `Are you sure you want to delete the account named "${account?.name ?? ''}"?`,
+            body: `Are you sure you want to delete the category named "${category?.name ?? ''}"?`,
             buttonPositive: 'variant-filled-error',
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(account);
+                    handleDelete(category);
                 }
             }
         };
 
         modalStore.trigger(modal);
     };
-    const handleDelete = async (account) => {
-        const deleteAccountRequest = await fetch('/quantum/accounts', {
+    const handleDelete = async (category) => {
+        const deleteCategoryTypeRequest = await fetch('/quantum/categories', {
             method: 'DELETE',
-            body: JSON.stringify({ accountId: account?.account_id })
+            body: JSON.stringify({ categoryId: category?.category_id })
         });
 
-        if (deleteAccountRequest.ok) {
-            invalidate('quantum:accounts');
+        if (deleteCategoryTypeRequest.ok) {
+            invalidate('quantum:categories');
         } else {
             console.error('NOT ok');
         }
@@ -43,27 +42,21 @@
 </script>
 
 <section>
-    <h1 class="h1">Accounts</h1>
+    <h1 class="h1">Categories</h1>
 
-    {#if data.accounts.length > 0}
+    {#if data.categories.length > 0}
         <div class="table-container px-2">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th />
-                        <th class="w-32">Balance</th>
                         <th class="w-16" />
                     </tr>
                 </thead>
                 <tbody>
-                    {#each data.accounts as account}
+                    {#each data.categories as category}
                         <tr>
-                            <td>{account.name}</td>
-                            <td
-                                >{(account.balance / 100).toLocaleString(navigator.language, {
-                                    minimumFractionDigits: 2
-                                })}</td
-                            >
+                            <td>{category.name}</td>
                             <td class="action-cell text-right">
                                 <div>
                                     <button
@@ -71,16 +64,16 @@
                                         class="btn-icon variant-filled"
                                         use:popup={{
                                             event: 'click',
-                                            target: 'account-actions-' + account.account_id,
+                                            target: 'category-actions-' + category.category_id,
                                             placement: 'left'
                                         }}><i class="fa-solid fa-ellipsis-v" /></button
                                     >
-                                    <div data-popup="account-actions-{account.account_id}">
+                                    <div data-popup="category-actions-{category.category_id}">
                                         <div class="btn-group variant-filled">
-                                            <a href={`./accounts/${account.account_id}`}
+                                            <a href={`./categories/${category.category_id}`}
                                                 ><i class="fa-solid fa-pen-to-square" /></a
                                             >
-                                            <button on:click={() => handleConfirmDelete(account)}
+                                            <button on:click={() => handleConfirmDelete(category)}
                                                 ><i class="fa-solid fa-trash" /></button
                                             >
                                         </div>
@@ -94,9 +87,9 @@
         </div>
     {:else}
         <h3 class="h3">
-            You haven't set up any accounts yet. Click the button below to create one.
+            You haven't set up any categories yet. Click the button below to create one.
         </h3>
     {/if}
 </section>
 
-<FloatingActionButton href="./accounts/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
+<FloatingActionButton href="./categories/new"><i class="fa-solid fa-plus" /></FloatingActionButton>

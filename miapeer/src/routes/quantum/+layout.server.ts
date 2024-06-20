@@ -5,14 +5,16 @@ export async function load({ depends, locals }) {
     depends('quantum:accounts');
     depends('quantum:payees');
     depends('quantum:transactiontypes');
+    depends('quantum:categories');
 
     await ensureUserHasPortfolio(locals);
 
     const accounts = await getUserAccounts(locals);
     const payees = await getUserPayees(locals);
     const transactionTypes = await getUserTransactionTypes(locals);
+    const categories = await getUserCategories(locals);
 
-    return { portfolioId, accounts, payees, transactionTypes };
+    return { portfolioId, accounts, payees, transactionTypes, categories };
 }
 
 const ensureUserHasPortfolio = async (locals) => {
@@ -52,40 +54,53 @@ const createUserPortfolio = async (locals) => {
 };
 
 const getUserAccounts = async (locals) => {
-    const accountsResponse = await fetch(`${locals.app.quantumApiBase}/accounts/`, {
+    const response = await fetch(`${locals.app.quantumApiBase}/accounts/`, {
         headers: locals.auth.headers
     });
 
-    if (!accountsResponse.ok) {
-        console.error(accountsResponse.statusText);
+    if (!response.ok) {
+        console.error(response.statusText);
         return;
     }
 
-    return accountsResponse.json();
+    return response.json();
 };
 
 const getUserPayees = async (locals) => {
-    const accountsResponse = await fetch(`${locals.app.quantumApiBase}/payees/`, {
+    const response = await fetch(`${locals.app.quantumApiBase}/payees/`, {
         headers: locals.auth.headers
     });
 
-    if (!accountsResponse.ok) {
-        console.error(accountsResponse.statusText);
+    if (!response.ok) {
+        console.error(response.statusText);
         return;
     }
 
-    return accountsResponse.json();
+    return response.json();
 };
 
 const getUserTransactionTypes = async (locals) => {
-    const accountsResponse = await fetch(`${locals.app.quantumApiBase}/transaction-types/`, {
+    const response = await fetch(`${locals.app.quantumApiBase}/transaction-types/`, {
         headers: locals.auth.headers
     });
 
-    if (!accountsResponse.ok) {
-        console.error(accountsResponse.statusText);
+    if (!response.ok) {
+        console.error(response.statusText);
         return;
     }
 
-    return accountsResponse.json();
+    return response.json();
+};
+
+const getUserCategories = async (locals) => {
+    const response = await fetch(`${locals.app.quantumApiBase}/categories/`, {
+        headers: locals.auth.headers
+    });
+
+    if (!response.ok) {
+        console.error(response.statusText);
+        return;
+    }
+
+    return response.json();
 };
