@@ -63,7 +63,9 @@ const getUserAccounts = async (locals) => {
         return;
     }
 
-    return response.json();
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'account_id');
+    return indexedData;
 };
 
 const getUserPayees = async (locals) => {
@@ -76,7 +78,9 @@ const getUserPayees = async (locals) => {
         return;
     }
 
-    return response.json();
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'payee_id');
+    return indexedData;
 };
 
 const getUserTransactionTypes = async (locals) => {
@@ -89,7 +93,9 @@ const getUserTransactionTypes = async (locals) => {
         return;
     }
 
-    return response.json();
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'transaction_type_id');
+    return indexedData;
 };
 
 const getUserCategories = async (locals) => {
@@ -102,5 +108,17 @@ const getUserCategories = async (locals) => {
         return;
     }
 
-    return response.json();
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'category_id');
+    return indexedData;
+};
+
+const convertArrayToObject = (array, key) => {
+    let returnObject = {};
+
+    array.forEach((item) => {
+        returnObject[item[key]] = item;
+    });
+
+    return returnObject === {} ? null : returnObject;
 };
