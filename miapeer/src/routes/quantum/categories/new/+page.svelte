@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import { goto, invalidate } from '$app/navigation';
+    import { goto } from '$app/navigation';
+    import { createCategory } from '@quantum/api';
 
     let categoryName;
 
@@ -9,22 +10,9 @@
     };
 
     const handleCreateCategory = async () => {
-        const requestData = {
-            portfolioId: data.portfolioId,
-            categoryName
-        };
-
-        const res = await fetch('/quantum/categories/new', {
-            method: 'POST',
-            body: JSON.stringify(requestData)
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            await invalidate('quantum:categories');
+        let newCategory = await createCategory(data.portfolioId, categoryName);
+        if (newCategory) {
             goto(data.redirectUrl ?? '/quantum/categories');
-        } else {
-            console.error('NOT ok');
         }
     };
 
@@ -37,7 +25,7 @@
     export let data: PageData;
 </script>
 
-<div class="login-form grid gap-4 max-w-3xl my-0 mx-auto pt-4">
+<div class="grid gap-4 max-w-3xl my-0 mx-auto pt-4">
     <h1 class="h1">Create a new category</h1>
 
     <div class="input-group input-group-divider grid-cols-[14rem_auto]">

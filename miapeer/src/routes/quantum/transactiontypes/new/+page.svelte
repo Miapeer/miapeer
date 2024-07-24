@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import { goto, invalidate } from '$app/navigation';
+    import { goto } from '$app/navigation';
+    import { createTransactionType } from '@quantum/api';
 
     let transactionTypeName;
 
@@ -9,21 +10,9 @@
     };
 
     const handleCreateTransactionType = async () => {
-        const requestData = {
-            portfolioId: data.portfolioId,
-            transactionTypeName
-        };
-        const res = await fetch('/quantum/transactiontypes/new', {
-            method: 'POST',
-            body: JSON.stringify(requestData)
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            await invalidate('quantum:transactiontypes');
+        let newTransactionType = await createTransactionType(data.portfolioId, transactionTypeName);
+        if (newTransactionType) {
             goto(data.redirectUrl ?? '/quantum/transactiontypes');
-        } else {
-            console.error('NOT ok');
         }
     };
 
@@ -36,7 +25,7 @@
     export let data: PageData;
 </script>
 
-<div class="login-form grid gap-4 max-w-3xl my-0 mx-auto pt-4">
+<div class="grid gap-4 max-w-3xl my-0 mx-auto pt-4">
     <h1 class="h1">Create a new transaction type</h1>
 
     <div class="input-group input-group-divider grid-cols-[14rem_auto]">

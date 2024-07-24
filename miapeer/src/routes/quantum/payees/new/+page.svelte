@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import { goto, invalidate } from '$app/navigation';
+    import { goto } from '$app/navigation';
+    import { createPayee } from '@quantum/api';
 
     let payeeName;
 
@@ -9,21 +10,9 @@
     };
 
     const handleCreatePayee = async () => {
-        const requestData = {
-            portfolioId: data.portfolioId,
-            payeeName
-        };
-        const res = await fetch('/quantum/payees/new', {
-            method: 'POST',
-            body: JSON.stringify(requestData)
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            await invalidate('quantum:payees');
+        let newPayee = await createPayee(data.portfolioId, payeeName);
+        if (newPayee) {
             goto(data.redirectUrl ?? '/quantum/payees');
-        } else {
-            console.error('NOT ok');
         }
     };
 
@@ -36,7 +25,7 @@
     export let data: PageData;
 </script>
 
-<div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+<div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
     <h1 class="h1">Create a new payee</h1>
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
