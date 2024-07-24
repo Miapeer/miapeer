@@ -17,6 +17,16 @@
         <span class="capitalize">Accounts</span>
         <span>↓</span>
     </button>
+    {#if data.accounts}
+        <div data-popup="accountPopupCombobox">
+            <div class="btn-group-vertical variant-filled">
+                {#each Object.keys(data.accounts) as accountKey}
+                    {@const account = data.accounts[accountKey]}
+                    <a href="/quantum/accounts/{account.account_id}/transactions">{account.name}</a>
+                {/each}
+            </div>
+        </div>
+    {/if}
 
     <button
         class="btn variant-filled w-48 justify-between"
@@ -29,17 +39,6 @@
         <span class="capitalize">Data</span>
         <span>↓</span>
     </button>
-
-    {#if data.accounts.length}
-        <div data-popup="accountPopupCombobox">
-            <div class="btn-group-vertical variant-filled">
-                {#each data.accounts as account}
-                    <a href="/quantum/accounts/{account.account_id}">{account.name}</a>
-                {/each}
-            </div>
-        </div>
-    {/if}
-
     <div data-popup="dataPopupCombobox">
         <div class="btn-group-vertical variant-filled">
             <a href="/quantum/scheduledtransactions">Scheduled Transactions</a>
