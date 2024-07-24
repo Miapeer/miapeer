@@ -44,7 +44,7 @@
 <section>
     <h1 class="h1">Transaction Types</h1>
 
-    {#if data.transactionTypes.length > 0}
+    {#if data.transactionTypes}
         <div class="table-container px-2">
             <table class="table table-hover">
                 <thead>
@@ -54,7 +54,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#each data.transactionTypes as transactionType}
+                    {#each Object.keys(data.transactionTypes) as transactionTypeKey}
+                        {@const transactionType = data.transactionTypes[transactionTypeKey]}
                         <tr>
                             <td>{transactionType.name}</td>
                             <td class="action-cell text-right">

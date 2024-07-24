@@ -45,7 +45,7 @@
 <section>
     <h1 class="h1">Accounts</h1>
 
-    {#if data.accounts.length > 0}
+    {#if data.accounts}
         <div class="table-container px-2">
             <table class="table table-hover">
                 <thead>
@@ -56,9 +56,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#each data.accounts as account}
+                    {#each Object.keys(data.accounts) as accountKey}
+                        {@const account = data.accounts[accountKey]}
                         <tr>
-                            <td>{account.name}</td>
+                            <td
+                                on:click={() =>
+                                    goto(`./accounts/${account.account_id}/transactions`)}
+                                >{account.name}</td
+                            >
                             <td
                                 >{(account.balance / 100).toLocaleString(navigator.language, {
                                     minimumFractionDigits: 2

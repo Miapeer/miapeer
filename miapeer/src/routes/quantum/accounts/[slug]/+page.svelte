@@ -35,7 +35,7 @@
     };
 </script>
 
-<div class="login-form grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+<div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
     <h1 class="h1">Edit Account</h1>
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">

@@ -44,7 +44,7 @@
 <section>
     <h1 class="h1">Categories</h1>
 
-    {#if data.categories.length > 0}
+    {#if data.categories}
         <div class="table-container px-2">
             <table class="table table-hover">
                 <thead>
@@ -54,7 +54,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#each data.categories as category}
+                    {#each Object.keys(data.categories) as categoryKey}
+                        {@const category = data.categories[categoryKey]}
                         <tr>
                             <td>{category.name}</td>
                             <td class="action-cell text-right">

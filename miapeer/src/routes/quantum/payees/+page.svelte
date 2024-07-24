@@ -44,7 +44,7 @@
 <section>
     <h1 class="h1">Payees</h1>
 
-    {#if data.payees.length > 0}
+    {#if data.payees}
         <div class="table-container px-2">
             <table class="table table-hover">
                 <thead>
@@ -54,7 +54,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#each data.payees as payee}
+                    {#each Object.keys(data.payees) as payeeKey}
+                        {@const payee = data.payees[payeeKey]}
                         <tr>
                             <td>{payee.name}</td>
                             <td class="action-cell text-right">
