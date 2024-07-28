@@ -23,6 +23,8 @@
             goto(data.redirectUrl ?? '/');
         } else {
             console.error('NOT ok');
+            console.error(JSON.stringify(res));
+            console.error(await res.json());
         }
     };
 

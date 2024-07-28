@@ -12,6 +12,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     let decodedAccessToken;
     let userName;
 
+    console.log('Access token: ' + accessToken);
+
     try {
         decodedAccessToken = jose.decodeJwt(accessToken);
 
@@ -22,15 +24,20 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     if (!accessToken || tokenExpired(decodedAccessToken)) {
+        console.log('Clearing cookie');
+
+        // Delete the cookie
         event.cookies.set('MAT', '', {
             path: '/',
             expires: new Date(0)
         });
 
         if (['/', '/login', '/logout', '/portfolio'].includes(event.url.pathname)) {
+            // Allow anonymous access
             accessToken = null;
             userName = null;
         } else {
+            // Send user to the login page
             return Response.redirect(
                 `${event.url.origin}/login?ReturnUrl=${event.url.pathname}`,
                 303
