@@ -1,6 +1,10 @@
 import { invalidate } from '$app/navigation';
 
 const createTransactionType = async (portfolioId, transactionTypeName) => {
+    if (!transactionTypeName) {
+        return;
+    }
+
     const requestData = {
         portfolioId,
         transactionTypeName
@@ -13,12 +17,17 @@ const createTransactionType = async (portfolioId, transactionTypeName) => {
     if (res.ok) {
         const data = await res.json();
         await invalidate('quantum:transactiontypes');
+        return data;
     } else {
         console.error('NOT ok');
     }
 };
 
 const createPayee = async (portfolioId, payeeName) => {
+    if (!payeeName) {
+        return;
+    }
+
     const requestData = {
         portfolioId,
         payeeName
@@ -31,12 +40,17 @@ const createPayee = async (portfolioId, payeeName) => {
     if (res.ok) {
         const data = await res.json();
         await invalidate('quantum:payees');
+        return data;
     } else {
         console.error('NOT ok');
     }
 };
 
 const createCategory = async (portfolioId, categoryName) => {
+    if (!categoryName) {
+        return;
+    }
+
     const requestData = {
         portfolioId,
         categoryName
@@ -50,6 +64,7 @@ const createCategory = async (portfolioId, categoryName) => {
     if (res.ok) {
         const data = await res.json();
         await invalidate('quantum:categories');
+        return data;
     } else {
         console.error('NOT ok');
     }
