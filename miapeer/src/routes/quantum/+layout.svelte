@@ -1,5 +1,6 @@
 <script lang="ts">
     import { popup } from '@skeletonlabs/skeleton';
+    import { page } from '$app/stores';
 
     import type { PageData } from './$types';
     export let data: PageData;
@@ -39,9 +40,18 @@
         <span class="capitalize">Data</span>
         <span>↓</span>
     </button>
+
     <div data-popup="dataPopupCombobox">
         <div class="btn-group-vertical variant-filled">
-            <a href="/quantum/scheduledtransactions">Scheduled Transactions</a>
+            {#if $page.params.accountId && $page.route.id?.includes('/transactions')}
+                <a href={`/quantum/accounts/${$page.params.accountId}/scheduledtransactions`}
+                    >Scheduled Transactions</a
+                >
+            {/if}
+            {#if $page.params.accountId && $page.route.id?.includes('/scheduledtransactions')}
+                <a href={`/quantum/accounts/${$page.params.accountId}/transactions`}>Transactions</a
+                >
+            {/if}
             <a href="/quantum/transactiontypes">Transaction Types</a>
             <a href="/quantum/payees">Payees</a>
             <a href="/quantum/categories">Categories</a>

@@ -13,8 +13,9 @@ export async function load({ depends, locals }) {
     const payees = await getUserPayees(locals);
     const transactionTypes = await getUserTransactionTypes(locals);
     const categories = await getUserCategories(locals);
+    const repeatOptions = await getRepeatOptions(locals);
 
-    return { portfolioId, accounts, payees, transactionTypes, categories };
+    return { portfolioId, accounts, payees, transactionTypes, categories, repeatOptions };
 }
 
 const ensureUserHasPortfolio = async (locals) => {
@@ -110,6 +111,21 @@ const getUserCategories = async (locals) => {
 
     const data = await response.json();
     const indexedData = convertArrayToObject(data, 'category_id');
+    return indexedData;
+};
+
+const getRepeatOptions = async (locals) => {
+    const response = await fetch(`${locals.app.quantumApiBase}/repeat-options/`, {
+        headers: locals.auth.headers
+    });
+
+    if (!response.ok) {
+        console.error(response.statusText);
+        return;
+    }
+
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'repeat_option_id');
     return indexedData;
 };
 

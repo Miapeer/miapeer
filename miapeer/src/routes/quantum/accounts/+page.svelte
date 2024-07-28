@@ -7,6 +7,8 @@
 
     import { invalidate } from '$app/navigation';
 
+    import { formatMoney } from '@quantum/util';
+
     export let data: PageData;
 
     import { getModalStore } from '@skeletonlabs/skeleton';
@@ -64,11 +66,7 @@
                                     goto(`./accounts/${account.account_id}/transactions`)}
                                 >{account.name}</td
                             >
-                            <td
-                                >{(account.balance / 100).toLocaleString(navigator.language, {
-                                    minimumFractionDigits: 2
-                                })}</td
-                            >
+                            <td>{formatMoney(account.balance)}</td>
                             <td class="action-cell text-right">
                                 <div>
                                     <button

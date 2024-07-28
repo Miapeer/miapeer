@@ -4,8 +4,13 @@
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
     import { popup } from '@skeletonlabs/skeleton';
     import type { PopupSettings } from '@skeletonlabs/skeleton';
+    import { formatMoney } from '@quantum/util';
 
     export let data: PageData;
+    import { page } from '$app/stores';
+
+    import { getModalStore } from '@skeletonlabs/skeleton';
+    const modalStore = getModalStore();
 
     const popupHover: PopupSettings = {
         event: 'hover',
@@ -13,30 +18,33 @@
         placement: 'top'
     };
 
-    const handleConfirmDelete = (payee) => {
+    const handleConfirmDelete = (transaction) => {
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
-            body: `Are you sure you want to delete the transaction named "${'zzz' ?? ''}"?`,
+            body: `Are you sure you want to delete the transaction on ${transaction.transaction_date} for ${formatMoney(transaction.amount)}?`,
             buttonPositive: 'variant-filled-error',
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(payee);
+                    handleDelete(transaction);
                 }
             }
         };
 
         modalStore.trigger(modal);
     };
-    const handleDelete = async (payee) => {
-        const deletePayeeRequest = await fetch('/quantum/payees', {
-            method: 'DELETE',
-            body: JSON.stringify({ payeeId: payee?.payee_id })
-        });
+    const handleDelete = async (transaction) => {
+        const deleteTransactionRequest = await fetch(
+            `/quantum/accounts/${$page.params.accountId}/transactions`,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({ payeeId: transaction?.payee_id })
+            }
+        );
 
-        if (deletePayeeRequest.ok) {
-            invalidate('quantum:payees');
+        if (deleteTransactionRequest.ok) {
+            invalidate('quantum:transactions');
         } else {
             console.error('NOT ok');
         }
@@ -44,7 +52,7 @@
 </script>
 
 <section>
-    <h1 class="h1">{data.account.name}</h1>
+    <h1 class="h1">{`${data.accounts[$page.params.accountId].name} Transactions`}</h1>
 
     <div class="popovers">
         <div class="card p-4 w-72 shadow-xl" data-popup="accountTransactionsExcluded">
@@ -80,14 +88,10 @@
                     {data.categories[transaction.category_id]?.name || ''}
                 </div>
                 <div class="content-center text-right">
-                    {(transaction.amount / 100).toLocaleString(navigator.language, {
-                        minimumFractionDigits: 2
-                    })}
+                    {formatMoney(transaction.amount)}
                 </div>
                 <div class="content-center text-right">
-                    {(0 / 100).toLocaleString(navigator.language, {
-                        minimumFractionDigits: 2
-                    })}
+                    {formatMoney(0)}
                 </div>
 
                 <div class="content-center">

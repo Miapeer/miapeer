@@ -1,40 +1,34 @@
 import { json, error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-export const POST = (async ({ request, locals, cookies, url }) => {
+export const POST = (async ({ request, locals, cookies, url, params }) => {
     const {
         accountId,
+        transactionDate,
+        clearDate,
         transactionTypeId,
         payeeId,
         categoryId,
         excludeFromForecast,
         amount,
-        transactionDate,
-        clearDate,
         checkNumber,
-        note
+        notes
     } = await request.json();
 
-    console.log(request);
-    console.log(url);
-
     const requestData = {
+        transaction_date: transactionDate ? transactionDate : new Date().toISOString().slice(0, 10),
+        clear_date: clearDate,
         transaction_type_id: transactionTypeId,
         payee_id: payeeId,
         category_id: categoryId,
         exclude_from_forecast: excludeFromForecast,
-        amount,
-        transaction_date: transactionDate,
-        clear_date: clearDate,
+        amount: amount ? amount : 0,
         check_number: checkNumber,
-        note
+        notes
     };
 
-    console.log(accountId);
-    console.log(JSON.stringify(requestData));
-
     const response = await fetch(
-        `${locals.app.quantumApiBase}/accounts/${accountId}/transactions`,
+        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions`,
         {
             headers: locals.auth.headers,
             method: 'POST',
@@ -50,7 +44,7 @@ export const POST = (async ({ request, locals, cookies, url }) => {
     }
 
     return json({
-		request: { accountId, transactionTypeId, payeeId, categoryId, excludeFromForecast, amount, transactionDate, clearDate, checkNumber, note },
+		request: { accountId, transactionTypeId, payeeId, categoryId, excludeFromForecast, amount, transactionDate, clearDate, checkNumber, notes },
 		response: responseData
 	});
 

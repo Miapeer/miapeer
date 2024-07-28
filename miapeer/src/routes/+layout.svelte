@@ -99,7 +99,9 @@
             {/if}
 
             <svelte:fragment slot="trail">
-                <a class="anchor" href="/portfolio"> Jeff Navarra's Portfolio </a>
+                {#if true}
+                    <a class="anchor" href="/portfolio"> Jeff Navarra's Portfolio </a>
+                {/if}
             </svelte:fragment>
         </AppBar>
     </svelte:fragment>

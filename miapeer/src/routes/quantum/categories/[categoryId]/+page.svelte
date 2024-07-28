@@ -1,6 +1,9 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
+    import { page } from '$app/stores';
+
+    let categoryId = $page.params.categoryId;
 
     export let data: PageData;
 
@@ -12,10 +15,9 @@
 
     const handleEditCategory = async () => {
         const requestData = {
-            categoryId: data.category.category_id,
             categoryName
         };
-        const res = await fetch(`/quantum/categories/${data.category.category_id}`, {
+        const res = await fetch(`/quantum/categories/${categoryId}`, {
             method: 'POST',
             body: JSON.stringify(requestData)
         });

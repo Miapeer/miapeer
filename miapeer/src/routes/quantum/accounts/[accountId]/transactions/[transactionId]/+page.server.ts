@@ -2,7 +2,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
     const transactionResponse = await fetch(
-        `${locals.app.quantumApiBase}/accounts/${params.slug}/transactions/${params.transactionId}`,
+        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions/${params.transactionId}`,
         {
             headers: locals.auth.headers
         }

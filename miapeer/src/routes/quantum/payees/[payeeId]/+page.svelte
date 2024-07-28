@@ -2,6 +2,10 @@
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
 
+    import { page } from '$app/stores';
+
+    let payeeId = $page.params.payeeId;
+
     export let data: PageData;
 
     let payeeName = data.payee.name;
@@ -11,8 +15,8 @@
     };
 
     const handleEditPayee = async () => {
-        const requestData = { payeeId: data.payee.payee_id, payeeName };
-        const res = await fetch(`/quantum/payees/${data.payee.payee_id}`, {
+        const requestData = { payeeName };
+        const res = await fetch(`/quantum/payees/${$page.params.payeeId}`, {
             method: 'POST',
             body: JSON.stringify(requestData)
         });

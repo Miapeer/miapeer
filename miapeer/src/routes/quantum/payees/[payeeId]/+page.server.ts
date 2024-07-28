@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-    const payeeResponse = await fetch(`${locals.app.quantumApiBase}/payees/${params.slug}`, {
+    const payeeResponse = await fetch(`${locals.app.quantumApiBase}/payees/${params.payeeId}`, {
         headers: locals.auth.headers
     });
 

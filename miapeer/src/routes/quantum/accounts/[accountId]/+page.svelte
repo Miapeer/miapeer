@@ -1,26 +1,29 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
+    import { formatMoney, unformatMoney } from '@quantum/util';
+
+    import { page } from '$app/stores';
+
+    let accountId = $page.params.accountId;
 
     export let data: PageData;
 
     let accountName = data.account.name;
-    let startingBalance = (data.account.starting_balance / 100).toLocaleString(navigator.language);
+    let startingBalance = formatMoney(data.account.starting_balance);
 
     const handleCancel = () => {
         goto(data.redirectUrl ?? '/quantum/accounts');
     };
 
     const handleEditAccount = async () => {
-        const cleanedStartingBalance =
-            Number(startingBalance.replace(/[^0-9\.-]+/g, '')).toFixed(2) * 100;
+        const cleanedStartingBalance = unformatMoney(startingBalance);
         const requestData = {
-            accountId: data.account.account_id,
             accountName,
             startingBalance: cleanedStartingBalance
         };
 
-        const res = await fetch(`/quantum/accounts/${data.accountId}`, {
+        const res = await fetch(`/quantum/accounts/${accountId}`, {
             method: 'POST',
             body: JSON.stringify(requestData)
         });

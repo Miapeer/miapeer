@@ -1,15 +1,15 @@
 import { json, error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-export const POST = (async ({ request, locals, cookies, url }) => {
-    const { transactionTypeId, transactionTypeName } = await request.json();
+export const POST = (async ({ request, locals, cookies, url, params }) => {
+    const { transactionTypeName } = await request.json();
 
     const requestData = {
         name: transactionTypeName
     };
 
     const response = await fetch(
-        `${locals.app.quantumApiBase}/transaction-types/${transactionTypeId}`,
+        `${locals.app.quantumApiBase}/transaction-types/${params.transactionTypeId}`,
         {
             headers: locals.auth.headers,
             method: 'PATCH',
@@ -26,7 +26,6 @@ export const POST = (async ({ request, locals, cookies, url }) => {
 
     return json({
 		request: {
-            transactionTypeId,
 			transactionTypeName,
 		},
 		response: responseData

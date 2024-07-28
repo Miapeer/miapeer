@@ -1,15 +1,14 @@
 import { json, error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-export const POST = (async ({ request, locals, cookies, url }) => {
-    const { accountId, accountName, startingBalance } = await request.json();
+export const POST = (async ({ request, locals, cookies, url, params }) => {
+    const { categoryName } = await request.json();
 
     const requestData = {
-        name: accountName,
-        starting_balance: startingBalance
+        name: categoryName
     };
 
-    const response = await fetch(`${locals.app.quantumApiBase}/accounts/${accountId}`, {
+    const response = await fetch(`${locals.app.quantumApiBase}/categories/${params.categoryId}`, {
         headers: locals.auth.headers,
         method: 'PATCH',
         body: JSON.stringify(requestData)
@@ -24,9 +23,7 @@ export const POST = (async ({ request, locals, cookies, url }) => {
 
     return json({
 		request: {
-            accountId,
-			accountName,
-			startingBalance,
+			categoryName,
 		},
 		response: responseData
 	});

@@ -1,6 +1,9 @@
 <script lang="ts">
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
+    import { page } from '$app/stores';
+
+    let transactionTypeId = $page.params.transactionTypeId;
 
     export let data: PageData;
 
@@ -12,16 +15,12 @@
 
     const handleEditTransactionType = async () => {
         const requestData = {
-            transactionTypeId: data.transactionType.transaction_type_id,
             transactionTypeName
         };
-        const res = await fetch(
-            `/quantum/transactiontypes/${data.transactionType.transaction_type_id}`,
-            {
-                method: 'POST',
-                body: JSON.stringify(requestData)
-            }
-        );
+        const res = await fetch(`/quantum/transactiontypes/${$page.params.transactionTypeId}`, {
+            method: 'POST',
+            body: JSON.stringify(requestData)
+        });
 
         if (res.ok) {
             const data = await res.json();
