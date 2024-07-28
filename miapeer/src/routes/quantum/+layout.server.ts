@@ -4,13 +4,18 @@ let portfolioId = null;
 export async function load({ depends, locals }) {
     depends('quantum:accounts');
     depends('quantum:payees');
+    depends('quantum:transactiontypes');
+    depends('quantum:categories');
 
     await ensureUserHasPortfolio(locals);
 
     const accounts = await getUserAccounts(locals);
     const payees = await getUserPayees(locals);
+    const transactionTypes = await getUserTransactionTypes(locals);
+    const categories = await getUserCategories(locals);
+    const repeatOptions = await getRepeatOptions(locals);
 
-    return { portfolioId, accounts, payees };
+    return { portfolioId, accounts, payees, transactionTypes, categories, repeatOptions };
 }
 
 const ensureUserHasPortfolio = async (locals) => {
@@ -50,27 +55,86 @@ const createUserPortfolio = async (locals) => {
 };
 
 const getUserAccounts = async (locals) => {
-    const accountsResponse = await fetch(`${locals.app.quantumApiBase}/accounts/`, {
+    const response = await fetch(`${locals.app.quantumApiBase}/accounts/`, {
         headers: locals.auth.headers
     });
 
-    if (!accountsResponse.ok) {
-        console.error(accountsResponse.statusText);
+    if (!response.ok) {
+        console.error(response.statusText);
         return;
     }
 
-    return accountsResponse.json();
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'account_id');
+    return indexedData;
 };
 
 const getUserPayees = async (locals) => {
-    const accountsResponse = await fetch(`${locals.app.quantumApiBase}/payees/`, {
+    const response = await fetch(`${locals.app.quantumApiBase}/payees/`, {
         headers: locals.auth.headers
     });
 
-    if (!accountsResponse.ok) {
-        console.error(accountsResponse.statusText);
+    if (!response.ok) {
+        console.error(response.statusText);
         return;
     }
 
-    return accountsResponse.json();
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'payee_id');
+    return indexedData;
+};
+
+const getUserTransactionTypes = async (locals) => {
+    const response = await fetch(`${locals.app.quantumApiBase}/transaction-types/`, {
+        headers: locals.auth.headers
+    });
+
+    if (!response.ok) {
+        console.error(response.statusText);
+        return;
+    }
+
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'transaction_type_id');
+    return indexedData;
+};
+
+const getUserCategories = async (locals) => {
+    const response = await fetch(`${locals.app.quantumApiBase}/categories/`, {
+        headers: locals.auth.headers
+    });
+
+    if (!response.ok) {
+        console.error(response.statusText);
+        return;
+    }
+
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'category_id');
+    return indexedData;
+};
+
+const getRepeatOptions = async (locals) => {
+    const response = await fetch(`${locals.app.quantumApiBase}/repeat-options/`, {
+        headers: locals.auth.headers
+    });
+
+    if (!response.ok) {
+        console.error(response.statusText);
+        return;
+    }
+
+    const data = await response.json();
+    const indexedData = convertArrayToObject(data, 'repeat_option_id');
+    return indexedData;
+};
+
+const convertArrayToObject = (array, key) => {
+    let returnObject = {};
+
+    array.forEach((item) => {
+        returnObject[item[key]] = item;
+    });
+
+    return returnObject === {} ? null : returnObject;
 };

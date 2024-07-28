@@ -1,6 +1,4 @@
 <script>
-    import TextField from '$lib/TextField.svelte';
-    import Button from '$lib/Button.svelte';
     import { goto, invalidateAll } from '$app/navigation';
 
     let email = '';
@@ -35,33 +33,25 @@
     };
 </script>
 
-<div class="login-form">
-    <h1>Sign In</h1>
+<div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+    <h1 class="h1">Sign In</h1>
 
-    <TextField placeholder={'Email'} bind:value={email} onKeyPress={handleKeyPress} />
+    <div class="input-group input-group-divider grid-cols-[8rem_auto]">
+        <div class="input-group-shim">Email</div>
+        <input type="text" bind:value={email} on:keypress={handleKeyPress} />
+    </div>
 
-    <TextField
-        type="password"
-        placeholder={'Password'}
-        bind:value={password}
-        onKeyPress={handleKeyPress}
-    />
+    <div class="input-group input-group-divider grid-cols-[8rem_auto]">
+        <div class="input-group-shim">Password</div>
+        <input type="password" bind:value={password} on:keypress={handleKeyPress} />
+    </div>
 
-    <Button
-        fullWidth={true}
+    <button
         disabled={!email || !password}
-        waiting={loggingIn}
-        onClick={handleLogin}
+        type="button"
+        class="btn variant-filled-primary"
+        on:click={handleLogin}
     >
         Log In
-    </Button>
+    </button>
 </div>
-
-<style>
-    .login-form {
-        display: grid;
-        gap: 1em;
-        max-width: 40em;
-        margin: 0 auto;
-    }
-</style>

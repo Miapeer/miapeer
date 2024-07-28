@@ -1,2 +1,21 @@
-<h1>Loading Quantum</h1>
-<h3>Redirecting to your account management page</h3>
+<script>
+    import { ProgressRadial } from '@skeletonlabs/skeleton';
+</script>
+
+<div class="outer absolute">
+    <div class="inner absolute w-36">
+        <ProgressRadial strokeLinecap="round" />
+    </div>
+</div>
+
+<style type="css">
+    .outer {
+        inset: 0;
+    }
+
+    .inner {
+        aspect-ratio: 1;
+        inset: 0;
+        margin: auto;
+    }
+</style>

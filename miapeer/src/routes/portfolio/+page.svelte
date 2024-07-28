@@ -1,17 +1,17 @@
+<!-- TODO: Finish converting page to Tailwind/Skeleton -->
 <!-- TODO: Add images -->
 <!-- TODO: Add accordions to reduce clutter -->
 <script>
-    import Chip from '$lib/Chip.svelte';
-    import Link from '$lib/Link.svelte';
+    import { AppShell } from '@skeletonlabs/skeleton';
     import Timeline from '$lib/Timeline.svelte';
 </script>
 
 <div class="portfolio">
     <section class="contact-methods">
-        <h1>Jeffery Navarra</h1>
+        <h1 class="h1">Jeffery Navarra</h1>
         <div class="contact-method email">
             <i class="fa fa-envelope" />
-            <Link href="mailto:jeff.navarra@miapeer.com">Jeff.Navarra@miapeer.com</Link>
+            <a href="mailto:jeff.navarra@miapeer.com">Jeff.Navarra@miapeer.com</a>
         </div>
         <div class="contact-method phone">
             <i class="fa fa-mobile-alt" />
@@ -19,16 +19,16 @@
         </div>
         <div class="contact-method website">
             <i class="fa fa-cloud" />
-            <Link href="/">miapeer.com</Link>
+            <a href="/">miapeer.com</a>
         </div>
         <div class="contact-method website">
             <i class="fa-brands fa-github" />
-            <Link href="https://github.com/Miapeer" openNewTab>Check out my GitHub repo</Link>
+            <a href="https://github.com/Miapeer" openNewTab>Check out my GitHub repo</a>
         </div>
     </section>
 
     <section class="personal">
-        <h2>A little about myself</h2>
+        <h2 class="h2">A little about myself</h2>
         <div class="summary">
             I'm a software engineer with over 25 years of experience. Most of my experience has been
             centered around emergency management for multiple clients within the Department of
@@ -40,33 +40,16 @@
     </section>
 
     <section class="skills">
-        <h2>Skills</h2>
+        <h2 class="h2">Skills</h2>
         <div class="chips">
-            <Chip size="small">Python</Chip>
-            <Chip size="small">C#</Chip>
-            <Chip size="small">HTML</Chip>
-            <Chip size="small">CSS</Chip>
-            <Chip size="small">JavaScript</Chip>
-            <Chip size="small">FastAPI</Chip>
-            <Chip size="small">SQL Server</Chip>
-            <Chip size="small">MySQL</Chip>
-            <Chip size="small">PostgreSQL</Chip>
-            <Chip size="small">SQLModel</Chip>
-            <Chip size="small">SQL Alchemy</Chip>
-            <Chip size="small">Entity Framework</Chip>
-            <Chip size="small">NodeJS</Chip>
-            <Chip size="small">ASP.NET MVC</Chip>
-            <Chip size="small">KnockoutJS</Chip>
-            <Chip size="small">React</Chip>
-            <Chip size="small">Svelte</Chip>
-            <Chip size="small">SvelteKit</Chip>
-            <Chip size="small">Azure</Chip>
-            <Chip size="small">AWS</Chip>
+            {#each ['Python', 'C#', 'HTML', 'CSS', 'JavaScript', 'FastAPI', 'SQL Server', 'MySQL', 'PostgreSQL', 'SQLModel', 'SQL Alchemy', 'Entity Framework', 'NodeJS', 'ASP.NET MVC', 'KnockoutJS', 'React', 'Svelte', 'SvelteKit', 'Azure', 'AWS'] as skill}
+                <button type="button" class="btn btn-sm variant-ghost-primary">{skill}</button>
+            {/each}
         </div>
     </section>
 
     <section class="timeline">
-        <h2>Timeline</h2>
+        <h2 class="h2">Timeline</h2>
         <div class="timeline-wrapper">
             <Timeline
                 data={[
@@ -168,13 +151,13 @@
     </section>
 
     <section class="experience-list">
-        <h2 class="title">Experience</h2>
+        <h2 class="h2">Experience</h2>
 
         <!-- --------------------------------------------- -->
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">CyberGRX / ProcessUnity</h3>
+                <h3 class="h3 h3 title">CyberGRX / ProcessUnity</h3>
                 <div class="sub">
                     <div class="position">Senior Software Engineer</div>
                     <div class="timeframe">May 2021 - December 2023</div>
@@ -184,19 +167,19 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">Full-stack development of web platform</h4>
+                    <h4 class="h4 task">Full-stack development of web platform</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">pytest</Chip>
-                        <Chip size="extra-small">PostgreSQL</Chip>
-                        <Chip size="extra-small">React</Chip>
-                        <Chip size="extra-small">RTL</Chip>
-                        <Chip size="extra-small">Jest</Chip>
-                        <Chip size="extra-small">MUI</Chip>
-                        <Chip size="extra-small">Argo Workflows</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">pytest</Chip> -->
+                        <!-- <Chip size="extra-small">PostgreSQL</Chip> -->
+                        <!-- <Chip size="extra-small">React</Chip> -->
+                        <!-- <Chip size="extra-small">RTL</Chip> -->
+                        <!-- <Chip size="extra-small">Jest</Chip> -->
+                        <!-- <Chip size="extra-small">MUI</Chip> -->
+                        <!-- <Chip size="extra-small">Argo Workflows</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 My day-to-day work involved the debugging and the creation of new
                                 features for the entire development stack ranging from Terraform to
@@ -217,14 +200,14 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Enhanced company match</h4>
+                    <h4 class="h4 task">Enhanced company match</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">PostgreSQL</Chip>
-                        <Chip size="extra-small">React</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">PostgreSQL</Chip> -->
+                        <!-- <Chip size="extra-small">React</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I had the opportunity to work with the same key personnel on this
                                 similar task as my Company Master work at Webroot. Keeping the
@@ -249,15 +232,15 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Bulk ingest</h4>
+                    <h4 class="h4 task">Bulk ingest</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">PostgreSQL</Chip>
-                        <Chip size="extra-small">React</Chip>
-                        <Chip size="extra-small">Terraform</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">PostgreSQL</Chip> -->
+                        <!-- <Chip size="extra-small">React</Chip> -->
+                        <!-- <Chip size="extra-small">Terraform</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I took on the role of team technical lead to drive this feature,
                                 which heavily utilized my previous Company Master work.
@@ -272,15 +255,15 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Merger integration</h4>
+                    <h4 class="h4 task">Merger integration</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">PostgreSQL</Chip>
-                        <Chip size="extra-small">ASP.Net MVC</Chip>
-                        <Chip size="extra-small">SQL Server</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">PostgreSQL</Chip> -->
+                        <!-- <Chip size="extra-small">ASP.Net MVC</Chip> -->
+                        <!-- <Chip size="extra-small">SQL Server</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I was the sole developer from CyberGRX on the integration team
                                 working with ProcessUnity to unify the unique functionality of both
@@ -296,7 +279,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">Miapeer LLC</h3>
+                <h3 class="h3 h3 title">Miapeer LLC</h3>
                 <div class="sub">
                     <div class="position">Founder</div>
                     <div class="timeframe">August 2015 - Present</div>
@@ -306,20 +289,20 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">
+                    <h4 class="h4 task">
                         CAPARS (Computer Assisted Protective Action Recommendation System) upgrades
                         and maintenance
                     </h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">NodeJS</Chip>
-                        <Chip size="extra-small">KnockoutJS</Chip>
-                        <Chip size="extra-small">Bootstrap</Chip>
-                        <Chip size="extra-small">MySQL</Chip>
-                        <Chip size="extra-small">Java</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">NodeJS</Chip> -->
+                        <!-- <Chip size="extra-small">KnockoutJS</Chip> -->
+                        <!-- <Chip size="extra-small">Bootstrap</Chip> -->
+                        <!-- <Chip size="extra-small">MySQL</Chip> -->
+                        <!-- <Chip size="extra-small">Java</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I am currently working with Los Alamos National Laboratory for
                                 consultation and the active development of their multiple
@@ -330,16 +313,16 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Financial web application (Quantum)</h4>
+                    <h4 class="h4 task">Financial web application (Quantum)</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">NodeJS</Chip>
-                        <Chip size="extra-small">Svelte</Chip>
-                        <Chip size="extra-small">SvelteKit</Chip>
-                        <Chip size="extra-small">SQL Azure</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">NodeJS</Chip> -->
+                        <!-- <Chip size="extra-small">Svelte</Chip> -->
+                        <!-- <Chip size="extra-small">SvelteKit</Chip> -->
+                        <!-- <Chip size="extra-small">SQL Azure</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I designed this app to empower individuals in managing their
                                 finances through intuitive tracking and budgeting features.
@@ -362,7 +345,7 @@
                                 href="https://quantum.miapeer.com"
                                 target="_blank">Quantum</a
                                 >
-                                <ul>
+                                <ul class="list-disc">
                                     <li>User name: demo@miapeer.com</li>
                                     <li>Password: demo</li>
                                 </ul>
@@ -372,18 +355,18 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Work with clients to bring solutions to market</h4>
+                    <h4 class="h4 task">Work with clients to bring solutions to market</h4>
                     <div class="skills">
-                        <Chip size="extra-small">ASP.Net MVC</Chip>
-                        <Chip size="extra-small">KnockoutJS</Chip>
-                        <Chip size="extra-small">Bootstrap</Chip>
-                        <Chip size="extra-small">SignalR</Chip>
-                        <Chip size="extra-small">SQL Azure</Chip>
-                        <Chip size="extra-small">MS Access</Chip>
-                        <Chip size="extra-small">Wordpress</Chip>
+                        <!-- <Chip size="extra-small">ASP.Net MVC</Chip> -->
+                        <!-- <Chip size="extra-small">KnockoutJS</Chip> -->
+                        <!-- <Chip size="extra-small">Bootstrap</Chip> -->
+                        <!-- <Chip size="extra-small">SignalR</Chip> -->
+                        <!-- <Chip size="extra-small">SQL Azure</Chip> -->
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
+                        <!-- <Chip size="extra-small">Wordpress</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I was the consultant, architect, and engineer for the full
                                 development and deployment of Courtesy Service's web application.
@@ -402,7 +385,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">Webroot / Carbonite / OpenText</h3>
+                <h3 class="h3 h3 title">Webroot / Carbonite / OpenText</h3>
                 <div class="sub">
                     <div class="position">Senior Software Engineer</div>
                     <div class="timeframe">April 2018 - May 2021</div>
@@ -412,15 +395,15 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">Research and development of Company Master initiative</h4>
+                    <h4 class="h4 task">Research and development of Company Master initiative</h4>
                     <div class="skills">
-                        <Chip size="extra-small">SQL Server</Chip>
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">React</Chip>
-                        <Chip size="extra-small">PHP</Chip>
+                        <!-- <Chip size="extra-small">SQL Server</Chip> -->
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">React</Chip> -->
+                        <!-- <Chip size="extra-small">PHP</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I developed a new process for fuzzy name and address matching to
                                 improve duplicate company identification and prevention.
@@ -435,12 +418,12 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Continued improvement of eCommerce systems</h4>
+                    <h4 class="h4 task">Continued improvement of eCommerce systems</h4>
                     <div class="skills">
-                        <Chip size="extra-small">SQL Server</Chip>
+                        <!-- <Chip size="extra-small">SQL Server</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 My primary role at this company was a SQL developer. I extended
                                 functionality and debugged business logic within the database
@@ -457,12 +440,12 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Marketo person import process</h4>
+                    <h4 class="h4 task">Marketo person import process</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I worked with the marketing department to create a more efficient
                                 person import process to assist in the transition from Eloqua to
@@ -479,12 +462,12 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Front-end development</h4>
+                    <h4 class="h4 task">Front-end development</h4>
                     <div class="skills">
-                        <Chip size="extra-small">React</Chip>
+                        <!-- <Chip size="extra-small">React</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I improved the user's search experience by incorporating Google's
                                 Geolocation service to allow for more casual address input.
@@ -505,7 +488,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">AlphaTRAC</h3>
+                <h3 class="h3 h3 title">AlphaTRAC</h3>
                 <div class="sub">
                     <div class="position">Senior Software Engineer</div>
                     <div class="timeframe">February 2006 - February 2018</div>
@@ -515,19 +498,19 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">
+                    <h4 class="h4 task">
                         Department of Energy EPHA (Emergency Planning Hazards Assessment) automation
                         from client data to final report output
                     </h4>
                     <div class="skills">
-                        <Chip size="extra-small">C#</Chip>
-                        <Chip size="extra-small">VB.Net</Chip>
-                        <Chip size="extra-small">VB6</Chip>
-                        <Chip size="extra-small">SQL Server</Chip>
-                        <Chip size="extra-small">MS Access</Chip>
+                        <!-- <Chip size="extra-small">C#</Chip> -->
+                        <!-- <Chip size="extra-small">VB.Net</Chip> -->
+                        <!-- <Chip size="extra-small">VB6</Chip> -->
+                        <!-- <Chip size="extra-small">SQL Server</Chip> -->
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I was tasked with the maintenance and future development of the
                                 in-house software used to generate emergency management reports. I
@@ -561,20 +544,20 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">
+                    <h4 class="h4 task">
                         Lead developer of CAPARS (Computer Assisted Protective Action Recommendation
                         System) emergency management response and reporting application
                     </h4>
                     <div class="skills">
-                        <Chip size="extra-small">Python</Chip>
-                        <Chip size="extra-small">NodeJS</Chip>
-                        <Chip size="extra-small">KnockoutJS</Chip>
-                        <Chip size="extra-small">Bootstrap</Chip>
-                        <Chip size="extra-small">MySQL</Chip>
-                        <Chip size="extra-small">Java</Chip>
+                        <!-- <Chip size="extra-small">Python</Chip> -->
+                        <!-- <Chip size="extra-small">NodeJS</Chip> -->
+                        <!-- <Chip size="extra-small">KnockoutJS</Chip> -->
+                        <!-- <Chip size="extra-small">Bootstrap</Chip> -->
+                        <!-- <Chip size="extra-small">MySQL</Chip> -->
+                        <!-- <Chip size="extra-small">Java</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I maintained and updated the original version, which is still in
                                 production. Notably, I solved recurring client network security
@@ -607,18 +590,18 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">
+                    <h4 class="h4 task">
                         Interactive emergency response training software (AlphaACT)
                     </h4>
                     <div class="skills">
-                        <Chip size="extra-small">ASP.Net MVC</Chip>
-                        <Chip size="extra-small">KnockoutJS</Chip>
-                        <Chip size="extra-small">Bootstrap</Chip>
-                        <Chip size="extra-small">Entity Framework</Chip>
-                        <Chip size="extra-small">SQL Azure</Chip>
+                        <!-- <Chip size="extra-small">ASP.Net MVC</Chip> -->
+                        <!-- <Chip size="extra-small">KnockoutJS</Chip> -->
+                        <!-- <Chip size="extra-small">Bootstrap</Chip> -->
+                        <!-- <Chip size="extra-small">Entity Framework</Chip> -->
+                        <!-- <Chip size="extra-small">SQL Azure</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 This was originally developed as a desktop application for analysis
                                 and production of Protective Action Plans. It later expanded into a
@@ -650,16 +633,16 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Experience gathering platform (XCapture)</h4>
+                    <h4 class="h4 task">Experience gathering platform (XCapture)</h4>
                     <div class="skills">
-                        <Chip size="extra-small">ASP.Net MVC</Chip>
-                        <Chip size="extra-small">KnockoutJS</Chip>
-                        <Chip size="extra-small">Bootstrap</Chip>
-                        <Chip size="extra-small">Entity Framework</Chip>
-                        <Chip size="extra-small">SQL Azure</Chip>
+                        <!-- <Chip size="extra-small">ASP.Net MVC</Chip> -->
+                        <!-- <Chip size="extra-small">KnockoutJS</Chip> -->
+                        <!-- <Chip size="extra-small">Bootstrap</Chip> -->
+                        <!-- <Chip size="extra-small">Entity Framework</Chip> -->
+                        <!-- <Chip size="extra-small">SQL Azure</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I developed this web application and REST API for converting SME
                                 after-action reports into training scenarios for AlphaACT, which was
@@ -684,17 +667,17 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">
+                    <h4 class="h4 task">
                         Implementation, refinement, and upkeep of several software processes and
                         operations
                     </h4>
                     <div class="skills">
-                        <Chip size="extra-small">Azure</Chip>
-                        <Chip size="extra-small">Jira</Chip>
-                        <Chip size="extra-small">Excel</Chip>
+                        <!-- <Chip size="extra-small">Azure</Chip> -->
+                        <!-- <Chip size="extra-small">Jira</Chip> -->
+                        <!-- <Chip size="extra-small">Excel</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I set up and administered an on-premises installation of Jira for
                                 issue management and process workflow adherence.
@@ -721,15 +704,15 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Windows Server, Linux, and Azure administration</h4>
+                    <h4 class="h4 task">Windows Server, Linux, and Azure administration</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Azure</Chip>
-                        <Chip size="extra-small">Windows</Chip>
-                        <Chip size="extra-small">Linux</Chip>
-                        <Chip size="extra-small">Mac</Chip>
+                        <!-- <Chip size="extra-small">Azure</Chip> -->
+                        <!-- <Chip size="extra-small">Windows</Chip> -->
+                        <!-- <Chip size="extra-small">Linux</Chip> -->
+                        <!-- <Chip size="extra-small">Mac</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I became the primary individual responsible for any IT issues that
                                 came up. I built, purchased, and maintained workstations and
@@ -754,7 +737,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">Blue Lizard Software LLC</h3>
+                <h3 class="h3 title">Blue Lizard Software LLC</h3>
                 <div class="sub">
                     <div class="position">Co-Founder</div>
                     <div class="timeframe">February 1998 - August 2009</div>
@@ -764,13 +747,13 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">Water World</h4>
+                    <h4 class="h4 task">Water World</h4>
                     <div class="skills">
-                        <Chip size="extra-small">VB6</Chip>
-                        <Chip size="extra-small">MS Access</Chip>
+                        <!-- <Chip size="extra-small">VB6</Chip> -->
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>This was my first professional project.</li>
                             <li>
                                 I created a scheduling application for Water World which reduced
@@ -788,12 +771,12 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Rehabilitation Services Administration</h4>
+                    <h4 class="h4 task">Rehabilitation Services Administration</h4>
                     <div class="skills">
-                        <Chip size="extra-small">MS Access</Chip>
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I developed a database application designed to track the treatment
                                 plans for offender rehabilitation.
@@ -803,13 +786,13 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Quantum</h4>
+                    <h4 class="h4 task">Quantum</h4>
                     <div class="skills">
-                        <Chip size="extra-small">VB6</Chip>
-                        <Chip size="extra-small">MS Access</Chip>
+                        <!-- <Chip size="extra-small">VB6</Chip> -->
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 During this time period is when I created the first version of
                                 Quantum (mentioned above within the section for Miapeer LLC). This
@@ -826,7 +809,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">Apparatus Sales Corporation</h3>
+                <h3 class="h3 title">Apparatus Sales Corporation</h3>
                 <div class="sub">
                     <div class="position">Tech Support I for the U.S. EPA</div>
                     <div class="timeframe">April 2001 - May 2001</div>
@@ -836,9 +819,9 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">Tier-1 support</h4>
+                    <h4 class="h4 task">Tier-1 support</h4>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I provided comprehensive software technical support coupled with
                                 education to empower users with the knowledge and assistance they
@@ -849,12 +832,12 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Loaner-Equipment Tracking application</h4>
+                    <h4 class="h4 task">Loaner-Equipment Tracking application</h4>
                     <div class="skills">
-                        <Chip size="extra-small">MS Access</Chip>
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I rewrote and streamlined the "Loaner-Equipment Tracking"
                                 application because I recognized that the original application was
@@ -877,7 +860,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">Cavion Technologies</h3>
+                <h3 class="h3 title">Cavion Technologies</h3>
                 <div class="sub">
                     <div class="position">Tech Support I</div>
                     <div class="timeframe">October 2000 - December 2000</div>
@@ -887,9 +870,9 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">Tier-1 support</h4>
+                    <h4 class="h4 task">Tier-1 support</h4>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I provided basic customer support over the phone and escalated as
                                 necessary.
@@ -899,12 +882,12 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Created the uptime report</h4>
+                    <h4 class="h4 task">Created the uptime report</h4>
                     <div class="skills">
-                        <Chip size="extra-small">Excel</Chip>
+                        <!-- <Chip size="extra-small">Excel</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I conceptualized and developed an automated report that compiled
                                 system logs and offered customers a comprehensive monthly review of
@@ -921,7 +904,7 @@
 
         <div class="experience">
             <div class="header">
-                <h3 class="title">Echostar Communications</h3>
+                <h3 class="h3 title">Echostar Communications</h3>
                 <div class="sub">
                     <div class="position">Reporting Analyst</div>
                     <div class="timeframe">July 1997 - October 2000</div>
@@ -931,12 +914,12 @@
 
             <div class="details">
                 <div class="detail">
-                    <h4 class="task">Streamlined equipment refund process</h4>
+                    <h4 class="h4 task">Streamlined equipment refund process</h4>
                     <div class="skills">
-                        <Chip size="extra-small">MS Access</Chip>
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 As a billing associate, I was shocked at how long it took to process
                                 refunds for returned customer equipment. I found that most of the
@@ -959,13 +942,13 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Call center processes, metrics, and reporting</h4>
+                    <h4 class="h4 task">Call center processes, metrics, and reporting</h4>
                     <div class="skills">
-                        <Chip size="extra-small">MS Access</Chip>
-                        <Chip size="extra-small">Excel</Chip>
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
+                        <!-- <Chip size="extra-small">Excel</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 My focus in this role was on dynamic data import and export, report
                                 generation, and process automation.
@@ -986,12 +969,12 @@
                 </div>
 
                 <div class="detail">
-                    <h4 class="task">Management support</h4>
+                    <h4 class="h4 task">Management support</h4>
                     <div class="skills">
-                        <Chip size="extra-small">MS Access</Chip>
+                        <!-- <Chip size="extra-small">MS Access</Chip> -->
                     </div>
                     <div class="notes">
-                        <ul>
+                        <ul class="list-disc">
                             <li>
                                 I provided both scheduled and ad hoc reporting support for all three
                                 call center management teams.
@@ -1006,9 +989,9 @@
     </section>
 
     <!-- <section class="training">
-        <h2>Training</h2>
+        <h2 class="h2">Training</h2>
         <div class="training-list">
-            <ul>
+            <ul class="list-disc">
                 <li>catapult inc. at Echostar Communications</li>
                 <li>MS Access '97: Introducing, Enhancing, and Mastering - 1999</li>
                 <li>Certifications</li>
@@ -1020,9 +1003,9 @@
     </section> -->
 
     <section class="interests">
-        <h2>Interests</h2>
+        <h2 class="h2">Interests</h2>
         <div class="interest-list">
-            <ul>
+            <ul class="list-disc">
                 <li>I always enjoy learning new development tools, techniques, and languages</li>
                 <li>Home improvement - It feels great to solve a problem with your own hands</li>
                 <li>I am learning to speak Tagalog</li>
@@ -1037,7 +1020,7 @@
     </section>
 </div>
 
-<style lang="scss">
+<style lang="css">
     .portfolio {
         display: grid;
         grid-template-areas:
@@ -1051,7 +1034,7 @@
     }
 
     section:where(:not(:first-child)) {
-        border-top: 1px solid var(--text-accent);
+        border-top: 1px solid rgb(var(--color-primary-500));
     }
 
     section {
@@ -1065,46 +1048,46 @@
     .contact-methods {
         grid-area: contact;
         height: fit-content;
-        background-color: var(--bg-primary);
+        background-color: rgb(var(--color-surface-900));
+    }
 
-        i {
-            width: 2em;
-            text-align: center;
-            line-height: 1.5em;
-        }
+    .contact-methods i {
+        width: 2em;
+        text-align: center;
+        line-height: 1.5em;
     }
 
     .skills {
         grid-area: skills;
+    }
 
-        .chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.2em;
-        }
+    .skills .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2em;
     }
 
     .experience-list {
         grid-area: experience;
+    }
 
-        .experience {
-            border-top: 1px solid var(--text-primary);
+    .experience-list .experience {
+        border-top: 1px solid gray;
+    }
 
-            .header .sub {
-                font-size: 0.7em;
-                display: flex;
-                justify-content: flex-start;
-                flex-direction: column;
-            }
+    .experience-list .experience .header .sub {
+        font-size: 0.7em;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
 
-            .detail:where(:not(:last-child))::after {
-                content: '';
-                display: block;
-                width: 50%;
-                transform: translateX(50%);
-                border-bottom: 1px solid var(--text-primary-negative);
-            }
-        }
+    .experience-list .experience .detail:where(:not(:last-child))::after {
+        content: '';
+        display: block;
+        width: 50%;
+        transform: translateX(50%);
+        border-bottom: 1px solid gray;
     }
 
     .interests {
@@ -1113,6 +1096,19 @@
 
     h1 {
         font-size: 2em;
+    }
+
+    h2,
+    h3 {
+        margin-top: 1em;
+    }
+
+    h4 {
+        margin-top: 0.8em;
+    }
+
+    ul > li {
+        margin-left: 1em;
     }
 
     ul > li:where(:not(:first-child)) {

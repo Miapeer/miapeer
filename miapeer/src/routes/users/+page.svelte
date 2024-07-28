@@ -61,10 +61,9 @@
 </script>
 
 <section class="user-management-grid">
-    <h1>User Management</h1>
+    <h1 class="h1">User Management</h1>
     {#each data.users as user}
-        <hr />
-        <div class="row">
+        <div class="mt-8">
             <!-- TODO: I'm sure there's a better way to do this, but for now... -->
             <UserRow
                 {user}

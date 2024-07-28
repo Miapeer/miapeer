@@ -1,31 +1,39 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import Dialog from '$lib/Dialog.svelte';
-    import Link from '$lib/Link.svelte';
-    import FormattedTable from '$lib/FormattedTable.svelte';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
-    import Popover from '$lib/Popover.svelte';
-    import Button from '$lib/Button.svelte';
+
+    import { popup } from '@skeletonlabs/skeleton';
 
     import { invalidate } from '$app/navigation';
 
     export let data: PageData;
 
-    export let confirmDelete: boolean = false;
-    export let accountToDelete = null;
-    const handleConfirmDelete = (account) => {
-        accountToDelete = account;
-        confirmDelete = true;
-    };
-    const handleDelete = async () => {
-        confirmDelete = false;
+    import { getModalStore } from '@skeletonlabs/skeleton';
+    const modalStore = getModalStore();
 
-        const deleteAccountRequest = await fetch('/quantum/accounts', {
+    const handleConfirmDelete = (payee) => {
+        const modal: ModalSettings = {
+            type: 'confirm',
+            title: 'Confirm Delete',
+            body: `Are you sure you want to delete the payee named "${payee?.name ?? ''}"?`,
+            buttonPositive: 'variant-filled-error',
+            buttonTextConfirm: 'Delete',
+            response: (r: boolean) => {
+                if (r) {
+                    handleDelete(payee);
+                }
+            }
+        };
+
+        modalStore.trigger(modal);
+    };
+    const handleDelete = async (payee) => {
+        const deletePayeeRequest = await fetch('/quantum/payees', {
             method: 'DELETE',
-            body: JSON.stringify({ accountId: accountToDelete?.account_id })
+            body: JSON.stringify({ payeeId: payee?.payee_id })
         });
 
-        if (deleteAccountRequest.ok) {
+        if (deletePayeeRequest.ok) {
             invalidate('quantum:payees');
         } else {
             console.error('NOT ok');
@@ -34,100 +42,53 @@
 </script>
 
 <section>
-    <FormattedTable title="Payees">
-        <table slot="table">
-            <colgroup>
-                <col />
-                <col span="1" style="width: 25%;" />
-                <col span="1" style="width: 15%;" />
-            </colgroup>
-            {#if data.payees.length > 0}
+    <h1 class="h1">Payees</h1>
+
+    {#if data.payees}
+        <div class="table-container px-2">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th />
-                        <th></th>
-                        <th></th>
+                        <th class="w-16" />
                     </tr>
                 </thead>
                 <tbody>
-                    {#each data.payees as payee}
+                    {#each Object.keys(data.payees) as payeeKey}
+                        {@const payee = data.payees[payeeKey]}
                         <tr>
                             <td>{payee.name}</td>
-                            <td></td>
-                            <td class="action-cell">
+                            <td class="action-cell text-right">
                                 <div>
-                                    <Link
-                                        id={`payee-${payee.account_id}`}
-                                        class="popover-icon fa-solid fa-ellipsis-v"
-                                        on:click={() => {
-                                            payee.openActions = true;
-                                        }}
-                                    />
+                                    <button
+                                        type="button"
+                                        class="btn-icon variant-filled"
+                                        use:popup={{
+                                            event: 'click',
+                                            target: 'payee-actions-' + payee.payee_id,
+                                            placement: 'left'
+                                        }}><i class="fa-solid fa-ellipsis-v" /></button
+                                    >
+                                    <div data-popup="payee-actions-{payee.payee_id}">
+                                        <div class="btn-group variant-filled">
+                                            <a href={`./payees/${payee.payee_id}`}
+                                                ><i class="fa-solid fa-pen-to-square" /></a
+                                            >
+                                            <button on:click={() => handleConfirmDelete(payee)}
+                                                ><i class="fa-solid fa-trash" /></button
+                                            >
+                                        </div>
+                                    </div>
                                 </div>
-                                <Popover
-                                    open={payee.openActions}
-                                    target={`payee-${payee.account_id}`}
-                                    anchor="top-right"
-                                >
-                                    <div class="popover-action">
-                                        <Link href={`./accounts/${payee.account_id}`}
-                                            ><i class="fa-solid fa-pen-to-square" /></Link
-                                        >
-                                    </div>
-                                    <div class="popover-action">
-                                        <Link on:click={() => handleConfirmDelete(payee)}
-                                            ><i class="fa-solid fa-trash" /></Link
-                                        >
-                                    </div>
-                                </Popover>
                             </td>
                         </tr>
                     {/each}
                 </tbody>
-            {:else}
-                <thead>
-                    <tr>
-                        <th />
-                        <th />
-                        <th />
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="suppress-hover">
-                        <td class="empty" colspan="3">
-                            You haven't set up any payees yet. Click "Add New" below to create one.
-                        </td>
-                    </tr>
-                </tbody>
-            {/if}
-        </table>
-    </FormattedTable>
+            </table>
+        </div>
+    {:else}
+        <h3 class="h3">You haven't set up any payees yet. Click the button below to create one.</h3>
+    {/if}
 </section>
-<Dialog title="Confirm Delete:" bind:open={confirmDelete}>
-    {`Are you sure you want to delete the account named "${accountToDelete?.name ?? ''}"?`}
-    <div slot="actions">
-        <Button type="subtle" onClick={() => (confirmDelete = false)}>Cancel</Button>
-        <Button type="danger" onClick={handleDelete}>Delete</Button>
-    </div>
-</Dialog>
+
 <FloatingActionButton href="./payees/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
-
-<style>
-    table .empty {
-        text-align: center;
-        padding: 1em;
-    }
-
-    .action-cell {
-        text-align: right;
-    }
-
-    :global(.popover-icon) {
-        width: 1em;
-        text-align: center;
-    }
-
-    .popover-action {
-        padding: 0.5em;
-    }
-</style>
