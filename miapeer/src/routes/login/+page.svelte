@@ -17,6 +17,8 @@
             body: JSON.stringify({ email, password })
         });
 
+        console.error(res.json);
+
         if (res.ok) {
             const data = await res.json();
             invalidateAll();
@@ -24,7 +26,9 @@
         } else {
             console.error('NOT ok');
             console.error(JSON.stringify(res));
-            console.error(await res.json());
+            console.error(res.status);
+            console.error(res.statusText);
+            console.error(res.body);
         }
     };
 
