@@ -18,7 +18,19 @@ export const POST = (async ({ request, locals, cookies, url }) => {
         body: requestData
     });
 
-    const responseData = await response.json();
+    let responseData;
+
+    try {
+        console.log('try json');
+        responseData = await response.json();
+        console.log('ok json: ' + responseData);
+    } catch (err) {
+        console.log(err);
+
+        console.log('try text');
+        responseData = await response.text();
+        console.log('ok text: ' + responseData);
+    }
 
     if (!response.ok) {
         console.error(response);
