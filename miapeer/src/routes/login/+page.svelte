@@ -6,18 +6,22 @@
     let loggingIn = false;
 
     const handleLogin = async () => {
+        console.log('handleLogin');
+
         if (email === null || email === '' || password === null || password === '') {
             return;
         }
 
         loggingIn = true;
 
+        console.log('handleLogin: start fetch');
+        const requestData = { email, password };
+        console.log(requestData);
         const res = await fetch('/login', {
             method: 'POST',
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify(requestData)
         });
-
-        console.error(res.json());
+        console.log('handleLogin: end fetch');
 
         if (res.ok) {
             const data = await res.json();
