@@ -17,7 +17,7 @@
             body: JSON.stringify({ email, password })
         });
 
-        console.error(res.json);
+        console.error(res.json());
 
         if (res.ok) {
             const data = await res.json();
@@ -28,7 +28,7 @@
             console.error(JSON.stringify(res));
             console.error(res.status);
             console.error(res.statusText);
-            console.error(res.body);
+            console.error(await res.body?.getReader().read());
         }
     };
 
