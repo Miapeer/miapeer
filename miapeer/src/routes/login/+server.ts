@@ -2,10 +2,12 @@ import { json, error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST = (async ({ request, locals, cookies, url }) => {
-    console.log('login POST request begin');
+    console.log('login POST');
 
+    console.log('get params');
     const { email, password } = await request.json();
 
+    console.log('request build');
     const requestData = new URLSearchParams();
     requestData.append('username', email);
     requestData.append('password', password);
@@ -13,10 +15,12 @@ export const POST = (async ({ request, locals, cookies, url }) => {
 
     console.log(`${locals.app.miapeerApiBase}/auth/token`);
 
+    console.log('request begin');
     const response = await fetch(`${locals.app.miapeerApiBase}/auth/token`, {
         method: 'POST',
         body: requestData
     });
+    console.log('request end');
 
     let responseData;
 
