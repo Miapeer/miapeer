@@ -12,9 +12,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     let decodedAccessToken;
     let userName;
 
-    console.log('Access token: ' + accessToken);
-    console.log(JSON.stringify(event));
-
     try {
         decodedAccessToken = jose.decodeJwt(accessToken);
 
@@ -25,8 +22,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     if (!accessToken || tokenExpired(decodedAccessToken)) {
-        console.log('Clearing cookie');
-
         // Delete the cookie
         event.cookies.set('MAT', '', {
             path: '/',
@@ -38,6 +33,8 @@ export const handle: Handle = async ({ event, resolve }) => {
             accessToken = null;
             userName = null;
         } else {
+            event.locals.user.isAuthenticated = false;
+
             // Send user to the login page
             return Response.redirect(
                 `${event.url.origin}/login?ReturnUrl=${event.url.pathname}`,
