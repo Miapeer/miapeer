@@ -6,25 +6,18 @@
     let loggingIn = false;
 
     const handleLogin = async () => {
-        console.log('handleLogin');
-
         if (email === null || email === '' || password === null || password === '') {
             return;
         }
 
         loggingIn = true;
 
-        console.log('handleLogin: start fetch');
         const requestData = { email, password };
-        console.log(requestData);
         const res = await fetch('/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            // headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(requestData)
         });
-        console.log('handleLogin: end fetch');
 
         if (res.ok) {
             const data = await res.json();
@@ -32,11 +25,9 @@
             goto(data.redirectUrl ?? '/');
         } else {
             console.error('NOT ok');
-            console.error(JSON.stringify(res));
             console.error(res.status);
             console.error(res.statusText);
             console.error(await res.text());
-            console.error(await res.body?.getReader().read());
         }
     };
 

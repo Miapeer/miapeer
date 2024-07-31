@@ -13,6 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     let userName;
 
     console.log('Access token: ' + accessToken);
+    console.log(JSON.stringify(event));
 
     try {
         decodedAccessToken = jose.decodeJwt(accessToken);
