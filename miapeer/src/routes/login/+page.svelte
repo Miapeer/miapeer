@@ -32,6 +32,7 @@
             console.error(JSON.stringify(res));
             console.error(res.status);
             console.error(res.statusText);
+            console.error(await res.text());
             console.error(await res.body?.getReader().read());
         }
     };
