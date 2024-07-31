@@ -18,6 +18,9 @@ const config = {
         adapter: adapter(),
         alias: {
             '@quantum/*': 'src/routes/quantum/*'
+        },
+        csrf: {
+            checkOrigin: false
         }
     }
 };
