@@ -2,28 +2,19 @@ import { json, error, redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST = (async ({ request, locals, cookies, url }) => {
-    console.log('login POST');
-
-    console.log('get params');
     const { email, password } = await request.json();
 
-    console.log('request build');
     const requestData = new URLSearchParams();
     requestData.append('username', email);
     requestData.append('password', password);
     requestData.append('grant_type', 'password');
 
-    console.log(`${locals.app.miapeerApiBase}/auth/token`);
-
-    console.log('request begin');
     const response = await fetch(`${locals.app.miapeerApiBase}/auth/token`, {
         method: 'POST',
         body: requestData
     });
-    console.log('request end');
 
     let responseData;
-
     try {
         console.log('try json');
         responseData = await response.json();
@@ -48,8 +39,6 @@ export const POST = (async ({ request, locals, cookies, url }) => {
     }
 
     const accessToken = responseData['access_token'];
-
-    console.log('Access token from login: ' + accessToken);
 
     // Success
     cookies.set('MAT', accessToken, {
