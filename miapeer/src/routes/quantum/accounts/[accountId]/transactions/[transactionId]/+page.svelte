@@ -7,6 +7,7 @@
     import { createTransactionType, createPayee, createCategory } from '@quantum/api';
     import { formatMoney, unformatMoney } from '@quantum/util';
     import { page } from '$app/stores';
+
     export let data: PageData;
 
     let selectedTransactionDate = data.transaction.transaction_date;

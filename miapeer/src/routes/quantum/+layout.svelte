@@ -18,7 +18,7 @@
         <span class="capitalize">Accounts</span>
         <span>↓</span>
     </button>
-    {#if data.accounts}
+    {#if Object.keys(data.accounts).length}
         <div data-popup="accountPopupCombobox">
             <div class="btn-group-vertical variant-filled">
                 {#each Object.keys(data.accounts) as accountKey}
