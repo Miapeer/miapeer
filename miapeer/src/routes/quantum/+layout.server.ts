@@ -136,5 +136,5 @@ const convertArrayToObject = (array, key) => {
         returnObject[item[key]] = item;
     });
 
-    return returnObject === {} ? null : returnObject;
+    return returnObject;
 };

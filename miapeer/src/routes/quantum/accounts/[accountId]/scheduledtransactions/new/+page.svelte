@@ -10,6 +10,8 @@
 
     import { page } from '$app/stores';
 
+    export let data: PageData;
+
     let accountId = $page.params.accountId;
 
     let selectedTransactionTypeName;
@@ -85,8 +87,6 @@
             handleCreateScheduledTransaction();
         }
     };
-
-    export let data: PageData;
 </script>
 
 <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">

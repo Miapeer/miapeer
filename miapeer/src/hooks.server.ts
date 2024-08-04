@@ -33,7 +33,10 @@ export const handle: Handle = async ({ event, resolve }) => {
             accessToken = null;
             userName = null;
         } else {
-            event.locals.user.isAuthenticated = false;
+            event.locals.user = {
+                ...event.locals.user,
+                isAuthenticated: false
+            };
 
             // Send user to the login page
             return Response.redirect(
@@ -59,6 +62,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     };
 
     event.locals.user = {
+        ...event.locals.user,
         isAuthenticated: !!accessToken,
         userName
     };

@@ -24,7 +24,7 @@ export const POST = (async ({ request, locals, cookies, url, params }) => {
         fixed_amount: fixedAmount,
         estimate_occurrences: estimateOccurrences,
         prompt_days: promptDays,
-        start_date: startDate,
+        start_date: startDate ? startDate : new Date().toISOString().slice(0, 10),
         end_date: endDate,
         limit_occurrences: limitOccurrences,
         repeat_option_id: repeatOptionId,

@@ -149,5 +149,6 @@
     {/if}
 </section>
 
-<FloatingActionButton href="./transactions/new"><i class="fa-solid fa-plus" /></FloatingActionButton
+<FloatingActionButton href="./scheduledtransactions/new"
+    ><i class="fa-solid fa-plus" /></FloatingActionButton
 >

@@ -1,19 +1,18 @@
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-    const transactionResponse = await fetch(
-        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions/${params.transactionId}`,
+    const scheduledTransactionResponse = await fetch(
+        `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions/${params.scheduledTransactionId}`,
         {
             headers: locals.auth.headers
         }
     );
 
-    if (!transactionResponse.ok) {
-        console.error(transactionResponse.statusText);
+    if (!scheduledTransactionResponse.ok) {
+        console.error(scheduledTransactionResponse.statusText);
         return;
     }
 
-    const transaction = await transactionResponse.json();
-
-    return { transaction };
+    const scheduledTransaction = await scheduledTransactionResponse.json();
+    return { scheduledTransaction };
 };

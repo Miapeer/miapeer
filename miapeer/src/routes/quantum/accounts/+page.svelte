@@ -47,7 +47,7 @@
 <section>
     <h1 class="h1">Accounts</h1>
 
-    {#if data.accounts}
+    {#if Object.keys(data.accounts).length}
         <div class="table-container px-2">
             <table class="table table-hover">
                 <thead>

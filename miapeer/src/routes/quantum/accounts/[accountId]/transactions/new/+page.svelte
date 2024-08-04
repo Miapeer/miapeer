@@ -10,18 +10,19 @@
     import { createTransactionType, createPayee, createCategory } from '@quantum/api';
     import { formatMoney, unformatMoney } from '@quantum/util';
 
+    export let data: PageData;
+
     let accountId = $page.params.accountId;
 
-    let selectedTransactionTypeName =
-        data.transactionTypes[data.transaction.transaction_type_id]?.name;
+    let selectedTransactionTypeName;
     $: selectedTransactionTypeId = Object.keys(data.transactionTypes).find(
         (key) => data.transactionTypes[key].name === selectedTransactionTypeName
     );
-    let selectedPayeeName = data.payees[data.transaction.payee_id]?.name;
+    let selectedPayeeName;
     $: selectedPayeeId = Object.keys(data.payees).find(
         (key) => data.payees[key].name === selectedPayeeName
     );
-    let selectedCategoryName = data.categories[data.transaction.category_id]?.name;
+    let selectedCategoryName;
     $: selectedCategoryId = Object.keys(data.categories).find(
         (key) => data.categories[key].name === selectedCategoryName
     );
@@ -77,8 +78,6 @@
             handleCreateAccount();
         }
     };
-
-    export let data: PageData;
 </script>
 
 <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
