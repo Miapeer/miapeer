@@ -9,17 +9,20 @@
 
     import { page } from '$app/stores';
 
+    export let data: PageData;
+
     let accountId = $page.params.accountId;
 
-    let selectedTransactionTypeName;
+    let selectedTransactionTypeName =
+        data.transactionTypes[data.scheduledTransaction.transaction_type_id]?.name;
     $: selectedTransactionTypeId = Object.keys(data.transactionTypes).find(
         (key) => data.transactionTypes[key].name === selectedTransactionTypeName
     );
-    let selectedPayeeName;
+    let selectedPayeeName = data.payees[data.scheduledTransaction.payee_id]?.name;
     $: selectedPayeeId = Object.keys(data.payees).find(
         (key) => data.payees[key].name === selectedPayeeName
     );
-    let selectedCategoryName;
+    let selectedCategoryName = data.categories[data.scheduledTransaction.category_id]?.name;
     $: selectedCategoryId = Object.keys(data.categories).find(
         (key) => data.categories[key].name === selectedCategoryName
     );
@@ -86,8 +89,6 @@
             handleEditScheduledTransaction();
         }
     };
-
-    export let data: PageData;
 </script>
 
 <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
