@@ -2,12 +2,19 @@ const formatMoney = (amount) => {
     return (amount / 100).toLocaleString(navigator.language, { minimumFractionDigits: 2 });
 };
 
-const unformatMoney = (amountString) => {
-    if (!amountString) {
+const unformatMoney = (amount) => {
+    if (!amount) {
         return null;
     }
 
-    return Number(amountString.replace(/[^0-9\.-]+/g, '')).toFixed(2) * 100;
+    let amountNumber;
+    if (amount instanceof String) {
+        amountNumber = Number(amount.replace(/[^0-9\.-]+/g, ''));
+    } else {
+        amountNumber = amount;
+    }
+
+    return amountNumber.toFixed(2) * 100;
 };
 
 export { formatMoney, unformatMoney };
