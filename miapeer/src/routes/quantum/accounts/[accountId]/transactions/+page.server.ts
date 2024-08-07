@@ -1,3 +1,4 @@
+import { convertArrayToObject } from '@quantum/util';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ depends, locals, params }) => {
@@ -27,10 +28,10 @@ export const load: PageServerLoad = async ({ depends, locals, params }) => {
 
     if (!accountTransactionResponse.ok) {
         console.error(accountTransactionResponse.statusText);
-        return;
+        return { transactions: {} };
     }
 
-    const transactions = await accountTransactionResponse.json();
-
-    return { transactions };
+    const data = await accountTransactionResponse.json();
+    const indexedData = convertArrayToObject(data, 'transaction_id');
+    return { transactions: indexedData };
 };

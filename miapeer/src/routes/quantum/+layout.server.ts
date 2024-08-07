@@ -1,3 +1,5 @@
+import { convertArrayToObject } from './util.js';
+
 let portfolioId = null;
 
 /** @type {import('./$types').LayoutServerLoad} */
@@ -127,14 +129,4 @@ const getRepeatOptions = async (locals) => {
     const data = await response.json();
     const indexedData = convertArrayToObject(data, 'repeat_option_id');
     return indexedData;
-};
-
-const convertArrayToObject = (array, key) => {
-    let returnObject = {};
-
-    array.forEach((item) => {
-        returnObject[item[key]] = item;
-    });
-
-    return returnObject;
 };

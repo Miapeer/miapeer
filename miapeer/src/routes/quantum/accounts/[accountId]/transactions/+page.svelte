@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    {#if data.transactions.length > 0}
+    {#if Object.keys(data.transactions).length > 0}
         <div
             class="grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 hover"
         >
@@ -77,7 +77,8 @@
             <div></div>
             <div></div>
 
-            {#each data.transactions as transaction}
+            {#each Object.keys(data.transactions) as transactionId}
+                {@const transaction = data.transactions[transactionId]}
                 <div class="content-center">{transaction.transaction_date}</div>
                 <div class="content-center">{transaction.clear_date || ''}</div>
                 <div class="content-center">
