@@ -4,7 +4,7 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     depends('miapeer:permissions');
 
     // Applications
-    const applicationsResponse = await fetch(`${locals.app.miapeerApiBase}/applications/`, {
+    const applicationsResponse = await fetch(`${locals.app.miapeerApiBase}/applications`, {
         headers: locals.auth.headers
     });
 
@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     const applications = await applicationsResponse.json();
 
     // Roles
-    const rolesResponse = await fetch(`${locals.app.miapeerApiBase}/roles/`, {
+    const rolesResponse = await fetch(`${locals.app.miapeerApiBase}/roles`, {
         headers: locals.auth.headers
     });
 
@@ -41,7 +41,7 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     const applicationRoles = await applicationRolesResponse.json();
 
     // Users
-    const usersResponse = await fetch(`${locals.app.miapeerApiBase}/users/`, {
+    const usersResponse = await fetch(`${locals.app.miapeerApiBase}/users`, {
         headers: locals.auth.headers
     });
 
@@ -53,7 +53,7 @@ export const load: PageServerLoad = async ({ depends, locals }) => {
     const users = await usersResponse.json();
 
     // Permissions
-    const permissionsResponse = await fetch(`${locals.app.miapeerApiBase}/permissions/`, {
+    const permissionsResponse = await fetch(`${locals.app.miapeerApiBase}/permissions`, {
         headers: locals.auth.headers
     });
 

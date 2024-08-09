@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ fetch, locals }) => {
         return { applications };
     }
 
-    const response = await fetch(`${locals.app.miapeerApiBase}/applications/`, {
+    const response = await fetch(`${locals.app.miapeerApiBase}/applications`, {
         headers: locals.auth.headers
     });
 
