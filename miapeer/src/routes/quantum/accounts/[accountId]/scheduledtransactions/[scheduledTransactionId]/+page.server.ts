@@ -4,6 +4,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
     const scheduledTransactionResponse = await fetch(
         `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions/${params.scheduledTransactionId}`,
         {
+            method: 'GET',
             headers: locals.auth.headers
         }
     );

@@ -23,6 +23,7 @@ export async function load({ depends, locals }) {
 const ensureUserHasPortfolio = async (locals) => {
     // Portfolios
     const portfoliosResponse = await fetch(`${locals.app.quantumApiBase}/portfolios`, {
+        method: 'GET',
         headers: locals.auth.headers
     });
 
@@ -43,8 +44,8 @@ const ensureUserHasPortfolio = async (locals) => {
 
 const createUserPortfolio = async (locals) => {
     const createPortfolioResponse = await fetch(`${locals.app.quantumApiBase}/portfolios`, {
-        headers: locals.auth.headers,
         method: 'POST',
+        headers: locals.auth.headers,
         body: '{}'
     });
 
@@ -58,6 +59,7 @@ const createUserPortfolio = async (locals) => {
 
 const getUserAccounts = async (locals) => {
     const response = await fetch(`${locals.app.quantumApiBase}/accounts`, {
+        method: 'GET',
         headers: locals.auth.headers
     });
 
@@ -73,6 +75,7 @@ const getUserAccounts = async (locals) => {
 
 const getUserPayees = async (locals) => {
     const response = await fetch(`${locals.app.quantumApiBase}/payees`, {
+        method: 'GET',
         headers: locals.auth.headers
     });
 
@@ -88,7 +91,6 @@ const getUserPayees = async (locals) => {
 
 const getUserTransactionTypes = async (locals) => {
     const response = await fetch(`${locals.app.quantumApiBase}/transaction-types`, {
-        headers: locals.auth.headers,
         method: 'GET',
         headers: locals.auth.headers
     });
@@ -105,6 +107,7 @@ const getUserTransactionTypes = async (locals) => {
 
 const getUserCategories = async (locals) => {
     const response = await fetch(`${locals.app.quantumApiBase}/categories`, {
+        method: 'GET',
         headers: locals.auth.headers
     });
 
@@ -120,6 +123,7 @@ const getUserCategories = async (locals) => {
 
 const getRepeatOptions = async (locals) => {
     const response = await fetch(`${locals.app.quantumApiBase}/repeat-options`, {
+        method: 'GET',
         headers: locals.auth.headers
     });
 
