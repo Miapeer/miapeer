@@ -13,7 +13,7 @@ export const POST = (async ({ request, locals }) => {
                 application_role_id: applicationRoleId
             });
 
-            response = await fetch(`${locals.app.miapeerApiBase}/permissions/`, {
+            response = await fetch(`${locals.app.miapeerApiBase}/permissions`, {
                 method: 'POST',
                 body: data,
                 headers: locals.auth.headers

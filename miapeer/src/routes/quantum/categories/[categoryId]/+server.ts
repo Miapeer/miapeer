@@ -9,8 +9,8 @@ export const POST = (async ({ request, locals, cookies, url, params }) => {
     };
 
     const response = await fetch(`${locals.app.quantumApiBase}/categories/${params.categoryId}`, {
-        headers: locals.auth.headers,
         method: 'PATCH',
+        headers: locals.auth.headers,
         body: JSON.stringify(requestData)
     });
 

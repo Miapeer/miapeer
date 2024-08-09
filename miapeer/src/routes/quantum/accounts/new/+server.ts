@@ -11,8 +11,8 @@ export const POST = (async ({ request, locals, cookies, url }) => {
     };
 
     const response = await fetch(`${locals.app.quantumApiBase}/accounts`, {
-        headers: locals.auth.headers,
         method: 'POST',
+        headers: locals.auth.headers,
         body: JSON.stringify(requestData)
     });
 
