@@ -39,10 +39,7 @@
         const deleteScheduledTransactionRequest = await fetch(
             `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}`,
             {
-                method: 'DELETE',
-                body: JSON.stringify({
-                    scheduledTransactionId: scheduledTransaction?.scheduled_transaction_id
-                })
+                method: 'DELETE'
             }
         );
 

@@ -15,7 +15,7 @@
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
-            body: `Are you sure you want to delete the category named "${category?.name ?? ''}"?`,
+            body: `Are you sure you want to delete the category named "${category.name ?? ''}"?`,
             buttonPositive: 'variant-filled-error',
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
@@ -28,10 +28,12 @@
         modalStore.trigger(modal);
     };
     const handleDelete = async (category) => {
-        const deleteCategoryTypeRequest = await fetch('/quantum/categories', {
-            method: 'DELETE',
-            body: JSON.stringify({ categoryId: category?.category_id })
-        });
+        const deleteCategoryTypeRequest = await fetch(
+            `/quantum/categories/${category.category_id}`,
+            {
+                method: 'DELETE'
+            }
+        );
 
         if (deleteCategoryTypeRequest.ok) {
             invalidate('quantum:categories');

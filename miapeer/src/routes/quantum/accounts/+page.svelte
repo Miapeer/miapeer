@@ -18,7 +18,7 @@
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
-            body: `Are you sure you want to delete the account named "${account?.name ?? ''}"?`,
+            body: `Are you sure you want to delete the account named "${account.name ?? ''}"?`,
             buttonPositive: 'variant-filled-error',
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
@@ -31,9 +31,8 @@
         modalStore.trigger(modal);
     };
     const handleDelete = async (account) => {
-        const deleteAccountRequest = await fetch('/quantum/accounts', {
-            method: 'DELETE',
-            body: JSON.stringify({ accountId: account?.account_id })
+        const deleteAccountRequest = await fetch(`/quantum/accounts/${account.account_id}`, {
+            method: 'DELETE'
         });
 
         if (deleteAccountRequest.ok) {

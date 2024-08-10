@@ -15,7 +15,7 @@
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
-            body: `Are you sure you want to delete the payee named "${payee?.name ?? ''}"?`,
+            body: `Are you sure you want to delete the payee named "${payee.name ?? ''}"?`,
             buttonPositive: 'variant-filled-error',
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
@@ -28,9 +28,8 @@
         modalStore.trigger(modal);
     };
     const handleDelete = async (payee) => {
-        const deletePayeeRequest = await fetch('/quantum/payees', {
-            method: 'DELETE',
-            body: JSON.stringify({ payeeId: payee?.payee_id })
+        const deletePayeeRequest = await fetch(`/quantum/payees/${payee.payee_id}`, {
+            method: 'DELETE'
         });
 
         if (deletePayeeRequest.ok) {
