@@ -50,7 +50,7 @@ export const POST = (async ({ request, locals, cookies, url, params }) => {
 
     return json({
 		request: {
-            accountId,
+            accountId: params.accountId,
             transactionTypeId,
             payeeId,
             categoryId,

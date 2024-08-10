@@ -2,6 +2,8 @@ import { convertArrayToObject } from '@quantum/util';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ depends, locals, params }) => {
+    depends('quantum:transactions');
+
     // Get account details
     // TODO: Do I really need to fetch the account details? Why can't I just pass it from the parent page?
     const accountResponse = await fetch(

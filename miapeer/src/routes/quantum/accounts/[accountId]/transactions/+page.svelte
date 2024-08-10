@@ -36,10 +36,9 @@
     };
     const handleDelete = async (transaction) => {
         const deleteTransactionRequest = await fetch(
-            `/quantum/accounts/${$page.params.accountId}/transactions`,
+            `/quantum/accounts/${$page.params.accountId}/transactions/${transaction.transaction_id}`,
             {
-                method: 'DELETE',
-                body: JSON.stringify({ payeeId: transaction?.payee_id })
+                method: 'DELETE'
             }
         );
 

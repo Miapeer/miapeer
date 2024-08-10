@@ -49,3 +49,25 @@ export const POST = (async ({ request, locals, cookies, url, params }) => {
 
     // prettier-ignore
 }) satisfies RequestHandler;
+
+export const DELETE = (async ({ request, locals, params }) => {
+    const response = await fetch(
+        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions/${params.transactionId}`,
+        {
+            method: 'DELETE',
+            headers: locals.auth.headers
+        }
+    );
+
+    if (!response) {
+        throw error(500, 'Invalid request data');
+    } else if (!response.ok) {
+        throw error(response?.status, await response?.json());
+    }
+
+    return json({
+		response: await response.json()
+	});
+
+    // prettier-ignore
+}) satisfies RequestHandler;

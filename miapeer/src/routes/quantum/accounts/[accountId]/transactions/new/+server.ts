@@ -3,7 +3,6 @@ import type { RequestHandler } from './$types';
 
 export const POST = (async ({ request, locals, cookies, url, params }) => {
     const {
-        accountId,
         transactionDate,
         clearDate,
         transactionTypeId,
@@ -44,7 +43,7 @@ export const POST = (async ({ request, locals, cookies, url, params }) => {
     }
 
     return json({
-		request: { accountId, transactionTypeId, payeeId, categoryId, excludeFromForecast, amount, transactionDate, clearDate, checkNumber, notes },
+		request: { accountId: params.accountId, transactionTypeId, payeeId, categoryId, excludeFromForecast, amount, transactionDate, clearDate, checkNumber, notes },
 		response: responseData
 	});
 

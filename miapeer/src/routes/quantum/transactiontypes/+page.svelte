@@ -15,7 +15,7 @@
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
-            body: `Are you sure you want to delete the transaction type named "${transactionType?.name ?? ''}"?`,
+            body: `Are you sure you want to delete the transaction type named "${transactionType.name ?? ''}"?`,
             buttonPositive: 'variant-filled-error',
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
@@ -28,10 +28,12 @@
         modalStore.trigger(modal);
     };
     const handleDelete = async (transactionType) => {
-        const deleteTransactionTypeRequest = await fetch('/quantum/transactiontypes', {
-            method: 'DELETE',
-            body: JSON.stringify({ transactionTypeId: transactionType?.transaction_type_id })
-        });
+        const deleteTransactionTypeRequest = await fetch(
+            `/quantum/transactiontypes/${transactionType.transaction_type_id}`,
+            {
+                method: 'DELETE'
+            }
+        );
 
         if (deleteTransactionTypeRequest.ok) {
             invalidate('quantum:transactiontypes');
