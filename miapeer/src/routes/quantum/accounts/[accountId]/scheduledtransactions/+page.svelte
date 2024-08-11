@@ -62,9 +62,9 @@
     </div>
 
     {#if data.scheduledTransactions.length > 0}
-        <div
-            class="grid grid-cols-[100px_150px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_80px] gap-4 hover"
-        >
+        {@const gridDef =
+            'grid grid-cols-[100px_150px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_110px_80px_80px] gap-4 p-4 ml-2 mr-2'}
+        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
             <div>Next Date</div>
             <div>Repeat Option</div>
             <div>Type</div>
@@ -73,8 +73,11 @@
             <div class="text-right">Next Amount</div>
             <div></div>
             <div></div>
-
-            {#each data.scheduledTransactions as scheduledTransaction}
+        </div>
+        {#each data.scheduledTransactions as scheduledTransaction, scheduledTransactionIndex}
+            <div
+                class={`${gridDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === Object.keys(data.scheduledTransactions).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+            >
                 <div class="content-center">{scheduledTransaction.start_date}</div>
                 <div class="content-center">{scheduledTransaction.end_date || ''}</div>
                 <div class="content-center">
@@ -137,8 +140,8 @@
                         </div>
                     </div>
                 </div>
-            {/each}
-        </div>
+            </div>
+        {/each}
     {:else}
         <h3 class="h3">
             You haven't added any scheduled transactions yet. Click the button below to create one.

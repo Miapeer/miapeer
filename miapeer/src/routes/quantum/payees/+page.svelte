@@ -44,47 +44,41 @@
     <h1 class="h1">Payees</h1>
 
     {#if Object.keys(data.payees).length}
-        <div class="table-container px-2">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th />
-                        <th class="w-16" />
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each Object.keys(data.payees) as payeeKey}
-                        {@const payee = data.payees[payeeKey]}
-                        <tr>
-                            <td>{payee.name}</td>
-                            <td class="action-cell text-right">
-                                <div>
-                                    <button
-                                        type="button"
-                                        class="btn-icon variant-filled"
-                                        use:popup={{
-                                            event: 'click',
-                                            target: 'payee-actions-' + payee.payee_id,
-                                            placement: 'left'
-                                        }}><i class="fa-solid fa-ellipsis-v" /></button
-                                    >
-                                    <div data-popup="payee-actions-{payee.payee_id}">
-                                        <div class="btn-group variant-filled">
-                                            <a href={`./payees/${payee.payee_id}`}
-                                                ><i class="fa-solid fa-pen-to-square" /></a
-                                            >
-                                            <button on:click={() => handleConfirmDelete(payee)}
-                                                ><i class="fa-solid fa-trash" /></button
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    {/each}
-                </tbody>
-            </table>
-        </div>
+        {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
+
+        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
+
+        {#each Object.keys(data.payees) as payeeId, payeeIndex}
+            {@const payee = data.payees[payeeId]}
+            <div
+                class={`${gridDef} ${payeeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${payeeIndex === Object.keys(data.payees).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+            >
+                <div class="content-center">{payee.name}</div>
+                <div class="action-cell text-right">
+                    <div>
+                        <button
+                            type="button"
+                            class="btn-icon variant-filled"
+                            use:popup={{
+                                event: 'click',
+                                target: 'payee-actions-' + payeeId,
+                                placement: 'left'
+                            }}><i class="fa-solid fa-ellipsis-v" /></button
+                        >
+                        <div data-popup="payee-actions-{payeeId}">
+                            <div class="btn-group variant-filled">
+                                <a href={`./payees/${payeeId}`}
+                                    ><i class="fa-solid fa-pen-to-square" /></a
+                                >
+                                <button on:click={() => handleConfirmDelete(payee)}
+                                    ><i class="fa-solid fa-trash" /></button
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/each}
     {:else}
         <h3 class="h3">You haven't set up any payees yet. Click the button below to create one.</h3>
     {/if}
