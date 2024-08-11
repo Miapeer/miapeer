@@ -61,9 +61,9 @@
     </div>
 
     {#if Object.keys(data.transactions).length > 0}
-        <div
-            class="grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 hover"
-        >
+        {@const gridDef =
+            'grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 p-4 ml-2 mr-2'}
+        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
             <div>Date</div>
             <div>Clear</div>
             <div>Type</div>
@@ -75,9 +75,12 @@
             <div></div>
             <div></div>
             <div></div>
-
-            {#each Object.keys(data.transactions) as transactionId}
-                {@const transaction = data.transactions[transactionId]}
+        </div>
+        {#each Object.keys(data.transactions) as transactionId, transactionIndex}
+            {@const transaction = data.transactions[transactionId]}
+            <div
+                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === Object.keys(data.transactions).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+            >
                 <div class="content-center">{transaction.transaction_date}</div>
                 <div class="content-center">{transaction.clear_date || ''}</div>
                 <div class="content-center">
@@ -106,7 +109,7 @@
                         ></i>
                     {/if}
                 </div>
-                <div class="text-center">
+                <div class="content-center text-right">
                     {#if transaction.check_number}
                         <i
                             class="fa fa-check-square"
@@ -145,7 +148,7 @@
                     {/if}
                 </div>
 
-                <div>
+                <div class="content-center">
                     <div>
                         <button
                             type="button"
@@ -168,8 +171,8 @@
                         </div>
                     </div>
                 </div>
-            {/each}
-        </div>
+            </div>
+        {/each}
     {:else}
         <h3 class="h3">
             You haven't added any transactions yet. Click the button below to create one.

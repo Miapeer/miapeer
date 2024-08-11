@@ -47,54 +47,46 @@
     <h1 class="h1">Transaction Types</h1>
 
     {#if Object.keys(data.transactionTypes).length}
-        <div class="table-container px-2">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th />
-                        <th class="w-16" />
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each Object.keys(data.transactionTypes) as transactionTypeKey}
-                        {@const transactionType = data.transactionTypes[transactionTypeKey]}
-                        <tr>
-                            <td>{transactionType.name}</td>
-                            <td class="action-cell text-right">
-                                <div>
-                                    <button
-                                        type="button"
-                                        class="btn-icon variant-filled"
-                                        use:popup={{
-                                            event: 'click',
-                                            target:
-                                                'transaction-type-actions-' +
-                                                transactionType.transaction_type_id,
-                                            placement: 'left'
-                                        }}><i class="fa-solid fa-ellipsis-v" /></button
-                                    >
-                                    <div
-                                        data-popup="transaction-type-actions-{transactionType.transaction_type_id}"
-                                    >
-                                        <div class="btn-group variant-filled">
-                                            <a
-                                                href={`./transactiontypes/${transactionType.transaction_type_id}`}
-                                                ><i class="fa-solid fa-pen-to-square" /></a
-                                            >
-                                            <button
-                                                on:click={() =>
-                                                    handleConfirmDelete(transactionType)}
-                                                ><i class="fa-solid fa-trash" /></button
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    {/each}
-                </tbody>
-            </table>
-        </div>
+        {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
+
+        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
+
+        {#each Object.keys(data.transactionTypes) as transactionTypeId, transactionTypeIndex}
+            {@const transactionType = data.transactionTypes[transactionTypeId]}
+            <div
+                class={`${gridDef} ${transactionTypeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionTypeIndex === Object.keys(data.transactionTypes).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+            >
+                <div class="content-center">{transactionType.name}</div>
+                <div class="action-cell text-right">
+                    <div>
+                        <button
+                            type="button"
+                            class="btn-icon variant-filled"
+                            use:popup={{
+                                event: 'click',
+                                target:
+                                    'transaction-type-actions-' +
+                                    transactionType.transaction_type_id,
+                                placement: 'left'
+                            }}><i class="fa-solid fa-ellipsis-v" /></button
+                        >
+                        <div
+                            data-popup="transaction-type-actions-{transactionType.transaction_type_id}"
+                        >
+                            <div class="btn-group variant-filled">
+                                <a
+                                    href={`./transactiontypes/${transactionType.transaction_type_id}`}
+                                    ><i class="fa-solid fa-pen-to-square" /></a
+                                >
+                                <button on:click={() => handleConfirmDelete(transactionType)}
+                                    ><i class="fa-solid fa-trash" /></button
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/each}
     {:else}
         <h3 class="h3">
             You haven't set up any transaction types yet. Click the button below to create one.

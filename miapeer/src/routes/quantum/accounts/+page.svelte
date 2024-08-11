@@ -47,53 +47,49 @@
     <h1 class="h1">Accounts</h1>
 
     {#if Object.keys(data.accounts).length}
-        <div class="table-container px-2">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th />
-                        <th class="w-32">Balance</th>
-                        <th class="w-16" />
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each Object.keys(data.accounts) as accountKey}
-                        {@const account = data.accounts[accountKey]}
-                        <tr>
-                            <td
-                                on:click={() =>
-                                    goto(`./accounts/${account.account_id}/transactions`)}
-                                >{account.name}</td
-                            >
-                            <td>{formatMoney(account.balance)}</td>
-                            <td class="action-cell text-right">
-                                <div>
-                                    <button
-                                        type="button"
-                                        class="btn-icon variant-filled"
-                                        use:popup={{
-                                            event: 'click',
-                                            target: 'account-actions-' + account.account_id,
-                                            placement: 'left'
-                                        }}><i class="fa-solid fa-ellipsis-v" /></button
-                                    >
-                                    <div data-popup="account-actions-{account.account_id}">
-                                        <div class="btn-group variant-filled">
-                                            <a href={`./accounts/${account.account_id}`}
-                                                ><i class="fa-solid fa-pen-to-square" /></a
-                                            >
-                                            <button on:click={() => handleConfirmDelete(account)}
-                                                ><i class="fa-solid fa-trash" /></button
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    {/each}
-                </tbody>
-            </table>
+        {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_80px_50px] gap-4 p-4 ml-2 mr-2'}
+        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
+            <div></div>
+            <div class="text-right">Balance</div>
         </div>
+
+        {#each Object.keys(data.accounts) as accountId, accountIndex}
+            {@const account = data.accounts[accountId]}
+            <div
+                class={`${gridDef} ${accountIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${accountIndex === Object.keys(data.accounts).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+            >
+                <div
+                    class="content-center"
+                    on:click={() => goto(`./accounts/${account.account_id}/transactions`)}
+                >
+                    {account.name}
+                </div>
+                <div class="content-center text-right">{formatMoney(account.balance)}</div>
+                <div class="content-center">
+                    <div>
+                        <button
+                            type="button"
+                            class="btn-icon variant-filled"
+                            use:popup={{
+                                event: 'click',
+                                target: 'account-actions-' + accountId,
+                                placement: 'left'
+                            }}><i class="fa-solid fa-ellipsis-v" /></button
+                        >
+                        <div data-popup="account-actions-{accountId}">
+                            <div class="btn-group variant-filled">
+                                <a href={`./accounts/${accountId}`}
+                                    ><i class="fa-solid fa-pen-to-square" /></a
+                                >
+                                <button on:click={() => handleConfirmDelete(account)}
+                                    ><i class="fa-solid fa-trash" /></button
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/each}
     {:else}
         <h3 class="h3">
             You haven't set up any accounts yet. Click the button below to create one.
