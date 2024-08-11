@@ -18,7 +18,7 @@ const unformatMoney = (amount) => {
     }
 
     let amountNumber;
-    if (amount instanceof String) {
+    if (typeof amount === 'string') {
         amountNumber = Number(amount.replace(/[^0-9\.-]+/g, ''));
     } else {
         amountNumber = amount;
