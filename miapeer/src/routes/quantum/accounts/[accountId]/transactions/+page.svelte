@@ -94,7 +94,7 @@
                     {formatMoney(transaction.amount)}
                 </div>
                 <div class="content-center text-right">
-                    {formatMoney(0)}
+                    {formatMoney(transaction.balance)}
                 </div>
 
                 <div class="content-center">
