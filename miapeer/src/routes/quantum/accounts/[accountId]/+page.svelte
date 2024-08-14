@@ -57,7 +57,7 @@
         </button>
 
         <button
-            disabled={!data.account.name || !data.account.starting_balance}
+            disabled={!accountName || !startingBalance}
             type="button"
             class="btn variant-filled-primary"
             on:click={handleEditAccount}
