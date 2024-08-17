@@ -26,18 +26,19 @@
     $: selectedCategoryId = Object.keys(data.categories).find(
         (key) => data.categories[key].name === selectedCategoryName
     );
-    let selectedFixedAmount;
-    let selectedEstimateOccurrences;
-    let selectedPromptDays;
-    let selectedStartDate;
-    let selectedEndDate;
-    let selectedlimitOccurrences;
-    let selectedRepeatOptionName;
+    let selectedFixedAmount = formatMoney(data.scheduledTransaction.fixed_amount);
+    let selectedEstimateOccurrences = data.scheduledTransaction.estimate_occurrences;
+    let selectedPromptDays = data.scheduledTransaction.prompt_days;
+    let selectedStartDate = data.scheduledTransaction.start_date;
+    let selectedEndDate = data.scheduledTransaction.end_date;
+    let selectedlimitOccurrences = data.scheduledTransaction.limit_occurrences;
+    let selectedRepeatOptionName =
+        data.repeatOptions[data.scheduledTransaction.repeat_option_id]?.name;
     $: selectedRepeatOptionId = Object.keys(data.repeatOptions).find(
         (key) => data.repeatOptions[key].name === selectedRepeatOptionName
     );
-    let selectedNote;
-    let selectedOnAutopay;
+    let selectedNote = data.scheduledTransaction.notes;
+    let selectedOnAutopay = data.scheduledTransaction.on_autopay;
 
     const handleCancel = () => {
         goto(data.redirectUrl ?? `/quantum/accounts/${accountId}/scheduledtransactions`);
@@ -102,7 +103,7 @@
             on:keypress={handleKeyPress}
             use:popup={{
                 event: 'click',
-                target: 'newScheduledTransactionTransactionTypePopupCombobox',
+                target: 'editScheduledTransactionTypePopupCombobox',
                 placement: 'bottom',
                 closeQuery: '.listbox-item'
             }}
@@ -117,7 +118,7 @@
             on:keypress={handleKeyPress}
             use:popup={{
                 event: 'click',
-                target: 'newScheduledTransactionPayeePopupCombobox',
+                target: 'editScheduledTransactionPayeePopupCombobox',
                 placement: 'bottom',
                 closeQuery: '.listbox-item'
             }}
@@ -132,7 +133,7 @@
             on:keypress={handleKeyPress}
             use:popup={{
                 event: 'click',
-                target: 'newScheduledTransactionCategoryPopupCombobox',
+                target: 'editScheduledTransactionCategoryPopupCombobox',
                 placement: 'bottom',
                 closeQuery: '.listbox-item'
             }}
@@ -181,7 +182,7 @@
             on:keypress={handleKeyPress}
             use:popup={{
                 event: 'click',
-                target: 'newScheduledTransactionRepeatOptionPopupCombobox',
+                target: 'editScheduledTransactionRepeatOptionPopupCombobox',
                 placement: 'bottom',
                 closeQuery: '.listbox-item'
             }}
@@ -228,7 +229,7 @@
 <!-- Must be outside of the grid for proper interaction -->
 <div
     class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
-    data-popup="editTransactionTransactionTypePopupCombobox"
+    data-popup="editScheduledTransactionTypePopupCombobox"
 >
     <ListBox>
         {#each Object.keys(data.transactionTypes) as transactionTypeKey}
@@ -244,7 +245,7 @@
 </div>
 <div
     class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
-    data-popup="editTransactionPayeePopupCombobox"
+    data-popup="editScheduledTransactionPayeePopupCombobox"
 >
     <ListBox>
         {#each Object.keys(data.payees) as payeeKey}
@@ -258,13 +259,29 @@
 </div>
 <div
     class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
-    data-popup="editTransactionCategoryPopupCombobox"
+    data-popup="editScheduledTransactionCategoryPopupCombobox"
 >
     <ListBox>
         {#each Object.keys(data.categories) as categoryKey}
             {@const category = data.categories[categoryKey]}
             <ListBoxItem bind:group={selectedCategoryName} name="medium" value={category.name}
                 >{category.name}</ListBoxItem
+            >
+        {/each}
+    </ListBox>
+    <div class="arrow bg-surface-100-800-token" />
+</div>
+<div
+    class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
+    data-popup="editScheduledTransactionRepeatOptionPopupCombobox"
+>
+    <ListBox>
+        {#each Object.keys(data.repeatOptions) as repeatOptionKey}
+            {@const repeatOption = data.repeatOptions[repeatOptionKey]}
+            <ListBoxItem
+                bind:group={selectedRepeatOptionName}
+                name="medium"
+                value={repeatOption.name}>{repeatOption.name}</ListBoxItem
             >
         {/each}
     </ListBox>
