@@ -79,7 +79,9 @@
                 class={`${gridDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === Object.keys(data.scheduledTransactions).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{scheduledTransaction.start_date}</div>
-                <div class="content-center">{scheduledTransaction.end_date || ''}</div>
+                <div class="content-center">
+                    {data.repeatOptions[scheduledTransaction.repeat_option_id]?.name || ''}
+                </div>
                 <div class="content-center">
                     {data.transactionTypes[scheduledTransaction.transaction_type_id]?.name || ''}
                 </div>
@@ -90,7 +92,9 @@
                     {data.categories[scheduledTransaction.category_id]?.name || ''}
                 </div>
                 <div class="content-center text-right">
-                    {formatMoney(0)}
+                    {scheduledTransaction.next_transaction
+                        ? formatMoney(scheduledTransaction.next_transaction.amount)
+                        : ''}
                 </div>
                 <div class="content-center">
                     {#if scheduledTransaction.notes}
