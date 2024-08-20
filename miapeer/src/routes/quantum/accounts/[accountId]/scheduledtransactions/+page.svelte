@@ -18,6 +18,37 @@
         placement: 'top'
     };
 
+    const handleCreateTransaction = async (scheduledTransaction) => {
+        const createTransactionRequest = await fetch(
+            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}/createtransaction`,
+            {
+                method: 'POST'
+            }
+        );
+
+        if (createTransactionRequest.ok) {
+            invalidate('quantum:scheduledtransactions');
+            invalidate('quantum:transactions');
+        } else {
+            console.error('NOT ok');
+        }
+    };
+
+    const handleSkipIteration = async (scheduledTransaction) => {
+        const skipIterationRequest = await fetch(
+            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}/skipiteration`,
+            {
+                method: 'POST'
+            }
+        );
+
+        if (skipIterationRequest.ok) {
+            invalidate('quantum:scheduledtransactions');
+        } else {
+            console.error('NOT ok');
+        }
+    };
+
     const handleConfirmDelete = (scheduledTransaction) => {
         const modal: ModalSettings = {
             type: 'confirm',
@@ -133,12 +164,19 @@
                             data-popup="transaction-actions-{scheduledTransaction.scheduled_transaction_id}"
                         >
                             <div class="btn-group variant-filled">
+                                <button
+                                    on:click={() => handleCreateTransaction(scheduledTransaction)}
+                                    ><i class="fa fa-play"></i></button
+                                >
+                                <button on:click={() => handleSkipIteration(scheduledTransaction)}
+                                    ><i class="fa fa-fast-forward"></i></button
+                                >
                                 <a
                                     href={`./scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}`}
-                                    ><i class="fa-solid fa-pen-to-square" /></a
+                                    ><i class="fa-solid fa-pen-to-square"></i></a
                                 >
                                 <button on:click={() => handleConfirmDelete(scheduledTransaction)}
-                                    ><i class="fa-solid fa-trash" /></button
+                                    ><i class="fa-solid fa-trash"></i></button
                                 >
                             </div>
                         </div>
