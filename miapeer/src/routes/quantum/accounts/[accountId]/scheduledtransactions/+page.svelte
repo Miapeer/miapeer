@@ -18,6 +18,37 @@
         placement: 'top'
     };
 
+    const handleCreateTransaction = async (scheduledTransaction) => {
+        const createTransactionRequest = await fetch(
+            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}/createtransaction`,
+            {
+                method: 'POST'
+            }
+        );
+
+        if (createTransactionRequest.ok) {
+            invalidate('quantum:scheduledtransactions');
+            invalidate('quantum:transactions');
+        } else {
+            console.error('NOT ok');
+        }
+    };
+
+    const handleSkipIteration = async (scheduledTransaction) => {
+        const skipIterationRequest = await fetch(
+            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}/skipiteration`,
+            {
+                method: 'POST'
+            }
+        );
+
+        if (skipIterationRequest.ok) {
+            invalidate('quantum:scheduledtransactions');
+        } else {
+            console.error('NOT ok');
+        }
+    };
+
     const handleConfirmDelete = (scheduledTransaction) => {
         const modal: ModalSettings = {
             type: 'confirm',
@@ -79,7 +110,9 @@
                 class={`${gridDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === Object.keys(data.scheduledTransactions).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{scheduledTransaction.start_date}</div>
-                <div class="content-center">{scheduledTransaction.end_date || ''}</div>
+                <div class="content-center">
+                    {data.repeatOptions[scheduledTransaction.repeat_option_id]?.name || ''}
+                </div>
                 <div class="content-center">
                     {data.transactionTypes[scheduledTransaction.transaction_type_id]?.name || ''}
                 </div>
@@ -90,7 +123,9 @@
                     {data.categories[scheduledTransaction.category_id]?.name || ''}
                 </div>
                 <div class="content-center text-right">
-                    {formatMoney(0)}
+                    {scheduledTransaction.next_transaction
+                        ? formatMoney(scheduledTransaction.next_transaction.amount)
+                        : ''}
                 </div>
                 <div class="content-center">
                     {#if scheduledTransaction.notes}
@@ -129,12 +164,19 @@
                             data-popup="transaction-actions-{scheduledTransaction.scheduled_transaction_id}"
                         >
                             <div class="btn-group variant-filled">
+                                <button
+                                    on:click={() => handleCreateTransaction(scheduledTransaction)}
+                                    ><i class="fa fa-play"></i></button
+                                >
+                                <button on:click={() => handleSkipIteration(scheduledTransaction)}
+                                    ><i class="fa fa-fast-forward"></i></button
+                                >
                                 <a
                                     href={`./scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}`}
-                                    ><i class="fa-solid fa-pen-to-square" /></a
+                                    ><i class="fa-solid fa-pen-to-square"></i></a
                                 >
                                 <button on:click={() => handleConfirmDelete(scheduledTransaction)}
-                                    ><i class="fa-solid fa-trash" /></button
+                                    ><i class="fa-solid fa-trash"></i></button
                                 >
                             </div>
                         </div>
