@@ -70,4 +70,42 @@ const createCategory = async (portfolioId, categoryName) => {
     }
 };
 
-export { createTransactionType, createPayee, createCategory };
+const createTransaction = async (
+    accountId,
+    transactionTypeId,
+    payeeId,
+    categoryId,
+    excludeFromForecast,
+    amount,
+    transactionDate,
+    clearDate,
+    checkNumber,
+    notes
+) => {
+    const requestData = {
+        transactionTypeId,
+        payeeId,
+        categoryId,
+        excludeFromForecast,
+        amount,
+        transactionDate,
+        clearDate,
+        checkNumber,
+        notes
+    };
+
+    const res = await fetch(`/quantum/accounts/${accountId}/transactions/new`, {
+        method: 'POST',
+        body: JSON.stringify(requestData)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        await invalidate('quantum:transactions');
+        return data;
+    } else {
+        console.error('NOT ok');
+    }
+};
+
+export { createTransactionType, createPayee, createCategory, createTransaction };
