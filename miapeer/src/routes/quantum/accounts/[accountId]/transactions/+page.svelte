@@ -5,6 +5,7 @@
     import { popup } from '@skeletonlabs/skeleton';
     import type { PopupSettings } from '@skeletonlabs/skeleton';
     import { formatMoney } from '@quantum/util';
+    import { importErrors } from '$lib/stores';
 
     export let data: PageData;
     import { page } from '$app/stores';
@@ -34,6 +35,7 @@
 
         modalStore.trigger(modal);
     };
+
     const handleDelete = async (transaction) => {
         const deleteTransactionRequest = await fetch(
             `/quantum/accounts/${$page.params.accountId}/transactions/${transaction.transaction_id}`,
@@ -48,10 +50,28 @@
             console.error('NOT ok');
         }
     };
+
+    const handleClearImportError = async (importErrorIndex) => {
+        $importErrors.splice(importErrorIndex, 1);
+        importErrors.set($importErrors);
+    };
 </script>
 
 <section>
     <h1 class="h1">{`${data.accounts[$page.params.accountId].name} Transactions`}</h1>
+
+    {#if $importErrors?.length}
+        <div>
+            <h3 class="h3">Import errors</h3>
+            {#each $importErrors as importError, errorIndex}
+                <div class={errorIndex % 2 ? 'bg-red-600' : 'bg-red-700'}>
+                    <a href="#" class="m-2" on:click={() => handleClearImportError(errorIndex)}>x</a
+                    >
+                    {`Transaction Date: ${importError['Transaction Date']} - Payee: ${importError['Payee']} - Category: ${importError['Category']} - Amount: ${importError['Amount']}`}
+                </div>
+            {/each}
+        </div>
+    {/if}
 
     <div class="popovers">
         <div class="card p-4 w-72 shadow-xl" data-popup="accountTransactionsExcluded">
@@ -175,8 +195,11 @@
         {/each}
     {:else}
         <h3 class="h3">
-            You haven't added any transactions yet. Click the button below to create one.
+            You haven't added any transactions yet. Click the button below to create one
         </h3>
+        <div>
+            or <a class="anchor" href="./import">import your existing data from CSV</a>.
+        </div>
     {/if}
 </section>
 

@@ -7,7 +7,12 @@
     import { SlideToggle } from '@skeletonlabs/skeleton';
 
     import { page } from '$app/stores';
-    import { createTransactionType, createPayee, createCategory } from '@quantum/api';
+    import {
+        createTransactionType,
+        createPayee,
+        createCategory,
+        createTransaction
+    } from '@quantum/api';
     import { formatMoney, unformatMoney } from '@quantum/util';
 
     export let data: PageData;
@@ -48,28 +53,20 @@
             await createCategory(data.portfolioId, selectedCategoryName);
         }
 
-        const requestData = {
-            transactionTypeId: selectedTransactionTypeId,
-            payeeId: selectedPayeeId,
-            categoryId: selectedCategoryId,
-            excludeFromForecast: selectedExcludeFromForecast,
-            amount: unformatMoney(selectedAmount),
-            transactionDate: selectedTransactionDate,
-            clearDate: selectedClearDate,
-            checkNumber: selectedCheckNumber,
-            notes: selectedNote
-        };
-        const res = await fetch(`/quantum/accounts/${accountId}/transactions/new`, {
-            method: 'POST',
-            body: JSON.stringify(requestData)
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-
+        let newTransaction = await createTransaction(
+            data.portfolioId,
+            selectedTransactionTypeId,
+            selectedPayeeId,
+            selectedCategoryId,
+            selectedExcludeFromForecast,
+            unformatMoney(selectedAmount),
+            selectedTransactionDate,
+            selectedClearDate,
+            selectedCheckNumber,
+            selectedNote
+        );
+        if (newTransaction) {
             goto(data.redirectUrl ?? `/quantum/accounts/${accountId}/transactions`);
-        } else {
-            console.error('NOT ok');
         }
     };
 
