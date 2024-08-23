@@ -29,6 +29,7 @@
         'Transaction Date',
         'Clear Date',
         'Transaction Type',
+        'Check Number',
         'Payee',
         'Category',
         'Amount',
@@ -77,6 +78,8 @@
                 );
             }
 
+            let checkNumber = item[mapping['Check Number']];
+
             let payeeName = item[mapping['Payee']];
             let payee = findItemInObjectById(data.payees, 'name', payeeName);
             if (!payee) {
@@ -107,6 +110,7 @@
                 unformatDate(transactionDate),
                 unformatDate(clearDate),
                 null,
+                checkNumber,
                 notes
             );
             if (!transaction) {
@@ -114,6 +118,7 @@
             }
         }
 
+        await invalidate('quantum:transactions');
         goto(`/quantum/accounts/${accountId}/transactions`);
     };
 </script>
