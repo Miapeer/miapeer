@@ -101,7 +101,6 @@ const createTransaction = async (
 
     if (res.ok) {
         const data = await res.json();
-        await invalidate('quantum:transactions');
         return data;
     } else {
         console.error('NOT ok');

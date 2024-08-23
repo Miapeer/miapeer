@@ -66,6 +66,7 @@
             selectedNote
         );
         if (newTransaction) {
+            await invalidate('quantum:transactions');
             goto(data.redirectUrl ?? `/quantum/accounts/${accountId}/transactions`);
         }
     };
