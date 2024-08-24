@@ -15,17 +15,13 @@
     let accountId = $page.params.accountId;
 
     let selectedTransactionTypeName;
-    $: selectedTransactionTypeId = Object.keys(data.transactionTypes).find(
-        (key) => data.transactionTypes[key].name === selectedTransactionTypeName
+    $: selectedTransactionType = data.transactionTypes.find(
+        (tt) => tt.name === selectedTransactionTypeName
     );
     let selectedPayeeName;
-    $: selectedPayeeId = Object.keys(data.payees).find(
-        (key) => data.payees[key].name === selectedPayeeName
-    );
+    $: selectedPayee = data.payees.find((p) => p.name === selectedPayeeName);
     let selectedCategoryName;
-    $: selectedCategoryId = Object.keys(data.categories).find(
-        (key) => data.categories[key].name === selectedCategoryName
-    );
+    $: selectedCategory = data.categories.find((c) => c.name === selectedCategoryName);
     let selectedFixedAmount;
     let selectedEstimateOccurrences;
     let selectedPromptDays;
@@ -33,9 +29,7 @@
     let selectedEndDate;
     let selectedlimitOccurrences;
     let selectedRepeatOptionName;
-    $: selectedRepeatOptionId = Object.keys(data.repeatOptions).find(
-        (key) => data.repeatOptions[key].name === selectedRepeatOptionName
-    );
+    $: selectedRepeatOption = data.repeatOptions.find((ro) => ro.name === selectedRepeatOptionName);
     let selectedNote;
     let selectedOnAutopay;
 
@@ -44,28 +38,28 @@
     };
 
     const handleCreateScheduledTransaction = async () => {
-        if (!selectedTransactionTypeId) {
+        if (!selectedTransactionType) {
             await createTransactionType(data.portfolioId, selectedTransactionTypeName);
         }
-        if (!selectedPayeeId) {
+        if (!selectedPayee) {
             await createPayee(data.portfolioId, selectedPayeeName);
         }
-        if (!selectedCategoryId) {
+        if (!selectedCategory) {
             await createCategory(data.portfolioId, selectedCategoryName);
         }
 
         const requestData = {
             accountId,
-            transactionTypeId: selectedTransactionTypeId,
-            payeeId: selectedPayeeId,
-            categoryId: selectedCategoryId,
+            transactionTypeId: selectedTransactionType.transaction_type_id,
+            payeeId: selectedPayee.payee_id,
+            categoryId: selectedCategory.category_id,
             fixedAmount: unformatMoney(selectedFixedAmount),
             estimateOccurrences: selectedEstimateOccurrences,
             promptDays: selectedPromptDays,
             startDate: selectedStartDate,
             endDate: selectedEndDate,
             limitOccurrences: selectedlimitOccurrences,
-            repeatOptionId: selectedRepeatOptionId,
+            repeatOptionId: selectedRepeatOption.repeat_option_id,
             onAutopay: selectedOnAutopay,
             notes: selectedNote
         };
@@ -229,8 +223,7 @@
     data-popup="newScheduledTransactionTransactionTypePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.transactionTypes) as transactionTypeKey}
-            {@const transactionType = data.transactionTypes[transactionTypeKey]}
+        {#each data.transactionTypes as transactionType}
             <ListBoxItem
                 bind:group={selectedTransactionTypeName}
                 name="medium"
@@ -245,8 +238,7 @@
     data-popup="newScheduledTransactionPayeePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.payees) as payeeKey}
-            {@const payee = data.payees[payeeKey]}
+        {#each data.payees as payee}
             <ListBoxItem bind:group={selectedPayeeName} name="medium" value={payee.name}
                 >{payee.name}</ListBoxItem
             >
@@ -259,8 +251,7 @@
     data-popup="newScheduledTransactionCategoryPopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.categories) as categoryKey}
-            {@const category = data.categories[categoryKey]}
+        {#each data.categories as category}
             <ListBoxItem bind:group={selectedCategoryName} name="medium" value={category.name}
                 >{category.name}</ListBoxItem
             >
@@ -273,8 +264,7 @@
     data-popup="newScheduledTransactionRepeatOptionPopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.repeatOptions) as repeatOptionKey}
-            {@const repeatOption = data.repeatOptions[repeatOptionKey]}
+        {#each data.repeatOptions as repeatOption}
             <ListBoxItem
                 bind:group={selectedRepeatOptionName}
                 name="medium"

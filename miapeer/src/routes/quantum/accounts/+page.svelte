@@ -46,17 +46,16 @@
 <section>
     <h1 class="h1">Accounts</h1>
 
-    {#if Object.keys(data.accounts).length}
+    {#if data.accounts.length}
         {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_80px_50px] gap-4 p-4 ml-2 mr-2'}
         <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
             <div></div>
             <div class="text-right">Balance</div>
         </div>
 
-        {#each Object.keys(data.accounts) as accountId, accountIndex}
-            {@const account = data.accounts[accountId]}
+        {#each data.accounts as account, accountIndex}
             <div
-                class={`${gridDef} ${accountIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${accountIndex === Object.keys(data.accounts).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridDef} ${accountIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${accountIndex === data.accounts.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div
                     class="content-center"
@@ -72,13 +71,13 @@
                             class="btn-icon variant-filled"
                             use:popup={{
                                 event: 'click',
-                                target: 'account-actions-' + accountId,
+                                target: 'account-actions-' + accountIndex,
                                 placement: 'left'
                             }}><i class="fa-solid fa-ellipsis-v" /></button
                         >
-                        <div data-popup="account-actions-{accountId}">
+                        <div data-popup="account-actions-{accountIndex}">
                             <div class="btn-group variant-filled">
-                                <a href={`./accounts/${accountId}`}
+                                <a href={`./accounts/${account.account_id}`}
                                     ><i class="fa-solid fa-pen-to-square" /></a
                                 >
                                 <button on:click={() => handleConfirmDelete(account)}

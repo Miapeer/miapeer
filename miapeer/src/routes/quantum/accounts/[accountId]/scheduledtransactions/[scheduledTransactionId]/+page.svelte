@@ -14,18 +14,14 @@
     let accountId = $page.params.accountId;
 
     let selectedTransactionTypeName =
-        data.transactionTypes[data.scheduledTransaction.transaction_type_id]?.name;
-    $: selectedTransactionTypeId = Object.keys(data.transactionTypes).find(
-        (key) => data.transactionTypes[key].name === selectedTransactionTypeName
+        data.indexedTransactionTypes[data.scheduledTransaction.transaction_type_id]?.name;
+    $: selectedTransactionTypeId = data.transactionTypes.find(
+        (tt) => tt.name === selectedTransactionTypeName
     );
-    let selectedPayeeName = data.payees[data.scheduledTransaction.payee_id]?.name;
-    $: selectedPayeeId = Object.keys(data.payees).find(
-        (key) => data.payees[key].name === selectedPayeeName
-    );
-    let selectedCategoryName = data.categories[data.scheduledTransaction.category_id]?.name;
-    $: selectedCategoryId = Object.keys(data.categories).find(
-        (key) => data.categories[key].name === selectedCategoryName
-    );
+    let selectedPayeeName = data.indexedPayees[data.scheduledTransaction.payee_id]?.name;
+    $: selectedPayeeId = data.payees.find((p) => p.name === selectedPayeeName);
+    let selectedCategoryName = data.indexedCategories[data.scheduledTransaction.category_id]?.name;
+    $: selectedCategoryId = data.categories.find((c) => c.name === selectedCategoryName);
     let selectedFixedAmount = formatMoney(data.scheduledTransaction.fixed_amount);
     let selectedEstimateOccurrences = data.scheduledTransaction.estimate_occurrences;
     let selectedPromptDays = data.scheduledTransaction.prompt_days;
@@ -33,9 +29,9 @@
     let selectedEndDate = data.scheduledTransaction.end_date;
     let selectedlimitOccurrences = data.scheduledTransaction.limit_occurrences;
     let selectedRepeatOptionName =
-        data.repeatOptions[data.scheduledTransaction.repeat_option_id]?.name;
-    $: selectedRepeatOptionId = Object.keys(data.repeatOptions).find(
-        (key) => data.repeatOptions[key].name === selectedRepeatOptionName
+        data.indexedRepeatOptions[data.scheduledTransaction.repeat_option_id]?.name;
+    $: selectedRepeatOptionId = data.repeatOptions.find(
+        (ro) => ro.name === selectedRepeatOptionName
     );
     let selectedNote = data.scheduledTransaction.notes;
     let selectedOnAutopay = data.scheduledTransaction.on_autopay;
@@ -232,8 +228,7 @@
     data-popup="editScheduledTransactionTypePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.transactionTypes) as transactionTypeKey}
-            {@const transactionType = data.transactionTypes[transactionTypeKey]}
+        {#each data.transactionTypes as transactionType}
             <ListBoxItem
                 bind:group={selectedTransactionTypeName}
                 name="medium"
@@ -248,8 +243,7 @@
     data-popup="editScheduledTransactionPayeePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.payees) as payeeKey}
-            {@const payee = data.payees[payeeKey]}
+        {#each data.payees as payee}
             <ListBoxItem bind:group={selectedPayeeName} name="medium" value={payee.name}
                 >{payee.name}</ListBoxItem
             >
@@ -262,8 +256,7 @@
     data-popup="editScheduledTransactionCategoryPopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.categories) as categoryKey}
-            {@const category = data.categories[categoryKey]}
+        {#each data.categories as category}
             <ListBoxItem bind:group={selectedCategoryName} name="medium" value={category.name}
                 >{category.name}</ListBoxItem
             >
@@ -276,8 +269,7 @@
     data-popup="editScheduledTransactionRepeatOptionPopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.repeatOptions) as repeatOptionKey}
-            {@const repeatOption = data.repeatOptions[repeatOptionKey]}
+        {#each data.repeatOptions as repeatOption}
             <ListBoxItem
                 bind:group={selectedRepeatOptionName}
                 name="medium"

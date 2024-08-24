@@ -43,15 +43,14 @@
 <section>
     <h1 class="h1">Payees</h1>
 
-    {#if Object.keys(data.payees).length}
+    {#if data.payees.length}
         {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
 
         <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
 
-        {#each Object.keys(data.payees) as payeeId, payeeIndex}
-            {@const payee = data.payees[payeeId]}
+        {#each data.payees as payee, payeeIndex}
             <div
-                class={`${gridDef} ${payeeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${payeeIndex === Object.keys(data.payees).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridDef} ${payeeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${payeeIndex === data.payees.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{payee.name}</div>
                 <div class="action-cell text-right">
@@ -61,13 +60,13 @@
                             class="btn-icon variant-filled"
                             use:popup={{
                                 event: 'click',
-                                target: 'payee-actions-' + payeeId,
+                                target: 'payee-actions-' + payeeIndex,
                                 placement: 'left'
                             }}><i class="fa-solid fa-ellipsis-v" /></button
                         >
-                        <div data-popup="payee-actions-{payeeId}">
+                        <div data-popup="payee-actions-{payeeIndex}">
                             <div class="btn-group variant-filled">
-                                <a href={`./payees/${payeeId}`}
+                                <a href={`./payees/${payee.payee_id}`}
                                     ><i class="fa-solid fa-pen-to-square" /></a
                                 >
                                 <button on:click={() => handleConfirmDelete(payee)}

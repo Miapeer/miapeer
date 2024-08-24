@@ -46,15 +46,14 @@
 <section>
     <h1 class="h1">Transaction Types</h1>
 
-    {#if Object.keys(data.transactionTypes).length}
+    {#if data.transactionTypes.length}
         {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
 
         <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
 
-        {#each Object.keys(data.transactionTypes) as transactionTypeId, transactionTypeIndex}
-            {@const transactionType = data.transactionTypes[transactionTypeId]}
+        {#each data.transactionTypes as transactionType, transactionTypeIndex}
             <div
-                class={`${gridDef} ${transactionTypeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionTypeIndex === Object.keys(data.transactionTypes).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridDef} ${transactionTypeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionTypeIndex === data.transactionTypes.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{transactionType.name}</div>
                 <div class="action-cell text-right">

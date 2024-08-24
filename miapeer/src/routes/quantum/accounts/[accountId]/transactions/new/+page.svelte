@@ -20,17 +20,13 @@
     let accountId = $page.params.accountId;
 
     let selectedTransactionTypeName;
-    $: selectedTransactionTypeId = Object.keys(data.transactionTypes).find(
-        (key) => data.transactionTypes[key].name === selectedTransactionTypeName
+    $: selectedTransactionType = data.transactionTypes.find(
+        (tt) => tt.name === selectedTransactionTypeName
     );
     let selectedPayeeName;
-    $: selectedPayeeId = Object.keys(data.payees).find(
-        (key) => data.payees[key].name === selectedPayeeName
-    );
+    $: selectedPayee = data.payees.find((p) => p.name === selectedPayeeName);
     let selectedCategoryName;
-    $: selectedCategoryId = Object.keys(data.categories).find(
-        (key) => data.categories[key].name === selectedCategoryName
-    );
+    $: selectedCategory = data.categories.find((c) => c.name === selectedCategoryName);
     let selectedExcludeFromForecast;
     let selectedAmount;
     let selectedTransactionDate;
@@ -43,21 +39,21 @@
     };
 
     const handleCreateTransaction = async () => {
-        if (!selectedTransactionTypeId) {
+        if (!selectedTransactionType) {
             await createTransactionType(data.portfolioId, selectedTransactionTypeName);
         }
-        if (!selectedPayeeId) {
+        if (!selectedPayee) {
             await createPayee(data.portfolioId, selectedPayeeName);
         }
-        if (!selectedCategoryId) {
+        if (!selectedCategory) {
             await createCategory(data.portfolioId, selectedCategoryName);
         }
 
         let newTransaction = await createTransaction(
             data.portfolioId,
-            selectedTransactionTypeId,
-            selectedPayeeId,
-            selectedCategoryId,
+            selectedTransactionType.transaction_type_id,
+            selectedPayee.payee_id,
+            selectedCategory.category_id,
             selectedExcludeFromForecast,
             unformatMoney(selectedAmount),
             selectedTransactionDate,
@@ -190,8 +186,7 @@
     data-popup="newTransactionTransactionTypePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.transactionTypes) as transactionTypeKey}
-            {@const transactionType = data.transactionTypes[transactionTypeKey]}
+        {#each data.transactionTypes as transactionType}
             <ListBoxItem
                 bind:group={selectedTransactionTypeName}
                 name="medium"
@@ -206,8 +201,7 @@
     data-popup="newTransactionPayeePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.payees) as payeeKey}
-            {@const payee = data.payees[payeeKey]}
+        {#each data.payees as payee}
             <ListBoxItem bind:group={selectedPayeeName} name="medium" value={payee.name}
                 >{payee.name}</ListBoxItem
             >
@@ -220,8 +214,7 @@
     data-popup="newTransactionCategoryPopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.categories) as categoryKey}
-            {@const category = data.categories[categoryKey]}
+        {#each data.categories as category}
             <ListBoxItem bind:group={selectedCategoryName} name="medium" value={category.name}
                 >{category.name}</ListBoxItem
             >

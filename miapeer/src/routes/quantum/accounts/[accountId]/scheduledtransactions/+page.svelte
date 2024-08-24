@@ -53,7 +53,7 @@
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
-            body: `Are you sure you want to delete the scheduled transaction: ${data.payees[scheduledTransaction.payee_id]?.name || ''}?`,
+            body: `Are you sure you want to delete the scheduled transaction: ${data.indexedPayees[scheduledTransaction.payee_id]?.name || ''}?`,
             buttonPositive: 'variant-filled-error',
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
@@ -83,7 +83,9 @@
 </script>
 
 <section>
-    <h1 class="h1">{`${data.accounts[$page.params.accountId].name} Scheduled Transactions`}</h1>
+    <h1 class="h1">
+        {`${data.indexedAccounts[$page.params.accountId].name} Scheduled Transactions`}
+    </h1>
 
     <div class="popovers">
         <div class="card p-4 w-72 shadow-xl" data-popup="accountTransactionsExcluded">
@@ -107,20 +109,21 @@
         </div>
         {#each data.scheduledTransactions as scheduledTransaction, scheduledTransactionIndex}
             <div
-                class={`${gridDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === Object.keys(data.scheduledTransactions).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === data.scheduledTransactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{scheduledTransaction.start_date}</div>
                 <div class="content-center">
-                    {data.repeatOptions[scheduledTransaction.repeat_option_id]?.name || ''}
+                    {data.indexedRepeatOptions[scheduledTransaction.repeat_option_id]?.name || ''}
                 </div>
                 <div class="content-center">
-                    {data.transactionTypes[scheduledTransaction.transaction_type_id]?.name || ''}
+                    {data.indexedTransactionTypes[scheduledTransaction.transaction_type_id]?.name ||
+                        ''}
                 </div>
                 <div class="content-center">
-                    {data.payees[scheduledTransaction.payee_id]?.name || ''}
+                    {data.indexedPayees[scheduledTransaction.payee_id]?.name || ''}
                 </div>
                 <div class="content-center">
-                    {data.categories[scheduledTransaction.category_id]?.name || ''}
+                    {data.indexedCategories[scheduledTransaction.category_id]?.name || ''}
                 </div>
                 <div class="content-center text-right">
                     {scheduledTransaction.next_transaction
