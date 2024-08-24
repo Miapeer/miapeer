@@ -13,18 +13,14 @@
     let selectedTransactionDate = data.transaction.transaction_date;
     let selectedClearDate = data.transaction.clear_date;
     let selectedTransactionTypeName =
-        data.transactionTypes[data.transaction.transaction_type_id]?.name;
-    $: selectedTransactionTypeId = Object.keys(data.transactionTypes).find(
-        (key) => data.transactionTypes[key].name === selectedTransactionTypeName
+        data.indexedTransactionTypes[data.transaction.transaction_type_id]?.name;
+    $: selectedTransactionTypeId = data.transactionTypes.find(
+        (tt) => tt.name === selectedTransactionTypeName
     );
-    let selectedPayeeName = data.payees[data.transaction.payee_id]?.name;
-    $: selectedPayeeId = Object.keys(data.payees).find(
-        (key) => data.payees[key].name === selectedPayeeName
-    );
-    let selectedCategoryName = data.categories[data.transaction.category_id]?.name;
-    $: selectedCategoryId = Object.keys(data.categories).find(
-        (key) => data.categories[key].name === selectedCategoryName
-    );
+    let selectedPayeeName = data.indexedPayees[data.transaction.payee_id]?.name;
+    $: selectedPayeeId = data.payees.find((p) => p.name === selectedPayeeName);
+    let selectedCategoryName = data.indexedCategories[data.transaction.category_id]?.name;
+    $: selectedCategoryId = data.categories.find((c) => c.name === selectedCategoryName);
     let selectedExcludeFromForecast = data.transaction.exclude_from_forecast;
     let selectedAmount = formatMoney(data.transaction.amount);
     let selectedCheckNumber = data.transaction.check_number;
@@ -201,8 +197,7 @@
     data-popup="editTransactionTransactionTypePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.transactionTypes) as transactionTypeKey}
-            {@const transactionType = data.transactionTypes[transactionTypeKey]}
+        {#each data.transactionTypes as transactionType}
             <ListBoxItem
                 bind:group={selectedTransactionTypeName}
                 name="medium"
@@ -217,8 +212,7 @@
     data-popup="editTransactionPayeePopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.payees) as payeeKey}
-            {@const payee = data.payees[payeeKey]}
+        {#each data.payees as payee}
             <ListBoxItem bind:group={selectedPayeeName} name="medium" value={payee.name}
                 >{payee.name}</ListBoxItem
             >
@@ -231,8 +225,7 @@
     data-popup="editTransactionCategoryPopupCombobox"
 >
     <ListBox>
-        {#each Object.keys(data.categories) as categoryKey}
-            {@const category = data.categories[categoryKey]}
+        {#each data.categories as category}
             <ListBoxItem bind:group={selectedCategoryName} name="medium" value={category.name}
                 >{category.name}</ListBoxItem
             >

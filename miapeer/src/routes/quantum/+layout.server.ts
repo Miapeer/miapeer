@@ -12,12 +12,33 @@ export async function load({ depends, locals }) {
     await ensureUserHasPortfolio(locals);
 
     const accounts = await getUserAccounts(locals);
-    const payees = await getUserPayees(locals);
-    const transactionTypes = await getUserTransactionTypes(locals);
-    const categories = await getUserCategories(locals);
-    const repeatOptions = await getRepeatOptions(locals);
+    const indexedAccounts = convertArrayToObject(accounts, 'account_id');
 
-    return { portfolioId, accounts, payees, transactionTypes, categories, repeatOptions };
+    const payees = await getUserPayees(locals);
+    const indexedPayees = convertArrayToObject(payees, 'payee_id');
+
+    const transactionTypes = await getUserTransactionTypes(locals);
+    const indexedTransactionTypes = convertArrayToObject(transactionTypes, 'transaction_type_id');
+
+    const categories = await getUserCategories(locals);
+    const indexedCategories = convertArrayToObject(categories, 'category_id');
+
+    const repeatOptions = await getRepeatOptions(locals);
+    const indexedRepeatOptions = convertArrayToObject(repeatOptions, 'repeat_option_id');
+
+    return {
+        portfolioId,
+        accounts,
+        indexedAccounts,
+        payees,
+        indexedPayees,
+        transactionTypes,
+        indexedTransactionTypes,
+        categories,
+        indexedCategories,
+        repeatOptions,
+        indexedRepeatOptions
+    };
 }
 
 const ensureUserHasPortfolio = async (locals) => {
@@ -69,8 +90,7 @@ const getUserAccounts = async (locals) => {
     }
 
     const data = await response.json();
-    const indexedData = convertArrayToObject(data, 'account_id');
-    return indexedData;
+    return data;
 };
 
 const getUserPayees = async (locals) => {
@@ -85,8 +105,7 @@ const getUserPayees = async (locals) => {
     }
 
     const data = await response.json();
-    const indexedData = convertArrayToObject(data, 'payee_id');
-    return indexedData;
+    return data;
 };
 
 const getUserTransactionTypes = async (locals) => {
@@ -101,8 +120,7 @@ const getUserTransactionTypes = async (locals) => {
     }
 
     const data = await response.json();
-    const indexedData = convertArrayToObject(data, 'transaction_type_id');
-    return indexedData;
+    return data;
 };
 
 const getUserCategories = async (locals) => {
@@ -117,8 +135,7 @@ const getUserCategories = async (locals) => {
     }
 
     const data = await response.json();
-    const indexedData = convertArrayToObject(data, 'category_id');
-    return indexedData;
+    return data;
 };
 
 const getRepeatOptions = async (locals) => {
@@ -133,6 +150,5 @@ const getRepeatOptions = async (locals) => {
     }
 
     const data = await response.json();
-    const indexedData = convertArrayToObject(data, 'repeat_option_id');
-    return indexedData;
+    return data;
 };

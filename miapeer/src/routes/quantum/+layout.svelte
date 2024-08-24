@@ -18,11 +18,10 @@
         <span class="capitalize">Accounts</span>
         <span>↓</span>
     </button>
-    {#if Object.keys(data.accounts).length}
+    {#if data.accounts.length}
         <div data-popup="accountPopupCombobox">
             <div class="btn-group-vertical variant-filled">
-                {#each Object.keys(data.accounts) as accountKey}
-                    {@const account = data.accounts[accountKey]}
+                {#each data.accounts as account}
                     <a href="/quantum/accounts/{account.account_id}/transactions">{account.name}</a>
                 {/each}
             </div>

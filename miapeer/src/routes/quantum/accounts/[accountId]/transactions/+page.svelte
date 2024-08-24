@@ -58,7 +58,7 @@
 </script>
 
 <section>
-    <h1 class="h1">{`${data.accounts[$page.params.accountId].name} Transactions`}</h1>
+    <h1 class="h1">{`${data.indexedAccounts[$page.params.accountId].name} Transactions`}</h1>
 
     {#if $importErrors?.length}
         <div>
@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    {#if Object.keys(data.transactions).length > 0}
+    {#if data.transactions.length > 0}
         {@const gridDef =
             'grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 p-4 ml-2 mr-2'}
         <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
@@ -96,19 +96,20 @@
             <div></div>
             <div></div>
         </div>
-        {#each Object.keys(data.transactions) as transactionId, transactionIndex}
-            {@const transaction = data.transactions[transactionId]}
+        {#each data.transactions as transaction, transactionIndex}
             <div
-                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === Object.keys(data.transactions).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{transaction.transaction_date}</div>
                 <div class="content-center">{transaction.clear_date || ''}</div>
                 <div class="content-center">
-                    {data.transactionTypes[transaction.transaction_type_id]?.name || ''}
+                    {data.indexedTransactionTypes[transaction.transaction_type_id]?.name || ''}
                 </div>
-                <div class="content-center">{data.payees[transaction.payee_id]?.name || ''}</div>
                 <div class="content-center">
-                    {data.categories[transaction.category_id]?.name || ''}
+                    {data.indexedPayees[transaction.payee_id]?.name || ''}
+                </div>
+                <div class="content-center">
+                    {data.indexedCategories[transaction.category_id]?.name || ''}
                 </div>
                 <div class="content-center text-right">
                     {formatMoney(transaction.amount)}

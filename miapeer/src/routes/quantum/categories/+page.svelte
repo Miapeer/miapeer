@@ -46,15 +46,14 @@
 <section>
     <h1 class="h1">Categories</h1>
 
-    {#if Object.keys(data.categories).length}
+    {#if data.categories.length}
         {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
 
         <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
 
-        {#each Object.keys(data.categories) as categoryId, categoryIndex}
-            {@const category = data.categories[categoryId]}
+        {#each data.categories as category, categoryIndex}
             <div
-                class={`${gridDef} ${categoryIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${categoryIndex === Object.keys(data.categories).length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridDef} ${categoryIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${categoryIndex === data.categories.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{category.name}</div>
                 <div class="action-cell text-right">

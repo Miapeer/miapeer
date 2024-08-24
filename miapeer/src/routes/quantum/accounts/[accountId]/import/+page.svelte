@@ -126,7 +126,7 @@
 <section>
     <h1 class="h1">Import Data</h1>
 
-    {#if !data.transactions || Object.keys(data.transactions).length === 0}
+    {#if !data.transactions || data.transactions.length === 0}
         <Accordion>
             <AccordionItem open>
                 <svelte:fragment slot="summary">Your data</svelte:fragment>
