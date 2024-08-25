@@ -14,13 +14,13 @@
     let selectedClearDate = data.transaction.clear_date;
     let selectedTransactionTypeName =
         data.indexedTransactionTypes[data.transaction.transaction_type_id]?.name;
-    $: selectedTransactionTypeId = data.transactionTypes.find(
+    $: selectedTransactionType = data.transactionTypes.find(
         (tt) => tt.name === selectedTransactionTypeName
     );
     let selectedPayeeName = data.indexedPayees[data.transaction.payee_id]?.name;
-    $: selectedPayeeId = data.payees.find((p) => p.name === selectedPayeeName);
+    $: selectedPayee = data.payees.find((p) => p.name === selectedPayeeName);
     let selectedCategoryName = data.indexedCategories[data.transaction.category_id]?.name;
-    $: selectedCategoryId = data.categories.find((c) => c.name === selectedCategoryName);
+    $: selectedCategory = data.categories.find((c) => c.name === selectedCategoryName);
     let selectedExcludeFromForecast = data.transaction.exclude_from_forecast;
     let selectedAmount = formatMoney(data.transaction.amount);
     let selectedCheckNumber = data.transaction.check_number;
@@ -31,22 +31,22 @@
     };
 
     const handleEditTransaction = async () => {
-        if (!selectedTransactionTypeId) {
+        if (!selectedTransactionType) {
             await createTransactionType(data.portfolioId, selectedTransactionTypeName);
         }
-        if (!selectedPayeeId) {
+        if (!selectedPayee) {
             await createPayee(data.portfolioId, selectedPayeeName);
         }
-        if (!selectedCategoryId) {
+        if (!selectedCategory) {
             await createCategory(data.portfolioId, selectedCategoryName);
         }
 
         const requestData = {
             transactionDate: selectedTransactionDate,
             clearDate: selectedClearDate,
-            transactionTypeId: selectedTransactionTypeId,
-            payeeId: selectedPayeeId,
-            categoryId: selectedCategoryId,
+            transactionTypeId: selectedTransactionType.transaction_type_id,
+            payeeId: selectedPayee.payee_id,
+            categoryId: selectedCategory.category_id,
             excludeFromForecast: selectedExcludeFromForecast,
             amount: unformatMoney(selectedAmount),
             checkNumber: selectedCheckNumber,
@@ -95,7 +95,7 @@
                 closeQuery: '.listbox-item'
             }}
         />
-        {#if !selectedTransactionTypeId && selectedTransactionTypeName}
+        {#if !selectedTransactionType && selectedTransactionTypeName}
             <div
                 class="text-primary-500"
                 title="Transaction type doesn't exist, it will be created"
@@ -126,7 +126,7 @@
                 closeQuery: '.listbox-item'
             }}
         />
-        {#if !selectedPayeeId && selectedPayeeName}
+        {#if !selectedPayee && selectedPayeeName}
             <div class="text-primary-500" title="Payee doesn't exist, it will be created">
                 <i class="fa fa-exclamation"></i>
             </div>
@@ -145,7 +145,7 @@
                 closeQuery: '.listbox-item'
             }}
         />
-        {#if !selectedCategoryId && selectedCategoryName}
+        {#if !selectedCategory && selectedCategoryName}
             <div class="text-primary-500" title="Category doesn't exist, it will be created">
                 <i class="fa fa-exclamation"></i>
             </div>

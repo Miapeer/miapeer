@@ -4,14 +4,38 @@
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
     import { popup } from '@skeletonlabs/skeleton';
     import type { PopupSettings } from '@skeletonlabs/skeleton';
-    import { formatMoney } from '@quantum/util';
+    import { formatMoney, formatDate } from '@quantum/util';
     import { importErrors } from '$lib/stores';
+    import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 
     export let data: PageData;
     import { page } from '$app/stores';
 
     import { getModalStore } from '@skeletonlabs/skeleton';
+
     const modalStore = getModalStore();
+
+    const dateOptions = { month: 'long', year: 'numeric' };
+
+    const groupedTransactions = {};
+    let currentMonth = new Date('2024-08-01');
+    for (
+        let transactionIndex = 0;
+        transactionIndex < data.transactions.length;
+        transactionIndex++
+    ) {
+        let transaction = data.transactions[transactionIndex];
+        let grouping =
+            transaction.clear_date && new Date(transaction.clear_date) < currentMonth
+                ? formatDate(transaction.clear_date, dateOptions)
+                : 'Current';
+
+        if (!(grouping in groupedTransactions)) {
+            groupedTransactions[grouping] = [];
+        }
+
+        groupedTransactions[grouping].push(transaction);
+    }
 
     const popupHover: PopupSettings = {
         event: 'hover',
@@ -96,104 +120,122 @@
             <div></div>
             <div></div>
         </div>
-        {#each data.transactions as transaction, transactionIndex}
-            <div
-                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
-            >
-                <div class="content-center">{transaction.transaction_date}</div>
-                <div class="content-center">{transaction.clear_date || ''}</div>
-                <div class="content-center">
-                    {data.indexedTransactionTypes[transaction.transaction_type_id]?.name || ''}
-                </div>
-                <div class="content-center">
-                    {data.indexedPayees[transaction.payee_id]?.name || ''}
-                </div>
-                <div class="content-center">
-                    {data.indexedCategories[transaction.category_id]?.name || ''}
-                </div>
-                <div class="content-center text-right">
-                    {formatMoney(transaction.amount)}
-                </div>
-                <div class="content-center text-right">
-                    {formatMoney(transaction.balance)}
-                </div>
 
-                <div class="content-center">
-                    {#if transaction.exclude_from_forecast}
-                        <i
-                            class="fa fa-calculator"
-                            use:popup={{
-                                event: 'hover',
-                                target: 'accountTransactionsExcluded',
-                                placement: 'top'
-                            }}
-                        ></i>
-                    {/if}
-                </div>
-                <div class="content-center text-right">
-                    {#if transaction.check_number}
-                        <i
-                            class="fa fa-check-square"
-                            use:popup={{
-                                event: 'hover',
-                                target: `accountTransactionsCheckNumber${transaction.transaction_id}`,
-                                placement: 'top'
-                            }}
-                        ></i>
-                        <div
-                            class="card p-4 w-72 shadow-xl"
-                            data-popup={`accountTransactionsCheckNumber${transaction.transaction_id}`}
-                        >
-                            <div><p>{transaction.check_number}</p></div>
-                            <div class="arrow bg-surface-100-800-token" />
-                        </div>
-                    {/if}
-                </div>
-                <div class="content-center">
-                    {#if transaction.notes}
-                        <i
-                            class="fa fa-clipboard-list"
-                            use:popup={{
-                                event: 'hover',
-                                target: `accountTransactionsNotes${transaction.transaction_id}`,
-                                placement: 'top'
-                            }}
-                        ></i>
-                        <div
-                            class="card p-4 w-72 shadow-xl"
-                            data-popup={`accountTransactionsNotes${transaction.transaction_id}`}
-                        >
-                            <div><p>{transaction.notes}</p></div>
-                            <div class="arrow bg-surface-100-800-token" />
-                        </div>
-                    {/if}
-                </div>
+        <Accordion spacing="space-y-1">
+            {#each Object.keys(groupedTransactions) as grouping}
+                <AccordionItem>
+                    <svelte:fragment slot="summary">{grouping}</svelte:fragment>
+                    <svelte:fragment slot="content">
+                        {#each groupedTransactions[grouping] as transaction, transactionIndex}
+                            <div
+                                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                            >
+                                <div class="content-center">{transaction.transaction_date}</div>
+                                <div class="content-center">{transaction.clear_date || ''}</div>
+                                <div class="content-center">
+                                    {data.indexedTransactionTypes[transaction.transaction_type_id]
+                                        ?.name || ''}
+                                </div>
+                                <div class="content-center">
+                                    {data.indexedPayees[transaction.payee_id]?.name || ''}
+                                </div>
+                                <div class="content-center">
+                                    {data.indexedCategories[transaction.category_id]?.name || ''}
+                                </div>
+                                <div class="content-center text-right">
+                                    {formatMoney(transaction.amount)}
+                                </div>
+                                <div class="content-center text-right">
+                                    {formatMoney(transaction.balance)}
+                                </div>
 
-                <div class="content-center">
-                    <div>
-                        <button
-                            type="button"
-                            class="btn-icon variant-filled"
-                            use:popup={{
-                                event: 'click',
-                                target: 'transaction-actions-' + transaction.transaction_id,
-                                placement: 'left'
-                            }}><i class="fa-solid fa-ellipsis-v" /></button
-                        >
-                        <div data-popup="transaction-actions-{transaction.transaction_id}">
-                            <div class="btn-group variant-filled">
-                                <a href={`./transactions/${transaction.transaction_id}`}
-                                    ><i class="fa-solid fa-pen-to-square" /></a
-                                >
-                                <button on:click={() => handleConfirmDelete(transaction)}
-                                    ><i class="fa-solid fa-trash" /></button
-                                >
+                                <div class="content-center">
+                                    {#if transaction.exclude_from_forecast}
+                                        <i
+                                            class="fa fa-calculator"
+                                            use:popup={{
+                                                event: 'hover',
+                                                target: 'accountTransactionsExcluded',
+                                                placement: 'top'
+                                            }}
+                                        ></i>
+                                    {/if}
+                                </div>
+                                <div class="content-center text-right">
+                                    {#if transaction.check_number}
+                                        <i
+                                            class="fa fa-check-square"
+                                            use:popup={{
+                                                event: 'hover',
+                                                target: `accountTransactionsCheckNumber${transaction.transaction_id}`,
+                                                placement: 'top'
+                                            }}
+                                        ></i>
+                                        <div
+                                            class="card p-4 w-72 shadow-xl"
+                                            data-popup={`accountTransactionsCheckNumber${transaction.transaction_id}`}
+                                        >
+                                            <div><p>{transaction.check_number}</p></div>
+                                            <div class="arrow bg-surface-100-800-token" />
+                                        </div>
+                                    {/if}
+                                </div>
+                                <div class="content-center">
+                                    {#if transaction.notes}
+                                        <i
+                                            class="fa fa-clipboard-list"
+                                            use:popup={{
+                                                event: 'hover',
+                                                target: `accountTransactionsNotes${transaction.transaction_id}`,
+                                                placement: 'top'
+                                            }}
+                                        ></i>
+                                        <div
+                                            class="card p-4 w-72 shadow-xl"
+                                            data-popup={`accountTransactionsNotes${transaction.transaction_id}`}
+                                        >
+                                            <div><p>{transaction.notes}</p></div>
+                                            <div class="arrow bg-surface-100-800-token" />
+                                        </div>
+                                    {/if}
+                                </div>
+
+                                <div class="content-center">
+                                    <div>
+                                        <button
+                                            type="button"
+                                            class="btn-icon variant-filled"
+                                            use:popup={{
+                                                event: 'click',
+                                                target:
+                                                    'transaction-actions-' +
+                                                    transaction.transaction_id,
+                                                placement: 'left'
+                                            }}><i class="fa-solid fa-ellipsis-v" /></button
+                                        >
+                                        <div
+                                            data-popup="transaction-actions-{transaction.transaction_id}"
+                                        >
+                                            <div class="btn-group variant-filled">
+                                                <a
+                                                    href={`./transactions/${transaction.transaction_id}`}
+                                                    ><i class="fa-solid fa-pen-to-square" /></a
+                                                >
+                                                <button
+                                                    on:click={() =>
+                                                        handleConfirmDelete(transaction)}
+                                                    ><i class="fa-solid fa-trash" /></button
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {/each}
+                        {/each}
+                    </svelte:fragment>
+                </AccordionItem>
+            {/each}
+        </Accordion>
     {:else}
         <h3 class="h3">
             You haven't added any transactions yet. Click the button below to create one
