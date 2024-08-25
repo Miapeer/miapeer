@@ -50,7 +50,7 @@
         }
 
         let newTransaction = await createTransaction(
-            data.portfolioId,
+            accountId,
             selectedTransactionType.transaction_type_id,
             selectedPayee.payee_id,
             selectedCategory.category_id,
