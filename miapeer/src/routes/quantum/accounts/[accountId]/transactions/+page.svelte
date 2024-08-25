@@ -123,7 +123,7 @@
 
         <Accordion spacing="space-y-1">
             {#each Object.keys(groupedTransactions) as grouping}
-                <AccordionItem>
+                <AccordionItem open={grouping === 'Current'}>
                     <svelte:fragment slot="summary">{grouping}</svelte:fragment>
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}

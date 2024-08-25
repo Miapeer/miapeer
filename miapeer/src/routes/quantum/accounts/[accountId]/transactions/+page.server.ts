@@ -1,12 +1,13 @@
 import { convertArrayToObject } from '@quantum/util';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ depends, locals, params }) => {
+export const load: PageServerLoad = async ({ depends, locals, params, url }) => {
     depends('quantum:transactions');
 
     // Get account transactions
+    const limitMonths = url.searchParams.get('limitmonths') ?? 6;
     const accountTransactionResponse = await fetch(
-        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions`,
+        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions?limit_months=${limitMonths}`,
         {
             method: 'GET',
             headers: locals.auth.headers
