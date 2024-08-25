@@ -104,7 +104,7 @@
             let notes = item[mapping['Notes']];
 
             let transaction = await createTransaction(
-                data.portfolioId,
+                accountId,
                 transactionType?.transaction_type_id,
                 payee?.payee_id,
                 category?.category_id,
@@ -112,7 +112,6 @@
                 unformatMoney(amount),
                 unformatDate(transactionDate),
                 unformatDate(clearDate),
-                null,
                 checkNumber,
                 notes
             );
