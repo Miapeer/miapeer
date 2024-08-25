@@ -8,7 +8,6 @@
     import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
     import Papa from 'papaparse';
     import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
-    import { findItemInObjectById } from '@quantum/util';
     import {
         createTransactionType,
         createPayee,
@@ -20,6 +19,9 @@
 
     export let data: PageData;
     import { page } from '$app/stores';
+
+    let importIndex = 0;
+    let showImportStatus = false;
 
     let firstRowHasHeaders = false;
     let importData = '';
@@ -39,10 +41,12 @@
     $: parsedData = Papa.parse(importData, { header: !!firstRowHasHeaders });
 
     const handleCancel = () => {
-        goto(`/quantum/accounts/${accountId}/transactions`);
+        goto(`/quantum/accounts/${$page.params.accountId}/transactions`);
     };
 
     const handleImport = async () => {
+        showImportStatus = true;
+
         let mapping = {};
         mapFields.forEach((fieldName) => {
             if (fieldName) {
@@ -62,14 +66,13 @@
 
         let accountId = $page.params.accountId;
 
-        for (let index = 0; index < parsedData.data.length; index++) {
-            let item = parsedData.data[index];
+        showImportStatus = true;
+        for (importIndex = 0; importIndex < parsedData.data.length; importIndex++) {
+            let item = parsedData.data[importIndex];
 
             let transactionTypeName = item[mapping['Transaction Type']];
-            let transactionType = findItemInObjectById(
-                data.transactionTypes,
-                'name',
-                transactionTypeName
+            let transactionType = data.transactionTypes.find(
+                (tt) => tt.name === transactionTypeName
             );
             if (!transactionType) {
                 transactionType = await createTransactionType(
@@ -81,13 +84,13 @@
             let checkNumber = item[mapping['Check Number']];
 
             let payeeName = item[mapping['Payee']];
-            let payee = findItemInObjectById(data.payees, 'name', payeeName);
+            let payee = data.payees.find((p) => p.name === payeeName);
             if (!payee) {
                 payee = await createPayee(data.portfolioId, payeeName);
             }
 
             let categoryName = item[mapping['Category']];
-            let category = findItemInObjectById(data.categories, 'name', categoryName);
+            let category = data.categories.find((c) => c.name === categoryName);
             if (!category) {
                 category = await createCategory(data.portfolioId, categoryName);
             }
@@ -117,6 +120,7 @@
                 importErrors.set([...$importErrors, item]);
             }
         }
+        showImportStatus = false;
 
         await invalidate('quantum:transactions');
         goto(`/quantum/accounts/${accountId}/transactions`);
@@ -176,6 +180,10 @@
                 {/each}
             </tbody>
         </table>
+
+        <div class="text-right p-2" hidden={!showImportStatus}>
+            Import progress: {importIndex + 1} / {parsedData.data.length + 1}
+        </div>
 
         <div class="grid grid-cols-[1fr_1fr] gap-4">
             <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>

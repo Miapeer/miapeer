@@ -1,13 +1,6 @@
-const findItemInObjectById = (objectCollection, searchField, searchValue) => {
-    for (let key in objectCollection) {
-        let item = objectCollection[key];
-        if (item[searchField] === searchValue) {
-            return item;
-        }
-    }
-
-    return null;
-};
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const convertArrayToObject = (array, key) => {
     let returnObject = {};
@@ -38,6 +31,13 @@ const unformatMoney = (amount) => {
     return parseInt(amountNumber.toFixed(2) * 100);
 };
 
+const formatDate = (dateString, formatOptions) => {
+    return new Date(dateString).toLocaleDateString(navigator.language, {
+        timeZone: 'UTC',
+        ...formatOptions
+    });
+};
+
 const unformatDate = (dateString) => {
     if (!dateString) {
         return null;
@@ -47,4 +47,4 @@ const unformatDate = (dateString) => {
     return returnValue.toISOString().split('T')[0];
 };
 
-export { findItemInObjectById, convertArrayToObject, formatMoney, unformatMoney, unformatDate };
+export { sleep, convertArrayToObject, formatMoney, unformatMoney, formatDate, unformatDate };
