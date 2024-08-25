@@ -15,13 +15,13 @@
 
     let selectedTransactionTypeName =
         data.indexedTransactionTypes[data.scheduledTransaction.transaction_type_id]?.name;
-    $: selectedTransactionTypeId = data.transactionTypes.find(
+    $: selectedTransactionType = data.transactionTypes.find(
         (tt) => tt.name === selectedTransactionTypeName
     );
     let selectedPayeeName = data.indexedPayees[data.scheduledTransaction.payee_id]?.name;
-    $: selectedPayeeId = data.payees.find((p) => p.name === selectedPayeeName);
+    $: selectedPayee = data.payees.find((p) => p.name === selectedPayeeName);
     let selectedCategoryName = data.indexedCategories[data.scheduledTransaction.category_id]?.name;
-    $: selectedCategoryId = data.categories.find((c) => c.name === selectedCategoryName);
+    $: selectedCategory = data.categories.find((c) => c.name === selectedCategoryName);
     let selectedFixedAmount = formatMoney(data.scheduledTransaction.fixed_amount);
     let selectedEstimateOccurrences = data.scheduledTransaction.estimate_occurrences;
     let selectedPromptDays = data.scheduledTransaction.prompt_days;
@@ -30,9 +30,7 @@
     let selectedlimitOccurrences = data.scheduledTransaction.limit_occurrences;
     let selectedRepeatOptionName =
         data.indexedRepeatOptions[data.scheduledTransaction.repeat_option_id]?.name;
-    $: selectedRepeatOptionId = data.repeatOptions.find(
-        (ro) => ro.name === selectedRepeatOptionName
-    );
+    $: selectedRepeatOption = data.repeatOptions.find((ro) => ro.name === selectedRepeatOptionName);
     let selectedNote = data.scheduledTransaction.notes;
     let selectedOnAutopay = data.scheduledTransaction.on_autopay;
 
@@ -41,27 +39,27 @@
     };
 
     const handleEditScheduledTransaction = async () => {
-        if (!selectedTransactionTypeId) {
+        if (!selectedTransactionType) {
             await createTransactionType(data.portfolioId, selectedTransactionTypeName);
         }
-        if (!selectedPayeeId) {
+        if (!selectedPayee) {
             await createPayee(data.portfolioId, selectedPayeeName);
         }
-        if (!selectedCategoryId) {
+        if (!selectedCategory) {
             await createCategory(data.portfolioId, selectedCategoryName);
         }
 
         const requestData = {
-            transactionTypeId: selectedTransactionTypeId,
-            payeeId: selectedPayeeId,
-            categoryId: selectedCategoryId,
+            transactionTypeId: selectedTransactionType?.transaction_type_id,
+            payeeId: selectedPayee?.payee_id,
+            categoryId: selectedCategory?.category_id,
             fixedAmount: unformatMoney(selectedFixedAmount),
             estimateOccurrences: selectedEstimateOccurrences,
             promptDays: selectedPromptDays,
             startDate: selectedStartDate,
             endDate: selectedEndDate,
             limitOccurrences: selectedlimitOccurrences,
-            repeatOptionId: selectedRepeatOptionId,
+            repeatOptionId: selectedRepeatOption?.repeat_option_id,
             onAutopay: selectedOnAutopay,
             notes: selectedNote
         };
@@ -138,7 +136,7 @@
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
         <div class="input-group-shim">Fixed Amount</div>
-        <input type="number" bind:value={selectedFixedAmount} on:keypress={handleKeyPress} />
+        <input type="text" bind:value={selectedFixedAmount} on:keypress={handleKeyPress} />
     </div>
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">

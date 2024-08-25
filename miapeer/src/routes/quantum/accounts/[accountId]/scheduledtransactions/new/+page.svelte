@@ -50,16 +50,16 @@
 
         const requestData = {
             accountId,
-            transactionTypeId: selectedTransactionType.transaction_type_id,
-            payeeId: selectedPayee.payee_id,
-            categoryId: selectedCategory.category_id,
+            transactionTypeId: selectedTransactionType?.transaction_type_id,
+            payeeId: selectedPayee?.payee_id,
+            categoryId: selectedCategory?.category_id,
             fixedAmount: unformatMoney(selectedFixedAmount),
             estimateOccurrences: selectedEstimateOccurrences,
             promptDays: selectedPromptDays,
             startDate: selectedStartDate,
             endDate: selectedEndDate,
             limitOccurrences: selectedlimitOccurrences,
-            repeatOptionId: selectedRepeatOption.repeat_option_id,
+            repeatOptionId: selectedRepeatOption?.repeat_option_id,
             onAutopay: selectedOnAutopay,
             notes: selectedNote
         };
@@ -133,7 +133,7 @@
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
         <div class="input-group-shim">Fixed Amount</div>
-        <input type="number" bind:value={selectedFixedAmount} on:keypress={handleKeyPress} />
+        <input type="text" bind:value={selectedFixedAmount} on:keypress={handleKeyPress} />
     </div>
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
