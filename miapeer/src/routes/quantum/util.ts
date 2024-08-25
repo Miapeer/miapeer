@@ -28,7 +28,7 @@ const unformatMoney = (amount) => {
         amountNumber = amount;
     }
 
-    return parseInt(amountNumber.toFixed(2) * 100);
+    return Math.round(amountNumber.toFixed(2) * 100);
 };
 
 const formatDate = (dateString, formatOptions) => {

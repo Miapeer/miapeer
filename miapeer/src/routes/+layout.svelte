@@ -87,7 +87,7 @@
             slotTrail="place-content-end"
         >
             <svelte:fragment slot="lead">
-                <span>&copy; 2015-{new Date().getFullYear()}, Miapeer LLC</span>
+                <span>&copy; {new Date().getFullYear()}, Miapeer LLC</span>
             </svelte:fragment>
 
             {#if data.lastUpdate}
