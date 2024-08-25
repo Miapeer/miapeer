@@ -44,9 +44,9 @@
         const requestData = {
             transactionDate: selectedTransactionDate,
             clearDate: selectedClearDate,
-            transactionTypeId: selectedTransactionType.transaction_type_id,
-            payeeId: selectedPayee.payee_id,
-            categoryId: selectedCategory.category_id,
+            transactionTypeId: selectedTransactionType?.transaction_type_id,
+            payeeId: selectedPayee?.payee_id,
+            categoryId: selectedCategory?.category_id,
             excludeFromForecast: selectedExcludeFromForecast,
             amount: unformatMoney(selectedAmount),
             checkNumber: selectedCheckNumber,
@@ -154,7 +154,7 @@
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
         <div class="input-group-shim">Amount</div>
-        <input type="number" bind:value={selectedAmount} />
+        <input type="text" bind:value={selectedAmount} />
     </div>
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">

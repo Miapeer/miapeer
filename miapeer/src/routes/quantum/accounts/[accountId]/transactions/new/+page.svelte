@@ -51,9 +51,9 @@
 
         let newTransaction = await createTransaction(
             accountId,
-            selectedTransactionType.transaction_type_id,
-            selectedPayee.payee_id,
-            selectedCategory.category_id,
+            selectedTransactionType?.transaction_type_id,
+            selectedPayee?.payee_id,
+            selectedCategory?.category_id,
             selectedExcludeFromForecast,
             unformatMoney(selectedAmount),
             selectedTransactionDate,
@@ -143,7 +143,7 @@
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
         <div class="input-group-shim">Amount</div>
-        <input type="number" bind:value={selectedAmount} on:keypress={handleKeyPress} />
+        <input type="text" bind:value={selectedAmount} on:keypress={handleKeyPress} />
     </div>
 
     <div class="input-group input-group-divider grid-cols-[12rem_auto]">
