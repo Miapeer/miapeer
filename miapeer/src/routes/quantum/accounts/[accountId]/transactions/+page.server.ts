@@ -11,30 +11,30 @@ export const load: PageServerLoad = async ({ depends, locals, params, url }) => 
 
     console.log('limitMonths: ' + limitMonths);
 
-    const accountTransactionResponse = await fetch(
-        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions?limit_months=${limitMonths}`,
-        {
-            method: 'GET',
-            headers: locals.auth.headers
-        }
-    );
+    // const accountTransactionResponse = await fetch(
+    //     `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions?limit_months=${limitMonths}`,
+    //     {
+    //         method: 'GET',
+    //         headers: locals.auth.headers
+    //     }
+    // );
 
-    console.log('accountTransactionResponse: ' + JSON.stringify(accountTransactionResponse));
+    // console.log('accountTransactionResponse: ' + JSON.stringify(accountTransactionResponse));
 
-    if (!accountTransactionResponse.ok) {
-        console.error(accountTransactionResponse.statusText);
-        return { transactions: {} };
-    }
+    // if (!accountTransactionResponse.ok) {
+    //     console.error(accountTransactionResponse.statusText);
+    //     return { transactions: {} };
+    // }
 
-    console.log('response status ok');
+    // console.log('response status ok');
 
-    const data = await accountTransactionResponse.json();
+    // const data = await accountTransactionResponse.json();
 
-    console.log(data);
+    // console.log(data);
 
-    const indexedData = convertArrayToObject(data, 'transaction_id');
+    // const indexedData = convertArrayToObject(data, 'transaction_id');
 
-    console.log(indexedData);
+    // console.log(indexedData);
 
-    return { transactions: data, indexedTransactions: indexedData };
+    // return { transactions: data, indexedTransactions: indexedData };
 };

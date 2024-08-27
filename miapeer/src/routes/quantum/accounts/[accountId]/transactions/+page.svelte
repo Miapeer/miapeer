@@ -23,23 +23,23 @@
     let today = new Date();
     let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
     console.log('perform transaction grouping');
-    for (
-        let transactionIndex = 0;
-        transactionIndex < data.transactions.length;
-        transactionIndex++
-    ) {
-        let transaction = data.transactions[transactionIndex];
-        let grouping =
-            transaction.clear_date && new Date(transaction.clear_date) < currentMonth
-                ? formatDate(transaction.clear_date, dateOptions)
-                : 'Current';
+    // for (
+    //     let transactionIndex = 0;
+    //     transactionIndex < data.transactions.length;
+    //     transactionIndex++
+    // ) {
+    //     let transaction = data.transactions[transactionIndex];
+    //     let grouping =
+    //         transaction.clear_date && new Date(transaction.clear_date) < currentMonth
+    //             ? formatDate(transaction.clear_date, dateOptions)
+    //             : 'Current';
 
-        if (!(grouping in groupedTransactions)) {
-            groupedTransactions[grouping] = [];
-        }
+    //     if (!(grouping in groupedTransactions)) {
+    //         groupedTransactions[grouping] = [];
+    //     }
 
-        groupedTransactions[grouping].push(transaction);
-    }
+    //     groupedTransactions[grouping].push(transaction);
+    // }
 
     const popupHover: PopupSettings = {
         event: 'hover',
@@ -97,9 +97,9 @@
 
     console.log('do the transaction toggle thing');
 
-    if (typeof document !== 'undefined') {
-        handleOpenToggle();
-    }
+    // if (typeof document !== 'undefined') {
+    //     handleOpenToggle();
+    // }
 
     console.log('finished loading');
 </script>
