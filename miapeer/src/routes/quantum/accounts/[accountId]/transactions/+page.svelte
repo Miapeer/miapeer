@@ -17,8 +17,12 @@
 
     const dateOptions = { month: 'long', year: 'numeric' };
 
+    console.log('dateOptions: ' + dateOptions);
+
     const groupedTransactions = {};
-    let currentMonth = new Date('2024-08-01');
+    let today = new Date();
+    let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
+    console.log('perform transaction grouping');
     for (
         let transactionIndex = 0;
         transactionIndex < data.transactions.length;
@@ -79,6 +83,25 @@
         $importErrors.splice(importErrorIndex, 1);
         importErrors.set($importErrors);
     };
+
+    const handleOpenToggle = () => {
+        setTimeout(() => {
+            Array.prototype.forEach.call(
+                document.getElementsByClassName('accordion-panel'),
+                (el) => {
+                    el.classList.remove('space-y-4');
+                }
+            );
+        }, 0);
+    };
+
+    console.log('do the transaction toggle thing');
+
+    if (typeof document !== 'undefined') {
+        handleOpenToggle();
+    }
+
+    console.log('finished loading');
 </script>
 
 <section>
@@ -121,9 +144,9 @@
             <div></div>
         </div>
 
-        <Accordion spacing="space-y-1">
+        <Accordion>
             {#each Object.keys(groupedTransactions) as grouping}
-                <AccordionItem open={grouping === 'Current'}>
+                <AccordionItem open={grouping === 'Current'} on:toggle={handleOpenToggle}>
                     <svelte:fragment slot="summary">{grouping}</svelte:fragment>
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
