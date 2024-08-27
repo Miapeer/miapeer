@@ -79,6 +79,21 @@
         $importErrors.splice(importErrorIndex, 1);
         importErrors.set($importErrors);
     };
+
+    const handleOpenToggle = () => {
+        setTimeout(() => {
+            Array.prototype.forEach.call(
+                document.getElementsByClassName('accordion-panel'),
+                (el) => {
+                    el.classList.remove('space-y-4');
+                }
+            );
+        }, 0);
+    };
+
+    if (typeof document !== 'undefined') {
+        handleOpenToggle();
+    }
 </script>
 
 <section>
@@ -121,9 +136,9 @@
             <div></div>
         </div>
 
-        <Accordion spacing="space-y-1">
+        <Accordion>
             {#each Object.keys(groupedTransactions) as grouping}
-                <AccordionItem open={grouping === 'Current'}>
+                <AccordionItem open={grouping === 'Current'} on:toggle={handleOpenToggle}>
                     <svelte:fragment slot="summary">{grouping}</svelte:fragment>
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
