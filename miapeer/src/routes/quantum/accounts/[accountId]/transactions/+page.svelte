@@ -17,8 +17,12 @@
 
     const dateOptions = { month: 'long', year: 'numeric' };
 
+    console.log('dateOptions: ' + dateOptions);
+
     const groupedTransactions = {};
-    let currentMonth = new Date('2024-08-01');
+    let today = new Date();
+    let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
+    console.log('perform transaction grouping');
     for (
         let transactionIndex = 0;
         transactionIndex < data.transactions.length;
@@ -91,9 +95,13 @@
         }, 0);
     };
 
+    console.log('do the transaction toggle thing');
+
     if (typeof document !== 'undefined') {
         handleOpenToggle();
     }
+
+    console.log('finished loading');
 </script>
 
 <section>
