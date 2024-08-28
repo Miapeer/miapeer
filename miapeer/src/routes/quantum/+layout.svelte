@@ -60,6 +60,8 @@
 
     <div data-popup="accountPopupCombobox">
         <div class="btn-group-vertical variant-filled">
+            <a href="/quantum/accounts">Manage Accounts</a>
+            <hr />
             {#each data.accounts as account}
                 <a href="/quantum/accounts/{account.account_id}/transactions">{account.name}</a>
             {/each}
