@@ -32,7 +32,11 @@ const unformatMoney = (amount) => {
     return Math.round(amountNumber.toFixed(2) * 100);
 };
 
-const formatDate = (dateString, formatOptions) => {
+const formatDate = (dateString, formatOptions = {}) => {
+    if (!dateString) {
+        return null;
+    }
+
     return new Date(dateString).toLocaleDateString(navigator.language, {
         timeZone: 'UTC',
         ...formatOptions

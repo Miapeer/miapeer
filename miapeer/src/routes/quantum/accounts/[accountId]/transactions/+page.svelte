@@ -86,7 +86,7 @@
             let clearDate = transaction.clear_date ? new Date(transaction.clear_date) : null;
             let grouping =
                 clearDate && clearDate < currentMonth
-                    ? formatDate(transaction.clear_date, dateOptions)
+                    ? formatDate(clearDate, dateOptions)
                     : 'Current';
 
             if (!(grouping in groupedTransactions)) {
