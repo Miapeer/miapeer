@@ -25,7 +25,7 @@
     console.log('currentMonth: ' + currentMonth);
     console.log('perform transaction grouping');
 
-    if (data?.transactions) {
+    if (typeof data !== 'undefined' && data?.transactions) {
         for (
             let transactionIndex = 0;
             transactionIndex < data.transactions.length;
