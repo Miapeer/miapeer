@@ -7,6 +7,7 @@
     import { formatMoney, formatDate } from '@quantum/util';
     import { importErrors } from '$lib/stores';
     import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+    import { onMount } from 'svelte';
 
     export let data: PageData;
     import { page } from '$app/stores';
@@ -14,38 +15,8 @@
     import { getModalStore } from '@skeletonlabs/skeleton';
 
     const modalStore = getModalStore();
-
     const dateOptions = { month: 'long', year: 'numeric' };
-
-    const groupedTransactions = {};
-    let today = new Date();
-    let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
-
-    try {
-        // TODO: Figure out why this try-catch block is needed. Doing the below doesn't even help.
-        // if (typeof data !== 'undefined' && data?.transactions) {
-        if (typeof data !== 'undefined' && data?.transactions) {
-            for (
-                let transactionIndex = 0;
-                transactionIndex < data.transactions.length;
-                transactionIndex++
-            ) {
-                let transaction = data.transactions[transactionIndex];
-                let grouping =
-                    transaction.clear_date && new Date(transaction.clear_date) < currentMonth
-                        ? formatDate(transaction.clear_date, dateOptions)
-                        : 'Current';
-
-                if (!(grouping in groupedTransactions)) {
-                    groupedTransactions[grouping] = [];
-                }
-
-                groupedTransactions[grouping].push(transaction);
-            }
-        }
-    } catch (ex) {
-        console.error(ex);
-    }
+    let groupedTransactions = {};
 
     const popupHover: PopupSettings = {
         event: 'hover',
@@ -101,10 +72,33 @@
         }, 0);
     };
 
-    // TODO: This too. Why is this necessary?
-    if (typeof document !== 'undefined') {
+    const groupTransactions = () => {
+        let today = new Date();
+        let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
+
+        for (
+            let transactionIndex = 0;
+            transactionIndex < data.transactions.length;
+            transactionIndex++
+        ) {
+            let transaction = data.transactions[transactionIndex];
+            let grouping =
+                transaction.clear_date && new Date(transaction.clear_date) < currentMonth
+                    ? formatDate(transaction.clear_date, dateOptions)
+                    : 'Current';
+
+            if (!(grouping in groupedTransactions)) {
+                groupedTransactions[grouping] = [];
+            }
+
+            groupedTransactions[grouping].push(transaction);
+        }
+    };
+
+    onMount(() => {
         handleOpenToggle();
-    }
+        groupTransactions();
+    });
 </script>
 
 <section>

@@ -27,6 +27,7 @@
 
         modalStore.trigger(modal);
     };
+
     const handleDelete = async (transactionType) => {
         const deleteTransactionTypeRequest = await fetch(
             `/quantum/transactiontypes/${transactionType.transaction_type_id}`,
