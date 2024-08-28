@@ -46,7 +46,7 @@
             }
         }
     } catch (ex) {
-        console.log(ex);
+        console.error(ex);
     }
 
     const popupHover: PopupSettings = {
@@ -113,7 +113,7 @@
 </script>
 
 <section>
-    <!-- <h1 class="h1">{`${data.indexedAccounts[$page.params.accountId].name} Transactions`}</h1> -->
+    <h1 class="h1">{`${data.indexedAccounts[$page.params.accountId].name} Transactions`}</h1>
 
     {#if $importErrors?.length}
         <div>
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <!-- {#if data.transactions.length > 0}
+    {#if data.transactions.length > 0}
         {@const gridDef =
             'grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 p-4 ml-2 mr-2'}
         <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
@@ -267,12 +267,14 @@
                 </AccordionItem>
             {/each}
         </Accordion>
-    {:else} -->
-    <h3 class="h3">You haven't added any transactions yet. Click the button below to create one</h3>
-    <div>
-        or <a class="anchor" href="./import">import your existing data from CSV</a>.
-    </div>
-    <!-- {/if} -->
+    {:else}
+        <h3 class="h3">
+            You haven't added any transactions yet. Click the button below to create one
+        </h3>
+        <div>
+            or <a class="anchor" href="./import">import your existing data from CSV</a>.
+        </div>
+    {/if}
 </section>
 
 <FloatingActionButton href="./transactions/new"><i class="fa-solid fa-plus" /></FloatingActionButton
