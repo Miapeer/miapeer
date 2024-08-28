@@ -5,9 +5,10 @@ function sleep(ms) {
 const convertArrayToObject = (array, key) => {
     let returnObject = {};
 
-    array.forEach((item) => {
+    for (let index = 0; index < array.length; ++index) {
+        const item = array[index];
         returnObject[item[key]] = item;
-    });
+    }
 
     return returnObject;
 };
