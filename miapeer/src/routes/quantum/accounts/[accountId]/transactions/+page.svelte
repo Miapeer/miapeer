@@ -17,15 +17,13 @@
 
     const dateOptions = { month: 'long', year: 'numeric' };
 
-    console.log('dateOptions: ' + dateOptions);
-
     const groupedTransactions = {};
     let today = new Date();
     let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
-    console.log('currentMonth: ' + currentMonth);
-    console.log('perform transaction grouping');
 
     try {
+        // TODO: Figure out why this try-catch block is needed. Doing the below doesn't even help.
+        // if (typeof data !== 'undefined' && data?.transactions) {
         if (typeof data !== 'undefined' && data?.transactions) {
             for (
                 let transactionIndex = 0;
@@ -103,13 +101,10 @@
         }, 0);
     };
 
-    console.log('do the transaction toggle thing');
-
+    // TODO: This too. Why is this necessary?
     if (typeof document !== 'undefined') {
         handleOpenToggle();
     }
-
-    console.log('finished loading');
 </script>
 
 <section>
