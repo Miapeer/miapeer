@@ -109,7 +109,7 @@
 </script>
 
 <section>
-    <h1 class="h1">{`${data.indexedAccounts[$page.params.accountId].name} Transactions`}</h1>
+    <!-- <h1 class="h1">{`${data.indexedAccounts[$page.params.accountId].name} Transactions`}</h1> -->
 
     {#if $importErrors?.length}
         <div>
