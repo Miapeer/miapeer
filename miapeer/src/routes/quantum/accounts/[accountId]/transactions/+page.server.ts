@@ -21,21 +21,20 @@ export const load: PageServerLoad = async ({ depends, locals, params, url }) => 
 
     console.log('accountTransactionResponse: ' + JSON.stringify(accountTransactionResponse));
 
-    // if (!accountTransactionResponse.ok) {
-    //     console.error(accountTransactionResponse.statusText);
-    //     return { transactions: {} };
-    // }
+    if (!accountTransactionResponse.ok) {
+        console.error(accountTransactionResponse.statusText);
+        return { transactions: {} };
+    }
 
-    // console.log('response status ok');
+    console.log('response status ok');
 
-    // const data = await accountTransactionResponse.json();
+    const data = await accountTransactionResponse.json();
 
-    // console.log(data);
+    console.log(data);
 
-    // const indexedData = convertArrayToObject(data, 'transaction_id');
+    const indexedData = convertArrayToObject(data, 'transaction_id');
 
-    // console.log(indexedData);
+    console.log(indexedData);
 
-    // return { transactions: data, indexedTransactions: indexedData };
-    return { transactions: [], indexedTransactions: {} };
+    return { transactions: data, indexedTransactions: indexedData };
 };
