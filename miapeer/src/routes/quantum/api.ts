@@ -16,7 +16,7 @@ const createTransactionType = async (portfolioId, transactionTypeName) => {
 
     if (res.ok) {
         const data = await res.json();
-        await invalidate('quantum:transactiontypes');
+        invalidate('quantum:transactiontypes');
         return data;
     } else {
         console.error('NOT ok');
@@ -39,7 +39,7 @@ const createPayee = async (portfolioId, payeeName) => {
 
     if (res.ok) {
         const data = await res.json();
-        await invalidate('quantum:payees');
+        invalidate('quantum:payees');
         return data;
     } else {
         console.error('NOT ok');
@@ -63,7 +63,7 @@ const createCategory = async (portfolioId, categoryName) => {
 
     if (res.ok) {
         const data = await res.json();
-        await invalidate('quantum:categories');
+        invalidate('quantum:categories');
         return data;
     } else {
         console.error('NOT ok');

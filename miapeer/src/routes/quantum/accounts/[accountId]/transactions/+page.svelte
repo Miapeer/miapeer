@@ -79,7 +79,7 @@
         );
 
         if (deleteTransactionRequest.ok) {
-            await invalidate('quantum:transactions');
+            invalidate('quantum:transactions');
         } else {
             console.error('NOT ok');
         }
