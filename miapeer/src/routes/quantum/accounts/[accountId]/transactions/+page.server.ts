@@ -11,15 +11,15 @@ export const load: PageServerLoad = async ({ depends, locals, params, url }) => 
 
     console.log('limitMonths: ' + limitMonths);
 
-    // const accountTransactionResponse = await fetch(
-    //     `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions?limit_months=${limitMonths}`,
-    //     {
-    //         method: 'GET',
-    //         headers: locals.auth.headers
-    //     }
-    // );
+    const accountTransactionResponse = await fetch(
+        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions?limit_months=${limitMonths}`,
+        {
+            method: 'GET',
+            headers: locals.auth.headers
+        }
+    );
 
-    // console.log('accountTransactionResponse: ' + JSON.stringify(accountTransactionResponse));
+    console.log('accountTransactionResponse: ' + JSON.stringify(accountTransactionResponse));
 
     // if (!accountTransactionResponse.ok) {
     //     console.error(accountTransactionResponse.statusText);
