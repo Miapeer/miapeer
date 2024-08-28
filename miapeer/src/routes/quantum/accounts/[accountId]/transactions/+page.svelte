@@ -25,24 +25,28 @@
     console.log('currentMonth: ' + currentMonth);
     console.log('perform transaction grouping');
 
-    if (typeof data !== 'undefined' && data?.transactions) {
-        for (
-            let transactionIndex = 0;
-            transactionIndex < data.transactions.length;
-            transactionIndex++
-        ) {
-            let transaction = data.transactions[transactionIndex];
-            let grouping =
-                transaction.clear_date && new Date(transaction.clear_date) < currentMonth
-                    ? formatDate(transaction.clear_date, dateOptions)
-                    : 'Current';
+    try {
+        if (typeof data !== 'undefined' && data?.transactions) {
+            for (
+                let transactionIndex = 0;
+                transactionIndex < data.transactions.length;
+                transactionIndex++
+            ) {
+                let transaction = data.transactions[transactionIndex];
+                let grouping =
+                    transaction.clear_date && new Date(transaction.clear_date) < currentMonth
+                        ? formatDate(transaction.clear_date, dateOptions)
+                        : 'Current';
 
-            if (!(grouping in groupedTransactions)) {
-                groupedTransactions[grouping] = [];
+                if (!(grouping in groupedTransactions)) {
+                    groupedTransactions[grouping] = [];
+                }
+
+                groupedTransactions[grouping].push(transaction);
             }
-
-            groupedTransactions[grouping].push(transaction);
         }
+    } catch (ex) {
+        console.log(ex);
     }
 
     const popupHover: PopupSettings = {
