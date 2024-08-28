@@ -73,8 +73,9 @@
     };
 
     const groupTransactions = () => {
-        let today = new Date();
-        let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
+        const today = new Date();
+        const currentMonthString = `${today.getFullYear()}-${today.getMonth() < 9 ? 0 : ''}${today.getMonth() + 1}-01`;
+        const currentMonth = new Date(currentMonthString);
 
         for (
             let transactionIndex = 0;
@@ -82,8 +83,9 @@
             transactionIndex++
         ) {
             let transaction = data.transactions[transactionIndex];
+            let clearDate = transaction.clear_date ? new Date(transaction.clear_date) : null;
             let grouping =
-                transaction.clear_date && new Date(transaction.clear_date) < currentMonth
+                clearDate && clearDate < currentMonth
                     ? formatDate(transaction.clear_date, dateOptions)
                     : 'Current';
 
