@@ -22,6 +22,7 @@
     const groupedTransactions = {};
     let today = new Date();
     let currentMonth = new Date(`${today.getMonth() + 1}/1/${today.getFullYear()}`);
+    console.log('currentMonth: ' + currentMonth);
     console.log('perform transaction grouping');
     // for (
     //     let transactionIndex = 0;

@@ -37,4 +37,5 @@ export const load: PageServerLoad = async ({ depends, locals, params, url }) => 
     // console.log(indexedData);
 
     // return { transactions: data, indexedTransactions: indexedData };
+    return { transactions: [], indexedTransactions: {} };
 };
