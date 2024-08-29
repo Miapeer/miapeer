@@ -7,14 +7,15 @@
     export let data: PageData;
 
     let transactionMonthLimit = $page.url.searchParams.get('limitmonths') ?? 3;
+    let forecastMonthLimit = $page.url.searchParams.get('forecastmonths') ?? 1;
 
-    const updateTransactionLimit = async () => {
-        window.location = `/quantum/accounts/${$page.params.accountId}/transactions?limitmonths=${transactionMonthLimit}`;
+    const updateLimits = async () => {
+        window.location = `/quantum/accounts/${$page.params.accountId}/transactions?limitmonths=${transactionMonthLimit}&forecastmonths=${forecastMonthLimit}`;
     };
 </script>
 
 <header class="quantum-header text-right">
-    <div class="grid grid-cols-[1fr_14rem_12rem_12rem] gap-4 pr-4 pt-4">
+    <div class="grid grid-cols-[1fr_14rem_18rem_12rem_12rem] gap-4 pr-4 pt-4">
         <div></div>
         <div>
             {#if $page.url.pathname === `/quantum/accounts/${$page.params.accountId}/transactions`}
@@ -23,8 +24,16 @@
                     <input
                         type="text"
                         bind:value={transactionMonthLimit}
-                        on:focusout={updateTransactionLimit}
+                        on:focusout={updateLimits}
                     />
+                </div>
+            {/if}
+        </div>
+        <div>
+            {#if $page.url.pathname === `/quantum/accounts/${$page.params.accountId}/transactions`}
+                <div class="input-group input-group-divider grid-cols-[14rem_auto]">
+                    <div class="input-group-shim">Months of forecast data</div>
+                    <input type="text" bind:value={forecastMonthLimit} on:focusout={updateLimits} />
                 </div>
             {/if}
         </div>

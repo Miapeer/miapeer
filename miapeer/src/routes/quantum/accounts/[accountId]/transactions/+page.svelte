@@ -17,6 +17,7 @@
     const modalStore = getModalStore();
     const dateOptions = { month: 'long', year: 'numeric' };
     let groupedTransactions = {};
+    let nextForecastedTransactions = [];
 
     const popupHover: PopupSettings = {
         event: 'hover',
@@ -56,6 +57,38 @@
         }
     };
 
+    const handleCreateTransaction = async (scheduledTransactionId) => {
+        const createTransactionRequest = await fetch(
+            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransactionId}/createtransaction`,
+            {
+                method: 'POST'
+            }
+        );
+
+        if (createTransactionRequest.ok) {
+            invalidate('quantum:transactions');
+            setTimeout(organizeTransactions, 100);
+        } else {
+            console.error('NOT ok');
+        }
+    };
+
+    const handleSkipIteration = async (scheduledTransactionId) => {
+        const skipIterationRequest = await fetch(
+            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransactionId}/skipiteration`,
+            {
+                method: 'POST'
+            }
+        );
+
+        if (skipIterationRequest.ok) {
+            invalidate('quantum:transactions');
+            setTimeout(organizeTransactions, 100);
+        } else {
+            console.error('NOT ok');
+        }
+    };
+
     const handleClearImportError = async (importErrorIndex) => {
         $importErrors.splice(importErrorIndex, 1);
         importErrors.set($importErrors);
@@ -73,6 +106,8 @@
     };
 
     const groupTransactions = () => {
+        groupedTransactions = {};
+
         const today = new Date();
         const currentMonthString = `${today.getFullYear()}-${today.getMonth() < 9 ? 0 : ''}${today.getMonth() + 1}-01`;
         const currentMonth = new Date(currentMonthString);
@@ -97,9 +132,37 @@
         }
     };
 
+    const compileNextForecastedTransactions = () => {
+        nextForecastedTransactions = [];
+
+        let reviewedScheduledTransactions = [];
+
+        for (
+            let transactionIndex = 0;
+            transactionIndex < data.transactions.length;
+            transactionIndex++
+        ) {
+            let transaction = data.transactions[transactionIndex];
+            let scheduledTransactionId = transaction.forecast_from_scheduled_transaction_id;
+
+            if (
+                scheduledTransactionId &&
+                !reviewedScheduledTransactions.includes(scheduledTransactionId)
+            ) {
+                reviewedScheduledTransactions.push(scheduledTransactionId);
+                nextForecastedTransactions.push(transaction);
+            }
+        }
+    };
+
+    const organizeTransactions = () => {
+        groupTransactions();
+        compileNextForecastedTransactions();
+    };
+
     onMount(() => {
         handleOpenToggle();
-        groupTransactions();
+        organizeTransactions();
     });
 </script>
 
@@ -150,7 +213,7 @@
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
                             <div
-                                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.is_forecast ? 'text-orange-500' : ''}`}
+                                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} min-h-20`}
                             >
                                 <div class="content-center">{transaction.transaction_date}</div>
                                 <div class="content-center">{transaction.clear_date || ''}</div>
@@ -223,34 +286,56 @@
                                 </div>
 
                                 <div class="content-center">
-                                    <div>
-                                        <button
-                                            type="button"
-                                            class="btn-icon variant-filled"
-                                            use:popup={{
-                                                event: 'click',
-                                                target:
-                                                    'transaction-actions-' +
-                                                    transaction.transaction_id,
-                                                placement: 'left'
-                                            }}><i class="fa-solid fa-ellipsis-v" /></button
-                                        >
-                                        <div
-                                            data-popup="transaction-actions-{transaction.transaction_id}"
-                                        >
-                                            <div class="btn-group variant-filled">
-                                                <a
-                                                    href={`./transactions/${transaction.transaction_id}`}
-                                                    ><i class="fa-solid fa-pen-to-square" /></a
-                                                >
-                                                <button
-                                                    on:click={() =>
-                                                        handleConfirmDelete(transaction)}
-                                                    ><i class="fa-solid fa-trash" /></button
-                                                >
+                                    {#if !transaction.forecast_from_scheduled_transaction_id || nextForecastedTransactions.includes(transaction)}
+                                        <div>
+                                            <button
+                                                type="button"
+                                                class="btn-icon variant-filled"
+                                                use:popup={{
+                                                    event: 'click',
+                                                    target:
+                                                        'transaction-actions-' +
+                                                        transaction.transaction_id,
+                                                    placement: 'left'
+                                                }}><i class="fa-solid fa-ellipsis-v" /></button
+                                            >
+                                            <div
+                                                data-popup="transaction-actions-{transaction.transaction_id}"
+                                            >
+                                                <div class="btn-group variant-filled">
+                                                    {#if transaction.forecast_from_scheduled_transaction_id}
+                                                        <button
+                                                            on:click={() =>
+                                                                handleCreateTransaction(
+                                                                    transaction.forecast_from_scheduled_transaction_id
+                                                                )}
+                                                            ><i class="fa fa-play"></i></button
+                                                        >
+                                                        <button
+                                                            on:click={() =>
+                                                                handleSkipIteration(
+                                                                    transaction.forecast_from_scheduled_transaction_id
+                                                                )}
+                                                            ><i class="fa fa-fast-forward"
+                                                            ></i></button
+                                                        >
+                                                    {:else}
+                                                        <a
+                                                            href={`./transactions/${transaction.transaction_id}`}
+                                                            ><i
+                                                                class="fa-solid fa-pen-to-square"
+                                                            /></a
+                                                        >
+                                                        <button
+                                                            on:click={() =>
+                                                                handleConfirmDelete(transaction)}
+                                                            ><i class="fa-solid fa-trash" /></button
+                                                        >
+                                                    {/if}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {/if}
                                 </div>
                             </div>
                         {/each}
