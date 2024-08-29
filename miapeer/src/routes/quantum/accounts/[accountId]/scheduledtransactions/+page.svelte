@@ -136,13 +136,13 @@
                             class="fa fa-clipboard-list"
                             use:popup={{
                                 event: 'hover',
-                                target: `accountTransactionsNotes${scheduledTransaction.transaction_id}`,
+                                target: `accountTransactionsNotes${scheduledTransaction.scheduled_transaction_id}`,
                                 placement: 'top'
                             }}
                         ></i>
                         <div
                             class="card p-4 w-72 shadow-xl"
-                            data-popup={`accountTransactionsNotes${scheduledTransaction.transaction_id}`}
+                            data-popup={`accountTransactionsNotes${scheduledTransaction.scheduled_transaction_id}`}
                         >
                             <div><p>{scheduledTransaction.notes}</p></div>
                             <div class="arrow bg-surface-100-800-token" />
