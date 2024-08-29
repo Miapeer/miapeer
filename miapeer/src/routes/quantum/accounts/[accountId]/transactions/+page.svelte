@@ -150,7 +150,7 @@
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
                             <div
-                                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.is_forecast ? 'text-orange-500' : ''}`}
                             >
                                 <div class="content-center">{transaction.transaction_date}</div>
                                 <div class="content-center">{transaction.clear_date || ''}</div>
