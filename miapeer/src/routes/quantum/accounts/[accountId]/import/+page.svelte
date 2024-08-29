@@ -121,7 +121,7 @@
         }
         showImportStatus = false;
 
-        await invalidate('quantum:transactions');
+        invalidate('quantum:transactions');
         goto(`/quantum/accounts/${accountId}/transactions`);
     };
 </script>

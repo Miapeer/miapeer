@@ -57,12 +57,9 @@
             <div
                 class={`${gridDef} ${accountIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${accountIndex === data.accounts.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
-                <div
-                    class="content-center"
-                    on:click={() => goto(`./accounts/${account.account_id}/transactions`)}
-                >
+                <a class="content-center" href={`./accounts/${account.account_id}/transactions`}>
                     {account.name}
-                </div>
+                </a>
                 <div class="content-center text-right">{formatMoney(account.balance)}</div>
                 <div class="content-center">
                     <div>

@@ -215,7 +215,7 @@
             class="btn variant-filled-primary"
             on:click={handleEditScheduledTransaction}
         >
-            Update Transaction
+            Update Scheduled Transaction
         </button>
     </div>
 </div>

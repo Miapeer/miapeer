@@ -24,7 +24,7 @@
 
         if (res.ok) {
             const data = await res.json();
-            await invalidate('quantum:accounts');
+            invalidate('quantum:accounts');
             goto(data.redirectUrl ?? '/quantum/accounts');
         } else {
             console.error('NOT ok');

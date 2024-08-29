@@ -64,7 +64,6 @@
             </svelte:fragment>
             <svelte:fragment slot="trail">
                 {#if data.isAuthenticated}
-                    <a class="btn btn-sm variant-ghost-surface" href="/quantum"> Quantum </a>
                     <a class="btn btn-sm variant-ghost-surface" href="/users"> User Management </a>
                     <button class="btn btn-sm variant-ghost-surface" on:click={handleLogout}>
                         Log Out

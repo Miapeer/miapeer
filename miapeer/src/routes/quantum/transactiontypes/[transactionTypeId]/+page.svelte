@@ -24,7 +24,7 @@
 
         if (res.ok) {
             const data = await res.json();
-            await invalidate('quantum:transactiontypes');
+            invalidate('quantum:transactiontypes');
             goto(data.redirectUrl ?? '/quantum/transactiontypes');
         } else {
             console.error('NOT ok');

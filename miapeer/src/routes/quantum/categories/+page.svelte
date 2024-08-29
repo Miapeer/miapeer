@@ -27,6 +27,7 @@
 
         modalStore.trigger(modal);
     };
+
     const handleDelete = async (category) => {
         const deleteCategoryTypeRequest = await fetch(
             `/quantum/categories/${category.category_id}`,
