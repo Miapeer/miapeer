@@ -6,7 +6,7 @@
     import type { PageData } from './$types';
     export let data: PageData;
 
-    let transactionMonthLimit = $page.url.searchParams.get('limitmonths') ?? 6;
+    let transactionMonthLimit = $page.url.searchParams.get('limitmonths') ?? 3;
 
     const updateTransactionLimit = async () => {
         window.location = `/quantum/accounts/${$page.params.accountId}/transactions?limitmonths=${transactionMonthLimit}`;
@@ -74,10 +74,12 @@
                 <a href={`/quantum/accounts/${$page.params.accountId}/scheduledtransactions`}
                     >Scheduled Transactions</a
                 >
+                <hr />
             {/if}
             {#if $page.params.accountId && $page.route.id?.includes('/scheduledtransactions')}
                 <a href={`/quantum/accounts/${$page.params.accountId}/transactions`}>Transactions</a
                 >
+                <hr />
             {/if}
             <a href="/quantum/transactiontypes">Transaction Types</a>
             <a href="/quantum/payees">Payees</a>
