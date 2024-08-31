@@ -1,15 +1,15 @@
 <script lang="ts">
+    import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
-    import FloatingActionButton from '$lib/FloatingActionButton.svelte';
 
     import { popup } from '@skeletonlabs/skeleton';
 
     import { invalidate } from '$app/navigation';
 
-    export let data: PageData;
-
     import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
+
+    export let data: PageData;
 
     const handleConfirmDelete = (category) => {
         const modal: ModalSettings = {
@@ -42,19 +42,26 @@
             console.error('NOT ok');
         }
     };
+
+    const gridRowDef = 'grid grid-cols-[1fr_50px] gap-4 p-4 ml-2 mr-2';
 </script>
 
-<section>
-    <h1 class="h1">Categories</h1>
+<QuantumTable
+    pageTitle="Quantum: Categories"
+    headline="Categories"
+    newItemHref="./categories/new"
+    {data}
+>
+    <svelte:fragment slot="tableHeader">
+        {#if data.categories.length}
+            <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>&nbsp;</div>
+        {/if}
+    </svelte:fragment>
 
     {#if data.categories.length}
-        {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
-
-        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
-
         {#each data.categories as category, categoryIndex}
             <div
-                class={`${gridDef} ${categoryIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${categoryIndex === data.categories.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridRowDef} ${categoryIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${categoryIndex === data.categories.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{category.name}</div>
                 <div class="action-cell text-right">
@@ -87,6 +94,4 @@
             You haven't set up any categories yet. Click the button below to create one.
         </h3>
     {/if}
-</section>
-
-<FloatingActionButton href="./categories/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
+</QuantumTable>

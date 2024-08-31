@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumPage from '@quantum/QuantumPage.svelte';
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
     import { formatMoney, unformatMoney } from '@quantum/util';
@@ -36,33 +37,35 @@
             console.error('NOT ok');
         }
     };
+
+    const gridRowDef = 'input-group input-group-divider grid-cols-[12rem_auto]';
 </script>
 
-<div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
-    <h1 class="h1">Edit Account</h1>
+<QuantumPage pageTitle="Quantum: Edit Account" headline="Edit Account" {data}>
+    <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Account Name</div>
+            <input type="text" bind:value={accountName} />
+        </div>
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-        <div class="input-group-shim">Account Name</div>
-        <input type="text" bind:value={accountName} />
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Starting Balance</div>
+            <input type="text" bind:value={startingBalance} />
+        </div>
+
+        <div class="grid grid-cols-[1fr_1fr] gap-4">
+            <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
+                Cancel
+            </button>
+
+            <button
+                disabled={!accountName || !startingBalance}
+                type="button"
+                class="btn variant-filled-primary"
+                on:click={handleEditAccount}
+            >
+                Update Account
+            </button>
+        </div>
     </div>
-
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-        <div class="input-group-shim">Starting Balance</div>
-        <input type="text" bind:value={startingBalance} />
-    </div>
-
-    <div class="grid grid-cols-[1fr_1fr] gap-4">
-        <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
-            Cancel
-        </button>
-
-        <button
-            disabled={!accountName || !startingBalance}
-            type="button"
-            class="btn variant-filled-primary"
-            on:click={handleEditAccount}
-        >
-            Update Account
-        </button>
-    </div>
-</div>
+</QuantumPage>

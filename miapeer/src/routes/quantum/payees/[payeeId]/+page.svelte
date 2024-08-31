@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumPage from '@quantum/QuantumPage.svelte';
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
 
@@ -31,26 +32,26 @@
     };
 </script>
 
-<div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
-    <h1 class="h1">Edit Payee</h1>
+<QuantumPage pageTitle="Quantum: Edit Payee" headline="Edit Payee" {data}>
+    <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+        <div class="input-group input-group-divider grid-cols-[12rem_auto]">
+            <div class="input-group-shim">Payee Name</div>
+            <input type="text" bind:value={payeeName} />
+        </div>
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-        <div class="input-group-shim">Payee Name</div>
-        <input type="text" bind:value={payeeName} />
+        <div class="grid grid-cols-[1fr_1fr] gap-4">
+            <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
+                Cancel
+            </button>
+
+            <button
+                disabled={!data.payee.name}
+                type="button"
+                class="btn variant-filled-primary"
+                on:click={handleEditPayee}
+            >
+                Update Payee
+            </button>
+        </div>
     </div>
-
-    <div class="grid grid-cols-[1fr_1fr] gap-4">
-        <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
-            Cancel
-        </button>
-
-        <button
-            disabled={!data.payee.name}
-            type="button"
-            class="btn variant-filled-primary"
-            on:click={handleEditPayee}
-        >
-            Update Payee
-        </button>
-    </div>
-</div>
+</QuantumPage>

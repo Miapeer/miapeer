@@ -1,4 +1,5 @@
 <script lang="ts">
+    import MiapeerPage from '../MiapeerPage.svelte';
     import type { PageData } from './$types';
 
     import { invalidate } from '$app/navigation';
@@ -60,27 +61,20 @@
     };
 </script>
 
-<section class="user-management-grid">
-    <h1 class="h1">User Management</h1>
-    {#each data.users as user}
-        <div class="mt-8">
-            <!-- TODO: I'm sure there's a better way to do this, but for now... -->
-            <UserRow
-                {user}
-                roles={data.roles}
-                applications={data.applications}
-                applicationRoles={data.applicationRoles}
-                permissions={data.permissions}
-                {permit}
-                {deny}
-            />
-        </div>
-    {/each}
-</section>
-
-<style>
-    .user-management-grid {
-        margin: 0 auto;
-        max-width: 50em;
-    }
-</style>
+<MiapeerPage pageTitle="Miapeer: User Management" headline="User Management" {data}>
+    <section class="user-management-grid max-w-3xl mx-auto">
+        {#each data.users as user}
+            <div class="mt-8">
+                <UserRow
+                    {user}
+                    roles={data.roles}
+                    applications={data.applications}
+                    applicationRoles={data.applicationRoles}
+                    permissions={data.permissions}
+                    {permit}
+                    {deny}
+                />
+            </div>
+        {/each}
+    </section>
+</MiapeerPage>

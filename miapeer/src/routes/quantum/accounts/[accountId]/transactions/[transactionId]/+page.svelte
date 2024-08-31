@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumPage from '@quantum/QuantumPage.svelte';
     import type { PageData } from './$types';
     import { goto } from '$app/navigation';
     import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
@@ -68,128 +69,130 @@
             console.error('NOT ok');
         }
     };
+
+    const gridRowDef = 'input-group input-group-divider grid-cols-[12rem_auto]';
 </script>
 
-<div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
-    <h1 class="h1">Edit Transaction</h1>
-
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-        <div class="input-group-shim">Transaction Date</div>
-        <input type="date" bind:value={selectedTransactionDate} />
-    </div>
-
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-        <div class="input-group-shim">Clear Date</div>
-        <input type="date" bind:value={selectedClearDate} />
-    </div>
-
-    <div class="input-group input-group-divider grid-cols-[12rem_auto_2.5rem]">
-        <div class="input-group-shim">Transaction Type</div>
-        <input
-            type="text"
-            bind:value={selectedTransactionTypeName}
-            use:popup={{
-                event: 'click',
-                target: 'editTransactionTransactionTypePopupCombobox',
-                placement: 'bottom',
-                closeQuery: '.listbox-item'
-            }}
-        />
-        {#if !selectedTransactionType && selectedTransactionTypeName}
-            <div
-                class="text-primary-500"
-                title="Transaction type doesn't exist, it will be created"
-            >
-                <i class="fa fa-exclamation"></i>
-            </div>
-        {/if}
-    </div>
-
-    {#if selectedTransactionTypeName?.toLowerCase() === 'check'}
-        <div class="pl-12">
-            <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-                <div class="input-group-shim">Check Number</div>
-                <input type="text" bind:value={selectedCheckNumber} />
-            </div>
+<QuantumPage pageTitle="Quantum: Edit Transaction" headline="Edit Transaction" {data}>
+    <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Transaction Date</div>
+            <input type="date" bind:value={selectedTransactionDate} />
         </div>
-    {/if}
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto_2.5rem]">
-        <div class="input-group-shim">Payee</div>
-        <input
-            type="text"
-            bind:value={selectedPayeeName}
-            use:popup={{
-                event: 'click',
-                target: 'editTransactionPayeePopupCombobox',
-                placement: 'bottom',
-                closeQuery: '.listbox-item'
-            }}
-        />
-        {#if !selectedPayee && selectedPayeeName}
-            <div class="text-primary-500" title="Payee doesn't exist, it will be created">
-                <i class="fa fa-exclamation"></i>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Clear Date</div>
+            <input type="date" bind:value={selectedClearDate} />
+        </div>
+
+        <div class="input-group input-group-divider grid-cols-[12rem_auto_2.5rem]">
+            <div class="input-group-shim">Transaction Type</div>
+            <input
+                type="text"
+                bind:value={selectedTransactionTypeName}
+                use:popup={{
+                    event: 'click',
+                    target: 'editTransactionTransactionTypePopupCombobox',
+                    placement: 'bottom',
+                    closeQuery: '.listbox-item'
+                }}
+            />
+            {#if !selectedTransactionType && selectedTransactionTypeName}
+                <div
+                    class="text-primary-500"
+                    title="Transaction type doesn't exist, it will be created"
+                >
+                    <i class="fa fa-exclamation"></i>
+                </div>
+            {/if}
+        </div>
+
+        {#if selectedTransactionTypeName?.toLowerCase() === 'check'}
+            <div class="pl-12">
+                <div class={gridRowDef}>
+                    <div class="input-group-shim">Check Number</div>
+                    <input type="text" bind:value={selectedCheckNumber} />
+                </div>
             </div>
         {/if}
-    </div>
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto_2.5rem]">
-        <div class="input-group-shim">Category</div>
-        <input
-            type="text"
-            bind:value={selectedCategoryName}
-            use:popup={{
-                event: 'click',
-                target: 'editTransactionCategoryPopupCombobox',
-                placement: 'bottom',
-                closeQuery: '.listbox-item'
-            }}
-        />
-        {#if !selectedCategory && selectedCategoryName}
-            <div class="text-primary-500" title="Category doesn't exist, it will be created">
-                <i class="fa fa-exclamation"></i>
-            </div>
-        {/if}
-    </div>
+        <div class="input-group input-group-divider grid-cols-[12rem_auto_2.5rem]">
+            <div class="input-group-shim">Payee</div>
+            <input
+                type="text"
+                bind:value={selectedPayeeName}
+                use:popup={{
+                    event: 'click',
+                    target: 'editTransactionPayeePopupCombobox',
+                    placement: 'bottom',
+                    closeQuery: '.listbox-item'
+                }}
+            />
+            {#if !selectedPayee && selectedPayeeName}
+                <div class="text-primary-500" title="Payee doesn't exist, it will be created">
+                    <i class="fa fa-exclamation"></i>
+                </div>
+            {/if}
+        </div>
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-        <div class="input-group-shim">Amount</div>
-        <input type="text" bind:value={selectedAmount} />
-    </div>
+        <div class="input-group input-group-divider grid-cols-[12rem_auto_2.5rem]">
+            <div class="input-group-shim">Category</div>
+            <input
+                type="text"
+                bind:value={selectedCategoryName}
+                use:popup={{
+                    event: 'click',
+                    target: 'editTransactionCategoryPopupCombobox',
+                    placement: 'bottom',
+                    closeQuery: '.listbox-item'
+                }}
+            />
+            {#if !selectedCategory && selectedCategoryName}
+                <div class="text-primary-500" title="Category doesn't exist, it will be created">
+                    <i class="fa fa-exclamation"></i>
+                </div>
+            {/if}
+        </div>
 
-    <div class="input-group input-group-divider grid-cols-[12rem_auto]">
-        <div class="input-group-shim">Notes</div>
-        <input type="text" bind:value={selectedNotes} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Amount</div>
+            <input type="text" bind:value={selectedAmount} />
+        </div>
 
-    <div class="text-right">
-        <SlideToggle class="" bind:checked={selectedExcludeFromForecast} active="bg-primary-500"
-            >Exclude From Forecast</SlideToggle
-        >
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Notes</div>
+            <input type="text" bind:value={selectedNotes} />
+        </div>
 
-    <div class="grid grid-cols-[1fr_1fr] gap-4">
-        <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
-            Cancel
-        </button>
+        <div class="text-right">
+            <SlideToggle class="" bind:checked={selectedExcludeFromForecast} active="bg-primary-500"
+                >Exclude From Forecast</SlideToggle
+            >
+        </div>
 
-        <button
-            disabled={!selectedTransactionTypeName &&
-                !selectedPayeeName &&
-                !selectedCategoryName &&
-                !selectedAmount &&
-                !selectedTransactionDate &&
-                !selectedClearDate &&
-                !selectedCheckNumber &&
-                !selectedNotes}
-            type="button"
-            class="btn variant-filled-primary"
-            on:click={handleEditTransaction}
-        >
-            Update Transaction
-        </button>
+        <div class="grid grid-cols-[1fr_1fr] gap-4">
+            <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
+                Cancel
+            </button>
+
+            <button
+                disabled={!selectedTransactionTypeName &&
+                    !selectedPayeeName &&
+                    !selectedCategoryName &&
+                    !selectedAmount &&
+                    !selectedTransactionDate &&
+                    !selectedClearDate &&
+                    !selectedCheckNumber &&
+                    !selectedNotes}
+                type="button"
+                class="btn variant-filled-primary"
+                on:click={handleEditTransaction}
+            >
+                Update Transaction
+            </button>
+        </div>
     </div>
-</div>
+</QuantumPage>
 
 <!-- Must be outside of the grid for proper interaction -->
 <div
