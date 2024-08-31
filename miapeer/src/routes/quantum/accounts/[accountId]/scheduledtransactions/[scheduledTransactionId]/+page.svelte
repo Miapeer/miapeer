@@ -229,62 +229,62 @@
             </button>
         </div>
     </div>
-</QuantumPage>
 
-<!-- Must be outside of the grid for proper interaction -->
-<div
-    class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
-    data-popup="editScheduledTransactionTypePopupCombobox"
->
-    <ListBox>
-        {#each data.transactionTypes as transactionType}
-            <ListBoxItem
-                bind:group={selectedTransactionTypeName}
-                name="medium"
-                value={transactionType.name}>{transactionType.name}</ListBoxItem
-            >
-        {/each}
-    </ListBox>
-    <div class="arrow bg-surface-100-800-token" />
-</div>
-<div
-    class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
-    data-popup="editScheduledTransactionPayeePopupCombobox"
->
-    <ListBox>
-        {#each data.payees as payee}
-            <ListBoxItem bind:group={selectedPayeeName} name="medium" value={payee.name}
-                >{payee.name}</ListBoxItem
-            >
-        {/each}
-    </ListBox>
-    <div class="arrow bg-surface-100-800-token" />
-</div>
-<div
-    class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
-    data-popup="editScheduledTransactionCategoryPopupCombobox"
->
-    <ListBox>
-        {#each data.categories as category}
-            <ListBoxItem bind:group={selectedCategoryName} name="medium" value={category.name}
-                >{category.name}</ListBoxItem
-            >
-        {/each}
-    </ListBox>
-    <div class="arrow bg-surface-100-800-token" />
-</div>
-<div
-    class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
-    data-popup="editScheduledTransactionRepeatOptionPopupCombobox"
->
-    <ListBox>
-        {#each data.repeatOptions as repeatOption}
-            <ListBoxItem
-                bind:group={selectedRepeatOptionName}
-                name="medium"
-                value={repeatOption.name}>{repeatOption.name}</ListBoxItem
-            >
-        {/each}
-    </ListBox>
-    <div class="arrow bg-surface-100-800-token" />
-</div>
+    <!-- Must be outside of the grid for proper interaction -->
+    <div
+        class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
+        data-popup="editScheduledTransactionTypePopupCombobox"
+    >
+        <ListBox>
+            {#each data.transactionTypes as transactionType}
+                <ListBoxItem
+                    bind:group={selectedTransactionTypeName}
+                    name="medium"
+                    value={transactionType.name}>{transactionType.name}</ListBoxItem
+                >
+            {/each}
+        </ListBox>
+        <div class="arrow bg-surface-100-800-token" />
+    </div>
+    <div
+        class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
+        data-popup="editScheduledTransactionPayeePopupCombobox"
+    >
+        <ListBox>
+            {#each data.payees as payee}
+                <ListBoxItem bind:group={selectedPayeeName} name="medium" value={payee.name}
+                    >{payee.name}</ListBoxItem
+                >
+            {/each}
+        </ListBox>
+        <div class="arrow bg-surface-100-800-token" />
+    </div>
+    <div
+        class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
+        data-popup="editScheduledTransactionCategoryPopupCombobox"
+    >
+        <ListBox>
+            {#each data.categories as category}
+                <ListBoxItem bind:group={selectedCategoryName} name="medium" value={category.name}
+                    >{category.name}</ListBoxItem
+                >
+            {/each}
+        </ListBox>
+        <div class="arrow bg-surface-100-800-token" />
+    </div>
+    <div
+        class="card w-64 max-h-64 shadow-xl py-2 overflow-y-auto"
+        data-popup="editScheduledTransactionRepeatOptionPopupCombobox"
+    >
+        <ListBox>
+            {#each data.repeatOptions as repeatOption}
+                <ListBoxItem
+                    bind:group={selectedRepeatOptionName}
+                    name="medium"
+                    value={repeatOption.name}>{repeatOption.name}</ListBoxItem
+                >
+            {/each}
+        </ListBox>
+        <div class="arrow bg-surface-100-800-token" />
+    </div>
+</QuantumPage>
