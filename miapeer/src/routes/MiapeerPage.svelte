@@ -27,7 +27,7 @@
     <title>{pageTitle}</title>
 </svelte:head>
 
-<AppShell>
+<AppShell slotHeader="z-20">
     <svelte:fragment slot="header">
         <AppBar>
             <svelte:fragment slot="lead">
