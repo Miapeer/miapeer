@@ -82,6 +82,8 @@
             </div>
         {/each}
     {:else}
-        <h3 class="h3">You haven't set up any payees yet. Click the button below to create one.</h3>
+        <h3 class="h3">
+            You haven't set up any payees yet. Click the button at the top-right to create one.
+        </h3>
     {/if}
 </QuantumTable>

@@ -91,7 +91,7 @@
         {/each}
     {:else}
         <h3 class="h3">
-            You haven't set up any accounts yet. Click the at the top-right below to create one.
+            You haven't set up any accounts yet. Click the button at the top-right to create one.
         </h3>
     {/if}
 </QuantumTable>

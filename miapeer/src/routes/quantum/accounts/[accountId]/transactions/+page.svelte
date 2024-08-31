@@ -208,7 +208,10 @@
     {/if}
 
     {#if data.transactions.length > 0}
-        <Accordion regionControl="border mt-4 bg-surface-500" regionPanel="border-x border-b">
+        <Accordion
+            regionControl="border mt-4 bg-surface-500"
+            regionPanel="border-x border-b bg-surface-500"
+        >
             {#each Object.keys(groupedTransactions) as grouping}
                 <AccordionItem open={grouping === 'Current'} on:toggle={handleOpenToggle}>
                     <svelte:fragment slot="summary">{grouping}</svelte:fragment>
@@ -347,7 +350,7 @@
         </Accordion>
     {:else}
         <h3 class="h3">
-            You haven't added any transactions yet. Click the button below to create one
+            You haven't added any transactions yet. Click the button at the top-right to create one.
         </h3>
         <div>
             or <a class="anchor" href="./import">import your existing data from CSV</a>.

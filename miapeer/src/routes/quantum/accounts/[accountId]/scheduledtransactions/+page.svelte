@@ -190,7 +190,8 @@
         {/each}
     {:else}
         <h3 class="h3">
-            You haven't added any scheduled transactions yet. Click the button below to create one.
+            You haven't added any scheduled transactions yet. Click the button at the top-right to
+            create one.
         </h3>
     {/if}
 </QuantumTable>

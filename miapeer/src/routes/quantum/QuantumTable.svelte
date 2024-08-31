@@ -19,7 +19,7 @@
 </script>
 
 <QuantumPage {pageTitle} {headline} {data}>
-    <div class="bg-surface-900 fixed w-full">
+    <div class="bg-surface-900 fixed w-full z-10">
         <slot name="tableHeader" />
     </div>
 

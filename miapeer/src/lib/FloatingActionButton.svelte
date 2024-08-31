@@ -7,7 +7,7 @@
 
 <button
     type="button"
-    class={`btn-icon variant-ghost-primary btn-icon-${size} absolute bottom-16 right-2`}
+    class={`btn-icon variant-ghost-primary btn-icon-${size} absolute top-40 right-4 z-10`}
     on:click={() => {
         if (href) {
             goto(href);
