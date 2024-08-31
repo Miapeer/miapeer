@@ -17,12 +17,25 @@
     let selectedTransactionTypeName =
         data.indexedTransactionTypes[data.scheduledTransaction.transaction_type_id]?.name;
     $: selectedTransactionType = data.transactionTypes.find(
-        (tt) => tt.name === selectedTransactionTypeName
+        (tt) => tt.name.toLowerCase() === selectedTransactionTypeName?.toLowerCase()
     );
+    $: if (selectedTransactionType) {
+        updateTransactionTypeName();
+    }
     let selectedPayeeName = data.indexedPayees[data.scheduledTransaction.payee_id]?.name;
-    $: selectedPayee = data.payees.find((p) => p.name === selectedPayeeName);
+    $: selectedPayee = data.payees.find(
+        (p) => p.name.toLowerCase() === selectedPayeeName?.toLowerCase()
+    );
+    $: if (selectedPayee) {
+        updatePayeeName();
+    }
     let selectedCategoryName = data.indexedCategories[data.scheduledTransaction.category_id]?.name;
-    $: selectedCategory = data.categories.find((c) => c.name === selectedCategoryName);
+    $: selectedCategory = data.categories.find(
+        (c) => c.name.toLowerCase() === selectedCategoryName?.toLowerCase()
+    );
+    $: if (selectedCategory) {
+        updateCategoryName();
+    }
     let selectedFixedAmount = formatMoney(data.scheduledTransaction.fixed_amount);
     let selectedEstimateOccurrences = data.scheduledTransaction.estimate_occurrences;
     let selectedPromptDays = data.scheduledTransaction.prompt_days;
@@ -31,7 +44,12 @@
     let selectedlimitOccurrences = data.scheduledTransaction.limit_occurrences;
     let selectedRepeatOptionName =
         data.indexedRepeatOptions[data.scheduledTransaction.repeat_option_id]?.name;
-    $: selectedRepeatOption = data.repeatOptions.find((ro) => ro.name === selectedRepeatOptionName);
+    $: selectedRepeatOption = data.repeatOptions.find(
+        (ro) => ro.name.toLowerCase() === selectedRepeatOptionName?.toLowerCase()
+    );
+    $: if (selectedRepeatOption) {
+        updateRepeatOptionName();
+    }
     let selectedNote = data.scheduledTransaction.notes;
     let selectedOnAutopay = data.scheduledTransaction.on_autopay;
 
@@ -80,10 +98,94 @@
         }
     };
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleEditScheduledTransaction();
-        }
+    const updateTransactionTypeName = () => {
+        setTimeout(() => {
+            if (typeof document === 'undefined') {
+                return;
+            }
+
+            if (selectedTransactionType) {
+                selectedTransactionTypeName = selectedTransactionType.name;
+            }
+
+            const selectedElements = [
+                ...document.querySelectorAll(
+                    '[data-popup=editScheduledTransactionTypePopupCombobox] .listbox-label-content'
+                )
+            ].filter((a) =>
+                a.textContent?.toLowerCase().includes(selectedTransactionTypeName.toLowerCase())
+            );
+            if (selectedElements.length) {
+                selectedElements[0].scrollIntoView({ behavior: 'auto', block: 'center' });
+            }
+        }, 0);
+    };
+
+    const updatePayeeName = () => {
+        setTimeout(() => {
+            if (typeof document === 'undefined') {
+                return;
+            }
+
+            if (selectedPayee) {
+                selectedPayeeName = selectedPayee.name;
+            }
+
+            const selectedElements = [
+                ...document.querySelectorAll(
+                    '[data-popup=editScheduledTransactionPayeePopupCombobox] .listbox-label-content'
+                )
+            ].filter((a) => a.textContent?.toLowerCase().includes(selectedPayeeName.toLowerCase()));
+            if (selectedElements.length) {
+                selectedElements[0].scrollIntoView({ behavior: 'auto', block: 'center' });
+            }
+        }, 0);
+    };
+
+    const updateCategoryName = () => {
+        setTimeout(() => {
+            if (typeof document === 'undefined') {
+                return;
+            }
+
+            if (selectedCategory) {
+                selectedCategoryName = selectedCategory.name;
+            }
+
+            const selectedElements = [
+                ...document.querySelectorAll(
+                    '[data-popup=editScheduledTransactionCategoryPopupCombobox] .listbox-label-content'
+                )
+            ].filter((a) =>
+                a.textContent?.toLowerCase().includes(selectedCategoryName.toLowerCase())
+            );
+            if (selectedElements.length) {
+                selectedElements[0].scrollIntoView({ behavior: 'auto', block: 'center' });
+            }
+        }, 0);
+    };
+
+    const updateRepeatOptionName = () => {
+        setTimeout(() => {
+            if (typeof document === 'undefined') {
+                return;
+            }
+
+            if (selectedRepeatOption) {
+                selectedRepeatOptionName = selectedRepeatOption.name;
+            }
+
+            const selectedElements = [
+                ...document.querySelectorAll(
+                    '[data-popup=editScheduledTransactionRepeatOptionPopupCombobox] .listbox-label-content'
+                )
+            ].filter((a) =>
+                a.textContent?.toLowerCase().includes(selectedRepeatOptionName.toLowerCase())
+            );
+            if (selectedElements.length) {
+                selectedElements[0].scrollIntoView({ behavior: 'auto', block: 'center' });
+            }
+        }, 0);
     };
 
     const gridRowDef = 'input-group input-group-divider grid-cols-[14rem_auto]';
@@ -100,12 +202,17 @@
             <input
                 type="text"
                 bind:value={selectedTransactionTypeName}
-                on:keypress={handleKeyPress}
+                on:keypress={updateTransactionTypeName}
                 use:popup={{
                     event: 'click',
                     target: 'editScheduledTransactionTypePopupCombobox',
                     placement: 'bottom',
-                    closeQuery: '.listbox-item'
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updateTransactionTypeName();
+                        }
+                    }
                 }}
             />
         </div>
@@ -115,12 +222,17 @@
             <input
                 type="text"
                 bind:value={selectedPayeeName}
-                on:keypress={handleKeyPress}
+                on:keypress={updatePayeeName}
                 use:popup={{
                     event: 'click',
                     target: 'editScheduledTransactionPayeePopupCombobox',
                     placement: 'bottom',
-                    closeQuery: '.listbox-item'
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updatePayeeName();
+                        }
+                    }
                 }}
             />
         </div>
@@ -130,52 +242,49 @@
             <input
                 type="text"
                 bind:value={selectedCategoryName}
-                on:keypress={handleKeyPress}
+                on:keypress={updateCategoryName}
                 use:popup={{
                     event: 'click',
                     target: 'editScheduledTransactionCategoryPopupCombobox',
                     placement: 'bottom',
-                    closeQuery: '.listbox-item'
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updateCategoryName();
+                        }
+                    }
                 }}
             />
         </div>
 
         <div class={gridRowDef}>
             <div class="input-group-shim">Fixed Amount</div>
-            <input type="text" bind:value={selectedFixedAmount} on:keypress={handleKeyPress} />
+            <input type="text" bind:value={selectedFixedAmount} />
         </div>
 
         <div class={gridRowDef}>
             <div class="input-group-shim">Estimated Occurrences</div>
-            <input
-                type="number"
-                bind:value={selectedEstimateOccurrences}
-                on:keypress={handleKeyPress}
-            />
+            <input type="number" bind:value={selectedEstimateOccurrences} />
         </div>
 
         <div class={gridRowDef}>
             <div class="input-group-shim">Prompt Days</div>
-            <input type="number" bind:value={selectedPromptDays} on:keypress={handleKeyPress} />
+            <input type="number" bind:value={selectedPromptDays} />
         </div>
 
         <div class={gridRowDef}>
             <div class="input-group-shim">Start Date</div>
-            <input type="date" bind:value={selectedStartDate} on:keypress={handleKeyPress} />
+            <input type="date" bind:value={selectedStartDate} />
         </div>
 
         <div class={gridRowDef}>
             <div class="input-group-shim">End Date</div>
-            <input type="date" bind:value={selectedEndDate} on:keypress={handleKeyPress} />
+            <input type="date" bind:value={selectedEndDate} />
         </div>
 
         <div class={gridRowDef}>
             <div class="input-group-shim">Limit Occurrences</div>
-            <input
-                type="number"
-                bind:value={selectedlimitOccurrences}
-                on:keypress={handleKeyPress}
-            />
+            <input type="number" bind:value={selectedlimitOccurrences} />
         </div>
 
         <div class={gridRowDef}>
@@ -183,19 +292,24 @@
             <input
                 type="text"
                 bind:value={selectedRepeatOptionName}
-                on:keypress={handleKeyPress}
+                on:keypress={updateRepeatOptionName}
                 use:popup={{
                     event: 'click',
                     target: 'editScheduledTransactionRepeatOptionPopupCombobox',
                     placement: 'bottom',
-                    closeQuery: '.listbox-item'
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updateRepeatOptionName();
+                        }
+                    }
                 }}
             />
         </div>
 
         <div class={gridRowDef}>
             <div class="input-group-shim">Notes</div>
-            <input type="text" bind:value={selectedNote} on:keypress={handleKeyPress} />
+            <input type="text" bind:value={selectedNote} />
         </div>
 
         <div class="text-right">
