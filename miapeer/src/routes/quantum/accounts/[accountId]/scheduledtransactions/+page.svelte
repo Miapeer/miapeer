@@ -82,6 +82,10 @@
         }
     };
 
+    $: data.scheduledTransactions.sort((a, b) => {
+        return a.next_transaction.transaction_date > b.next_transaction.transaction_date;
+    });
+
     const gridRowDef =
         'grid grid-cols-[100px_150px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_120px_15px_80px] gap-4 p-4 ml-2 mr-2';
 </script>
