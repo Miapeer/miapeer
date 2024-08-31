@@ -83,7 +83,11 @@
     };
 
     $: data.scheduledTransactions.sort((a, b) => {
-        return a.next_transaction.transaction_date > b.next_transaction.transaction_date;
+        if (a.next_transaction.transaction_date === b.next_transaction.transaction_date) {
+            return a.scheduled_transaction_id > b.scheduled_transaction_id ? 1 : -1;
+        }
+
+        return a.next_transaction.transaction_date > b.next_transaction.transaction_date ? 1 : -1;
     });
 
     const gridRowDef =
