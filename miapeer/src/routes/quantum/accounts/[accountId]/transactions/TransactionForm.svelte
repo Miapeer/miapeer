@@ -48,7 +48,7 @@
     let selectedTransactionDate = data.transaction.transaction_date;
     let selectedClearDate = data.transaction.clear_date;
     let selectedCheckNumber = data.transaction.check_number;
-    let selectedNotes = data.transaction.notes;
+    let selectedNote = data.transaction.notes;
 
     const handleCancel = () => {
         goto('.');
