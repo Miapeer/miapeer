@@ -1,11 +1,9 @@
 <script lang="ts">
-    import type { PageData } from './[transactionTypeId]/$types';
     import { goto, invalidate } from '$app/navigation';
     import { createTransactionType, updateTransactionType } from '@quantum/api';
 
     export let portfolioId;
     export let transactionType = null;
-    export let data;
 
     let isCreatingNew = !!transactionType;
 
