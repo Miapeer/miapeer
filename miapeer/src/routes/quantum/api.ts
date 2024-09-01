@@ -218,6 +218,98 @@ const updateTransaction = async ({
     }
 };
 
+const createScheduledTransaction = async ({
+    accountId,
+    transactionTypeId,
+    payeeId,
+    categoryId,
+    fixedAmount,
+    estimateOccurrences,
+    promptDays,
+    startDate,
+    endDate,
+    limitOccurrences,
+    repeatOptionId,
+    onAutopay,
+    notes
+}) => {
+    const requestData = {
+        accountId,
+        transactionTypeId,
+        payeeId,
+        categoryId,
+        fixedAmount,
+        estimateOccurrences,
+        promptDays,
+        startDate,
+        endDate,
+        limitOccurrences,
+        repeatOptionId,
+        onAutopay,
+        notes
+    };
+
+    const res = await fetch(`/quantum/accounts/${accountId}/scheduledtransactions/new`, {
+        method: 'POST',
+        body: JSON.stringify(requestData)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        return data;
+    } else {
+        console.error('NOT ok');
+    }
+};
+
+const updateScheduledTransaction = async ({
+    accountId,
+    scheduledTransactionId,
+    transactionTypeId,
+    payeeId,
+    categoryId,
+    fixedAmount,
+    estimateOccurrences,
+    promptDays,
+    startDate,
+    endDate,
+    limitOccurrences,
+    repeatOptionId,
+    onAutopay,
+    notes
+}) => {
+    const requestData = {
+        accountId,
+        transactionTypeId,
+        payeeId,
+        categoryId,
+        fixedAmount,
+        estimateOccurrences,
+        promptDays,
+        startDate,
+        endDate,
+        limitOccurrences,
+        repeatOptionId,
+        onAutopay,
+        notes
+    };
+
+    const res = await fetch(
+        `/quantum/accounts/${accountId}/scheduledtransactions/${scheduledTransactionId}`,
+        {
+            method: 'POST',
+            body: JSON.stringify(requestData)
+        }
+    );
+
+    if (res.ok) {
+        const data = await res.json();
+        return data;
+    } else {
+        console.error('NOT ok');
+    }
+};
+
 export {
     createTransactionType,
     updateTransactionType,
@@ -226,5 +318,7 @@ export {
     createCategory,
     updateCategory,
     createTransaction,
-    updateTransaction
+    updateTransaction,
+    createScheduledTransaction,
+    updateScheduledTransaction
 };
