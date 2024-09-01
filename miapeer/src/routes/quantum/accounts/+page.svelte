@@ -1,18 +1,16 @@
 <script lang="ts">
+    import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
     import { goto } from '$app/navigation';
-    import FloatingActionButton from '$lib/FloatingActionButton.svelte';
-
     import { popup } from '@skeletonlabs/skeleton';
-
     import { invalidate } from '$app/navigation';
 
     import { formatMoney } from '@quantum/util';
 
-    export let data: PageData;
-
     import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
+
+    export let data: PageData;
 
     const handleConfirmDelete = (account) => {
         const modal: ModalSettings = {
@@ -30,6 +28,7 @@
 
         modalStore.trigger(modal);
     };
+
     const handleDelete = async (account) => {
         const deleteAccountRequest = await fetch(`/quantum/accounts/${account.account_id}`, {
             method: 'DELETE'
@@ -41,21 +40,25 @@
             console.error('NOT ok');
         }
     };
+
+    const gridRowDef = 'grid grid-cols-[1fr_80px_50px] gap-4 p-4 ml-2 mr-2';
 </script>
 
-<section>
-    <h1 class="h1">Accounts</h1>
+<QuantumTable pageTitle="Quantum: Accounts" headline="Accounts" newItemHref="./accounts/new" {data}>
+    <svelte:fragment slot="tableHeader">
+        {#if data.accounts.length}
+            <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>
+                <div></div>
+                <div class="text-center">Balance</div>
+                <div></div>
+            </div>
+        {/if}
+    </svelte:fragment>
 
     {#if data.accounts.length}
-        {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_80px_50px] gap-4 p-4 ml-2 mr-2'}
-        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
-            <div></div>
-            <div class="text-right">Balance</div>
-        </div>
-
         {#each data.accounts as account, accountIndex}
             <div
-                class={`${gridDef} ${accountIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${accountIndex === data.accounts.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridRowDef} ${accountIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${accountIndex === data.accounts.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <a class="content-center" href={`./accounts/${account.account_id}/transactions`}>
                     {account.name}
@@ -88,9 +91,7 @@
         {/each}
     {:else}
         <h3 class="h3">
-            You haven't set up any accounts yet. Click the button below to create one.
+            You haven't set up any accounts yet. Click the button at the top-right to create one.
         </h3>
     {/if}
-</section>
-
-<FloatingActionButton href="./accounts/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
+</QuantumTable>

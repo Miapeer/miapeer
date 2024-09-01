@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumTable from '@quantum/QuantumTable.svelte';
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
@@ -160,14 +161,38 @@
         compileNextForecastedTransactions();
     };
 
+    const gridRowDef =
+        'grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 p-4 ml-2 mr-2';
+
     onMount(() => {
         handleOpenToggle();
         organizeTransactions();
     });
 </script>
 
-<section>
-    <h1 class="h1">{`${data.indexedAccounts[$page.params.accountId].name} Transactions`}</h1>
+<QuantumTable
+    pageTitle="Quantum: Transactions"
+    headline={`${data.indexedAccounts[$page.params.accountId].name} Transactions`}
+    newItemHref="./transactions/new"
+    {data}
+>
+    <svelte:fragment slot="tableHeader">
+        {#if data.transactions.length > 0}
+            <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>
+                <div>Date</div>
+                <div>Cleared</div>
+                <div>Type</div>
+                <div>Payee</div>
+                <div>Category</div>
+                <div class="text-right">Amount</div>
+                <div class="text-right">Balance</div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        {/if}
+    </svelte:fragment>
 
     {#if $importErrors?.length}
         <div>
@@ -182,38 +207,18 @@
         </div>
     {/if}
 
-    <div class="popovers">
-        <div class="card p-4 w-72 shadow-xl" data-popup="accountTransactionsExcluded">
-            <div><p>This transaction is excluded from forecast calculations</p></div>
-            <div class="arrow bg-surface-100-800-token" />
-        </div>
-    </div>
-
     {#if data.transactions.length > 0}
-        {@const gridDef =
-            'grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 p-4 ml-2 mr-2'}
-        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
-            <div>Date</div>
-            <div>Clear</div>
-            <div>Type</div>
-            <div>Payee</div>
-            <div>Category</div>
-            <div class="text-right">Amount</div>
-            <div class="text-right">Balance</div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-
-        <Accordion>
+        <Accordion
+            regionControl="border mt-4 bg-surface-500"
+            regionPanel="border-x border-b bg-surface-500"
+        >
             {#each Object.keys(groupedTransactions) as grouping}
                 <AccordionItem open={grouping === 'Current'} on:toggle={handleOpenToggle}>
                     <svelte:fragment slot="summary">{grouping}</svelte:fragment>
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
                             <div
-                                class={`${gridDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} min-h-20`}
+                                class={`zzz ${gridRowDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} min-h-20`}
                             >
                                 <div class="content-center">{transaction.transaction_date}</div>
                                 <div class="content-center">{transaction.clear_date || ''}</div>
@@ -345,13 +350,17 @@
         </Accordion>
     {:else}
         <h3 class="h3">
-            You haven't added any transactions yet. Click the button below to create one
+            You haven't added any transactions yet. Click the button at the top-right to create one.
         </h3>
         <div>
             or <a class="anchor" href="./import">import your existing data from CSV</a>.
         </div>
     {/if}
-</section>
+</QuantumTable>
 
-<FloatingActionButton href="./transactions/new"><i class="fa-solid fa-plus" /></FloatingActionButton
->
+<div class="popovers">
+    <div class="card p-4 w-72 shadow-xl" data-popup="accountTransactionsExcluded">
+        <div><p>This transaction is excluded from forecast calculations</p></div>
+        <div class="arrow bg-surface-100-800-token" />
+    </div>
+</div>

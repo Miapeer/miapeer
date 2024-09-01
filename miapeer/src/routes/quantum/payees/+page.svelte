@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumTable from '@quantum/QuantumTable.svelte';
     import type { PageData } from './$types';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
 
@@ -6,10 +7,10 @@
 
     import { invalidate } from '$app/navigation';
 
-    export let data: PageData;
-
     import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
+
+    export let data: PageData;
 
     const handleConfirmDelete = (payee) => {
         const modal: ModalSettings = {
@@ -38,19 +39,21 @@
             console.error('NOT ok');
         }
     };
+
+    const gridRowDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2';
 </script>
 
-<section>
-    <h1 class="h1">Payees</h1>
+<QuantumTable pageTitle="Quantum: Payees" headline="Payees" newItemHref="./payees/new" {data}>
+    <svelte:fragment slot="tableHeader">
+        {#if data.payees.length}
+            <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>&nbsp;</div>
+        {/if}
+    </svelte:fragment>
 
     {#if data.payees.length}
-        {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
-
-        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
-
         {#each data.payees as payee, payeeIndex}
             <div
-                class={`${gridDef} ${payeeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${payeeIndex === data.payees.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridRowDef} ${payeeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${payeeIndex === data.payees.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{payee.name}</div>
                 <div class="action-cell text-right">
@@ -79,8 +82,8 @@
             </div>
         {/each}
     {:else}
-        <h3 class="h3">You haven't set up any payees yet. Click the button below to create one.</h3>
+        <h3 class="h3">
+            You haven't set up any payees yet. Click the button at the top-right to create one.
+        </h3>
     {/if}
-</section>
-
-<FloatingActionButton href="./payees/new"><i class="fa-solid fa-plus" /></FloatingActionButton>
+</QuantumTable>

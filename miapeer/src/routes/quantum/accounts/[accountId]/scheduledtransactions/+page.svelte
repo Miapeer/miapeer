@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumTable from '@quantum/QuantumTable.svelte';
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
@@ -80,36 +81,44 @@
             console.error('NOT ok');
         }
     };
+
+    $: data.scheduledTransactions.sort((a, b) => {
+        if (a.next_transaction.transaction_date === b.next_transaction.transaction_date) {
+            return a.scheduled_transaction_id > b.scheduled_transaction_id ? 1 : -1;
+        }
+
+        return a.next_transaction.transaction_date > b.next_transaction.transaction_date ? 1 : -1;
+    });
+
+    const gridRowDef =
+        'grid grid-cols-[100px_150px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_120px_15px_80px] gap-4 p-4 ml-2 mr-2';
 </script>
 
-<section>
-    <h1 class="h1">
-        {`${data.indexedAccounts[$page.params.accountId].name} Scheduled Transactions`}
-    </h1>
-
-    <div class="popovers">
-        <div class="card p-4 w-72 shadow-xl" data-popup="accountTransactionsExcluded">
-            <div><p>This transaction is excluded from forecast calculations</p></div>
-            <div class="arrow bg-surface-100-800-token" />
-        </div>
-    </div>
+<QuantumTable
+    pageTitle="Quantum: Scheduled Transactions"
+    headline={`${data.indexedAccounts[$page.params.accountId].name} Scheduled Transactions`}
+    newItemHref="./scheduledtransactions/new"
+    {data}
+>
+    <svelte:fragment slot="tableHeader">
+        {#if data.scheduledTransactions.length > 0}
+            <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>
+                <div>Next Date</div>
+                <div>Repeat Option</div>
+                <div>Type</div>
+                <div>Payee</div>
+                <div>Category</div>
+                <div class="text-right">Next Amount</div>
+                <div></div>
+                <div></div>
+            </div>
+        {/if}
+    </svelte:fragment>
 
     {#if data.scheduledTransactions.length > 0}
-        {@const gridDef =
-            'grid grid-cols-[100px_150px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_110px_80px_80px] gap-4 p-4 ml-2 mr-2'}
-        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}>
-            <div>Next Date</div>
-            <div>Repeat Option</div>
-            <div>Type</div>
-            <div>Payee</div>
-            <div>Category</div>
-            <div class="text-right">Next Amount</div>
-            <div></div>
-            <div></div>
-        </div>
         {#each data.scheduledTransactions as scheduledTransaction, scheduledTransactionIndex}
             <div
-                class={`${gridDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === data.scheduledTransactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridRowDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === data.scheduledTransactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{scheduledTransaction.start_date}</div>
                 <div class="content-center">
@@ -136,13 +145,13 @@
                             class="fa fa-clipboard-list"
                             use:popup={{
                                 event: 'hover',
-                                target: `accountTransactionsNotes${scheduledTransaction.transaction_id}`,
+                                target: `accountTransactionsNotes${scheduledTransaction.scheduled_transaction_id}`,
                                 placement: 'top'
                             }}
                         ></i>
                         <div
                             class="card p-4 w-72 shadow-xl"
-                            data-popup={`accountTransactionsNotes${scheduledTransaction.transaction_id}`}
+                            data-popup={`accountTransactionsNotes${scheduledTransaction.scheduled_transaction_id}`}
                         >
                             <div><p>{scheduledTransaction.notes}</p></div>
                             <div class="arrow bg-surface-100-800-token" />
@@ -189,11 +198,15 @@
         {/each}
     {:else}
         <h3 class="h3">
-            You haven't added any scheduled transactions yet. Click the button below to create one.
+            You haven't added any scheduled transactions yet. Click the button at the top-right to
+            create one.
         </h3>
     {/if}
-</section>
+</QuantumTable>
 
-<FloatingActionButton href="./scheduledtransactions/new"
-    ><i class="fa-solid fa-plus" /></FloatingActionButton
->
+<div class="popovers">
+    <div class="card p-4 w-72 shadow-xl" data-popup="accountTransactionsExcluded">
+        <div><p>This transaction is excluded from forecast calculations</p></div>
+        <div class="arrow bg-surface-100-800-token" />
+    </div>
+</div>

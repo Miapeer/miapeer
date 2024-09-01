@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
 
@@ -6,10 +7,10 @@
 
     import { invalidate } from '$app/navigation';
 
-    export let data: PageData;
-
     import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
+
+    export let data: PageData;
 
     const handleConfirmDelete = (transactionType) => {
         const modal: ModalSettings = {
@@ -42,19 +43,26 @@
             console.error('NOT ok');
         }
     };
+
+    const gridRowDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2';
 </script>
 
-<section>
-    <h1 class="h1">Transaction Types</h1>
+<QuantumTable
+    pageTitle="Quantum: Transaction Types"
+    headline="Transaction Types"
+    newItemHref="./transactiontypes/new"
+    {data}
+>
+    <svelte:fragment slot="tableHeader">
+        {#if data.transactionTypes.length}
+            <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>&nbsp;</div>
+        {/if}
+    </svelte:fragment>
 
     {#if data.transactionTypes.length}
-        {@const gridDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2'}
-
-        <div class={`${gridDef} mt-4 bg-surface-600 rounded-t-lg font-bold`}></div>
-
         {#each data.transactionTypes as transactionType, transactionTypeIndex}
             <div
-                class={`${gridDef} ${transactionTypeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionTypeIndex === data.transactionTypes.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
+                class={`${gridRowDef} ${transactionTypeIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionTypeIndex === data.transactionTypes.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
                 <div class="content-center">{transactionType.name}</div>
                 <div class="action-cell text-right">
@@ -89,11 +97,8 @@
         {/each}
     {:else}
         <h3 class="h3">
-            You haven't set up any transaction types yet. Click the button below to create one.
+            You haven't set up any transaction types yet. Click the button at the top-right to
+            create one.
         </h3>
     {/if}
-</section>
-
-<FloatingActionButton href="./transactiontypes/new"
-    ><i class="fa-solid fa-plus" /></FloatingActionButton
->
+</QuantumTable>

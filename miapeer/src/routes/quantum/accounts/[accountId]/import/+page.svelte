@@ -1,4 +1,5 @@
 <script lang="ts">
+    import QuantumPage from '../../../QuantumPage.svelte';
     import type { PageData } from './$types';
     import { goto, invalidate } from '$app/navigation';
     import FloatingActionButton from '$lib/FloatingActionButton.svelte';
@@ -126,9 +127,7 @@
     };
 </script>
 
-<section>
-    <h1 class="h1">Import Data</h1>
-
+<QuantumPage pageTitle="Quantum: Import Data" headline="Import Data" {data}>
     {#if !data.transactions || data.transactions.length === 0}
         <Accordion>
             <AccordionItem open>
@@ -201,4 +200,4 @@
     {:else}
         <h3 class="h3">You shouldn't be here</h3>
     {/if}
-</section>
+</QuantumPage>
