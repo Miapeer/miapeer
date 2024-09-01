@@ -1,11 +1,9 @@
 <script lang="ts">
-    import type { PageData } from './[payeeId]/$types';
     import { goto, invalidate } from '$app/navigation';
     import { createPayee, updatePayee } from '@quantum/api';
 
     export let portfolioId;
     export let payee = null;
-    export let data;
 
     let isCreatingNew = !!payee;
 

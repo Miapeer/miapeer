@@ -1,11 +1,9 @@
 <script lang="ts">
-    import type { PageData } from './new/$types';
     import { goto, invalidate } from '$app/navigation';
     import { createCategory, updateCategory } from '@quantum/api';
 
     export let portfolioId;
     export let category = null;
-    export let data;
 
     let isCreatingNew = !!category;
 
