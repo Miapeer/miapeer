@@ -13,6 +13,7 @@
 
     export let data: PageData;
 
+    const groupNameCurrent = 'Current';
     const modalStore = getModalStore();
     const dateOptions = { month: 'long', year: 'numeric' };
     let groupedTransactions = {};
@@ -104,24 +105,12 @@
         }, 0);
     };
 
-    const isAfterFutureMarker = (date) => {
-        const msToDays = 1000 * 60 * 60 * 24;
-        const futureMarkerDays = $page.url.searchParams.get('marker') ?? 7;
-
-        const msMarkDate = new Date().getTime() + msToDays * futureMarkerDays;
-        const msDate = new Date(formatDate(date)).getTime();
-
-        return msDate > msMarkDate;
-    };
-
     const groupTransactions = () => {
         groupedTransactions = {};
 
-        const CURRENT_GROUP = 'Current';
         const today = new Date();
         const currentMonthString = `${today.getFullYear()}-${today.getMonth() < 9 ? 0 : ''}${today.getMonth() + 1}-01`;
         const currentMonth = new Date(currentMonthString);
-        let placedFutureMarker = false;
 
         for (
             let transactionIndex = 0;
@@ -133,22 +122,13 @@
             let grouping =
                 clearDate && clearDate < currentMonth
                     ? formatDate(clearDate, dateOptions)
-                    : CURRENT_GROUP;
+                    : groupNameCurrent;
 
             if (!(grouping in groupedTransactions)) {
                 groupedTransactions[grouping] = [];
             }
 
             groupedTransactions[grouping].push(transaction);
-
-            if (
-                !placedFutureMarker &&
-                grouping === CURRENT_GROUP &&
-                isAfterFutureMarker(transaction.transaction_date)
-            ) {
-                transaction.future_marker = true;
-                placedFutureMarker = true;
-            }
         }
     };
 
@@ -175,9 +155,63 @@
         }
     };
 
+    const flagFutureMarkerTransaction = () => {
+        const isAfterFutureMarker = (date) => {
+            const msToDays = 1000 * 60 * 60 * 24;
+            const futureMarkerDays = $page.url.searchParams.get('marker') ?? 7;
+
+            const msMarkDate = new Date().getTime() + msToDays * futureMarkerDays;
+            const msDate = new Date(formatDate(date)).getTime();
+
+            return msDate > msMarkDate;
+        };
+
+        for (
+            let transactionIndex = 0;
+            transactionIndex < groupedTransactions[groupNameCurrent].length;
+            transactionIndex++
+        ) {
+            let transaction = groupedTransactions[groupNameCurrent][transactionIndex];
+
+            if (isAfterFutureMarker(transaction.transaction_date)) {
+                transaction.future_marker = true;
+                return;
+            }
+        }
+    };
+
+    const flagLowestBalanceWithinGroups = () => {
+        for (
+            let groupIndex = 0;
+            groupIndex < Object.keys(groupedTransactions).length;
+            groupIndex++
+        ) {
+            const group = Object.keys(groupedTransactions)[groupIndex];
+            let minBalance = Number.MAX_VALUE;
+            let minBalanceTransaction = null;
+
+            for (
+                let transactionIndex = 0;
+                transactionIndex < groupedTransactions[group].length;
+                transactionIndex++
+            ) {
+                let transaction = groupedTransactions[group][transactionIndex];
+
+                if (transaction.balance < minBalance) {
+                    minBalance = transaction.balance;
+                    minBalanceTransaction = transaction;
+                }
+            }
+
+            minBalanceTransaction.has_lowest_balance = true;
+        }
+    };
+
     const organizeTransactions = () => {
         groupTransactions();
         compileNextForecastedTransactions();
+        flagFutureMarkerTransaction();
+        flagLowestBalanceWithinGroups();
     };
 
     const getBackgroundColorClass = (index, balance) => {
@@ -248,7 +282,7 @@
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
                             <div
-                                class={`${gridRowDef} ${getBackgroundColorClass(transactionIndex, transaction.balance)} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} ${transaction.future_marker ? 'mt-4' : ''} min-h-20`}
+                                class={`${gridRowDef} ${getBackgroundColorClass(transactionIndex, transaction.balance)} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} ${transaction.future_marker ? 'mt-4' : ''} min-h-20 ${transaction.has_lowest_balance ? 'outline' : ''}`}
                             >
                                 <div class="content-center">{transaction.transaction_date}</div>
                                 <div class="content-center">{transaction.clear_date || ''}</div>
