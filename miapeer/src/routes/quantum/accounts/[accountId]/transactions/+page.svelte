@@ -161,6 +161,17 @@
         compileNextForecastedTransactions();
     };
 
+    const getBackgroundColorClass = (index, balance) => {
+        let scale = index % 2 ? 700 : 800;
+        let color = 'surface';
+
+        if (balance <= 0) {
+            color = 'red';
+        }
+
+        return `bg-${color}-${scale}`;
+    };
+
     const gridRowDef =
         'grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 p-4 ml-2 mr-2';
 
@@ -218,7 +229,7 @@
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
                             <div
-                                class={`zzz ${gridRowDef} ${transactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} min-h-20`}
+                                class={`${gridRowDef} ${getBackgroundColorClass(transactionIndex, transaction.balance)} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} min-h-20`}
                             >
                                 <div class="content-center">{transaction.transaction_date}</div>
                                 <div class="content-center">{transaction.clear_date || ''}</div>
