@@ -6,6 +6,6 @@
     export let data: PageData;
 </script>
 
-<QuantumPage pageTitle="Quantum: New Category" headline="Create a new Category" {data}>
+<QuantumPage pageTitle="Quantum: Edit Category" headline="Edit Category" {data}>
     <CategoryForm portfolioId={data.portfolioId} category={data.category} {data} />
 </QuantumPage>

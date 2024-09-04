@@ -6,11 +6,7 @@
     export let data: PageData;
 </script>
 
-<QuantumPage
-    pageTitle="Quantum: New Transaction Type"
-    headline="Create a new Transaction Type"
-    {data}
->
+<QuantumPage pageTitle="Quantum: Edit Transaction Type" headline="Edit Transaction Type" {data}>
     <TransactionTypeForm
         portfolioId={data.portfolioId}
         transactionType={data.transactionType}
