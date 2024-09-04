@@ -1,19 +1,17 @@
 <script lang="ts">
     import QuantumTable from '@quantum/QuantumTable.svelte';
     import type { PageData } from './$types';
-    import { goto, invalidate } from '$app/navigation';
-    import FloatingActionButton from '$lib/FloatingActionButton.svelte';
+    import { invalidate } from '$app/navigation';
     import { popup } from '@skeletonlabs/skeleton';
     import type { PopupSettings } from '@skeletonlabs/skeleton';
     import { formatMoney, formatDate } from '@quantum/util';
     import { importErrors } from '$lib/stores';
     import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
     import { onMount } from 'svelte';
-
-    export let data: PageData;
+    import { getModalStore } from '@skeletonlabs/skeleton';
     import { page } from '$app/stores';
 
-    import { getModalStore } from '@skeletonlabs/skeleton';
+    export let data: PageData;
 
     const modalStore = getModalStore();
     const dateOptions = { month: 'long', year: 'numeric' };
@@ -106,12 +104,24 @@
         }, 0);
     };
 
+    const isAfterFutureMarker = (date) => {
+        const msToDays = 1000 * 60 * 60 * 24;
+        const futureMarkerDays = $page.url.searchParams.get('marker') ?? 7;
+
+        const msMarkDate = new Date().getTime() + msToDays * futureMarkerDays;
+        const msDate = new Date(formatDate(date)).getTime();
+
+        return msDate > msMarkDate;
+    };
+
     const groupTransactions = () => {
         groupedTransactions = {};
 
+        const CURRENT_GROUP = 'Current';
         const today = new Date();
         const currentMonthString = `${today.getFullYear()}-${today.getMonth() < 9 ? 0 : ''}${today.getMonth() + 1}-01`;
         const currentMonth = new Date(currentMonthString);
+        let placedFutureMarker = false;
 
         for (
             let transactionIndex = 0;
@@ -123,13 +133,22 @@
             let grouping =
                 clearDate && clearDate < currentMonth
                     ? formatDate(clearDate, dateOptions)
-                    : 'Current';
+                    : CURRENT_GROUP;
 
             if (!(grouping in groupedTransactions)) {
                 groupedTransactions[grouping] = [];
             }
 
             groupedTransactions[grouping].push(transaction);
+
+            if (
+                !placedFutureMarker &&
+                grouping === CURRENT_GROUP &&
+                isAfterFutureMarker(transaction.transaction_date)
+            ) {
+                transaction.future_marker = true;
+                placedFutureMarker = true;
+            }
         }
     };
 
@@ -229,7 +248,7 @@
                     <svelte:fragment slot="content">
                         {#each groupedTransactions[grouping] as transaction, transactionIndex}
                             <div
-                                class={`${gridRowDef} ${getBackgroundColorClass(transactionIndex, transaction.balance)} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} min-h-20`}
+                                class={`${gridRowDef} ${getBackgroundColorClass(transactionIndex, transaction.balance)} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} ${transaction.future_marker ? 'mt-4' : ''} min-h-20`}
                             >
                                 <div class="content-center">{transaction.transaction_date}</div>
                                 <div class="content-center">{transaction.clear_date || ''}</div>
