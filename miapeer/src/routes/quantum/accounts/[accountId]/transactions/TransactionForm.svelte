@@ -16,7 +16,7 @@
     export let transaction = null;
     export let data;
 
-    let isCreatingNew = !!transaction;
+    $: isCreatingNew = !transaction;
 
     let selectedTransactionTypeName =
         data.indexedTransactionTypes[transaction?.transaction_type_id]?.name || '';
@@ -43,12 +43,12 @@
         updateCategoryName();
     }
 
-    let selectedExcludeFromForecast = data.transaction.exclude_from_forecast;
-    let selectedAmount = formatMoney(data.transaction.amount);
-    let selectedTransactionDate = data.transaction.transaction_date;
-    let selectedClearDate = data.transaction.clear_date;
-    let selectedCheckNumber = data.transaction.check_number;
-    let selectedNote = data.transaction.notes;
+    let selectedExcludeFromForecast = transaction?.exclude_from_forecast;
+    let selectedAmount = formatMoney(transaction?.amount);
+    let selectedTransactionDate = transaction?.transaction_date;
+    let selectedClearDate = transaction?.clear_date;
+    let selectedCheckNumber = transaction?.check_number;
+    let selectedNote = transaction?.notes;
 
     const handleCancel = () => {
         goto('.');
@@ -87,8 +87,8 @@
             notes: selectedNote
         });
         if (returnedTransaction) {
-            invalidate('quantum:transactions');
-            goto('.');
+            await invalidate('quantum:transactions');
+            goto(`/quantum/accounts/${accountId}/transactions`);
         }
     };
 
