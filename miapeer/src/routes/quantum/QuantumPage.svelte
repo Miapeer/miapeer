@@ -16,7 +16,7 @@
     let forecastMonthLimit = $page.url.searchParams.get('forecastmonths') ?? 1;
 
     const updateLimits = async () => {
-        window.location = `/quantum/accounts/${$page.params.accountId}/transactions?threshold=${lowBalanceThreshold}&limitmonths=${transactionMonthLimit}&forecastmonths=${forecastMonthLimit}`;
+        window.location = `/quantum/accounts/${$page.params.accountId}/transactions?marker=${futureMarker}&threshold=${lowBalanceThreshold}&limitmonths=${transactionMonthLimit}&forecastmonths=${forecastMonthLimit}`;
     };
 </script>
 
