@@ -10,18 +10,40 @@
     export let pageTitle = 'Quantum';
     export let headline = '';
 
+    let futureMarker = $page.url.searchParams.get('marker') ?? 7;
+    let lowBalanceThreshold = $page.url.searchParams.get('threshold') ?? 250;
     let transactionMonthLimit = $page.url.searchParams.get('limitmonths') ?? 3;
     let forecastMonthLimit = $page.url.searchParams.get('forecastmonths') ?? 1;
 
     const updateLimits = async () => {
-        window.location = `/quantum/accounts/${$page.params.accountId}/transactions?limitmonths=${transactionMonthLimit}&forecastmonths=${forecastMonthLimit}`;
+        window.location = `/quantum/accounts/${$page.params.accountId}/transactions?threshold=${lowBalanceThreshold}&limitmonths=${transactionMonthLimit}&forecastmonths=${forecastMonthLimit}`;
     };
 </script>
 
 <MiapeerPage {pageTitle} {headline} {data}>
     <svelte:fragment slot="header">
-        <div class="grid grid-cols-[1fr_14rem_18rem_12rem_12rem] gap-4">
+        <div class="grid grid-cols-[1fr_14rem_18rem_13rem_17rem_12rem_12rem] gap-4">
             <div></div>
+            <div>
+                {#if $page.url.pathname === `/quantum/accounts/${$page.params.accountId}/transactions`}
+                    <div class="input-group input-group-divider grid-cols-[11rem_auto]">
+                        <div class="input-group-shim">Mark future days</div>
+                        <input type="text" bind:value={futureMarker} on:focusout={updateLimits} />
+                    </div>
+                {/if}
+            </div>
+            <div>
+                {#if $page.url.pathname === `/quantum/accounts/${$page.params.accountId}/transactions`}
+                    <div class="input-group input-group-divider grid-cols-[14rem_auto]">
+                        <div class="input-group-shim">Low balance threshold</div>
+                        <input
+                            type="text"
+                            bind:value={lowBalanceThreshold}
+                            on:focusout={updateLimits}
+                        />
+                    </div>
+                {/if}
+            </div>
             <div>
                 {#if $page.url.pathname === `/quantum/accounts/${$page.params.accountId}/transactions`}
                     <div class="input-group input-group-divider grid-cols-[10rem_auto]">
