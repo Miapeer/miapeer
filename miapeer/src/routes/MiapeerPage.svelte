@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+    import { AppShell, AppBar, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
     import logoLong from '$lib/images/miapeer-logo-long.svg';
-
     import { goto, invalidateAll } from '$app/navigation';
+
+    const drawerStore = getDrawerStore();
 
     export let data;
     export let pageTitle = 'Miapeer';
@@ -21,11 +22,19 @@
             console.error('NOT ok');
         }
     };
+
+    const openSettingsDrawer = () => {
+        drawerStore.open();
+    };
 </script>
 
 <svelte:head>
     <title>{pageTitle}</title>
 </svelte:head>
+
+<slot name="settingsDrawer">
+    <Drawer position="top">No settings preset for this page</Drawer>
+</slot>
 
 <AppShell slotHeader="z-20">
     <svelte:fragment slot="header">
@@ -51,6 +60,12 @@
                             User Management
                         </a>
                     {/if}
+                    <button
+                        class="btn btn-sm variant-ghost-surface h-8"
+                        on:click={openSettingsDrawer}
+                    >
+                        <i class="fa fa-cog"></i>
+                    </button>
                     <button class="btn btn-sm variant-ghost-surface" on:click={handleLogout}>
                         Log Out
                     </button>
