@@ -5,7 +5,7 @@
     export let portfolioId;
     export let transactionType = null;
 
-    let isCreatingNew = !!transactionType;
+    $: isCreatingNew = !transactionType;
 
     let selectedTransactionTypeName = transactionType?.name || '';
 
@@ -22,7 +22,7 @@
             transactionTypeName: selectedTransactionTypeName
         });
         if (returnedTransactionType) {
-            invalidate('quantum:transactiontypes');
+            await invalidate('quantum:transactiontypes');
             goto('.');
         }
     };

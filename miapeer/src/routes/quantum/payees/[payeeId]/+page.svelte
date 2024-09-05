@@ -6,6 +6,6 @@
     export let data: PageData;
 </script>
 
-<QuantumPage pageTitle="Quantum: New Payee" headline="Create a new Payee" {data}>
+<QuantumPage pageTitle="Quantum: Edit Payee" headline="Edit Payee" {data}>
     <PayeeForm portfolioId={data.portfolioId} payee={data.payee} {data} />
 </QuantumPage>

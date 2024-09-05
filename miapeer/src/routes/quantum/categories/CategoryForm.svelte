@@ -5,7 +5,7 @@
     export let portfolioId;
     export let category = null;
 
-    let isCreatingNew = !!category;
+    $: isCreatingNew = !category;
 
     let selectedCategoryName = category?.name || '';
 
@@ -22,7 +22,7 @@
             categoryName: selectedCategoryName
         });
         if (returnedCategory) {
-            invalidate('quantum:categories');
+            await invalidate('quantum:categories');
             goto('.');
         }
     };

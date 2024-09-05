@@ -1,7 +1,60 @@
 import { invalidate } from '$app/navigation';
 
+const createAccount = async ({ portfolioId, accountName, unformattedStartingBalance }) => {
+    if (!portfolioId || !accountName) {
+        return;
+    }
+
+    const requestData = {
+        portfolioId,
+        accountName,
+        startingBalance: unformattedStartingBalance || 0
+    };
+    const res = await fetch('/quantum/accounts/new', {
+        method: 'POST',
+        body: JSON.stringify(requestData)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        invalidate('quantum:accounts');
+        return data;
+    } else {
+        console.error('NOT ok');
+    }
+};
+
+const updateAccount = async ({
+    portfolioId,
+    accountId,
+    accountName,
+    unformattedStartingBalance
+}) => {
+    if (!portfolioId || !accountId || !accountName) {
+        return;
+    }
+
+    const requestData = {
+        portfolioId,
+        accountName,
+        startingBalance: unformattedStartingBalance || 0
+    };
+    const res = await fetch(`/quantum/accounts/${accountId}`, {
+        method: 'POST',
+        body: JSON.stringify(requestData)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        invalidate('quantum:accounts');
+        return data;
+    } else {
+        console.error('NOT ok');
+    }
+};
+
 const createTransactionType = async ({ portfolioId, transactionTypeName }) => {
-    if (!transactionTypeName) {
+    if (!portfolioId || !transactionTypeName) {
         return;
     }
 
@@ -24,7 +77,7 @@ const createTransactionType = async ({ portfolioId, transactionTypeName }) => {
 };
 
 const updateTransactionType = async ({ portfolioId, transactionTypeId, transactionTypeName }) => {
-    if (!transactionTypeName) {
+    if (!portfolioId || !transactionTypeId || !transactionTypeName) {
         return;
     }
 
@@ -47,7 +100,7 @@ const updateTransactionType = async ({ portfolioId, transactionTypeId, transacti
 };
 
 const createPayee = async ({ portfolioId, payeeName }) => {
-    if (!payeeName) {
+    if (!portfolioId || !payeeName) {
         return;
     }
 
@@ -70,7 +123,7 @@ const createPayee = async ({ portfolioId, payeeName }) => {
 };
 
 const updatePayee = async ({ portfolioId, payeeId, payeeName }) => {
-    if (!payeeName) {
+    if (!portfolioId || !payeeId || !payeeName) {
         return;
     }
 
@@ -93,7 +146,7 @@ const updatePayee = async ({ portfolioId, payeeId, payeeName }) => {
 };
 
 const createCategory = async ({ portfolioId, categoryName }) => {
-    if (!categoryName) {
+    if (!portfolioId || !categoryName) {
         return;
     }
 
@@ -117,7 +170,7 @@ const createCategory = async ({ portfolioId, categoryName }) => {
 };
 
 const updateCategory = async ({ portfolioId, categoryId, categoryName }) => {
-    if (!categoryName) {
+    if (!portfolioId || !categoryId || !categoryName) {
         return;
     }
 
@@ -152,6 +205,10 @@ const createTransaction = async ({
     checkNumber,
     notes
 }) => {
+    if (!accountId) {
+        return;
+    }
+
     const requestData = {
         transactionTypeId,
         payeeId,
@@ -179,7 +236,7 @@ const createTransaction = async ({
 
 const updateTransaction = async ({
     accountId,
-    scheduledTransactionId,
+    transactionId,
     transactionTypeId,
     payeeId,
     categoryId,
@@ -190,6 +247,10 @@ const updateTransaction = async ({
     checkNumber,
     notes
 }) => {
+    if (!accountId || !transactionId) {
+        return;
+    }
+
     const requestData = {
         transactionTypeId,
         payeeId,
@@ -202,13 +263,10 @@ const updateTransaction = async ({
         notes
     };
 
-    const res = await fetch(
-        `/quantum/accounts/${accountId}/transactions/${scheduledTransactionId}`,
-        {
-            method: 'POST',
-            body: JSON.stringify(requestData)
-        }
-    );
+    const res = await fetch(`/quantum/accounts/${accountId}/transactions/${transactionId}`, {
+        method: 'POST',
+        body: JSON.stringify(requestData)
+    });
 
     if (res.ok) {
         const data = await res.json();
@@ -233,6 +291,10 @@ const createScheduledTransaction = async ({
     onAutopay,
     notes
 }) => {
+    if (!accountId) {
+        return;
+    }
+
     const requestData = {
         accountId,
         transactionTypeId,
@@ -278,6 +340,10 @@ const updateScheduledTransaction = async ({
     onAutopay,
     notes
 }) => {
+    if (!accountId || !scheduledTransactionId) {
+        return;
+    }
+
     const requestData = {
         accountId,
         transactionTypeId,
@@ -311,6 +377,8 @@ const updateScheduledTransaction = async ({
 };
 
 export {
+    createAccount,
+    updateAccount,
     createTransactionType,
     updateTransactionType,
     createPayee,

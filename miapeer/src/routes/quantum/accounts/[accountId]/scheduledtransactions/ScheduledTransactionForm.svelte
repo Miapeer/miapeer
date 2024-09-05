@@ -16,7 +16,7 @@
     export let scheduledTransaction = null;
     export let data;
 
-    let isCreatingNew = !!scheduledTransaction;
+    $: isCreatingNew = !scheduledTransaction;
 
     let selectedTransactionTypeName =
         data.indexedTransactionTypes[scheduledTransaction?.transaction_type_id]?.name || '';
@@ -103,7 +103,7 @@
             notes: selectedNote
         });
         if (returnedScheduledTransaction) {
-            invalidate('quantum:scheduledtransactions');
+            await invalidate('quantum:scheduledtransactions');
             goto('.');
         }
     };

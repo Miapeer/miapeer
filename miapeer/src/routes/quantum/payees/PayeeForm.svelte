@@ -5,7 +5,7 @@
     export let portfolioId;
     export let payee = null;
 
-    let isCreatingNew = !!payee;
+    $: isCreatingNew = !payee;
 
     let selectedPayeeName = payee?.name || '';
 
@@ -22,7 +22,7 @@
             payeeName: selectedPayeeName
         });
         if (returnedPayee) {
-            invalidate('quantum:payees');
+            await invalidate('quantum:payees');
             goto('.');
         }
     };

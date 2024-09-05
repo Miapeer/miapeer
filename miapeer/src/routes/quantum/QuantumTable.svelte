@@ -9,13 +9,6 @@
     export let pageTitle = 'Quantum';
     export let headline = '';
     export let newItemHref = '';
-
-    let transactionMonthLimit = $page.url.searchParams.get('limitmonths') ?? 3;
-    let forecastMonthLimit = $page.url.searchParams.get('forecastmonths') ?? 1;
-
-    const updateLimits = async () => {
-        window.location = `/quantum/accounts/${$page.params.accountId}/transactions?limitmonths=${transactionMonthLimit}&forecastmonths=${forecastMonthLimit}`;
-    };
 </script>
 
 <QuantumPage {pageTitle} {headline} {data}>

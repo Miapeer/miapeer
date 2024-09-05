@@ -7,6 +7,6 @@
     export let data: PageData;
 </script>
 
-<QuantumPage pageTitle="Quantum: New Transaction" headline="Create a new Transaction" {data}>
+<QuantumPage pageTitle="Quantum: Edit Transaction" headline="Edit Transaction" {data}>
     <TransactionForm accountId={$page.params.accountId} transaction={data.transaction} {data} />
 </QuantumPage>
