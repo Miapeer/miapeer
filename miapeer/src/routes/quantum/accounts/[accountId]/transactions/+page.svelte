@@ -321,13 +321,13 @@
                                             class="fa fa-check-square"
                                             use:popup={{
                                                 event: 'hover',
-                                                target: `accountTransactionsCheckNumber${transaction.transaction_id}`,
+                                                target: `accountTransactionsCheckNumber${transactionIndex}`,
                                                 placement: 'top'
                                             }}
                                         ></i>
                                         <div
                                             class="card p-4 w-72 shadow-xl"
-                                            data-popup={`accountTransactionsCheckNumber${transaction.transaction_id}`}
+                                            data-popup={`accountTransactionsCheckNumber${transactionIndex}`}
                                         >
                                             <div><p>{transaction.check_number}</p></div>
                                             <div class="arrow bg-surface-100-800-token" />
@@ -340,13 +340,13 @@
                                             class="fa fa-clipboard-list"
                                             use:popup={{
                                                 event: 'hover',
-                                                target: `accountTransactionsNotes${transaction.transaction_id}`,
+                                                target: `accountTransactionsNotes${transactionIndex}`,
                                                 placement: 'top'
                                             }}
                                         ></i>
                                         <div
                                             class="card p-4 w-72 shadow-xl"
-                                            data-popup={`accountTransactionsNotes${transaction.transaction_id}`}
+                                            data-popup={`accountTransactionsNotes${transactionIndex}`}
                                         >
                                             <div><p>{transaction.notes}</p></div>
                                             <div class="arrow bg-surface-100-800-token" />
