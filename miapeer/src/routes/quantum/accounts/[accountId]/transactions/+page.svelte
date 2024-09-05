@@ -363,13 +363,12 @@
                                                 use:popup={{
                                                     event: 'click',
                                                     target:
-                                                        'transaction-actions-' +
-                                                        transaction.transaction_id,
+                                                        'transaction-actions-' + transactionIndex,
                                                     placement: 'left'
                                                 }}><i class="fa-solid fa-ellipsis-v" /></button
                                             >
                                             <div
-                                                data-popup="transaction-actions-{transaction.transaction_id}"
+                                                data-popup="transaction-actions-{transactionIndex}"
                                             >
                                                 <div class="btn-group variant-filled">
                                                     {#if transaction.forecast_from_scheduled_transaction_id}
