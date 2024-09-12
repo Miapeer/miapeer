@@ -62,5 +62,6 @@
         >
             Log In
         </button>
+        <div>Don't have an account? <a class="anchor" href="/register">Register</a></div>
     </div>
 </MiapeerPage>
