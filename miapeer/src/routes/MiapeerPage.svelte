@@ -61,7 +61,7 @@
                         </a>
                     {/if}
                     <button
-                        class="btn btn-sm variant-ghost-surface h-8"
+                        class="btn-icon btn-icon-sm variant-ghost-surface"
                         on:click={openSettingsDrawer}
                     >
                         <i class="fa fa-cog"></i>
@@ -102,7 +102,7 @@
 
             <svelte:fragment slot="trail">
                 {#if true}
-                    <a class="anchor" href="/portfolio"> Jeff Navarra's Portfolio </a>
+                    <a class="anchor" href="/portfolio">Jeff Navarra's Portfolio</a>
                 {/if}
             </svelte:fragment>
         </AppBar>

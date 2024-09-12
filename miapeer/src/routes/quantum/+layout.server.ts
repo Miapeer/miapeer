@@ -1,7 +1,5 @@
 import { convertArrayToObject } from './util.js';
 
-let portfolioId = null;
-
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ depends, locals }) {
     depends('quantum:accounts');
@@ -9,7 +7,7 @@ export async function load({ depends, locals }) {
     depends('quantum:transactiontypes');
     depends('quantum:categories');
 
-    await ensureUserHasPortfolio(locals);
+    let portfolioId = await ensureUserHasPortfolio(locals);
 
     const accounts = await getUserAccounts(locals);
     const indexedAccounts = convertArrayToObject(accounts, 'account_id');
@@ -57,9 +55,9 @@ const ensureUserHasPortfolio = async (locals) => {
 
     if (portfolios.length === 0) {
         const newPortfolio = await createUserPortfolio(locals);
-        portfolioId = newPortfolio.portfolio_id;
-    } else if (portfolios[0].portfolio_id !== portfolioId) {
-        portfolioId = portfolios[0].portfolio_id;
+        return newPortfolio.portfolio_id;
+    } else {
+        return portfolios[0].portfolio_id;
     }
 };
 

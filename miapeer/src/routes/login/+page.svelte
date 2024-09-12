@@ -9,7 +9,7 @@
     let loggingIn = false;
 
     const handleLogin = async () => {
-        if (email === null || email === '' || password === null || password === '') {
+        if (!email || !password) {
             return;
         }
 
