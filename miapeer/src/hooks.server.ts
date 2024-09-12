@@ -42,7 +42,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             expires: new Date(0)
         });
 
-        if (['/', '/login', '/logout', '/portfolio'].includes(event.url.pathname)) {
+        if (['/', '/login', '/register', '/logout', '/portfolio'].includes(event.url.pathname)) {
             // Allow anonymous access
             accessToken = null;
             userName = null;
