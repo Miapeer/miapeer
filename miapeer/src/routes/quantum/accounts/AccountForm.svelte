@@ -22,7 +22,7 @@
             portfolioId,
             accountId: account?.account_id,
             accountName: selectedAccountName,
-            startingBalance: unformatMoney(selectedStartingBalance)
+            unformattedStartingBalance: unformatMoney(selectedStartingBalance)
         });
         if (returnedAccount) {
             await invalidate('quantum:accounts');
