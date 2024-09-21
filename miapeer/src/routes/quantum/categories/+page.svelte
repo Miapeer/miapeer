@@ -1,8 +1,9 @@
 <script lang="ts">
     import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
+    import { invalidate } from '$app/navigation';
+    import { applyAction, deserialize } from '$app/forms';
     import { popup, getModalStore } from '@skeletonlabs/skeleton';
-    import { deleteCategory } from '@quantum/api';
 
     const modalStore = getModalStore();
 
@@ -26,6 +27,26 @@
         };
 
         modalStore.trigger(modal);
+    };
+
+    const deleteCategory = async (targetElement) => {
+        const data = new FormData(targetElement);
+
+        const response = await fetch(targetElement.action, {
+            method: 'POST',
+            body: data
+        });
+
+        /** @type {import('@sveltejs/kit').ActionResult} */
+        const result = deserialize(await response.text());
+
+        if (result.type === 'success') {
+            invalidate('quantum:categories');
+        } else {
+            console.error('NOT ok');
+        }
+
+        applyAction(result);
     };
 
     const gridRowDef = 'grid grid-cols-[1fr_50px] gap-4 p-4 ml-2 mr-2';
