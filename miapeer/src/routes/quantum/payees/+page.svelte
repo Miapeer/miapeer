@@ -1,18 +1,17 @@
 <script lang="ts">
-    import QuantumTable from '@quantum/QuantumTable.svelte';
+    import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
-    import FloatingActionButton from '$lib/FloatingActionButton.svelte';
+    import { popup, getModalStore } from '@skeletonlabs/skeleton';
+    import { deletePayee } from '@quantum/api';
 
-    import { popup } from '@skeletonlabs/skeleton';
-
-    import { invalidate } from '$app/navigation';
-
-    import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
 
     export let data: PageData;
 
-    const handleConfirmDelete = (payee) => {
+    /** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
+    const handleConfirmDelete = (event, payee) => {
+        const targetElement = event.currentTarget;
+
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
@@ -21,23 +20,12 @@
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(payee);
+                    deletePayee(targetElement);
                 }
             }
         };
 
         modalStore.trigger(modal);
-    };
-    const handleDelete = async (payee) => {
-        const deletePayeeRequest = await fetch(`/quantum/payees/${payee.payee_id}`, {
-            method: 'DELETE'
-        });
-
-        if (deletePayeeRequest.ok) {
-            invalidate('quantum:payees');
-        } else {
-            console.error('NOT ok');
-        }
     };
 
     const gridRowDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2';
@@ -68,14 +56,20 @@
                             }}><i class="fa-solid fa-ellipsis-v" /></button
                         >
                         <div data-popup="payee-actions-{payeeIndex}">
-                            <div class="btn-group variant-filled">
-                                <a href={`./payees/${payee.payee_id}`}
-                                    ><i class="fa-solid fa-pen-to-square" /></a
-                                >
-                                <button on:click={() => handleConfirmDelete(payee)}
-                                    ><i class="fa-solid fa-trash" /></button
-                                >
-                            </div>
+                            <form
+                                method="POST"
+                                on:submit|preventDefault={(event) => {
+                                    handleConfirmDelete(event, payee);
+                                }}
+                                action={`payees/${payee.payee_id}?/delete`}
+                            >
+                                <div class="btn-group variant-filled">
+                                    <a href={`./payees/${payee.payee_id}`}
+                                        ><i class="fa-solid fa-pen-to-square" /></a
+                                    >
+                                    <button type="submit"><i class="fa-solid fa-trash" /></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

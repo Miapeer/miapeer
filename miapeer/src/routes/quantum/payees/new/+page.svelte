@@ -7,5 +7,5 @@
 </script>
 
 <QuantumPage pageTitle="Quantum: New Payee" headline="Create a new Payee" {data}>
-    <PayeeForm portfolioId={data.portfolioId} {data} />
+    <PayeeForm portfolioId={data.portfolioId} />
 </QuantumPage>
