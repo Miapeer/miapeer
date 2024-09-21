@@ -1,18 +1,19 @@
 <script lang="ts">
     import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
-    import { goto } from '$app/navigation';
-    import { popup } from '@skeletonlabs/skeleton';
     import { invalidate } from '$app/navigation';
-
+    import { applyAction, deserialize } from '$app/forms';
+    import { popup, getModalStore } from '@skeletonlabs/skeleton';
     import { formatMoney } from '@quantum/util';
 
-    import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
 
     export let data: PageData;
 
-    const handleConfirmDelete = (account) => {
+    /** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
+    const handleConfirmDelete = (event, account) => {
+        const targetElement = event.currentTarget;
+
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
@@ -21,7 +22,7 @@
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(account);
+                    deleteAccount(targetElement);
                 }
             }
         };
@@ -29,16 +30,24 @@
         modalStore.trigger(modal);
     };
 
-    const handleDelete = async (account) => {
-        const deleteAccountRequest = await fetch(`/quantum/accounts/${account.account_id}`, {
-            method: 'DELETE'
+    const deleteAccount = async (targetElement) => {
+        const data = new FormData(targetElement);
+
+        const response = await fetch(targetElement.action, {
+            method: 'POST',
+            body: data
         });
 
-        if (deleteAccountRequest.ok) {
+        /** @type {import('@sveltejs/kit').ActionResult} */
+        const result = deserialize(await response.text());
+
+        if (result.type === 'success') {
             invalidate('quantum:accounts');
         } else {
             console.error('NOT ok');
         }
+
+        applyAction(result);
     };
 
     const gridRowDef = 'grid grid-cols-[1fr_80px_50px] gap-4 p-4 ml-2 mr-2';
@@ -76,14 +85,20 @@
                             }}><i class="fa-solid fa-ellipsis-v" /></button
                         >
                         <div data-popup="account-actions-{accountIndex}">
-                            <div class="btn-group variant-filled">
-                                <a href={`./accounts/${account.account_id}`}
-                                    ><i class="fa-solid fa-pen-to-square" /></a
-                                >
-                                <button on:click={() => handleConfirmDelete(account)}
-                                    ><i class="fa-solid fa-trash" /></button
-                                >
-                            </div>
+                            <form
+                                method="POST"
+                                on:submit|preventDefault={(event) => {
+                                    handleConfirmDelete(event, account);
+                                }}
+                                action={`accounts/${account.account_id}?/delete`}
+                            >
+                                <div class="btn-group variant-filled">
+                                    <a href={`./accounts/${account.account_id}`}
+                                        ><i class="fa-solid fa-pen-to-square" /></a
+                                    >
+                                    <button type="submit"><i class="fa-solid fa-trash" /></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

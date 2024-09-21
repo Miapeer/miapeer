@@ -7,5 +7,5 @@
 </script>
 
 <QuantumPage pageTitle="Quantum: New Account" headline="Create a new Account" {data}>
-    <AccountForm portfolioId={data.portfolioId} account={data.account} {data} />
+    <AccountForm portfolioId={data.portfolioId} account={data.account} />
 </QuantumPage>
