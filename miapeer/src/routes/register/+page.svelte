@@ -1,48 +1,20 @@
 <script>
-    import { goto, invalidateAll } from '$app/navigation';
     import MiapeerPage from '../MiapeerPage.svelte';
+    import { enhance } from '$app/forms';
 
     export let data;
-    export let form;
 
     let email = '';
     let password = '';
     let passwordConfirmation = '';
 
-    let registering = false;
-
     $: passwordsMatch = password === passwordConfirmation;
-
-    const handleRegister = async () => {
-        if (!email || !password || !passwordsMatch) {
-            return;
-        }
-
-        registering = true;
-
-        const requestData = { email, password };
-        const res = await fetch('/register', {
-            method: 'POST',
-            body: JSON.stringify(requestData)
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            invalidateAll();
-            goto(data.redirectUrl ?? '/');
-        } else {
-            console.error('NOT ok');
-            console.error(res.status);
-            console.error(res.statusText);
-            console.error(await res.text());
-        }
-    };
 
     const gridRowDef = 'input-group input-group-divider grid-cols-[8rem_auto]';
 </script>
 
 <MiapeerPage pageTitle="Miapeer: Register" headline="Register" {data}>
-    <form method="POST">
+    <form method="POST" use:enhance>
         <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
             <div class="{gridRowDef} mb-4">
                 <div class="input-group-shim">Email</div>
@@ -67,15 +39,6 @@
                     bind:value={passwordConfirmation}
                 />
             </div>
-
-            <!-- <button
-                disabled={!email || !password || !passwordsMatch}
-                type="button"
-                class="btn variant-filled-primary"
-                on:click={handleRegister}
-            >
-                Register
-            </button> -->
 
             <button
                 disabled={!email || !password || !passwordsMatch}
