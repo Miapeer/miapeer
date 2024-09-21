@@ -1,18 +1,17 @@
 <script lang="ts">
     import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
-    import FloatingActionButton from '$lib/FloatingActionButton.svelte';
+    import { popup, getModalStore } from '@skeletonlabs/skeleton';
+    import { deleteTransactionType } from '@quantum/api';
 
-    import { popup } from '@skeletonlabs/skeleton';
-
-    import { invalidate } from '$app/navigation';
-
-    import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
 
     export let data: PageData;
 
-    const handleConfirmDelete = (transactionType) => {
+    /** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
+    const handleConfirmDelete = (event, transactionType) => {
+        const targetElement = event.currentTarget;
+
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
@@ -21,27 +20,12 @@
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(transactionType);
+                    deleteTransactionType(targetElement);
                 }
             }
         };
 
         modalStore.trigger(modal);
-    };
-
-    const handleDelete = async (transactionType) => {
-        const deleteTransactionTypeRequest = await fetch(
-            `/quantum/transactiontypes/${transactionType.transaction_type_id}`,
-            {
-                method: 'DELETE'
-            }
-        );
-
-        if (deleteTransactionTypeRequest.ok) {
-            invalidate('quantum:transactiontypes');
-        } else {
-            console.error('NOT ok');
-        }
     };
 
     const gridRowDef = 'grid grid-cols-[minmax(200px,_1fr)_50px] gap-4 p-4 ml-2 mr-2';
@@ -81,15 +65,21 @@
                         <div
                             data-popup="transaction-type-actions-{transactionType.transaction_type_id}"
                         >
-                            <div class="btn-group variant-filled">
-                                <a
-                                    href={`./transactiontypes/${transactionType.transaction_type_id}`}
-                                    ><i class="fa-solid fa-pen-to-square" /></a
-                                >
-                                <button on:click={() => handleConfirmDelete(transactionType)}
-                                    ><i class="fa-solid fa-trash" /></button
-                                >
-                            </div>
+                            <form
+                                method="POST"
+                                on:submit|preventDefault={(event) => {
+                                    handleConfirmDelete(event, transactionType);
+                                }}
+                                action={`transactiontypes/${transactionType.transaction_type_id}?/delete`}
+                            >
+                                <div class="btn-group variant-filled">
+                                    <a
+                                        href={`./transactiontypes/${transactionType.transaction_type_id}`}
+                                        ><i class="fa-solid fa-pen-to-square" /></a
+                                    >
+                                    <button type="submit"><i class="fa-solid fa-trash" /></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
