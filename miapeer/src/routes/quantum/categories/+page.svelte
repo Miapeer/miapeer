@@ -1,17 +1,17 @@
 <script lang="ts">
     import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
+    import { popup, getModalStore } from '@skeletonlabs/skeleton';
+    import { deleteCategory } from '@quantum/api';
 
-    import { popup } from '@skeletonlabs/skeleton';
-
-    import { invalidate } from '$app/navigation';
-
-    import { getModalStore } from '@skeletonlabs/skeleton';
     const modalStore = getModalStore();
 
     export let data: PageData;
 
-    const handleConfirmDelete = (category) => {
+    /** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
+    const handleConfirmDelete = (event, category) => {
+        const targetElement = event.currentTarget;
+
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
@@ -20,27 +20,12 @@
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(category);
+                    deleteCategory(targetElement);
                 }
             }
         };
 
         modalStore.trigger(modal);
-    };
-
-    const handleDelete = async (category) => {
-        const deleteCategoryTypeRequest = await fetch(
-            `/quantum/categories/${category.category_id}`,
-            {
-                method: 'DELETE'
-            }
-        );
-
-        if (deleteCategoryTypeRequest.ok) {
-            invalidate('quantum:categories');
-        } else {
-            console.error('NOT ok');
-        }
     };
 
     const gridRowDef = 'grid grid-cols-[1fr_50px] gap-4 p-4 ml-2 mr-2';
@@ -76,14 +61,20 @@
                             }}><i class="fa-solid fa-ellipsis-v" /></button
                         >
                         <div data-popup="category-actions-{category.category_id}">
-                            <div class="btn-group variant-filled">
-                                <a href={`./categories/${category.category_id}`}
-                                    ><i class="fa-solid fa-pen-to-square" /></a
-                                >
-                                <button on:click={() => handleConfirmDelete(category)}
-                                    ><i class="fa-solid fa-trash" /></button
-                                >
-                            </div>
+                            <form
+                                method="POST"
+                                on:submit|preventDefault={(event) => {
+                                    handleConfirmDelete(event, category);
+                                }}
+                                action={`categories/${category.category_id}?/delete`}
+                            >
+                                <div class="btn-group variant-filled">
+                                    <a href={`./categories/${category.category_id}`}
+                                        ><i class="fa-solid fa-pen-to-square" /></a
+                                    >
+                                    <button type="submit"><i class="fa-solid fa-trash" /></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
