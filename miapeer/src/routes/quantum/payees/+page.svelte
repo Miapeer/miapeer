@@ -9,7 +9,6 @@
 
     export let data: PageData;
 
-    /** @param {{ currentTarget: EventTarget & HTMLFormElement}} event */
     const handleConfirmDelete = (event, payee) => {
         const targetElement = event.currentTarget;
 
