@@ -1,27 +1,8 @@
-import type { PageServerLoad } from './$types';
-import { error, redirect, fail } from '@sveltejs/kit';
+import { redirect, fail } from '@sveltejs/kit';
 import { unformatMoney } from '@quantum/util';
 
-export const load: PageServerLoad = async ({ locals, params }) => {
-    const scheduledTransactionResponse = await fetch(
-        `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions/${params.scheduledTransactionId}`,
-        {
-            method: 'GET',
-            headers: locals.auth.headers
-        }
-    );
-
-    if (!scheduledTransactionResponse.ok) {
-        console.error(scheduledTransactionResponse.statusText);
-        return;
-    }
-
-    const scheduledTransaction = await scheduledTransactionResponse.json();
-    return { scheduledTransaction };
-};
-
 export const actions: Actions = {
-    update: async ({ request, locals, params }) => {
+    default: async ({ request, locals, params }) => {
         const data = await request.formData();
         const transactionTypeId = data.get('transactionTypeId');
         const transactionTypeName = data.get('transactionTypeName');
@@ -58,9 +39,9 @@ export const actions: Actions = {
         };
 
         const response = await fetch(
-            `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions/${params.scheduledTransactionId}`,
+            `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions`,
             {
-                method: 'PATCH',
+                method: 'POST',
                 headers: locals.auth.headers,
                 body: JSON.stringify(requestData)
             }
@@ -74,23 +55,5 @@ export const actions: Actions = {
         }
 
         redirect(303, '.');
-    },
-
-    delete: async ({ locals, params }) => {
-        const response = await fetch(
-            `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions/${params.scheduledTransactionId}`,
-            {
-                method: 'DELETE',
-                headers: locals.auth.headers
-            }
-        );
-
-        if (!response) {
-            throw error(500, 'Invalid request data');
-        } else if (!response.ok) {
-            throw error(response?.status, await response?.json());
-        }
-
-        return { success: true };
     }
 };
