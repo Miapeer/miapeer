@@ -2,6 +2,7 @@
     import QuantumTable from '@quantum/QuantumTable.svelte';
     import type { PageData } from './$types';
     import { invalidate } from '$app/navigation';
+    import { enhance, applyAction, deserialize } from '$app/forms';
     import { popup } from '@skeletonlabs/skeleton';
     import type { PopupSettings } from '@skeletonlabs/skeleton';
     import { formatMoney, formatDate } from '@quantum/util';
@@ -16,8 +17,60 @@
     const groupNameCurrent = 'Current';
     const modalStore = getModalStore();
     const dateOptions = { month: 'long', year: 'numeric' };
-    let groupedTransactions = {};
-    let nextForecastedTransactions = [];
+
+    $: groupedTransactions = ((transactions) => {
+        if (!transactions) {
+            return {};
+        }
+
+        const groupedTransactions = {};
+
+        const today = new Date();
+        const currentMonthString = `${today.getFullYear()}-${today.getMonth() < 9 ? 0 : ''}${today.getMonth() + 1}-01`;
+        const currentMonth = new Date(currentMonthString);
+
+        for (let transactionIndex = 0; transactionIndex < transactions.length; transactionIndex++) {
+            let transaction = transactions[transactionIndex];
+            let clearDate = transaction.clear_date ? new Date(transaction.clear_date) : null;
+            let grouping =
+                clearDate && clearDate < currentMonth
+                    ? formatDate(clearDate, dateOptions)
+                    : groupNameCurrent;
+
+            if (!(grouping in groupedTransactions)) {
+                groupedTransactions[grouping] = [];
+            }
+
+            groupedTransactions[grouping].push(transaction);
+        }
+
+        return groupedTransactions;
+    })(data.transactions);
+
+    $: flagFutureMarkerTransaction(groupedTransactions);
+
+    $: flagLowestBalanceWithinGroups(groupedTransactions);
+
+    $: nextForecastedTransactions = ((transactions) => {
+        const nextForecastedTransactions = [];
+
+        let reviewedScheduledTransactions = [];
+
+        for (let transactionIndex = 0; transactionIndex < transactions.length; transactionIndex++) {
+            let transaction = transactions[transactionIndex];
+            let scheduledTransactionId = transaction.forecast_from_scheduled_transaction_id;
+
+            if (
+                scheduledTransactionId &&
+                !reviewedScheduledTransactions.includes(scheduledTransactionId)
+            ) {
+                reviewedScheduledTransactions.push(scheduledTransactionId);
+                nextForecastedTransactions.push(transaction);
+            }
+        }
+
+        return nextForecastedTransactions;
+    })(data.transactions);
 
     const popupHover: PopupSettings = {
         event: 'hover',
@@ -25,7 +78,9 @@
         placement: 'top'
     };
 
-    const handleConfirmDelete = (transaction) => {
+    const handleConfirmDelete = (event, transaction) => {
+        const targetElement = event.currentTarget;
+
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
@@ -34,7 +89,7 @@
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(transaction);
+                    deleteTransaction(targetElement);
                 }
             }
         };
@@ -42,51 +97,24 @@
         modalStore.trigger(modal);
     };
 
-    const handleDelete = async (transaction) => {
-        const deleteTransactionRequest = await fetch(
-            `/quantum/accounts/${$page.params.accountId}/transactions/${transaction.transaction_id}`,
-            {
-                method: 'DELETE'
-            }
-        );
+    const deleteTransaction = async (targetElement) => {
+        const data = new FormData(targetElement);
 
-        if (deleteTransactionRequest.ok) {
-            invalidate('quantum:transactions');
+        const response = await fetch(targetElement.action, {
+            method: 'POST',
+            body: data
+        });
+
+        /** @type {import('@sveltejs/kit').ActionResult} */
+        const result = deserialize(await response.text());
+
+        if (result.type === 'success') {
+            await invalidate('quantum:transactions');
         } else {
             console.error('NOT ok');
         }
-    };
 
-    const handleCreateTransaction = async (scheduledTransactionId) => {
-        const createTransactionRequest = await fetch(
-            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransactionId}/createtransaction`,
-            {
-                method: 'POST'
-            }
-        );
-
-        if (createTransactionRequest.ok) {
-            invalidate('quantum:transactions');
-            setTimeout(organizeTransactions, 100);
-        } else {
-            console.error('NOT ok');
-        }
-    };
-
-    const handleSkipIteration = async (scheduledTransactionId) => {
-        const skipIterationRequest = await fetch(
-            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransactionId}/skipiteration`,
-            {
-                method: 'POST'
-            }
-        );
-
-        if (skipIterationRequest.ok) {
-            invalidate('quantum:transactions');
-            setTimeout(organizeTransactions, 100);
-        } else {
-            console.error('NOT ok');
-        }
+        applyAction(result);
     };
 
     const handleClearImportError = async (importErrorIndex) => {
@@ -105,57 +133,13 @@
         }, 0);
     };
 
-    const groupTransactions = () => {
-        groupedTransactions = {};
+    const flagFutureMarkerTransaction = (groupedTransactions) => {
+        // Flag the transaction after the "future marker" (eg. 7 days out)
 
-        const today = new Date();
-        const currentMonthString = `${today.getFullYear()}-${today.getMonth() < 9 ? 0 : ''}${today.getMonth() + 1}-01`;
-        const currentMonth = new Date(currentMonthString);
-
-        for (
-            let transactionIndex = 0;
-            transactionIndex < data.transactions.length;
-            transactionIndex++
-        ) {
-            let transaction = data.transactions[transactionIndex];
-            let clearDate = transaction.clear_date ? new Date(transaction.clear_date) : null;
-            let grouping =
-                clearDate && clearDate < currentMonth
-                    ? formatDate(clearDate, dateOptions)
-                    : groupNameCurrent;
-
-            if (!(grouping in groupedTransactions)) {
-                groupedTransactions[grouping] = [];
-            }
-
-            groupedTransactions[grouping].push(transaction);
+        if (!Object.keys(groupedTransactions).length) {
+            return;
         }
-    };
 
-    const compileNextForecastedTransactions = () => {
-        nextForecastedTransactions = [];
-
-        let reviewedScheduledTransactions = [];
-
-        for (
-            let transactionIndex = 0;
-            transactionIndex < data.transactions.length;
-            transactionIndex++
-        ) {
-            let transaction = data.transactions[transactionIndex];
-            let scheduledTransactionId = transaction.forecast_from_scheduled_transaction_id;
-
-            if (
-                scheduledTransactionId &&
-                !reviewedScheduledTransactions.includes(scheduledTransactionId)
-            ) {
-                reviewedScheduledTransactions.push(scheduledTransactionId);
-                nextForecastedTransactions.push(transaction);
-            }
-        }
-    };
-
-    const flagFutureMarkerTransaction = () => {
         const isAfterFutureMarker = (date) => {
             const msToDays = 1000 * 60 * 60 * 24;
             const futureMarkerDays = $page.url.searchParams.get('marker') ?? 7;
@@ -180,7 +164,7 @@
         }
     };
 
-    const flagLowestBalanceWithinGroups = () => {
+    const flagLowestBalanceWithinGroups = (groupedTransactions) => {
         for (
             let groupIndex = 0;
             groupIndex < Object.keys(groupedTransactions).length;
@@ -207,13 +191,6 @@
         }
     };
 
-    const organizeTransactions = () => {
-        groupTransactions();
-        compileNextForecastedTransactions();
-        flagFutureMarkerTransaction();
-        flagLowestBalanceWithinGroups();
-    };
-
     const getBackgroundColorClass = (index, balance) => {
         let scale = index % 2 ? 700 : 800;
         let color = 'surface';
@@ -230,7 +207,6 @@
 
     onMount(() => {
         handleOpenToggle();
-        organizeTransactions();
     });
 </script>
 
@@ -370,37 +346,50 @@
                                             <div
                                                 data-popup="transaction-actions-{transactionIndex}"
                                             >
-                                                <div class="btn-group variant-filled">
-                                                    {#if transaction.forecast_from_scheduled_transaction_id}
-                                                        <button
-                                                            on:click={() =>
-                                                                handleCreateTransaction(
-                                                                    transaction.forecast_from_scheduled_transaction_id
-                                                                )}
-                                                            ><i class="fa fa-play"></i></button
-                                                        >
-                                                        <button
-                                                            on:click={() =>
-                                                                handleSkipIteration(
-                                                                    transaction.forecast_from_scheduled_transaction_id
-                                                                )}
-                                                            ><i class="fa fa-fast-forward"
-                                                            ></i></button
-                                                        >
-                                                    {:else}
-                                                        <a
-                                                            href={`./transactions/${transaction.transaction_id}`}
-                                                            ><i
-                                                                class="fa-solid fa-pen-to-square"
-                                                            /></a
-                                                        >
-                                                        <button
-                                                            on:click={() =>
-                                                                handleConfirmDelete(transaction)}
-                                                            ><i class="fa-solid fa-trash" /></button
-                                                        >
-                                                    {/if}
-                                                </div>
+                                                <form
+                                                    method="POST"
+                                                    on:submit|preventDefault={(event) => {
+                                                        handleConfirmDelete(event, transaction);
+                                                    }}
+                                                    action={`transactions/${transaction.transaction_id}?/delete`}
+                                                >
+                                                    <div class="btn-group variant-filled">
+                                                        {#if transaction.forecast_from_scheduled_transaction_id}
+                                                            <form
+                                                                method="POST"
+                                                                action={`./scheduledtransactions/${transaction.forecast_from_scheduled_transaction_id}?/createtransaction`}
+                                                                use:enhance
+                                                            >
+                                                                <button type="submit"
+                                                                    ><i class="fa fa-play"
+                                                                    ></i></button
+                                                                >
+                                                            </form>
+                                                            <form
+                                                                method="POST"
+                                                                action={`./scheduledtransactions/${transaction.forecast_from_scheduled_transaction_id}?/skipiteration`}
+                                                                use:enhance
+                                                            >
+                                                                <button type="submit"
+                                                                    ><i class="fa fa-fast-forward"
+                                                                    ></i></button
+                                                                >
+                                                            </form>
+                                                        {:else}
+                                                            <a
+                                                                href={`./transactions/${transaction.transaction_id}`}
+                                                                ><i
+                                                                    class="fa-solid fa-pen-to-square"
+                                                                /></a
+                                                            >
+                                                            <button type="submit"
+                                                                ><i
+                                                                    class="fa-solid fa-trash"
+                                                                /></button
+                                                            >
+                                                        {/if}
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     {/if}

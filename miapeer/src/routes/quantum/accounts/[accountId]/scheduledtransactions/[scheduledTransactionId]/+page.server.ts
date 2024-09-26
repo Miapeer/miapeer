@@ -92,5 +92,50 @@ export const actions: Actions = {
         }
 
         return { success: true };
+    },
+
+    createtransaction: async ({ locals, params }) => {
+        const requestData = {
+            override_transaction_data: null
+        };
+
+        // TODO: override_transaction_data
+
+        const response = await fetch(
+            `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions/${params.scheduledTransactionId}/create-transaction`,
+            {
+                method: 'POST',
+                headers: locals.auth.headers,
+                body: JSON.stringify(requestData)
+            }
+        );
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            console.error(response);
+            return fail(401, responseData);
+        }
+
+        return { success: true };
+    },
+
+    skipiteration: async ({ request, locals, params }) => {
+        const response = await fetch(
+            `${locals.app.quantumApiBase}/accounts/${params.accountId}/scheduled-transactions/${params.scheduledTransactionId}/skip-iteration`,
+            {
+                method: 'POST',
+                headers: locals.auth.headers
+            }
+        );
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            console.error(response);
+            return fail(401, responseData);
+        }
+
+        return { success: true };
     }
 };
