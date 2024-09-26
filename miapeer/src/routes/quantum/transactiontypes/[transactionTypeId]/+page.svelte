@@ -7,9 +7,5 @@
 </script>
 
 <QuantumPage pageTitle="Quantum: Edit Transaction Type" headline="Edit Transaction Type" {data}>
-    <TransactionTypeForm
-        portfolioId={data.portfolioId}
-        transactionType={data.transactionType}
-        {data}
-    />
+    <TransactionTypeForm portfolioId={data.portfolioId} transactionType={data.transactionType} />
 </QuantumPage>

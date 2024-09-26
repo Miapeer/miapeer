@@ -1,15 +1,7 @@
 <script lang="ts">
     import { goto, invalidate } from '$app/navigation';
-    import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
-    import { popup } from '@skeletonlabs/skeleton';
-    import { SlideToggle } from '@skeletonlabs/skeleton';
-    import {
-        createTransactionType,
-        createPayee,
-        createCategory,
-        createScheduledTransaction,
-        updateScheduledTransaction
-    } from '@quantum/api';
+    import { enhance, applyAction, deserialize } from '$app/forms';
+    import { popup, SlideToggle, ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
     import { formatMoney, unformatMoney } from '@quantum/util';
 
     export let accountId;
@@ -60,53 +52,6 @@
     }
     let selectedNote = scheduledTransaction?.notes;
     let selectedOnAutopay = scheduledTransaction?.on_autopay;
-
-    const handleCancel = () => {
-        goto('.');
-    };
-
-    const handleProcessScheduledTransaction = async () => {
-        if (!selectedTransactionType) {
-            await createTransactionType({
-                portfolioId: data.portfolioId,
-                transactionTypeName: selectedTransactionTypeName
-            });
-        }
-        if (!selectedPayee) {
-            await createPayee({ portfolioId: data.portfolioId, payeeName: selectedPayeeName });
-        }
-        if (!selectedCategory) {
-            await createCategory({
-                portfolioId: data.portfolioId,
-                categoryName: selectedCategoryName
-            });
-        }
-
-        const fnScheduledTransaction = isCreatingNew
-            ? createScheduledTransaction
-            : updateScheduledTransaction;
-
-        let returnedScheduledTransaction = await fnScheduledTransaction({
-            accountId,
-            scheduledTransactionId: scheduledTransaction?.scheduled_transaction_id,
-            transactionTypeId: selectedTransactionType?.transaction_type_id,
-            payeeId: selectedPayee?.payee_id,
-            categoryId: selectedCategory?.category_id,
-            fixedAmount: unformatMoney(selectedFixedAmount),
-            estimateOccurrences: selectedEstimateOccurrences,
-            promptDays: selectedPromptDays,
-            startDate: selectedStartDate,
-            endDate: selectedEndDate,
-            limitOccurrences: selectedlimitOccurrences,
-            repeatOptionId: selectedRepeatOption?.repeat_option_id,
-            onAutopay: selectedOnAutopay,
-            notes: selectedNote
-        });
-        if (returnedScheduledTransaction) {
-            await invalidate('quantum:scheduledtransactions');
-            goto('.');
-        }
-    };
 
     const updateTransactionTypeName = () => {
         setTimeout(() => {
@@ -201,153 +146,180 @@
     const gridRowDef = 'input-group input-group-divider grid-cols-[14rem_auto]';
 </script>
 
-<div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Transaction Type</div>
-        <input
-            type="text"
-            bind:value={selectedTransactionTypeName}
-            on:keypress={updateTransactionTypeName}
-            use:popup={{
-                event: 'click',
-                target: 'scheduledTransactionTypePopupCombobox',
-                placement: 'bottom',
-                closeQuery: '.listbox-item',
-                state: (e) => {
-                    if (e) {
-                        updateTransactionTypeName();
+<form method="POST" action={isCreatingNew ? null : '?/update'} use:enhance>
+    <div class="grid gap-4 max-w-2xl my-0 mx-auto pt-4">
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Transaction Type</div>
+            <input
+                type="text"
+                name="transactionTypeId"
+                hidden
+                value={selectedTransactionType?.transaction_type_id || null}
+            />
+            <input
+                type="text"
+                name="transactionTypeName"
+                bind:value={selectedTransactionTypeName}
+                on:keypress={updateTransactionTypeName}
+                use:popup={{
+                    event: 'click',
+                    target: 'scheduledTransactionTypePopupCombobox',
+                    placement: 'bottom',
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updateTransactionTypeName();
+                        }
                     }
-                }
-            }}
-        />
-    </div>
+                }}
+            />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Payee</div>
-        <input
-            type="text"
-            bind:value={selectedPayeeName}
-            on:keypress={updatePayeeName}
-            use:popup={{
-                event: 'click',
-                target: 'scheduledTransactionPayeePopupCombobox',
-                placement: 'bottom',
-                closeQuery: '.listbox-item',
-                state: (e) => {
-                    if (e) {
-                        updatePayeeName();
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Payee</div>
+            <input type="text" name="payeeId" hidden value={selectedPayee?.payee_id || null} />
+            <input
+                type="text"
+                name="payeeName"
+                bind:value={selectedPayeeName}
+                on:keypress={updatePayeeName}
+                use:popup={{
+                    event: 'click',
+                    target: 'scheduledTransactionPayeePopupCombobox',
+                    placement: 'bottom',
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updatePayeeName();
+                        }
                     }
-                }
-            }}
-        />
-    </div>
+                }}
+            />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Category</div>
-        <input
-            type="text"
-            bind:value={selectedCategoryName}
-            on:keypress={updateCategoryName}
-            use:popup={{
-                event: 'click',
-                target: 'scheduledTransactionCategoryPopupCombobox',
-                placement: 'bottom',
-                closeQuery: '.listbox-item',
-                state: (e) => {
-                    if (e) {
-                        updateCategoryName();
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Category</div>
+            <input
+                type="text"
+                name="categoryId"
+                hidden
+                value={selectedCategory?.category_id || null}
+            />
+            <input
+                type="text"
+                name="categoryName"
+                bind:value={selectedCategoryName}
+                on:keypress={updateCategoryName}
+                use:popup={{
+                    event: 'click',
+                    target: 'scheduledTransactionCategoryPopupCombobox',
+                    placement: 'bottom',
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updateCategoryName();
+                        }
                     }
-                }
-            }}
-        />
-    </div>
+                }}
+            />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Fixed Amount</div>
-        <input type="text" bind:value={selectedFixedAmount} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Fixed Amount</div>
+            <input type="text" name="fixedAmount" bind:value={selectedFixedAmount} />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Estimated Occurrences</div>
-        <input type="number" bind:value={selectedEstimateOccurrences} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Estimated Occurrences</div>
+            <input
+                type="number"
+                name="estimateOccurrences"
+                bind:value={selectedEstimateOccurrences}
+            />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Prompt Days</div>
-        <input type="number" bind:value={selectedPromptDays} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Prompt Days</div>
+            <input type="number" name="promptDays" bind:value={selectedPromptDays} />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Start Date</div>
-        <input type="date" bind:value={selectedStartDate} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Start Date</div>
+            <input type="date" name="startDate" bind:value={selectedStartDate} />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">End Date</div>
-        <input type="date" bind:value={selectedEndDate} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">End Date</div>
+            <input type="date" name="endDate" bind:value={selectedEndDate} />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Limit Occurrences</div>
-        <input type="number" bind:value={selectedlimitOccurrences} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Limit Occurrences</div>
+            <input type="number" name="limitOccurrences" bind:value={selectedlimitOccurrences} />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Repeat</div>
-        <input
-            type="text"
-            bind:value={selectedRepeatOptionName}
-            on:keypress={updateRepeatOptionName}
-            use:popup={{
-                event: 'click',
-                target: 'scheduledTransactionRepeatOptionPopupCombobox',
-                placement: 'bottom',
-                closeQuery: '.listbox-item',
-                state: (e) => {
-                    if (e) {
-                        updateRepeatOptionName();
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Repeat</div>
+            <input
+                type="text"
+                name="repeatOptionId"
+                hidden
+                value={selectedRepeatOption?.repeat_option_id || null}
+            />
+            <input
+                type="text"
+                bind:value={selectedRepeatOptionName}
+                on:keypress={updateRepeatOptionName}
+                use:popup={{
+                    event: 'click',
+                    target: 'scheduledTransactionRepeatOptionPopupCombobox',
+                    placement: 'bottom',
+                    closeQuery: '.listbox-item',
+                    state: (e) => {
+                        if (e) {
+                            updateRepeatOptionName();
+                        }
                     }
-                }
-            }}
-        />
-    </div>
+                }}
+            />
+        </div>
 
-    <div class={gridRowDef}>
-        <div class="input-group-shim">Notes</div>
-        <input type="text" bind:value={selectedNote} />
-    </div>
+        <div class={gridRowDef}>
+            <div class="input-group-shim">Notes</div>
+            <input type="text" name="notes" bind:value={selectedNote} />
+        </div>
 
-    <div class="text-right">
-        <SlideToggle class="" bind:checked={selectedOnAutopay} active="bg-primary-500"
-            >On Autopay</SlideToggle
-        >
-    </div>
+        <div class="text-right">
+            <SlideToggle name="onAutopay" bind:checked={selectedOnAutopay} active="bg-primary-500"
+                >On Autopay</SlideToggle
+            >
+        </div>
 
-    <div class="grid grid-cols-[1fr_1fr] gap-4">
-        <button type="button" class="btn variant-ghost-surface" on:click={handleCancel}>
-            Cancel
-        </button>
+        <div class="grid grid-cols-[1fr_1fr] gap-4">
+            <button type="button" class="btn variant-ghost-surface" on:click={() => goto('.')}>
+                Cancel
+            </button>
 
-        <button
-            disabled={!selectedTransactionTypeName &&
-                !selectedPayeeName &&
-                !selectedCategoryName &&
-                !selectedFixedAmount &&
-                !selectedEstimateOccurrences &&
-                !selectedPromptDays &&
-                !selectedStartDate &&
-                !selectedEndDate &&
-                !selectedlimitOccurrences &&
-                !selectedRepeatOptionName &&
-                !selectedNote}
-            type="button"
-            class="btn variant-filled-primary"
-            on:click={handleProcessScheduledTransaction}
-        >
-            {`${isCreatingNew ? 'Create' : 'Update'} Scheduled Transaction`}
-        </button>
+            <button
+                disabled={!selectedTransactionTypeName &&
+                    !selectedPayeeName &&
+                    !selectedCategoryName &&
+                    !selectedFixedAmount &&
+                    !selectedEstimateOccurrences &&
+                    !selectedPromptDays &&
+                    !selectedStartDate &&
+                    !selectedEndDate &&
+                    !selectedlimitOccurrences &&
+                    !selectedRepeatOptionName &&
+                    !selectedNote}
+                type="submit"
+                class="btn variant-filled-primary"
+            >
+                {`${isCreatingNew ? 'Create' : 'Update'} Scheduled Transaction`}
+            </button>
+        </div>
     </div>
-</div>
+</form>
 
 <!-- Must be outside of the grid for proper interaction -->
 <div

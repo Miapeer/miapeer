@@ -1,27 +1,13 @@
 <script lang="ts">
+    import { enhance } from '$app/forms';
     import { AppShell, AppBar, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
     import logoLong from '$lib/images/miapeer-logo-long.svg';
-    import { goto, invalidateAll } from '$app/navigation';
 
     const drawerStore = getDrawerStore();
 
     export let data;
     export let pageTitle = 'Miapeer';
     export let headline = '';
-
-    const handleLogout = async () => {
-        const res = await fetch('/logout', {
-            method: 'POST'
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            invalidateAll();
-            goto(data.redirectUrl ?? '/');
-        } else {
-            console.error('NOT ok');
-        }
-    };
 
     const openSettingsDrawer = () => {
         drawerStore.open();
@@ -66,9 +52,15 @@
                     >
                         <i class="fa fa-cog"></i>
                     </button>
-                    <button class="btn btn-sm variant-ghost-surface" on:click={handleLogout}>
-                        Log Out
-                    </button>
+                    <form method="POST" use:enhance>
+                        <button
+                            type="submit"
+                            class="btn btn-sm variant-ghost-surface"
+                            formaction="/logout"
+                        >
+                            Log Out
+                        </button>
+                    </form>
                 {:else}
                     <a class="btn btn-sm variant-ghost-surface" href="/login">
                         Log In / Register

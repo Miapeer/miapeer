@@ -1,8 +1,8 @@
 <script lang="ts">
     import QuantumTable from '@quantum/QuantumTable.svelte';
     import type { PageData } from './$types';
-    import { goto, invalidate } from '$app/navigation';
-    import FloatingActionButton from '$lib/FloatingActionButton.svelte';
+    import { invalidate } from '$app/navigation';
+    import { applyAction, deserialize, enhance } from '$app/forms';
     import { popup } from '@skeletonlabs/skeleton';
     import type { PopupSettings } from '@skeletonlabs/skeleton';
     import { formatMoney } from '@quantum/util';
@@ -19,38 +19,9 @@
         placement: 'top'
     };
 
-    const handleCreateTransaction = async (scheduledTransaction) => {
-        const createTransactionRequest = await fetch(
-            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}/createtransaction`,
-            {
-                method: 'POST'
-            }
-        );
+    const handleConfirmDelete = (event, scheduledTransaction) => {
+        const targetElement = event.currentTarget;
 
-        if (createTransactionRequest.ok) {
-            invalidate('quantum:scheduledtransactions');
-            invalidate('quantum:transactions');
-        } else {
-            console.error('NOT ok');
-        }
-    };
-
-    const handleSkipIteration = async (scheduledTransaction) => {
-        const skipIterationRequest = await fetch(
-            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}/skipiteration`,
-            {
-                method: 'POST'
-            }
-        );
-
-        if (skipIterationRequest.ok) {
-            invalidate('quantum:scheduledtransactions');
-        } else {
-            console.error('NOT ok');
-        }
-    };
-
-    const handleConfirmDelete = (scheduledTransaction) => {
         const modal: ModalSettings = {
             type: 'confirm',
             title: 'Confirm Delete',
@@ -59,7 +30,7 @@
             buttonTextConfirm: 'Delete',
             response: (r: boolean) => {
                 if (r) {
-                    handleDelete(scheduledTransaction);
+                    deleteScheduledTransaction(targetElement);
                 }
             }
         };
@@ -67,19 +38,24 @@
         modalStore.trigger(modal);
     };
 
-    const handleDelete = async (scheduledTransaction) => {
-        const deleteScheduledTransactionRequest = await fetch(
-            `/quantum/accounts/${$page.params.accountId}/scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}`,
-            {
-                method: 'DELETE'
-            }
-        );
+    const deleteScheduledTransaction = async (targetElement) => {
+        const data = new FormData(targetElement);
 
-        if (deleteScheduledTransactionRequest.ok) {
+        const response = await fetch(targetElement.action, {
+            method: 'POST',
+            body: data
+        });
+
+        /** @type {import('@sveltejs/kit').ActionResult} */
+        const result = deserialize(await response.text());
+
+        if (result.type === 'success') {
             invalidate('quantum:scheduledtransactions');
         } else {
             console.error('NOT ok');
         }
+
+        applyAction(result);
     };
 
     $: data.scheduledTransactions.sort((a, b) => {
@@ -175,22 +151,38 @@
                         <div
                             data-popup="transaction-actions-{scheduledTransaction.scheduled_transaction_id}"
                         >
-                            <div class="btn-group variant-filled">
-                                <button
-                                    on:click={() => handleCreateTransaction(scheduledTransaction)}
-                                    ><i class="fa fa-play"></i></button
-                                >
-                                <button on:click={() => handleSkipIteration(scheduledTransaction)}
-                                    ><i class="fa fa-fast-forward"></i></button
-                                >
-                                <a
-                                    href={`./scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}`}
-                                    ><i class="fa-solid fa-pen-to-square"></i></a
-                                >
-                                <button on:click={() => handleConfirmDelete(scheduledTransaction)}
-                                    ><i class="fa-solid fa-trash"></i></button
-                                >
-                            </div>
+                            <form
+                                method="POST"
+                                on:submit|preventDefault={(event) => {
+                                    handleConfirmDelete(event, scheduledTransaction);
+                                }}
+                                action={`scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}?/delete`}
+                                use:enhance
+                            >
+                                <div class="btn-group variant-filled">
+                                    <form
+                                        method="POST"
+                                        action={`scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}?/createtransaction`}
+                                        use:enhance
+                                    >
+                                        <button type="submit"><i class="fa fa-play"></i></button>
+                                    </form>
+                                    <form
+                                        method="POST"
+                                        action={`scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}?/skipiteration`}
+                                        use:enhance
+                                    >
+                                        <button type="submit"
+                                            ><i class="fa fa-fast-forward"></i></button
+                                        >
+                                    </form>
+                                    <a
+                                        href={`./scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}`}
+                                        ><i class="fa-solid fa-pen-to-square"></i></a
+                                    >
+                                    <button type="submit"><i class="fa-solid fa-trash" /></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

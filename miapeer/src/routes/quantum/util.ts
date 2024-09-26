@@ -14,7 +14,7 @@ const convertArrayToObject = (array, key) => {
 };
 
 const formatMoney = (amount) => {
-    return (amount / 100).toLocaleString(navigator.language, { minimumFractionDigits: 2 });
+    return ((amount || 0) / 100).toLocaleString(navigator.language, { minimumFractionDigits: 2 });
 };
 
 const unformatMoney = (amount) => {

@@ -7,5 +7,5 @@
 </script>
 
 <QuantumPage pageTitle="Quantum: New Category" headline="Create a new Category" {data}>
-    <CategoryForm portfolioId={data.portfolioId} {data} />
+    <CategoryForm portfolioId={data.portfolioId} />
 </QuantumPage>

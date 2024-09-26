@@ -11,5 +11,5 @@
     headline="Create a new Transaction Type"
     {data}
 >
-    <TransactionTypeForm portfolioId={data.portfolioId} {data} />
+    <TransactionTypeForm portfolioId={data.portfolioId} />
 </QuantumPage>

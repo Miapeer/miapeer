@@ -1,28 +1,8 @@
-import type { PageServerLoad } from './$types';
-import { error, redirect, fail } from '@sveltejs/kit';
+import { redirect, fail } from '@sveltejs/kit';
 import { unformatMoney } from '@quantum/util';
 
-export const load: PageServerLoad = async ({ locals, params }) => {
-    const transactionResponse = await fetch(
-        `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions/${params.transactionId}`,
-        {
-            method: 'GET',
-            headers: locals.auth.headers
-        }
-    );
-
-    if (!transactionResponse.ok) {
-        console.error(transactionResponse.statusText);
-        return;
-    }
-
-    const transaction = await transactionResponse.json();
-
-    return { transaction };
-};
-
 export const actions: Actions = {
-    update: async ({ request, locals, params }) => {
+    default: async ({ request, locals, params }) => {
         const data = await request.formData();
         const transactionDate = data.get('transactionDate');
         const clearDate = data.get('clearDate');
@@ -55,9 +35,9 @@ export const actions: Actions = {
         };
 
         const response = await fetch(
-            `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions/${params.transactionId}`,
+            `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions`,
             {
-                method: 'PATCH',
+                method: 'POST',
                 headers: locals.auth.headers,
                 body: JSON.stringify(requestData)
             }
@@ -71,23 +51,5 @@ export const actions: Actions = {
         }
 
         redirect(303, '.');
-    },
-
-    delete: async ({ locals, params }) => {
-        const response = await fetch(
-            `${locals.app.quantumApiBase}/accounts/${params.accountId}/transactions/${params.transactionId}`,
-            {
-                method: 'DELETE',
-                headers: locals.auth.headers
-            }
-        );
-
-        if (!response) {
-            throw error(500, 'Invalid request data');
-        } else if (!response.ok) {
-            throw error(response?.status, await response?.json());
-        }
-
-        return { success: true };
     }
 };
