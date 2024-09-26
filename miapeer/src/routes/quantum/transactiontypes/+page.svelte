@@ -2,7 +2,7 @@
     import QuantumTable from '../QuantumTable.svelte';
     import type { PageData } from './$types';
     import { invalidate } from '$app/navigation';
-    import { applyAction, deserialize } from '$app/forms';
+    import { enhance, applyAction, deserialize } from '$app/forms';
     import { popup, getModalStore } from '@skeletonlabs/skeleton';
 
     const modalStore = getModalStore();
@@ -91,6 +91,7 @@
                                     handleConfirmDelete(event, transactionType);
                                 }}
                                 action={`transactiontypes/${transactionType.transaction_type_id}?/delete`}
+                                use:enhance
                             >
                                 <div class="btn-group variant-filled">
                                     <a

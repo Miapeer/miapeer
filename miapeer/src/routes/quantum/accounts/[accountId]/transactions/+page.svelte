@@ -352,6 +352,7 @@
                                                         handleConfirmDelete(event, transaction);
                                                     }}
                                                     action={`transactions/${transaction.transaction_id}?/delete`}
+                                                    use:enhance
                                                 >
                                                     <div class="btn-group variant-filled">
                                                         {#if transaction.forecast_from_scheduled_transaction_id}

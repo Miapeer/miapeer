@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { enhance } from '$app/forms';
     import { AppShell, AppBar, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
     import logoLong from '$lib/images/miapeer-logo-long.svg';
-    import { goto, invalidateAll } from '$app/navigation';
 
     const drawerStore = getDrawerStore();
 
@@ -52,7 +52,7 @@
                     >
                         <i class="fa fa-cog"></i>
                     </button>
-                    <form method="POST">
+                    <form method="POST" use:enhance>
                         <button
                             type="submit"
                             class="btn btn-sm variant-ghost-surface"
