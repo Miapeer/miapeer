@@ -4,7 +4,6 @@
     import { popup, SlideToggle, ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
     import { formatMoney, unformatMoney } from '@quantum/util';
 
-    export let accountId;
     export let transaction = null;
     export let data;
 
