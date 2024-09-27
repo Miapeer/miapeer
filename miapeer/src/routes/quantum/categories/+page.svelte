@@ -87,7 +87,6 @@
                                     handleConfirmDelete(event, category);
                                 }}
                                 action={`categories/${category.category_id}?/delete`}
-                                use:enhance
                             >
                                 <div class="btn-group variant-filled">
                                     <a href={`./categories/${category.category_id}`}

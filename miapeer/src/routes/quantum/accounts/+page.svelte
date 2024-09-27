@@ -90,7 +90,6 @@
                                     handleConfirmDelete(event, account);
                                 }}
                                 action={`accounts/${account.account_id}?/delete`}
-                                use:enhance
                             >
                                 <div class="btn-group variant-filled">
                                     <a href={`./accounts/${account.account_id}`}

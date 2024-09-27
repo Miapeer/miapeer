@@ -82,7 +82,6 @@
                                     handleConfirmDelete(event, payee);
                                 }}
                                 action={`payees/${payee.payee_id}?/delete`}
-                                use:enhance
                             >
                                 <div class="btn-group variant-filled">
                                     <a href={`./payees/${payee.payee_id}`}

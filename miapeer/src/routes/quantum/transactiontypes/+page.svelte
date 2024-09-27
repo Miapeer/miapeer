@@ -91,7 +91,6 @@
                                     handleConfirmDelete(event, transactionType);
                                 }}
                                 action={`transactiontypes/${transactionType.transaction_type_id}?/delete`}
-                                use:enhance
                             >
                                 <div class="btn-group variant-filled">
                                     <a

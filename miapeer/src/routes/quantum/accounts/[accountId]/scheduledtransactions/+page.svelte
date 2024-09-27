@@ -157,7 +157,6 @@
                                     handleConfirmDelete(event, scheduledTransaction);
                                 }}
                                 action={`scheduledtransactions/${scheduledTransaction.scheduled_transaction_id}?/delete`}
-                                use:enhance
                             >
                                 <div class="btn-group variant-filled">
                                     <form
