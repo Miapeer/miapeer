@@ -24,6 +24,9 @@ export async function load({ depends, locals }) {
     const repeatOptions = await getRepeatOptions(locals);
     const indexedRepeatOptions = convertArrayToObject(repeatOptions, 'repeat_option_id');
 
+    const budgets = await getUserBudgets(locals);
+    const indexedBudgets = convertArrayToObject(budgets, 'budget_id');
+
     return {
         portfolioId,
         accounts,
@@ -35,7 +38,9 @@ export async function load({ depends, locals }) {
         categories,
         indexedCategories,
         repeatOptions,
-        indexedRepeatOptions
+        indexedRepeatOptions,
+        budgets,
+        indexedBudgets
     };
 }
 
@@ -138,6 +143,21 @@ const getUserCategories = async (locals) => {
 
 const getRepeatOptions = async (locals) => {
     const response = await fetch(`${locals.app.quantumApiBase}/repeat-options`, {
+        method: 'GET',
+        headers: locals.auth.headers
+    });
+
+    if (!response.ok) {
+        console.error(response.statusText);
+        return;
+    }
+
+    const data = await response.json();
+    return data;
+};
+
+const getUserBudgets = async (locals) => {
+    const response = await fetch(`${locals.app.quantumApiBase}/budgets`, {
         method: 'GET',
         headers: locals.auth.headers
     });

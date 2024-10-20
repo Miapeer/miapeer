@@ -14,6 +14,16 @@
     </div>
 </div>
 
+<div class="z-30" data-popup="budgetPopupCombobox">
+    <div class="btn-group-vertical variant-filled">
+        <a href="/quantum/budgets">Manage Budgets</a>
+        <hr />
+        {#each data.budgets as budget}
+            <a href="/quantum/budgets/{budget.budget_id}">{budget.name}</a>
+        {/each}
+    </div>
+</div>
+
 <div class="z-30" data-popup="dataPopupCombobox">
     <div class="btn-group-vertical variant-filled">
         {#if $page.params.accountId && $page.route.id?.includes('/transactions')}
