@@ -126,27 +126,29 @@
             totalMinutes += stageMinutes;
             stageIndex += 1;
             stages.push(
-                `<span>Stage ${stageIndex}</span><span>${stageRate} ml/hr for ${stageMinutes} min</span><span>Stage dose: ${stageDose} ml</span><span>Total dose: ${totalDose} ml</span>`
+                `<span>Stage ${stageIndex}</span><span>${stageRate} ml/hr</span><span>${stageMinutes} min</span><span>${stageDose} ml</span><span>Total dose: ${totalDose} ml</span>`
             );
             stageRate += convertedDrugRateIncreaseIncrement;
         }
 
         stages.push(
-            `<span class="col-span-2">Total time: ${totalMinutes} min (${(totalMinutes / MINUTES_PER_HOUR).toFixed(1)} hr)</span>`
+            `<span class="col-span-4">Total time: ${totalMinutes} min (~${(totalMinutes / MINUTES_PER_HOUR).toFixed(1)} hr)</span>`
         );
 
         return stages;
     })();
+
+    const gridDef = 'grid-cols-[10rem_minmax(100px,_1fr)_7.5rem]';
 </script>
 
 <MiapeerPage pageTitle="Miapeer: Pump" headline="Pump Programming" data={{}}>
-    <div class="grid gap-4 max-w-3xl my-0 mx-auto pt-4">
+    <div class="grid gap-4 max-w-full md:max-w-2xl my-0 mx-auto pt-4">
         <h2 class="h2">Drug Rate</h2>
-        <div class="input-group input-group-divider grid-cols-[10rem_1fr_auto]">
+        <div class={`input-group input-group-divider ${gridDef}`}>
             <div class="input-group-shim">Rate</div>
-            <input type="number" bind:value={selectedDrugRate} />
+            <input type="number" class="input border-none" bind:value={selectedDrugRate} />
 
-            <select class="select" bind:value={selectedDrugRateUnit}>
+            <select class="input-group-shim" bind:value={selectedDrugRateUnit}>
                 <option value="mg_hr">mg/hr</option>
                 <option value="mg_min">mg/min</option>
             </select>
@@ -154,29 +156,37 @@
         <div>{convertedDrugRateString}</div>
 
         <h2 class="h2">Rate Increase Increment</h2>
-        <div class="input-group input-group-divider grid-cols-[10rem_1fr_auto]">
+        <div class={`input-group input-group-divider ${gridDef}`}>
             <div class="input-group-shim">Rate</div>
-            <input type="number" bind:value={selectedDrugRateIncreaseIncrement} />
+            <input
+                type="number"
+                class="input border-none"
+                bind:value={selectedDrugRateIncreaseIncrement}
+            />
 
-            <select class="select" bind:value={selectedDrugRateIncreaseIncrementUnit}>
+            <select class="input-group-shim" bind:value={selectedDrugRateIncreaseIncrementUnit}>
                 <option value="mg_hr">mg/hr</option>
                 <option value="mg_min">mg/min</option>
             </select>
         </div>
-        <div class="input-group input-group-divider grid-cols-[10rem_1fr_auto]">
+        <div class={`input-group input-group-divider ${gridDef}`}>
             <div class="input-group-shim">Cadence</div>
-            <input type="number" bind:value={selectedDrugRateIncreaseCadence} />
+            <input
+                type="number"
+                class="input border-none"
+                bind:value={selectedDrugRateIncreaseCadence}
+            />
 
-            <select class="select" bind:value={selectedDrugRateIncreaseCadenceUnit}>
+            <select class="input-group-shim" bind:value={selectedDrugRateIncreaseCadenceUnit}>
                 <option value="hr">hr</option>
                 <option value="min">min</option>
             </select>
         </div>
-        <div class="input-group input-group-divider grid-cols-[10rem_1fr_auto]">
+        <div class={`input-group input-group-divider ${gridDef}`}>
             <div class="input-group-shim">Max Rate</div>
-            <input type="number" bind:value={selectedDrugRateMax} />
+            <input type="number" class="input border-none" bind:value={selectedDrugRateMax} />
 
-            <select class="select" bind:value={selectedDrugRateMaxUnit}>
+            <select class="input-group-shim" bind:value={selectedDrugRateMaxUnit}>
                 <option value="mg_hr">mg/hr</option>
                 <option value="mg_min">mg/min</option>
             </select>
@@ -184,29 +194,36 @@
         <div>{convertedDrugRateIncreaseString}</div>
 
         <h2 class="h2">Concentration</h2>
-        <div class="input-group input-group-divider grid-cols-[10rem_1fr_auto]">
+        <div class={`input-group input-group-divider ${gridDef}`}>
             <div class="input-group-shim">Dose</div>
-            <input type="number" bind:value={selectedVolumeDose} />
+            <input type="number" class="input border-none" bind:value={selectedVolumeDose} />
 
-            <select class="select" bind:value={selectedVolumeDoseUnit}>
+            <select class="input-group-shim" bind:value={selectedVolumeDoseUnit}>
                 <option value="mg">mg</option>
             </select>
         </div>
-        <div class="input-group input-group-divider grid-cols-[10rem_1fr_auto]">
+        <div class={`input-group input-group-divider ${gridDef}`}>
             <div class="input-group-shim">Total Volume</div>
-            <input type="number" bind:value={selectedVolumeTotal} />
+            <input type="number" class="input border-none" bind:value={selectedVolumeTotal} />
 
-            <select class="select" bind:value={selectedVolumeTotalUnit}>
+            <select class="input-group-shim" bind:value={selectedVolumeTotalUnit}>
                 <option value="ml">ml</option>
             </select>
         </div>
         <div>{calculatedConcentrationString}</div>
 
         <h2 class="h2">Pump Stages</h2>
-        <div class="grid grid-cols-[6rem_1fr_1fr_1fr] gap-4">
+        <div class="grid grid-cols-[5rem_1fr_1fr_1fr_2fr] gap-4">
             {#each calculatedStages as stage}
                 {@html stage}
             {/each}
         </div>
     </div>
 </MiapeerPage>
+
+<style lang="css">
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+</style>
