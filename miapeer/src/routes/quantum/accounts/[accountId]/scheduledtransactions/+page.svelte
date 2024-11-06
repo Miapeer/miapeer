@@ -66,27 +66,31 @@
         return a.next_transaction.transaction_date > b.next_transaction.transaction_date ? 1 : -1;
     });
 
-    const gridRowDef =
-        'grid grid-cols-[100px_150px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_120px_15px_80px] gap-4 p-4 ml-2 mr-2';
+    const gridColSizes =
+        'grid-cols-[1fr_1fr_50px] md:grid-cols-[100px_150px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_120px_15px_80px]';
+    const gridTemplateAreas =
+        "[grid-template-areas:'date_category_actions''type_payee_notes''repeat_amount_amount'] md:[grid-template-areas:'date_repeat_type_payee_category_amount_notes_actions']";
+    const gridRowDef = `grid ${gridColSizes} ${gridTemplateAreas} gap-2 md:gap-4 md:p-4 md:ml-2 md:mr-2`;
 </script>
 
 <QuantumTable
     pageTitle="Quantum: Scheduled Transactions"
-    headline={`${data.indexedAccounts[$page.params.accountId].name} Scheduled Transactions`}
+    headline={`${data.indexedAccounts[$page.params.accountId].name} Schedule`}
     newItemHref="./scheduledtransactions/new"
     {data}
 >
     <svelte:fragment slot="tableHeader">
         {#if data.scheduledTransactions.length > 0}
             <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>
-                <div>Next Date</div>
-                <div>Repeat Option</div>
-                <div>Type</div>
-                <div>Payee</div>
-                <div>Category</div>
-                <div class="text-right">Next Amount</div>
-                <div></div>
-                <div></div>
+                <div style="grid-area: date" class="hidden md:block">Next Date</div>
+                <div style="grid-area: repeat" class="hidden md:block">Repeat Option</div>
+                <div style="grid-area: type" class="hidden md:block">Type</div>
+                <div style="grid-area: payee" class="hidden md:block">Payee</div>
+                <div style="grid-area: category" class="hidden md:block">Category</div>
+                <div style="grid-area: amount" class="text-right hidden md:block">Next Amount</div>
+                <div style="grid-area: notes" class="hidden md:block"></div>
+                <div style="grid-area: actions" class="hidden md:block"></div>
+                <div style="grid-area: notes" class="block md:hidden h-[2.25rem]"></div>
             </div>
         {/if}
     </svelte:fragment>
@@ -96,26 +100,28 @@
             <div
                 class={`${gridRowDef} ${scheduledTransactionIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${scheduledTransactionIndex === data.scheduledTransactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
-                <div class="content-center">{scheduledTransaction.start_date}</div>
-                <div class="content-center">
+                <div style="grid-area: date" class="content-center">
+                    {scheduledTransaction.start_date}
+                </div>
+                <div style="grid-area: repeat" class="content-center">
                     {data.indexedRepeatOptions[scheduledTransaction.repeat_option_id]?.name || ''}
                 </div>
-                <div class="content-center">
+                <div style="grid-area: type" class="content-center">
                     {data.indexedTransactionTypes[scheduledTransaction.transaction_type_id]?.name ||
                         ''}
                 </div>
-                <div class="content-center">
+                <div style="grid-area: payee" class="content-center">
                     {data.indexedPayees[scheduledTransaction.payee_id]?.name || ''}
                 </div>
-                <div class="content-center">
+                <div style="grid-area: category" class="content-center">
                     {data.indexedCategories[scheduledTransaction.category_id]?.name || ''}
                 </div>
-                <div class="content-center text-right">
+                <div style="grid-area: amount" class="content-center text-right">
                     {scheduledTransaction.next_transaction
                         ? formatMoney(scheduledTransaction.next_transaction.amount)
                         : ''}
                 </div>
-                <div class="content-center">
+                <div style="grid-area: notes" class="content-center">
                     {#if scheduledTransaction.notes}
                         <i
                             class="fa fa-clipboard-list"
@@ -135,7 +141,7 @@
                     {/if}
                 </div>
 
-                <div>
+                <div style="grid-area: actions">
                     <div>
                         <button
                             type="button"

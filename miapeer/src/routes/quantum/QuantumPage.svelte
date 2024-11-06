@@ -72,37 +72,11 @@
     </svelte:fragment>
 
     <svelte:fragment slot="header">
-        <div class="grid grid-cols-[1fr_12rem_12rem_12rem] gap-4">
+        <div class="grid grid-cols-[1fr_6rem] gap-4">
             <div></div>
             <div>
                 <button
-                    class="btn variant-filled w-48 justify-between pointer-events-auto"
-                    use:popup={{
-                        event: 'click',
-                        target: 'accountPopupCombobox',
-                        placement: 'bottom'
-                    }}
-                >
-                    <span class="capitalize">Accounts</span>
-                    <span>↓</span>
-                </button>
-            </div>
-            <div>
-                <button
-                    class="btn variant-filled w-48 justify-between pointer-events-auto"
-                    use:popup={{
-                        event: 'click',
-                        target: 'budgetPopupCombobox',
-                        placement: 'bottom'
-                    }}
-                >
-                    <span class="capitalize">Budgets</span>
-                    <span>↓</span>
-                </button>
-            </div>
-            <div>
-                <button
-                    class="btn variant-filled w-48 justify-between pointer-events-auto"
+                    class="btn variant-filled w-24 justify-between pointer-events-auto"
                     use:popup={{
                         event: 'click',
                         target: 'dataPopupCombobox',

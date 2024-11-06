@@ -2,7 +2,7 @@
     import QuantumTable from '../QuantumTable.svelte';
     import { invalidate } from '$app/navigation';
     import { enhance, applyAction, deserialize } from '$app/forms';
-    import { popup, getModalStore, ConicGradient } from '@skeletonlabs/skeleton';
+    import { popup, getModalStore, ConicGradient, ProgressBar } from '@skeletonlabs/skeleton';
     import type { PageData } from './$types';
     import type { ConicStop } from '@skeletonlabs/skeleton';
     import { formatMoney } from '@quantum/util';
@@ -107,18 +107,22 @@
         applyAction(result);
     };
 
-    const gridRowDef = 'grid grid-cols-[1fr_1fr_4fr_80px_50px] gap-4 p-4 ml-2 mr-2';
+    const gridColSizes = 'grid-cols-[1fr_1fr_50px] md:grid-cols-[1fr_1fr_4fr_80px_50px]';
+    const gridTemplateAreas =
+        "[grid-template-areas:'name_name_actions''chart_chart_.''category_amount_amount'] md:[grid-template-areas:'name_category_chart_amount_actions']";
+    const gridRowDef = `grid ${gridColSizes} ${gridTemplateAreas} gap-2 md:gap-4 md:p-4 md:ml-2 md:mr-2`;
 </script>
 
 <QuantumTable pageTitle="Quantum: Budgets" headline="Budgets" newItemHref="./budgets/new" {data}>
     <svelte:fragment slot="tableHeader">
         {#if data.budgets.length}
             <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>
-                <div></div>
-                <div class="text-left">Category</div>
-                <div></div>
-                <div class="text-center">Budgeted</div>
-                <div></div>
+                <div style="grid-area: name" class="hidden md:block"></div>
+                <div style="grid-area: category" class="text-left hidden md:block">Category</div>
+                <div style="grid-area: chart" class="hidden md:block"></div>
+                <div style="grid-area: amount" class="text-center hidden md:block">Budgeted</div>
+                <div style="grid-area: actions" class="hidden md:block"></div>
+                <div style="grid-area: name" class="block md:hidden h-[2.25rem]"></div>
             </div>
         {/if}
     </svelte:fragment>
@@ -128,14 +132,19 @@
             <div
                 class={`${gridRowDef} ${budgetIndex % 2 ? 'bg-surface-700' : 'bg-surface-800'} ${budgetIndex === data.budgets.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900`}
             >
-                <a class="content-center" href={`./budgets/${budget.budget_id}/transactions`}>
+                <a
+                    style="grid-area: name"
+                    class="content-center"
+                    href={`./budgets/${budget.budget_id}/transactions`}
+                >
                     {budget.name}
                 </a>
-                <div class="content-center text-left">
+                <div style="grid-area: category" class="content-center text-left">
                     {data.indexedCategories[budget.category_id].name}
                 </div>
                 <div
-                    class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr] gap-4 align-bottom"
+                    style="grid-area: chart"
+                    class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr] gap-4 align-bottom hidden md:grid"
                 >
                     {#each Object.keys(validPeriods) as periodKey}
                         {@const monthSpend =
@@ -149,8 +158,27 @@
                         >
                     {/each}
                 </div>
-                <div class="content-center text-right">{formatMoney(budget.amount)}</div>
-                <div class="content-center">
+                <div
+                    style="grid-area: chart"
+                    class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr_1fr] gap-4 align-bottom block md:hidden"
+                >
+                    {#each Object.keys(validPeriods) as periodKey}
+                        {@const monthSpend =
+                            -1 *
+                            (budget.data.find((datum) => datum[0] === periodKey) ?? ['', 0])[1]}
+                        <ProgressBar
+                            meter={`bg-${monthSpend > budget.amount ? 'error' : 'success'}-500`}
+                            track={`bg-${monthSpend > budget.amount ? 'error' : 'success'}-500/30`}
+                            class="rotate-[270deg]"
+                            value={monthSpend}
+                            max={budget.amount}
+                        />
+                    {/each}
+                </div>
+                <div style="grid-area: amount" class="content-center text-right">
+                    {formatMoney(budget.amount)}
+                </div>
+                <div style="grid-area: actions" class="content-center">
                     <div>
                         <button
                             type="button"
