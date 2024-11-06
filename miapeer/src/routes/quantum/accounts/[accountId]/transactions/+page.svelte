@@ -202,8 +202,11 @@
         return `bg-${color}-${scale}`;
     };
 
-    const gridRowDef =
-        'grid grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px] gap-4 p-4 ml-2 mr-2';
+    const gridColSizes =
+        'grid-cols-[1fr_1fr_1fr_50px] md:grid-cols-[100px_100px_minmax(200px,_2fr)_minmax(200px,_2fr)_minmax(200px,_2fr)_80px_80px_15px_15px_15px_50px]';
+    const gridTemplateAreas =
+        "[grid-template-areas:'date_cleared_cleared_actions''category_category_category_check-number''payee_payee_payee_notes''type_amount_balance_exclude-forecast'] md:[grid-template-areas:'date_cleared_type_payee_category_amount_balance_exclude-forecast_check-number_notes_actions']";
+    const gridRowDef = `grid ${gridColSizes} ${gridTemplateAreas} gap-2 md:gap-4 md:p-4 md:ml-2 md:mr-2`;
 
     onMount(() => {
         handleOpenToggle();
@@ -219,17 +222,18 @@
     <svelte:fragment slot="tableHeader">
         {#if data.transactions.length > 0}
             <div class={`${gridRowDef} bg-surface-600 rounded-t-lg font-bold`}>
-                <div>Date</div>
-                <div>Cleared</div>
-                <div>Type</div>
-                <div>Payee</div>
-                <div>Category</div>
-                <div class="text-right">Amount</div>
-                <div class="text-right">Balance</div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div style="grid-area: date" class="hidden md:block">Date</div>
+                <div style="grid-area: cleared" class="hidden md:block">Cleared</div>
+                <div style="grid-area: type" class="hidden md:block">Type</div>
+                <div style="grid-area: payee" class="hidden md:block">Payee</div>
+                <div style="grid-area: category" class="hidden md:block">Category</div>
+                <div style="grid-area: amount md:text-right" class="hidden md:block">Amount</div>
+                <div style="grid-area: balance md:text-right" class="hidden md:block">Balance</div>
+                <div style="grid-area: exclude-forecast" class="hidden md:block"></div>
+                <div style="grid-area: check-number" class="hidden md:block"></div>
+                <div style="grid-area: notes" class="hidden md:block"></div>
+                <div style="grid-area: actions" class="hidden md:block"></div>
+                <div style="grid-area: notes" class="block md:hidden h-[1.75rem]"></div>
             </div>
         {/if}
     </svelte:fragment>
@@ -260,26 +264,30 @@
                             <div
                                 class={`${gridRowDef} ${getBackgroundColorClass(transactionIndex, transaction.balance)} ${transactionIndex === data.transactions.length - 1 ? 'rounded-b-lg' : null} hover:bg-primary-900 ${transaction.forecast_from_scheduled_transaction_id ? 'text-orange-500' : ''} ${transaction.future_marker ? 'mt-4' : ''} min-h-20 ${transaction.has_lowest_balance ? 'outline' : ''}`}
                             >
-                                <div class="content-center">{transaction.transaction_date}</div>
-                                <div class="content-center">{transaction.clear_date || ''}</div>
-                                <div class="content-center">
+                                <div style="grid-area: date" class="content-center">
+                                    {transaction.transaction_date}
+                                </div>
+                                <div style="grid-area: cleared" class="content-center">
+                                    {transaction.clear_date || ''}
+                                </div>
+                                <div style="grid-area: type" class="content-center">
                                     {data.indexedTransactionTypes[transaction.transaction_type_id]
                                         ?.name || ''}
                                 </div>
-                                <div class="content-center">
+                                <div style="grid-area: payee" class="content-center">
                                     {data.indexedPayees[transaction.payee_id]?.name || ''}
                                 </div>
-                                <div class="content-center">
+                                <div style="grid-area: category" class="content-center">
                                     {data.indexedCategories[transaction.category_id]?.name || ''}
                                 </div>
-                                <div class="content-center text-right">
+                                <div style="grid-area: amount" class="content-center text-right">
                                     {formatMoney(transaction.amount)}
                                 </div>
-                                <div class="content-center text-right">
+                                <div style="grid-area: balance" class="content-center text-right">
                                     {formatMoney(transaction.balance)}
                                 </div>
 
-                                <div class="content-center">
+                                <div style="grid-area: exclude-forecast" class="content-center">
                                     {#if transaction.exclude_from_forecast}
                                         <i
                                             class="fa fa-calculator"
@@ -291,7 +299,10 @@
                                         ></i>
                                     {/if}
                                 </div>
-                                <div class="content-center text-right">
+                                <div
+                                    style="grid-area: check-number"
+                                    class="content-center text-right"
+                                >
                                     {#if transaction.check_number}
                                         <i
                                             class="fa fa-check-square"
@@ -310,7 +321,7 @@
                                         </div>
                                     {/if}
                                 </div>
-                                <div class="content-center">
+                                <div style="grid-area: notes" class="content-center">
                                     {#if transaction.notes}
                                         <i
                                             class="fa fa-clipboard-list"
@@ -330,7 +341,7 @@
                                     {/if}
                                 </div>
 
-                                <div class="content-center">
+                                <div style="grid-area: actions" class="content-center">
                                     {#if !transaction.forecast_from_scheduled_transaction_id || nextForecastedTransactions.includes(transaction)}
                                         <div>
                                             <button

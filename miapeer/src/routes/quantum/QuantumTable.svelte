@@ -22,5 +22,7 @@
 </QuantumPage>
 
 {#if newItemHref}
-    <FloatingActionButton href={newItemHref}><i class="fa-solid fa-plus" /></FloatingActionButton>
+    <FloatingActionButton href={newItemHref}
+        ><i class="fa-solid fa-plus top-2" /></FloatingActionButton
+    >
 {/if}
