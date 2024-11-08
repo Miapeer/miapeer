@@ -108,6 +108,10 @@
             stageRate * calculatedConcentration <= selectedDrugRateMax &&
             totalVolume < selectedVolumeDose
         ) {
+            if (stageRate === 0) {
+                return stages;
+            }
+
             let stageVolume = Math.round(
                 stageRate * (convertedDrugRateIncreaseCadence / MINUTES_PER_HOUR)
             );
