@@ -99,36 +99,42 @@
 
         let stages = [];
 
-        let stageRate = convertedDrugRate;
+        let stageRate = Math.round(convertedDrugRate / calculatedConcentration);
 
-        let totalDose = 0;
+        let totalVolume = 0;
         let totalMinutes = 0;
         let stageIndex = 0;
-        while (stageRate <= selectedDrugRateMax && totalDose < selectedVolumeDose) {
-            let stageDose = Math.round(
-                stageRate *
-                    calculatedConcentration *
-                    (convertedDrugRateIncreaseCadence / MINUTES_PER_HOUR)
+        while (
+            stageRate * calculatedConcentration <= selectedDrugRateMax &&
+            totalVolume < selectedVolumeDose
+        ) {
+            let stageVolume = Math.round(
+                stageRate * (convertedDrugRateIncreaseCadence / MINUTES_PER_HOUR)
             );
             let stageMinutes = convertedDrugRateIncreaseCadence;
+            let nextStageRate = Math.round(
+                convertedDrugRateIncreaseIncrement / calculatedConcentration
+            );
 
             if (
-                stageRate + convertedDrugRateIncreaseIncrement > selectedDrugRateMax ||
-                totalDose + stageDose >= selectedVolumeDose
+                nextStageRate * calculatedConcentration > selectedDrugRateMax ||
+                totalVolume + stageVolume >= selectedVolumeDose
             ) {
-                stageDose = selectedVolumeDose - totalDose;
+                stageVolume = Math.round(
+                    (selectedVolumeDose - totalVolume) / calculatedConcentration
+                );
                 stageMinutes = Math.round(
-                    (stageDose / calculatedConcentration / stageRate) * MINUTES_PER_HOUR
+                    (stageVolume / calculatedConcentration / stageRate) * MINUTES_PER_HOUR
                 );
             }
 
-            totalDose += stageDose;
+            totalVolume += stageVolume;
             totalMinutes += stageMinutes;
             stageIndex += 1;
             stages.push(
-                `<span>Stage ${stageIndex}</span><span>${stageRate} ml/hr</span><span>${stageMinutes} min</span><span>${stageDose} ml</span><span>Total dose: ${totalDose} ml</span>`
+                `<span>Stage ${stageIndex}</span><span>${stageRate} ml/hr</span><span>${stageMinutes} min</span><span>${stageVolume} ml</span><span>Total vol: ${totalVolume} ml</span>`
             );
-            stageRate += convertedDrugRateIncreaseIncrement;
+            stageRate += nextStageRate;
         }
 
         stages.push(
