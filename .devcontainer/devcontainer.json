@@ -4,5 +4,8 @@
 		"dockerfile": "../Dockerfile-dev"
 	},
 	"workspaceFolder": "/workspaces/miapeer",
-	"forwardPorts": [8001]
+	"forwardPorts": [8001],
+	"mounts": [
+		"type=bind,source=${env:HOME}/.ssh,target=/root/.ssh"
+	]
 }
