@@ -1,0 +1,8 @@
+{
+	"name": "Miapeer UI DevContainer",
+	"build": {
+		"dockerfile": "../Dockerfile-dev"
+	},
+	"workspaceFolder": "/workspaces/miapeer",
+	"forwardPorts": [8001]
+}
