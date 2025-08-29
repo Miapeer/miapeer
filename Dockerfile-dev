@@ -1,7 +1,5 @@
 FROM node:18.20-alpine3.19
 
-# LABEL Jeff Navarra "jeff.navarra@miapeer.com"
-
 # Install stuff
 RUN apk update
 RUN apk upgrade
@@ -12,6 +10,14 @@ COPY ./miapeer/package.json /miapeer/miapeer/package.json
 COPY ./miapeer/package-lock.json /miapeer/miapeer/package-lock.json
 WORKDIR /miapeer/miapeer
 RUN npm install
+
+# Dev setup
+RUN apk add git
+RUN apk add python3
+RUN apk add py3-pip
+RUN apk add pipx
+RUN pipx ensurepath
+RUN pipx install go-task-bin
 
 # Do the thing
 WORKDIR /miapeer
