@@ -4,8 +4,18 @@
 		"dockerfile": "../Dockerfile-dev"
 	},
 	"workspaceFolder": "/workspaces/miapeer",
-	"forwardPorts": [8001],
+	"forwardPorts": [
+		8001
+	],
 	"mounts": [
-		"type=bind,source=${env:HOME}/.ssh,target=/root/.ssh"
-	]
+		"type=bind,source=${env:HOME}/.ssh,target=/root/.ssh",
+		"type=bind,source=./miapeer/.env,target=/workspaces/miapeer/miapeer/.env"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"svelte.svelte-vscode"
+			]
+		}
+	}
 }
