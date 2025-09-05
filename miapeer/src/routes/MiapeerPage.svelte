@@ -81,7 +81,7 @@
             slotTrail="place-content-end"
         >
             <svelte:fragment slot="lead">
-                <span>&copy; {new Date().getFullYear()} Miapeer LLC</span>
+                <span>&copy; 2023 Miapeer LLC</span>
             </svelte:fragment>
 
             {#if data.lastUpdate}
