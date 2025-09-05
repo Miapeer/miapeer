@@ -117,6 +117,8 @@ export const actions: Actions = {
             return fail(401, responseData);
         }
 
+        redirect(303, `/quantum/accounts/${params.accountId}/transactions/${responseData.transaction_id}`);
+
         return { success: true };
     },
 
