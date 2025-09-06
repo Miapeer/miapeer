@@ -13,8 +13,15 @@ const convertArrayToObject = (array, key) => {
     return returnObject;
 };
 
+const getLocale = () => {
+    if (typeof navigator !== 'undefined' && navigator.language) {
+        return navigator.language;
+    }
+    return 'en-US';
+};
+
 const formatMoney = (amount) => {
-    return ((amount || 0) / 100).toLocaleString(navigator.language, { minimumFractionDigits: 2 });
+    return ((amount || 0) / 100).toLocaleString(getLocale(), { minimumFractionDigits: 2 });
 };
 
 const unformatMoney = (amount) => {
@@ -37,7 +44,7 @@ const formatDate = (dateString, formatOptions = {}) => {
         return null;
     }
 
-    return new Date(dateString).toLocaleDateString(navigator.language, {
+    return new Date(dateString).toLocaleDateString(getLocale(), {
         timeZone: 'UTC',
         ...formatOptions
     });
