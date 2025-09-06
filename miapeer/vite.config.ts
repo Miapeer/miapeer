@@ -6,5 +6,8 @@ export default defineConfig({
     plugins: [sveltekit(), purgeCss()],
     server: {
         port: 8001
+    },
+    preview: {
+        allowedHosts: ['www.miapeer.com', 'miapeer.com'],
     }
 });
