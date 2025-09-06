@@ -242,7 +242,7 @@
         <div>
             <h3 class="h3">Import errors</h3>
             {#each $importErrors as importError, errorIndex}
-                <div class={errorIndex % 2 ? 'bg-red-600' : 'bg-red-700'}>
+                <div class={errorIndex % 2 ? 'bg-red-700' : 'bg-red-800'}>
                     <a href="#" class="m-2" on:click={() => handleClearImportError(errorIndex)}>x</a
                     >
                     {`Transaction Date: ${importError['Transaction Date']} - Payee: ${importError['Payee']} - Category: ${importError['Category']} - Amount: ${importError['Amount']}`}
