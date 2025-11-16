@@ -150,16 +150,18 @@
             return msDate > msMarkDate;
         };
 
-        for (
-            let transactionIndex = 0;
-            transactionIndex < groupedTransactions[groupNameCurrent].length;
-            transactionIndex++
-        ) {
-            let transaction = groupedTransactions[groupNameCurrent][transactionIndex];
+        if (groupedTransactions[groupNameCurrent]) {
+            for (
+                let transactionIndex = 0;
+                transactionIndex < groupedTransactions[groupNameCurrent].length;
+                transactionIndex++
+            ) {
+                let transaction = groupedTransactions[groupNameCurrent][transactionIndex];
 
-            if (isAfterFutureMarker(transaction.transaction_date)) {
-                transaction.future_marker = true;
-                return;
+                if (isAfterFutureMarker(transaction.transaction_date)) {
+                    transaction.future_marker = true;
+                    return;
+                }
             }
         }
     };
